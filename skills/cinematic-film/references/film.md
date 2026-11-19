@@ -40,6 +40,8 @@ def build_film(doc):
 - Lean the roll a degree or two (`rot`) and let it change between keys. The handheld drift is built in.
 - Land the camera on a hero about 0.3 s **after** it appears. It reads as the camera noticing it.
 - Shakes: `Stamp` and `Ledger` shake the camera by themselves; `film.shake(t, amp, dur)` for anything else.
+- Moves as one call (each adds ordinary `shot` keys): `film.push_in(t0, t1, x, y, z0, z1)`, `film.pull_back(...)`, `film.pan(t0, t1, a, b, zoom)`, `film.whip(t, a, b, zoom)`, `film.reveal(t0, t1, x, y)`, `film.hold(t0, t1, x, y, zoom)`.
+- Footage costs a decode per frame, not memory: only a couple of dozen frames are held at once. Keep clips short (under 20 s) and let one play at a time.
 
 ## Spotlight
 
@@ -67,6 +69,9 @@ def build_film(doc):
 | `XMarker(x, y, label, t_in)` | A map marker with a typed-on label | `side`, `size`, `label_size` |
 | `MapPin(x, y, label, t_in)` | A pulsing red pin with a typewriter label | |
 | `Route(a, b, t_in)` | A white travel arc drawing on | `bend`, `width` |
+| `Print(..., move=ken_burns(kind))` | A slow move inside the print's frame: `push`, `pull`, `pan_left`, `pan_right`, `pan_up`, `pan_down`, `drift` | `t0`, `t1`, `amount`, `fx`, `fy` |
+| `Footage(key, x, y, w, t_in)` | An archive clip playing inside a print frame (from `prep_footage.py`), muted | `aspect=fm["w"] / fm["h"]` from `doc.fmeta[key]`, `clip_in`, `speed`, `loop` |
+| `Parallax(item, depth)` | Any item on its own depth plane: below 1 sits behind the board, above 1 floats in front | `anchor` |
 
 Every item takes `t_out` (fade out), `z` (stacking order) and `sfx=False` (mute its own sounds). Write a new item by subclassing `Item`: give it `bounds()` for culling, `draw(c, res, t)`, and optionally `cues()` and `shakes()`. A big static drawing (a city street map, a floor plan) subclasses `Cached` too, so it is drawn once and reused.
 

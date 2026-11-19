@@ -33,6 +33,11 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/outline.py` | Sizes a 5, 10, 20 or 30 minute outline and checks its budget and chronology |
 | `scripts/narration.py` | Fact-checks every line against the research, writes the spoken text, exports `script.json` |
 | `scripts/storyboard.py` | One scene per line: timestamps, camera move, key word, and the images to find |
+| `scripts/visuals.py` | Finds, licenses and fetches every storyboard image or clip across archives; designed cards for gaps |
+| `scripts/archives.py` | The archives behind visuals.py (Commons, Library of Congress, Openverse, Smithsonian, Europeana) and the licence rules |
+| `scripts/prep_footage.py` | Cuts, scales and grades archive film clips into frames for the `Footage` item |
+| `scripts/scenegen.py` | Writes an editable `scene.py` starter per act from the storyboard and the visuals |
+| `scripts/scenekit.py` | Layout and camera helpers the starters use (and hand-written scenes can) |
 
 Needs Python 3.9+, `pip install skia-python numpy pillow` (scipy optional) and ffmpeg. Run `scripts/check_setup.py` first; on Linux or Windows, also run `scripts/get_fonts.py` per project. All commands take `--project <folder>`.
 
@@ -79,7 +84,7 @@ Stop for the user's approval at the four gates (marked **Gate**).
 
 ## Long documentaries
 
-For a documentary of 5 minutes or more, run steps 1 to 2 through `scripts/docpipe.py`: every fact goes into a research store with its sources, the outline is sized to the length, every narration line must cite the claims it states, and a storyboard comes out with timestamps, camera moves and the list of images to find. Each stage keeps its own folder and the pipeline resumes where it stopped. Read `references/pipeline.md`. Then carry on from step 3.
+For a documentary of 5 minutes or more, run steps 1 to 2 through `scripts/docpipe.py`: every fact goes into a research store with its sources, the outline is sized to the length, every narration line must cite the claims it states, and a storyboard comes out with timestamps, camera moves and the list of images to find. Then `visuals` finds and licenses an image or clip for every scene (a designed card where none is usable) and `scenegen` writes an editable `scene.py` per act. Each stage keeps its own folder and the pipeline resumes where it stopped. Read `references/pipeline.md`. Then carry on from step 4 (scratch voice), and edit the generated scene at step 6.
 
 ## Self-review, every time
 

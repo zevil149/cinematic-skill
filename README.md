@@ -126,7 +126,7 @@ python3 docpipe.py run --project ~/flood       # checks each stage; stops at wha
 python3 docpipe.py status --project ~/flood
 ```
 
-See [`references/pipeline.md`](skills/cinematic-film/references/pipeline.md). Images, voice, sound and rendering then run as below; they become pipeline stages in later phases ([plan](docs/pipeline-plan.md)).
+Then `visuals` finds and licenses an image or archive clip for every scene across Wikimedia Commons, the Library of Congress, Openverse, Smithsonian Open Access and Europeana (a designed card where nothing free is found), and `scenegen` writes an editable `scene.py` for each act. See [`references/pipeline.md`](skills/cinematic-film/references/pipeline.md). Voice, sound and rendering then run as below; they become pipeline stages in later phases ([plan](docs/pipeline-plan.md)).
 
 ## Try the example
 
