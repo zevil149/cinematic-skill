@@ -34,16 +34,28 @@ UA = "cinematic-film/1.0 (+https://github.com/Moh4696/open-3d-skills)"
 FREE = re.compile(r"public domain|^pd\b|^pd-|cc0|cc[- ]by(?!.*\bnc\b)(?!.*\bnd\b)", re.I)
 
 
+TRIES = 7
+
+
+def backoff(e, attempt, base):
+    """Wait before retrying a 429/503: Wikimedia's Retry-After if it sends one, else exponential."""
+    ra = (e.headers or {}).get("Retry-After", "") if hasattr(e, "headers") else ""
+    wait = float(ra) if ra.strip().isdigit() else base * 2 ** attempt
+    wait = min(wait, 90)
+    print(f"  rate-limited by Wikimedia ({e.code}); waiting {wait:.0f}s", file=sys.stderr)
+    time.sleep(wait)
+
+
 def api(**params):
     params.update(format="json", formatversion="2")
     req = urllib.request.Request(API + "?" + urllib.parse.urlencode(params), headers={"User-Agent": UA})
-    for attempt in range(4):
+    for attempt in range(TRIES):
         try:
             with urllib.request.urlopen(req, timeout=40) as r:
                 return json.loads(r.read())
         except urllib.error.HTTPError as e:
-            if e.code in (429, 503) and attempt < 3:
-                time.sleep(3 * (attempt + 1)); continue
+            if e.code in (429, 503) and attempt < TRIES - 1:
+                backoff(e, attempt, 3); continue
             raise
 
 
@@ -85,13 +97,15 @@ def cmd_category(a):
 
 def download(url, dst):
     req = urllib.request.Request(url, headers={"User-Agent": UA})
-    for attempt in range(4):
+    for attempt in range(TRIES):
         try:
             with urllib.request.urlopen(req, timeout=120) as r:
-                dst.write_bytes(r.read()); return
+                data = r.read()
+            tmp = dst.with_suffix(dst.suffix + ".part")
+            tmp.write_bytes(data); tmp.replace(dst); return   # never leave a half-written image behind
         except urllib.error.HTTPError as e:
-            if e.code in (429, 503) and attempt < 3:
-                time.sleep(5 * (attempt + 1)); continue
+            if e.code in (429, 503) and attempt < TRIES - 1:
+                backoff(e, attempt, 5); continue
             raise
 
 
@@ -100,6 +114,7 @@ def cmd_get(a):
     spec = json.loads((proj / "photos.json").read_text())
     dst_dir = proj / "assets" / "photos"; dst_dir.mkdir(parents=True, exist_ok=True)
     refused = 0
+    save = lambda: (proj / "photos.json").write_text(json.dumps(spec, indent=1, ensure_ascii=False) + "\n")
     for p in spec["photos"]:
         have = bool(p.get("file")) and (dst_dir / p["file"]).exists()
         if have and not a.force and (p.get("license") or not p.get("commons")):
@@ -118,12 +133,13 @@ def cmd_get(a):
                 url = d["thumb"]
             ext = pathlib.Path(urllib.parse.urlparse(url).path).suffix.lower() or ".jpg"
             fname = p["file"] if have and not a.force else f"{p['id']}_{re.sub(r'[^A-Za-z0-9]+', '_', title[5:].rsplit('.', 1)[0])[:48]}{ext}"
-            if not have or a.force:
-                download(url, dst_dir / fname)   # an existing file only gets its credit and licence filled in
+            if a.force or not (dst_dir / fname).exists():
+                download(url, dst_dir / fname)   # an existing file (from an earlier, interrupted run) is reused
             p.update(file=fname, source=d["source"], credit=p.get("credit") or d["credit"], license=d["license"],
                      license_url=d["license_url"], date=d["date"], license_ok=ok)
             print(f"{p['id']}: {fname}  [{d['license']}]  {p['credit'][:50]}")
-            time.sleep(0.5)
+            save()                               # so an interrupted run resumes where it stopped
+            time.sleep(1.0)
         elif p.get("url"):
             ext = pathlib.Path(urllib.parse.urlparse(p["url"]).path).suffix.lower() or ".jpg"
             fname = f"{p['id']}{ext}"
@@ -133,7 +149,7 @@ def cmd_get(a):
             print(f"{p['id']}: {fname}  [{p.get('license') or 'LICENCE NOT RECORDED'}]")
         else:
             print(f"{p['id']}: no 'commons' or 'url' and no file in assets/photos/; add one")
-    (proj / "photos.json").write_text(json.dumps(spec, indent=1, ensure_ascii=False) + "\n")
+    save()
     if refused:
         sys.exit(f"{refused} image(s) not downloaded; replace them or decide on the rights yourself")
 

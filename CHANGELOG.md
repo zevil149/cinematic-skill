@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- `fetch_commons.py` survives Wikimedia rate limits: it retries 429 and 503 with `Retry-After` or exponential backoff, saves `photos.json` after every photo so an interrupted `get` resumes where it stopped, and writes each download through a temporary file.
+
 ## 1.0.1 (2026-11-09)
 
 - `get_fonts.py` fetches open-licensed fonts (Bebas Neue, Homemade Apple) for text roles that Linux and Windows cannot match, so labels, stamps and handwriting keep their look. `check_setup.py` points to it.
