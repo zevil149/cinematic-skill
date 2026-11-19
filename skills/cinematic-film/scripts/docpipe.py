@@ -17,6 +17,14 @@ Stages (phase 1):
   script    03_script: narration fact-checked, exported to script.json  [gate]  (narration.py)
   scenes    04_scenes: storyboard with timestamps, camera, image needs  (storyboard.py)
 
+Stages (phase 2):
+  visuals   05_visuals: archive search, licences, downloads, fallbacks  [gate]  (visuals.py)
+  scenegen  06_film: an editable scene.py starter per act               (scenegen.py)
+
+visuals talks to the archives (politely: paced, cached, and silent towards any archive that is
+rate-limiting us). --offline uses cached searches only. Downloads deferred by a rate limit leave
+the stage "partial": the film goes on with designed cards, and the next run retries them.
+
 The research, outline and narration are written by the agent (or a person) into the stage files;
 the pipeline scaffolds them, checks them and refuses to move on while a check fails. A stage
 marked [gate] waits for `approve` before the next stage runs, and an approval lapses when the
@@ -33,17 +41,21 @@ import doclib as L  # noqa: E402
 import narration  # noqa: E402
 import outline  # noqa: E402
 import research  # noqa: E402
+import scenegen  # noqa: E402
 import storyboard  # noqa: E402
+import visuals  # noqa: E402
 
 LOOKS = ("wall", "slate", "charcoal", "paper", "studio", "blueprint", "night")
-PLANNED = [("images", "fetch and license every image (fetch_commons.py)"),
-           ("voice", "scratch then final voice; timing.json (tts_say, split_takes, build_narration)"),
-           ("assets", "maps and graded images (make_map, prep_assets)"),
-           ("film", "scene.py from the storyboard; probes and strips for review"),
+PLANNED = [("voice", "scratch then final voice; timing.json (tts_say, split_takes, build_narration)"),
+           ("assets", "maps, graded images and footage frames (make_map, prep_assets, prep_footage)"),
+           ("review", "probes and strips of every act for the look test (render.py)"),
            ("sound", "effects, music, ducked mix (build_sfx, mix_soundtrack)"),
            ("render", "1080p render by chapter, memory-aware (render.py)"),
            ("captions", "burned captions and SRT (burn_captions.py)"),
            ("report", "final report, credits.md and QC")]
+
+
+OPTS = {"offline": False}
 
 
 def stage_topic(proj):
@@ -84,8 +96,18 @@ def stage_scenes(proj):
     return storyboard.build(proj)
 
 
+def stage_visuals(proj):
+    return visuals.run(proj, offline=OPTS["offline"])
+
+
+def stage_scenegen(proj):
+    return scenegen.generate(proj)
+
+
 def _inputs(p, *keys):
-    return [p[k] for k in keys]
+    d = p["visuals_dir"]
+    extra = {"image_needs": p["image_needs"], "selection": d / "selection.json", "assets": d / "assets.json"}
+    return [p[k] if k in p else extra[k] for k in keys]
 
 
 STAGES = [
@@ -94,6 +116,8 @@ STAGES = [
     ("outline", stage_outline, ("topic", "outline", "claims", "sources"), True),
     ("script", stage_script, ("narration", "outline", "claims", "sources"), True),
     ("scenes", stage_scenes, ("narration", "timing"), False),
+    ("visuals", stage_visuals, ("image_needs", "selection", "topic"), True),
+    ("scenegen", stage_scenegen, ("storyboard", "assets", "outline"), False),
 ]
 NAMES = [s[0] for s in STAGES]
 
@@ -136,7 +160,7 @@ def run(proj, until=None, only=None, force=False):
             continue
         st = state["stages"].setdefault(name, {})
         h = L.hash_files(_inputs(p, *keys))
-        if not force and st.get("status") in ("done", "awaiting approval") and st.get("inputs") == h:
+        if not force and st.get("status") in ("done", "awaiting approval") and st.get("inputs") == h:   # "partial" always reruns
             if st["status"] == "done":
                 print(f"[{name}] up to date"); continue
         r = fn(proj)
@@ -152,7 +176,9 @@ def run(proj, until=None, only=None, force=False):
             st["status"] = "awaiting approval"; ok = False
             print(f"[{name}] passes its checks; review it, then: docpipe.py approve --project {proj} {name}")
             break
-        st["status"] = "done"
+        st["status"] = "partial" if getattr(r, "partial", False) else "done"
+        if st["status"] == "partial":
+            print(f"[{name}] partial: some work is deferred; the next run retries it")
     L.save(p["state"], state)
     return ok
 
@@ -163,11 +189,12 @@ def approve(proj, name):
     st = state["stages"].get(name)
     keys = dict((s[0], s[2]) for s in STAGES)[name]
     h = L.hash_files(_inputs(p, *keys))
-    if not st or st.get("status") not in ("awaiting approval", "done") or st.get("inputs") != h:
+    if not st or st.get("status") not in ("awaiting approval", "done", "partial") or st.get("inputs") != h:
         raise SystemExit(f"{name} has not passed its checks on its current files; run docpipe.py run first")
     st["approved"] = h
     st["approved_at"] = datetime.datetime.now().isoformat(timespec="seconds")
-    st["status"] = "done"
+    if st["status"] == "awaiting approval":
+        st["status"] = "done"
     L.save(p["state"], state)
     print(f"[{name}] approved")
 
@@ -198,12 +225,14 @@ def main():
     r = sub.add_parser("run")
     r.add_argument("--project", required=True); r.add_argument("--until", choices=NAMES)
     r.add_argument("--only", choices=NAMES); r.add_argument("--force", action="store_true")
+    r.add_argument("--offline", action="store_true", help="no network: archive searches come from the cache only")
     s = sub.add_parser("status"); s.add_argument("--project", required=True)
     a = sub.add_parser("approve"); a.add_argument("--project", required=True); a.add_argument("stage", choices=[x[0] for x in STAGES if x[3]])
     args = ap.parse_args()
     if args.cmd == "new":
         new(args.folder, args.topic, args.minutes, args.angle, args.audience, args.look, args.title)
     elif args.cmd == "run":
+        OPTS["offline"] = args.offline
         sys.exit(0 if run(args.project, args.until, args.only, args.force) else 1)
     elif args.cmd == "status":
         status(args.project)
