@@ -4,12 +4,15 @@ footage, parallax planes and camera-move helpers. Renders real frames at 320x180
 Needs skia-python, numpy, pillow and ffmpeg (the CI film job has them); skipped otherwise.
 """
 import json
+import os
 import pathlib
 import shutil
 import subprocess
 import sys
 import tempfile
 import unittest
+
+os.environ["CINEMATIC_OFFLINE"] = "1"     # tests never reach the network
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCRIPTS = ROOT / "skills" / "cinematic-film" / "scripts"

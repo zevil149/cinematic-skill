@@ -89,6 +89,10 @@ def strip_secrets(url):
 
 # ----------------------------------------------------------------------------------------- http
 
+class Offline(Exception):
+    """No network: --offline, or CINEMATIC_OFFLINE=1 in the environment (the test suites set it)."""
+
+
 class RateLimited(Exception):
     def __init__(self, host, until):
         super().__init__(f"{host} is rate-limiting us; cooling down until {time.strftime('%H:%M:%S', time.localtime(until))}")
@@ -107,10 +111,16 @@ class Http:
         self.min_interval, self.max_tries, self.max_wait, self.cooldown = min_interval, max_tries, max_wait, cooldown
         self.cache_ttl = cache_ttl
         self.opener = opener or (lambda req, timeout: urllib.request.urlopen(req, timeout=timeout))
+        if opener is None and os.environ.get("CINEMATIC_OFFLINE") == "1":
+            self.opener = self._offline
         self.sleep, self.now, self.log = sleep, now, log
         self.last = {}
         self.requests = 0
         self.state = json.loads(self.state_path.read_text()) if self.state_path and self.state_path.exists() else {"cooling": {}}
+
+    @staticmethod
+    def _offline(req, timeout):
+        raise Offline("CINEMATIC_OFFLINE=1: no network requests")
 
     def _save_state(self):
         if self.state_path:

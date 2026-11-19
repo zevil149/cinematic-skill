@@ -12,6 +12,8 @@ import sys
 import tempfile
 import unittest
 
+os.environ["CINEMATIC_OFFLINE"] = "1"     # tests never reach the network
+
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCRIPTS = ROOT / "skills" / "cinematic-film" / "scripts"
 sys.path.insert(0, str(SCRIPTS))

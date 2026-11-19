@@ -10,6 +10,8 @@ import pathlib
 import sys
 import tempfile
 import unittest
+
+os.environ["CINEMATIC_OFFLINE"] = "1"     # tests never reach the network
 import urllib.error
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
@@ -150,6 +152,14 @@ class Http(unittest.TestCase):
             with self.assertRaises(A.RateLimited):
                 mk().get_json("https://example.org/c", cache=False)
             self.assertEqual(len(net.calls), 2)                   # cooldown over: one new try
+
+    def test_offline_guard_blocks_all_network(self):
+        self.assertEqual(os.environ.get("CINEMATIC_OFFLINE"), "1")
+        h = A.Http(sleep=lambda s: None, log=lambda *a: None)               # the real opener, but offline
+        with self.assertRaises(A.Offline):
+            h.get_json("https://commons.wikimedia.org/w/api.php?action=query", cache=False)
+        with self.assertRaises(A.Offline):
+            h.download("https://upload.wikimedia.org/x.jpg", pathlib.Path(tempfile.gettempdir()) / "never.jpg")
 
     def test_download_resume_and_html_refusal(self):
         with tempfile.TemporaryDirectory() as tmp:

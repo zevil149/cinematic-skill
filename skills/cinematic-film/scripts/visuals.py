@@ -43,8 +43,7 @@ IMAGE_EXT = (".jpg", ".jpeg", ".png", ".webp", ".tif", ".tiff", ".gif")
 VIDEO_EXT = (".webm", ".ogv", ".ogg", ".mp4", ".mov", ".mkv", ".mpg", ".mpeg")
 
 
-class Offline(Exception):
-    pass
+Offline = A.Offline
 
 
 def vpaths(proj):
@@ -59,9 +58,7 @@ def make_http(proj, offline=False, **kw):
     p = vpaths(proj)
     h = A.Http(state_path=p["http_state"], cache_dir=p["cache"], **kw)
     if offline:
-        def no_net(req, timeout):
-            raise Offline("offline: no network requests")
-        h.opener = no_net
+        h.opener = h._offline
     return h
 
 

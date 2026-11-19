@@ -5,11 +5,14 @@
 Standard library only; no network, skia or ffmpeg needed.
 """
 import json
+import os
 import pathlib
 import subprocess
 import sys
 import tempfile
 import unittest
+
+os.environ["CINEMATIC_OFFLINE"] = "1"     # tests never reach the network
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 SCRIPTS = ROOT / "skills" / "cinematic-film" / "scripts"
@@ -347,33 +350,33 @@ class Pipeline(unittest.TestCase):
             cli("docpipe.py", "new", proj, "--topic", "The first powered flight", "--minutes", "5")
             for d in ("00_topic", "01_research", "02_outline", "03_script", "04_scenes", "assets/photos", "audio/takes"):
                 self.assertTrue((proj / d).is_dir(), d)
-            r = cli("docpipe.py", "run", "--project", proj, check=False)
+            r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes", check=False)
             self.assertNotEqual(r.returncode, 0)
             self.assertIn("[research] blocked", r.stdout)
             add_research(proj)
-            r = cli("docpipe.py", "run", "--project", proj, check=False)
+            r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes", check=False)
             self.assertIn("[outline] blocked", r.stdout)                    # skeleton written, TODOs left
             self.assertTrue(L.paths(proj)["outline"].exists())
             fill_outline(proj)
-            r = cli("docpipe.py", "run", "--project", proj, check=False)
+            r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes", check=False)
             self.assertIn("approve --project", r.stdout)
             r = cli("docpipe.py", "approve", "--project", proj, "script", check=False)
             self.assertNotEqual(r.returncode, 0)                            # not reached yet
             cli("docpipe.py", "approve", "--project", proj, "outline")
-            r = cli("docpipe.py", "run", "--project", proj, check=False)
+            r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes", check=False)
             self.assertIn("[topic] up to date", r.stdout)
             self.assertIn("[outline] up to date", r.stdout)
             self.assertIn("[script] blocked", r.stdout)
             fill_narration(proj)
-            r = cli("docpipe.py", "run", "--project", proj, check=False)
+            r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes", check=False)
             self.assertIn("[script] passes its checks", r.stdout)
             cli("docpipe.py", "approve", "--project", proj, "script")
-            r = cli("docpipe.py", "run", "--project", proj)
+            r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes")
             self.assertIn("[scenes]", r.stdout)
             self.assertTrue(L.paths(proj)["storyboard"].exists())
             self.assertTrue(L.paths(proj)["script_json"].exists())
-            r = cli("docpipe.py", "run", "--project", proj)
-            for st in docpipe.NAMES:
+            r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes")
+            for st in docpipe.NAMES[:docpipe.NAMES.index("scenes") + 1]:
                 self.assertIn(f"[{st}] up to date", r.stdout)
             # editing the research reopens what depends on it, and lapses the approvals
             c = L.load(L.paths(proj)["claims"]); c["claims"][0]["notes"] = "rechecked"; L.save(L.paths(proj)["claims"], c)
@@ -381,7 +384,7 @@ class Pipeline(unittest.TestCase):
             self.assertRegex(status, r"research\s+out of date")
             self.assertRegex(status, r"outline\s+out of date")
             self.assertIn("planned", status)
-            r = cli("docpipe.py", "run", "--project", proj, check=False)
+            r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes", check=False)
             self.assertIn("[outline] passes its checks", r.stdout)
 
     def test_new_refuses_a_used_folder_and_bad_length(self):
