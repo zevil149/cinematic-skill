@@ -20,6 +20,8 @@ jobs:
         run: |
           npm install --no-save --no-package-lock yaml@2.6.1
           node tests/check.mjs
+      - name: Documentary pipeline tests (topic, research, outline, script, scenes)
+        run: python -m unittest discover -s tests -v
       - name: Installer works in a clean home
         run: |
           export HOME="$RUNNER_TEMP/home" && mkdir -p "$HOME/.claude" "$HOME/.codex"

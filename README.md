@@ -115,6 +115,19 @@ A spotlight follows the camera so each line has one hero.
 
 The agent stops for your approval after the beat table, the look, and a 30 second draft.
 
+## Long documentaries
+
+For 5, 10, 20 or 30 minute documentaries, `docpipe.py` runs the work as checked stages, each in its own folder, and resumes where it stopped: topic, research (every fact tied to its sources, with weak and unsupported claims flagged), an outline sized to the length, a narration where every line must cite what it states, and a storyboard with timestamps, camera moves and the images to find.
+
+```bash
+cd skills/cinematic-film/scripts
+python3 docpipe.py new ~/flood --topic "The 1919 Boston molasses flood" --minutes 10
+python3 docpipe.py run --project ~/flood       # checks each stage; stops at what needs writing or approving
+python3 docpipe.py status --project ~/flood
+```
+
+See [`references/pipeline.md`](skills/cinematic-film/references/pipeline.md). Images, voice, sound and rendering then run as below; they become pipeline stages in later phases ([plan](docs/pipeline-plan.md)).
+
 ## Try the example
 
 ```bash

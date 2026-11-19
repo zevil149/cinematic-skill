@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- **Documentary pipeline, phase 1.** `docpipe.py` runs a documentary as stages, each in its own folder, with checks, approval gates and resume: topic, research (`research.py`: sources with reliability tiers, claims tied to them, weak and unsupported claims flagged), outline (`outline.py`: 5, 10, 20 and 30 minute budgets, chronology), script (`narration.py`: every line fact-checked against the claims it cites, numbers and dates written as words, exported to `script.json`) and scenes (`storyboard.py`: timestamps, camera moves, image needs). `tests/test_docpipe.py` covers every stage and runs in CI. See `references/pipeline.md` and `docs/pipeline-plan.md`.
 - `fetch_commons.py` survives Wikimedia rate limits: it retries 429 and 503 with `Retry-After` or exponential backoff, saves `photos.json` after every photo so an interrupted `get` resumes where it stopped, and writes each download through a temporary file.
 
 ## 1.0.1 (2026-11-09)

@@ -28,6 +28,11 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/build_sfx.py` | Synthesises every sound effect from the cue list (no samples, nothing to license) |
 | `scripts/mix_soundtrack.py` | Voice, effects and optional music, ducked and loudness-normalised |
 | `scripts/burn_captions.py` | Burns one of four caption styles into the finished film and writes an SRT |
+| `scripts/docpipe.py` | The documentary pipeline: stages in their own folders, checks, approval gates, resume |
+| `scripts/research.py` | Sources and claims for a documentary; flags weak, single-source and unsupported claims |
+| `scripts/outline.py` | Sizes a 5, 10, 20 or 30 minute outline and checks its budget and chronology |
+| `scripts/narration.py` | Fact-checks every line against the research, writes the spoken text, exports `script.json` |
+| `scripts/storyboard.py` | One scene per line: timestamps, camera move, key word, and the images to find |
 
 Needs Python 3.9+, `pip install skia-python numpy pillow` (scipy optional) and ffmpeg. Run `scripts/check_setup.py` first; on Linux or Windows, also run `scripts/get_fonts.py` per project. All commands take `--project <folder>`.
 
@@ -71,6 +76,10 @@ Stop for the user's approval at the four gates (marked **Gate**).
 9. **Final voice.** Record it with any TTS or a person (`references/voice.md`). Run split, build, and probes again; nothing in the scene changes.
 10. **Sound.** Run `render.py --cues`, then `build_sfx.py`, then `mix_soundtrack.py`, adding a score if wanted. Read `references/sound.md`.
 11. **Finish.** Do the full render, then `burn_captions.py` and the SRT. Read `references/performance.md` before rendering at 1440p or 4K. Hand over `credits.md` with the film.
+
+## Long documentaries
+
+For a documentary of 5 minutes or more, run steps 1 to 2 through `scripts/docpipe.py`: every fact goes into a research store with its sources, the outline is sized to the length, every narration line must cite the claims it states, and a storyboard comes out with timestamps, camera moves and the list of images to find. Each stage keeps its own folder and the pipeline resumes where it stopped. Read `references/pipeline.md`. Then carry on from step 3.
 
 ## Self-review, every time
 

@@ -1,0 +1,146 @@
+#!/usr/bin/env python3
+"""Documentary outline: the sections, what each one does, the period it covers, the claims it
+rests on, and its share of the running time.
+
+  python3 outline.py init --project P            # skeleton sized from 00_topic/topic.json minutes
+  python3 outline.py plan --minutes 20           # print the section budget for a length
+  python3 outline.py check --project P           # validate; writes 02_outline/outline.md
+
+Lengths: presets 5, 10, 20 and 30 minutes (any length from 1 to 60 works). The shape is the
+documentary shape in references/story.md: a cold open, one bridge back in time, chapters that
+only move forward, a turn, and a close that pays off the cold open. 20 and 30 minute films are
+split into acts; each act is built and reviewed on its own.
+
+Each section in 02_outline/outline.json:
+  id, kind (cold_open, bridge, chapter, turn, close), act, title, purpose (what the viewer
+  learns or feels), period (a year, for the chronology check), beats (story points, in order),
+  claims (claim ids from 01_research/claims.json), target_seconds, target_words, target_lines
+
+init never overwrites an outline that exists. Fill every TODO, then run check.
+"""
+import argparse
+import pathlib
+import re
+import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import doclib as L  # noqa: E402
+
+FACTUAL = ("cold_open", "chapter", "turn")
+
+
+def init(proj, force=False):
+    p = L.paths(proj)
+    if p["outline"].exists() and not force:
+        print(f"{p['outline']} exists; leaving it alone"); return False
+    topic = L.load(p["topic"])
+    plan = L.length_plan(topic["minutes"])
+    sections = []
+    for s in plan["sections"]:
+        sections.append({**{k: s[k] for k in ("id", "kind", "act")},
+                         "title": "TODO", "purpose": "TODO", "period": "", "beats": [], "claims": [],
+                         **{k: s[k] for k in ("target_seconds", "target_words", "target_lines")},
+                         "guide": s["label"]})
+    L.save(p["outline"], {"title": topic.get("working_title") or topic["topic"], "minutes": plan["minutes"],
+                          "acts": plan["acts"], "shape": "documentary", "sections": sections})
+    print(f"outline skeleton: {len(sections)} sections, {plan['chapters']} chapters, {plan['acts']} act(s), "
+          f"{plan['words']} words -> {p['outline']}")
+    return True
+
+
+def _year(period):
+    m = re.search(r"\b(\d{3,4})\b", str(period or ""))
+    return int(m.group(1)) if m else None
+
+
+def check(proj, write=True):
+    p = L.paths(proj)
+    r = L.Result()
+    if not p["outline"].exists():
+        r.error("no outline yet: run outline.py init"); return r
+    o = L.load(p["outline"])
+    claims = {c["id"]: c for c in L.load(p["claims"], {"claims": []})["claims"]}
+    sources = {s["id"]: s for s in L.load(p["sources"], {"sources": []})["sources"]}
+    secs = o.get("sections", [])
+    if not secs:
+        r.error("outline has no sections"); return r
+    ids = [s.get("id") for s in secs]
+    if len(set(ids)) != len(ids):
+        r.error("section ids repeat")
+    if secs[0].get("kind") != "cold_open":
+        r.warn("the first section is not a cold open")
+    total = 0.0
+    last_year, last_id = None, None
+    for s in secs:
+        sid = s.get("id", "?")
+        total += float(s.get("target_seconds", 0))
+        for k in ("title", "purpose"):
+            if not str(s.get(k, "")).strip() or "TODO" in str(s.get(k)):
+                r.error(f"{sid}: {k} is not written yet")
+        bad = [c for c in s.get("claims", []) if c not in claims]
+        if bad:
+            r.error(f"{sid}: unknown claim id(s) {bad}")
+        if s.get("kind") in FACTUAL and not s.get("claims"):
+            r.warn(f"{sid}: no claims; a {s.get('kind')} states facts, so tie it to the research")
+        for c in s.get("claims", []):
+            if c in claims and L.claim_status(claims[c], sources) == "unsupported":
+                r.error(f"{sid}: rests on {c}, which has no valid source")
+        if s.get("kind") == "chapter":
+            y = _year(s.get("period"))
+            if y is None:
+                r.warn(f"{sid}: no period (a year), so the chronology cannot be checked")
+            elif last_year is not None and y < last_year:
+                r.warn(f"{sid}: {y} steps back from {last_year} ({last_id}); after the bridge, time only moves forward")
+            if y is not None:
+                last_year, last_id = y, sid
+    target = float(o.get("minutes", 0)) * 60
+    if target and abs(total - target) > 0.10 * target:
+        r.error(f"sections add up to {L.mmss(total)}, but the film is {L.mmss(target)}; rebalance target_seconds")
+    r.note(f"{len(secs)} sections, {L.mmss(total)}, about {round(total * L.WPS)} words")
+    if write:
+        L.write_text(p["outline_md"], render_md(o))
+    return r
+
+
+def render_md(o):
+    out = [f"# {o.get('title', 'Outline')}", "", f"{o.get('minutes')} minutes, {o.get('acts', 1)} act(s). "
+           "Generated by outline.py; edit outline.json, not this file.", ""]
+    t = 0.0
+    act = None
+    for s in o["sections"]:
+        if o.get("acts", 1) > 1 and s.get("act") != act:
+            act = s.get("act"); out += [f"## Act {act}" if act else "## Opening", ""]
+        out.append(f"### {s['id']} {s.get('title', '')}  ({L.mmss(t)}, {s.get('target_seconds')} s, "
+                   f"about {s.get('target_words')} words)")
+        t += float(s.get("target_seconds", 0))
+        out.append(f"*{s.get('kind')}{', ' + str(s['period']) if s.get('period') else ''}*: {s.get('purpose', '')}")
+        out += [f"- {b}" for b in s.get("beats", [])]
+        if s.get("claims"):
+            out.append(f"- claims: {', '.join(s['claims'])}")
+        out.append("")
+    return "\n".join(out)
+
+
+def main():
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = ap.add_subparsers(dest="cmd", required=True)
+    i = sub.add_parser("init"); i.add_argument("--project", required=True); i.add_argument("--force", action="store_true")
+    pl = sub.add_parser("plan"); pl.add_argument("--minutes", type=float, required=True)
+    c = sub.add_parser("check"); c.add_argument("--project", required=True)
+    a = ap.parse_args()
+    if a.cmd == "init":
+        init(a.project, a.force)
+    elif a.cmd == "plan":
+        plan = L.length_plan(a.minutes)
+        print(f"{plan['minutes']:g} min: {plan['words']} words, {plan['chapters']} chapters, {plan['acts']} act(s)")
+        for s in plan["sections"]:
+            print(f"  {s['id']}  {s['label']:<12} act {s['act']}  {s['target_seconds']:>6.1f} s  "
+                  f"{s['target_words']:>4} words  {s['target_lines']:>3} lines")
+    else:
+        r = check(a.project)
+        print(r.report("outline"))
+        sys.exit(0 if r.ok else 1)
+
+
+if __name__ == "__main__":
+    main()
