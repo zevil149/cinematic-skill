@@ -38,7 +38,17 @@ Principles carried over from the skill:
 - `storyboard.py`: one scene per line with timestamps (estimated, or from `audio/timing.json`), key word, camera suggestion and image needs.
 - `tests/test_docpipe.py` (25 tests, standard library only), run in CI.
 
-### Phase 2: images and licensing
+### Phase 2: visual engine (done)
+
+Built as planned below, plus footage (decision C) and scene starters (decision D), which moved forward from phases 4 and 5:
+
+- `archives.py`, `visuals.py`: Commons (images and video), Library of Congress, Openverse, Smithsonian Open Access and Europeana; licences as stated (free, check, refuse); attribution; paced, cached, cooldown-aware HTTP; resumable downloads; designed fallback cards; `photos.json` and `footage.json` merged without touching user entries.
+- Engine: `Print(move=ken_burns(...))`, `Footage`, `Parallax`, camera moves; `prep_footage.py`.
+- `scenegen.py`, `scenekit.py`: an editable `scene.py` per act, edits never overwritten.
+- docpipe stages `visuals` (gate) and `scenegen`; tests never reach the network.
+
+The original phase 2 plan:
+
 
 - `docpipe` stage `images`: read `04_scenes/image_needs.json`, search each need, write candidates for the agent to choose from, then download the chosen ones with retry and resume, and merge them into `photos.json`.
 - More archives behind one interface: Library of Congress (`?fo=json`), Smithsonian Open Access (CC0), National Archives catalog, Europeana. Each adapter records licence, credit and source url, and refuses non-free files as `fetch_commons.py` does.
@@ -51,7 +61,10 @@ Principles carried over from the skill:
 - One call per take, cached by a hash of its text, voice and settings, so a re-run only records what changed.
 - Stage `voice`: scratch voice first, final voice when configured; `split_takes.py` flags become QC warnings; `timing.json` re-times the storyboard.
 
-### Phase 4: film assembly
+### Phase 4: film assembly (starters done in phase 2)
+
+What remains: probes and strips per act as a `review` stage, smarter layouts (maps and strings between clusters from the storyboard), and title cards between acts.
+
 
 - `scene.py` starter generated from the storyboard: one cluster per section, items for each image and typed text, camera and spotlight keys on the key words, using the existing engine API. The agent then edits it, as the skill does today.
 - Per-act scenes for long films (decision B).
@@ -69,9 +82,16 @@ Principles carried over from the skill:
 - `reports/final_report.md`: stages, warnings, the facts and their sources, image credits, voice and music provenance; `credits.md` next to the film.
 - Tests for each validator, and an end-to-end CI run of a tiny documentary through every stage with a scratch voice.
 
-## Decisions to make before the later phases
+## Decisions
 
-These change the architecture, so they wait for approval:
+Approved before phase 2:
+
+- **A.** The agent researches and writes the narration; the scripts check it. No model API is called from the scripts.
+- **B.** Long documentaries are built as separate acts, each on its own board.
+- **C.** Archive footage is supported as optional clips inside a print frame (`Footage`).
+- **D.** An editable `scene.py` starter is generated per act.
+
+The options as they were proposed:
 
 - **A. Who writes the research and narration.** Phase 1 assumes the agent running the skill writes them and the tools check them; no LLM API is called from the scripts. The alternative is scripts that call a model API directly with a configured key. Recommended: keep the agent as the writer (no extra key, gates stay human), and add an optional API route later only if unattended runs are wanted.
 - **B. Long films on several boards.** One board for 30 minutes would be enormous to render and to review. Recommended: one board per act (or chapter), rendered separately and joined with crossfades, with a shared look and a title card between acts.

@@ -35,7 +35,7 @@ WORDS_PER_LINE = 12
 MAX_LINE_WORDS = 22
 
 STAGE_DIRS = {"topic": "00_topic", "research": "01_research", "outline": "02_outline",
-              "script": "03_script", "scenes": "04_scenes"}
+              "script": "03_script", "scenes": "04_scenes", "visuals": "05_visuals", "film": "06_film"}
 
 
 # ---------------------------------------------------------------------------------------- files

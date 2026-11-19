@@ -143,6 +143,8 @@ class Doc:
         self.duration = self.timing["total_duration"]
         mp = self.prep / "photos" / "meta.json"
         self.meta = json.loads(mp.read_text()) if mp.exists() else {}
+        fp = self.prep / "footage" / "meta.json"
+        self.fmeta = json.loads(fp.read_text()) if fp.exists() else {}      # prep_footage.py: clip sizes and frame counts
 
     def L(self, i):
         """Start of narration line i (seconds)."""
@@ -169,7 +171,7 @@ class Doc:
 
     def on(self, pr, fx, fy):
         """World point at a fractional position (0..1, 0..1) inside a print's image area."""
-        w, h = pr.size_from(self.meta)
+        w, h = pr.size_from(self.fmeta if isinstance(pr, Footage) else self.meta)
         return rot_point(pr.x, pr.y, (fx - 0.5) * w, (fy - 0.5) * h, pr.rot)
 
     def res(self):
@@ -198,6 +200,27 @@ class Res:
         self.view = skia.Rect.MakeXYWH(-80000, -60000, 160000, 120000)
         mp = self.prep / "photos" / "meta.json" if self.prep else None
         self.meta = json.loads(mp.read_text()) if mp and mp.exists() else {}
+        self.frames = {}               # footage frames: a small LRU, so a long clip never sits in memory
+        self.cam = None                # (x, y, zoom, rot) of the frame being drawn, for Parallax
+
+    def footage_frame(self, key, idx, keep=24):
+        """Frame idx of a clip prepared by prep_footage.py (assets/prep/footage/<key>/fNNNNN.jpg)."""
+        k = (key, idx)
+        if k in self.frames:
+            self.frames[k] = self.frames.pop(k)
+            return self.frames[k]
+        path = self.prep / "footage" / key / f"f{idx + 1:05d}.jpg"
+        if not path.exists():
+            raise SystemExit(f"footage frame {path} not found: run prep_footage.py")
+        im = Image.open(path).convert("RGBA")
+        lim = int(1600 * max(self.scale, 0.35))
+        if max(im.size) > lim:
+            im.thumbnail((lim, lim), Image.LANCZOS)
+        img = skia.Image.fromarray(np.ascontiguousarray(np.asarray(im)), colorType=skia.ColorType.kRGBA_8888_ColorType)
+        self.frames[k] = img
+        while len(self.frames) > keep:
+            self.frames.pop(next(iter(self.frames)))
+        return img
 
     def image(self, key, max_side=None):
         if key not in self.imgs:
@@ -440,8 +463,9 @@ class Print(Item):
     z = 10
 
     def __init__(self, key, x, y, w, rot=0.0, t_in=0.0, t_out=None, border=0.035, pin=True,
-                 paper=False, z=None, label=None, label_t=None, aspect=None, sfx=True, label_rgb=(176, 24, 20)):
+                 paper=False, z=None, label=None, label_t=None, aspect=None, sfx=True, label_rgb=(176, 24, 20), move=None):
         super().__init__(t_in, t_out, z, sfx)
+        self.move = move       # optional slow zoom/pan inside the frame: ken_burns(...)
         self.key, self.x, self.y, self.w, self.rot = key, x, y, w, rot
         self.border, self.pin, self.paper = border, pin, paper
         self.label, self.label_t, self.label_rgb = label, label_t, label_rgb
@@ -488,6 +512,20 @@ class Print(Item):
             p.close(); self._torn = p
         return self._torn
 
+    def image_at(self, res, t):
+        return res.image(self.key)
+
+    def draw_image(self, c, res, t, dst, ip):
+        img = self.image_at(res, t)
+        if not self.move:
+            c.drawImageRect(img, dst, SAMPLING, ip)
+            return
+        z, fx, fy = move_state(self.move, t, self.t_in, self.t_out)
+        iw, ih = img.width(), img.height()
+        sw, sh = iw / z, ih / z
+        cx = clamp(fx * iw, sw / 2, iw - sw / 2); cy = clamp(fy * ih, sh / 2, ih - sh / 2)
+        c.drawImageRect(img, skia.Rect.MakeXYWH(cx - sw / 2, cy - sh / 2, sw, sh), dst, SAMPLING, ip)
+
     def draw(self, c, res, t):
         s, a, lift = drop_anim(t, self.t_in)
         tx = ty = tr = 0.0
@@ -516,10 +554,10 @@ class Print(Item):
             torn = self.torn_path(W, H)
             c.drawPath(torn, paint((240, 237, 230), 0.9 * a, stroke=10))
             c.save(); c.clipPath(torn, skia.ClipOp.kIntersect, True)
-            c.drawImageRect(res.image(self.key), skia.Rect.MakeXYWH(-w / 2, -h / 2, w, h), SAMPLING, ip)
+            self.draw_image(c, res, t, skia.Rect.MakeXYWH(-w / 2, -h / 2, w, h), ip)
             c.restore()
         else:
-            c.drawImageRect(res.image(self.key), skia.Rect.MakeXYWH(-w / 2, -h / 2, w, h), SAMPLING, ip)
+            self.draw_image(c, res, t, skia.Rect.MakeXYWH(-w / 2, -h / 2, w, h), ip)
         if self.dim:
             d = self.dim(t)
             if d > 0:
@@ -536,6 +574,117 @@ class Print(Item):
             if la > 0:
                 draw_label(c, res, self.label, self.x + ox, self.y + oy + H / 2 * s + 30, la, size=max(120, 0.068 * W), rot=self.rot,
                            reveal=ramp(t, lt, 0.4), rgb=self.label_rgb)
+
+
+def ken_burns(kind="push", t0=None, t1=None, amount=0.14, fx=0.5, fy=0.5):
+    """A slow move inside a print's frame (the photo moves, the frame stays): push (zoom in on fx, fy),
+    pull (zoom out from it), pan_left, pan_right, pan_up, pan_down, or drift (a slight diagonal).
+    t0 and t1 default to the print's t_in and t_out (or t_in + 8 s)."""
+    z = 1.0 + amount
+    moves = {
+        "push": ((1.0, fx, fy), (z, fx, fy)),
+        "pull": ((z, fx, fy), (1.0, fx, fy)),
+        "pan_left": ((z, 1.0, fy), (z, 0.0, fy)),
+        "pan_right": ((z, 0.0, fy), (z, 1.0, fy)),
+        "pan_up": ((z, fx, 1.0), (z, fx, 0.0)),
+        "pan_down": ((z, fx, 0.0), (z, fx, 1.0)),
+        "drift": ((1.0 + amount * 0.5, fx - 0.15, fy - 0.1), (z, fx + 0.15, fy + 0.1)),
+    }
+    if kind not in moves:
+        raise ValueError(f"ken_burns kind {kind!r}: one of {', '.join(moves)}")
+    a, b = moves[kind]
+    return {"t0": t0, "t1": t1, "from": a, "to": b}
+
+
+def move_state(move, t, t_in, t_out):
+    t0 = move.get("t0") if move.get("t0") is not None else t_in
+    t1 = move.get("t1") if move.get("t1") is not None else (t_out if t_out is not None else t_in + 8.0)
+    u = ease_in_out(clamp((t - t0) / max(0.01, t1 - t0)))
+    a, b = move["from"], move["to"]
+    return tuple(a[i] + (b[i] - a[i]) * u for i in range(3))
+
+
+class Footage(Print):
+    """An archive film clip playing inside a print frame (muted: archive sound has its own rights).
+    Frames come from prep_footage.py; only a few are held in memory at once. The clip starts at
+    t_in, clip_in seconds into the prepared frames, and loops or holds its last frame. Its shape
+    comes from the prepared clip (or aspect=w/h). Everything else (rotation, label, move, exit) is as Print."""
+
+    def __init__(self, key, x, y, w, rot=0.0, t_in=0.0, t_out=None, clip_in=0.0, speed=1.0, loop=True, **kw):
+        super().__init__(key, x, y, w, rot, t_in, t_out, **kw)
+        self.clip_in, self.speed, self.loop = clip_in, speed, loop
+
+    def size_from(self, meta):
+        """meta is doc.fmeta / assets/prep/footage/meta.json (the clip sizes), not the photo meta."""
+        if self.aspect:
+            return self.w, self.w / self.aspect
+        if self.key in meta and "w" in meta[self.key]:
+            m = meta[self.key]
+            return self.w, self.w * m["h"] / m["w"]
+        raise SystemExit(f"footage {self.key!r} has no size: run prep_footage.py (it writes assets/prep/footage/meta.json), "
+                         f"or pass aspect=w/h")
+
+    def size(self, res):
+        if not self.aspect:
+            m = self.clip_meta(res)
+            self.aspect = m["w"] / m["h"]
+        return self.size_from({})
+
+    def clip_meta(self, res):
+        if not hasattr(self, "_cm"):
+            p = res.prep / "footage" / self.key / "meta.json"
+            if not p.exists():
+                raise SystemExit(f"{p} not found: run prep_footage.py")
+            self._cm = json.loads(p.read_text())
+        return self._cm
+
+    def frame_index(self, res, t):
+        m = self.clip_meta(res)
+        n = max(1, m["frames"])
+        i = int((self.clip_in + max(0.0, t - self.t_in) * self.speed) * m["fps"])
+        return i % n if self.loop else min(i, n - 1)
+
+    def image_at(self, res, t):
+        return res.footage_frame(self.key, self.frame_index(res, t))
+
+
+class Parallax(Item):
+    """Puts any item on its own depth plane: depth 1 is the board, below 1 sits behind it (moves
+    less with the camera), above 1 floats in front (moves more). The item is where you placed it
+    when the camera looks at `anchor` (default: the item's own x, y)."""
+
+    def __init__(self, item, depth=0.85, anchor=None):
+        super().__init__(item.t_in, item.t_out, item.z, item.sfx)
+        self.item, self.depth = item, depth
+        self.anchor = anchor or (getattr(item, "x", 0.0), getattr(item, "y", 0.0))
+
+    def offset(self, res):
+        if not res.cam:
+            return 0.0, 0.0
+        k = 1.0 - self.depth
+        return (res.cam[0] - self.anchor[0]) * k, (res.cam[1] - self.anchor[1]) * k
+
+    def visible(self, t):
+        return self.item.visible(t)
+
+    def bounds(self, res):
+        b = self.item.bounds(res)
+        if b is None:
+            return None
+        dx, dy = self.offset(res)
+        return b.makeOffset(dx, dy)
+
+    def cues(self):
+        return self.item.cues()
+
+    def shakes(self):
+        return self.item.shakes()
+
+    def draw(self, c, res, t):
+        dx, dy = self.offset(res)
+        c.save(); c.translate(dx, dy)
+        self.item.draw(c, res, t)
+        c.restore()
 
 
 class MapPin(Item):
@@ -1405,6 +1554,31 @@ class Film:
         self.cam(t, x, y, zoom, rot)
         self.focus(t, x, y, radius or 1600 / zoom, strength)
 
+    # camera moves built from shot(): each adds ordinary keys, so they mix with hand-placed ones
+    def push_in(self, t0, t1, x, y, z0=0.5, z1=1.0, rot0=0.0, rot1=None, **kw):
+        """Ease in on (x, y): wide at t0, close at t1. Land t1 on the line's key word."""
+        self.shot(t0, x, y, z0, rot0, **kw); self.shot(t1, x, y, z1, rot0 if rot1 is None else rot1, **kw)
+
+    def pull_back(self, t0, t1, x, y, z0=1.0, z1=0.3, rot=0.0, **kw):
+        """Ease out from (x, y) to show where it sits."""
+        self.shot(t0, x, y, z0, rot, **kw); self.shot(t1, x, y, z1, -rot, **kw)
+
+    def pan(self, t0, t1, a, b, zoom=0.6, rot=0.0, **kw):
+        """Travel from point a to point b at one zoom (along a string, a route, a row of prints)."""
+        self.shot(t0, a[0], a[1], zoom, rot, **kw); self.shot(t1, b[0], b[1], zoom, rot, **kw)
+
+    def whip(self, t, a, b, zoom=0.5, dur=1.0, **kw):
+        """A fast move between clusters, centred on t; motion blur and a whoosh come with it."""
+        self.shot(t - dur / 2, a[0], a[1], zoom, **kw); self.shot(t + dur / 2, b[0], b[1], zoom, **kw)
+
+    def reveal(self, t0, t1, x, y, z_close=1.1, z_wide=0.25, **kw):
+        """Start tight on a detail, then open to the whole cluster or board."""
+        self.shot(t0, x, y, z_close, **kw); self.shot(t1, x, y, z_wide, radius=20000, strength=0.12)
+
+    def hold(self, t0, t1, x, y, zoom=0.7, drift=60.0, rot=0.0, **kw):
+        """Stay on (x, y) with a slight drift, so the frame never freezes."""
+        self.shot(t0, x - drift, y, zoom, rot, **kw); self.shot(t1, x + drift, y + drift * 0.4, zoom * 1.02, rot, **kw)
+
     def shake(self, t, amp=14.0, dur=0.35):
         self.shakes.append((t, amp, dur))
 
@@ -1494,6 +1668,7 @@ class Renderer:
         cx, cy, z, rot = f.camera(t)
         k = z * self.s
         self.res.screen_scale = k
+        self.res.cam = (cx, cy, z, rot)
         hw, hh = self.W / 2 / k * 1.25, self.H / 2 / k * 1.25
         self.res.view = view = skia.Rect.MakeLTRB(cx - hw, cy - hh, cx + hw, cy + hh)
         with self.surface as c:

@@ -6,6 +6,8 @@
 - **Your own** (product shots, team photos, screenshots, renders): drop the files in `assets/photos/` and give them a `"file"` entry in `photos.json`. Grade them `natural` so they keep their colour under one shared balance. Anyone recognisable needs to have agreed to appear.
 - **AI stills** (illustration, mood, things no camera saw): generate every still with one model and one style reference, so they read as a set. The `motion-assets` skill plans the prompts and the cost before spending anything. Never use AI images of real people, or as evidence of real events. Credit them in `credits.md` as AI-generated.
 
+In a pipeline project, `visuals.py` searches the archives for every storyboard need and applies the rules below automatically (see `references/pipeline.md`). `fetch_commons.py` remains for picking Commons files by hand.
+
 ## What is free to use (archives)
 
 - **Published in the US in 1930 or earlier**: public domain in the US (as of 2026; one more year enters each January).

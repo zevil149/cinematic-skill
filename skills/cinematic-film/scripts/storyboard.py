@@ -23,7 +23,7 @@ import doclib as L  # noqa: E402
 
 STOP = set("a an the and or but of to in on at for with from by is was were be been it its this that these those "
            "he she they we you i his her their our as so than then there here not no".split())
-IMAGE_KINDS = ("photo", "doc", "paper", "map", "own", "ai", "color")
+IMAGE_KINDS = ("photo", "doc", "paper", "map", "own", "ai", "color", "footage")
 
 
 def key_word(spoken):
@@ -87,7 +87,10 @@ def build(proj, write=True):
                 r.warn(f"line {l['id']}: image kind {kind!r} is not one of {IMAGE_KINDS}")
             need = {"id": f"I{len(needs) + 1:03d}", "line": l["id"], "scene": sc["scene"], "what": im.get("what", ""),
                     "kind": kind, "query": im.get("query") or im.get("what", ""), "commons": im.get("commons", ""),
-                    "file": im.get("file", ""), "status": "have" if im.get("file") or im.get("commons") else "needed"}
+                    "file": im.get("file", ""), "status": "have" if im.get("file") else "needed"}
+            for k in ("license", "credit", "clip_in", "clip_dur"):
+                if k in im:
+                    need[k] = im[k]
             needs.append(need); sc["images"].append(need["id"])
         if not sc["images"] and not sc["typed"] and not sc["hero"]:
             r.warn(f"line {l['id']}: nothing to show (no hero, image or typed text)")

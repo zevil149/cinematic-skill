@@ -13,8 +13,10 @@ You (the agent) do the research and the writing. The tools scaffold the files, c
 | outline | `02_outline/` | `outline.py` | every section written, budget adds up. **Gate** |
 | script | `03_script/` | `narration.py` | every line passes the fact check; `script.json` exported. **Gate** |
 | scenes | `04_scenes/` | `storyboard.py` | storyboard, camera moves and image list written |
+| visuals | `05_visuals/` | `visuals.py` | every image need has a licensed image or clip, or a designed card. **Gate** |
+| scenegen | `06_film/` | `scenegen.py` | an editable `scene.py` per act, and a root `scene.py` that renders one |
 
-After `scenes`, carry on with the film tools as in SKILL.md (images, scratch voice, assets, scene, look test, draft, final voice, sound, finish). Later phases will add those as stages.
+After `scenegen`, carry on with the film tools as in SKILL.md: scratch voice, `prep_assets.py` and `prep_footage.py`, then the look test on the generated scenes. Later phases add those as stages.
 
 ```bash
 python3 scripts/docpipe.py new my-doc --topic "The 1919 Boston molasses flood" --minutes 10
@@ -59,6 +61,25 @@ Write each section's `title`, `purpose` (what the viewer learns or feels), `peri
 ## Storyboard
 
 `storyboard.py` gives every line a scene: start and end time, narration, hero and visual, typed text, the key word to time the hit on (`doc.W(line, "word")`), a suggested camera move, and the images it needs. Times are estimates until `audio/timing.json` exists; run it again after each voice. `04_scenes/image_needs.json` lists every image with a search query, for `fetch_commons.py`.
+
+## Visuals
+
+`visuals.py` reads `04_scenes/image_needs.json` and, for each need, asks the archives in order (`topic.json` `"archives"`, default Commons, Library of Congress, Openverse, then Smithsonian and Europeana when their keys are set), stopping at the first that offers enough free candidates. Footage needs (`"kind": "footage"`) search for video (Commons, Europeana).
+
+- **Licences** are read from what each archive states. Free (public domain, CC0, CC BY, CC BY-SA) is used with attribution; "no known restrictions" and similar need a person to clear it; NC, ND, in copyright or no licence at all is refused. Never write a licence an archive did not state.
+- **Choosing.** The best-scoring free candidate is picked. Look at `05_visuals/visuals.md` and the candidates, and override in `05_visuals/selection.json`: a candidate id, `"fallback"`, or `{"candidate": id, "cleared_by": "name", "note": "why it is clear"}` for a licence that needs clearing. The stage is a gate: approve it once the picks are right. A changed pick replaces the downloaded file (each download records the candidate it came from), and a need that names a Commons file (`"commons": "File:..."`) gets exactly that file or a fallback, never a search result in its place.
+- **Your own files.** A need with `"kind": "own"`, `"file"`, `"license"` and `"credit"` uses `assets/photos/<file>`, with the rights as stated. Without a licence and credit it is not used.
+- **Fallbacks.** Anything without a usable image (no free candidate, a failed download, an archive that is rate-limiting us) is drawn as a designed card with the need's description, never a stand-in photo. `visuals.md` lists every fallback so it can be replaced.
+- **Rate limits.** Requests to each archive are paced and searches are cached. An archive that refuses us is left alone until its cooldown ends (`visuals.py hosts`), and the stage stays `partial` until the deferred downloads are done. `--offline` makes no requests at all.
+- `photos.json` and `footage.json` get the chosen files with credit and licence (entries you wrote are kept), and `05_visuals/credits.md` lists every attribution.
+
+Archive keys (`SI_API_KEY`, `EUROPEANA_API_KEY`) come from the environment only.
+
+## Scene starters
+
+`scenegen.py` writes `06_film/act_NN/scene.py` for every act: a table of the act's lines (section, key word, typed text, visuals) and `build_film(doc)`, which lays the act out as one cluster per section, puts each visual in a print (with a slow move inside the frame), plays footage in a film frame, floats typed text on a parallax plane, and keys the camera onto each hero and in to its key word, ending on a pull-back over the whole act. Lines with nothing of their own to show hold on what is there.
+
+It is a starter: edit the table (positions, moves, sizes) or replace `build_film` with your own engine calls, then run the look test as usual. `scenegen` never overwrites a scene you have edited, nor a root `scene.py` it did not write. Render an act with `CINEMATIC_ACT=2 python3 scripts/render.py ...`; `06_film/acts.json` gives each act's time range.
 
 ## Long films
 
