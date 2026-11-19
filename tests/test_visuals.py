@@ -325,5 +325,140 @@ class Matching(unittest.TestCase):
             self.assertEqual(photos["I003"]["license"], "Taken by the author, all rights held")
 
 
+SMITHSONIAN = {"response": {"rows": [
+    {"id": "edanmdm-nasm_A19610048000", "content": {
+        "descriptiveNonRepeating": {"title": {"label": "Title", "content": "1903 Wright Flyer"},
+                                    "record_link": "https://airandspace.si.edu/collection-objects/x", "data_source": "National Air and Space Museum",
+                                    "metadata_usage": {"access": "CC0"},
+                                    "online_media": {"media": [{"content": "https://ids.si.edu/ids/deliveryService?id=A", "type": "Images",
+                                                                "usage": {"access": "CC0"},
+                                                                "resources": [{"label": "High-resolution JPEG", "url": "https://ids.si.edu/hires/A.jpg"}]}]}},
+        "freetext": {"name": [{"label": "Designer", "content": "Wright Brothers"}]}}},
+    {"id": "edanmdm-restricted", "content": {
+        "descriptiveNonRepeating": {"title": {"content": "A restricted item"}, "record_link": "https://si.edu/y",
+                                    "online_media": {"media": [{"content": "https://ids.si.edu/B", "usage": {"access": "Usage conditions apply"}}]}}}},
+]}}
+
+
+def commons_by_title(url):
+    """search, or an exact-title query (titles=...), the way the Commons API answers each."""
+    if "titles=" in url:
+        if "Missing" in url:
+            return Resp({"query": {"pages": [{"title": "File:Missing.jpg", "missing": True}]}})
+        page = commons_page("Telegram 1903.jpg", "Public domain", desc="telegram")
+        return Resp({"query": {"pages": [page]}})
+    return Resp(COMMONS)
+
+
+class Fixes(unittest.TestCase):
+    def setup_proj(self, tmp, images=None):
+        proj = project_with_needs(tmp)
+        bodies = images or {"First": b"\xff\xd8AAAA" * 300, "Kitty": b"\xff\xd8BBBB" * 300}
+        net = FakeNet({"commons.wikimedia.org": commons_by_title,
+                       "upload.wikimedia.org": lambda u: Resp(bodies["Kitty" if "Kitty" in u else "First"], "image/jpeg")})
+        http = V.make_http(proj); http.opener = net; http.sleep = lambda s: None; http.log = lambda *a: None
+        return proj, http, net
+
+    def test_changed_pick_replaces_the_file_and_its_credit(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj, http, net = self.setup_proj(tmp)
+            p = V.vpaths(proj)
+            V.run(proj, http=http, providers=["commons"], log=lambda *a: None)
+            f = p["proj"] / "assets" / "photos" / "I001.jpg"
+            self.assertEqual(f.read_bytes()[2:6], b"AAAA")
+            L.save(p["selection"], {"I001": "commons:File:Kitty_Hawk_dunes.jpg"})
+            V.run(proj, http=http, providers=["commons"], log=lambda *a: None)
+            a = L.load(p["assets"])["assets"]["I001"]
+            self.assertEqual(f.read_bytes()[2:6], b"BBBB")                         # the new image, not the old one
+            self.assertIn("Kitty Hawk dunes", a["attribution"])
+            self.assertEqual(L.load(V.source_record(f))["candidate"], "commons:File:Kitty_Hawk_dunes.jpg")
+            photo = {e["id"]: e for e in L.load(p["photos_json"])["photos"]}["I001"]
+            self.assertEqual(photo["license"], "CC BY-SA 4.0")
+            # unchanged picks are not downloaded again
+            before = len(net.calls)
+            V.run(proj, http=http, providers=["commons"], log=lambda *a: None)
+            self.assertEqual(len(net.calls), before)
+
+    def test_failed_replacement_never_leaves_the_old_image(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj, http, net = self.setup_proj(tmp)
+            p = V.vpaths(proj)
+            V.run(proj, http=http, providers=["commons"], log=lambda *a: None)
+            f = p["proj"] / "assets" / "photos" / "I001.jpg"
+            mine = p["proj"] / "assets" / "photos" / "I001.png"
+            mine.write_bytes(b"my own file")                                     # no source record: not ours to delete
+            net.routes["upload.wikimedia.org"] = lambda u: Resp(b"<html>", "text/html")
+            L.save(p["selection"], {"I001": "commons:File:Kitty_Hawk_dunes.jpg"})
+            V.run(proj, http=http, providers=["commons"], log=lambda *a: None)
+            a = L.load(p["assets"])["assets"]["I001"]
+            self.assertEqual(a["status"], "fallback")
+            self.assertFalse(f.exists())
+            self.assertFalse(V.source_record(f).exists())
+            self.assertNotIn("I001", {e["id"] for e in L.load(p["photos_json"])["photos"]})
+            self.assertEqual(mine.read_bytes(), b"my own file")
+
+    def test_old_extension_of_a_previous_pick_is_removed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj, http, net = self.setup_proj(tmp)
+            p = V.vpaths(proj)
+            old = p["proj"] / "assets" / "photos" / "I001.png"
+            old.write_bytes(b"previous pick")
+            L.save(V.source_record(old), {"candidate": "commons:File:Old.png"})
+            V.run(proj, http=http, providers=["commons"], log=lambda *a: None)
+            self.assertFalse(old.exists())
+            self.assertTrue((p["proj"] / "assets" / "photos" / "I001.jpg").exists())
+
+    def test_named_commons_file_is_fetched_exactly(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj, http, net = self.setup_proj(tmp)
+            p = V.vpaths(proj)
+            nb = L.load(p["image_needs"])
+            nb["images"][0]["commons"] = "File:Telegram 1903.jpg"
+            nb["images"][1]["commons"] = "Missing.jpg"
+            L.save(p["image_needs"], nb)
+            V.search(proj, http, ["commons"], log=lambda *a: None)
+            c = L.load(p["candidates"])["needs"]
+            self.assertEqual([x["id"] for x in c["I001"]["candidates"]], ["commons:File:Telegram_1903.jpg"])
+            self.assertTrue(c["I001"]["named"])
+            self.assertEqual(c["I002"]["candidates"], [])
+            self.assertIn("is not on Commons", c["I002"]["notes"][0])
+            named = [u for u in net.calls if "Telegram" in u or "Missing" in u]
+            self.assertTrue(all("titles=" in u and "generator=search" not in u for u in named))   # looked up, not searched
+            picks = V.select(proj)
+            self.assertEqual(picks["I001"]["candidate"]["id"], "commons:File:Telegram_1903.jpg")
+            self.assertIn("fallback", picks["I002"])                              # never swapped for a search result
+
+    def test_photos_json_id_collision_is_reported(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj, http, net = self.setup_proj(tmp)
+            p = V.vpaths(proj)
+            L.save(p["photos_json"], {"grade": "bw", "photos": [{"id": "I001", "file": "mine.jpg", "kind": "photo"}]})
+            r = V.run(proj, http=http, providers=["commons"], log=lambda *a: None)
+            self.assertTrue(any("I001" in w and "you wrote" in w for w in r.warnings))
+            photos = {e["id"]: e for e in L.load(p["photos_json"])["photos"]}
+            self.assertEqual(photos["I001"], {"id": "I001", "file": "mine.jpg", "kind": "photo"})
+            self.assertTrue(L.load(p["assets"])["assets"]["I001"]["shadowed"])
+
+
+class SmithsonianParsing(unittest.TestCase):
+    def test_cc0_items_with_high_res_and_creator(self):
+        os.environ["SI_API_KEY"] = "test-key"
+        try:
+            net = FakeNet({"api.si.edu": lambda u: Resp(SMITHSONIAN)})
+            got = A.Smithsonian(A.Http(opener=net, sleep=lambda s: None)).search("Wright Flyer")
+            self.assertEqual(len(got), 2)
+            c = got[0]
+            self.assertEqual((c["id"], c["title"], c["creator"]), ("smithsonian:edanmdm-nasm_A19610048000", "1903 Wright Flyer", "Wright Brothers"))
+            self.assertEqual(c["media_url"], "https://ids.si.edu/hires/A.jpg")
+            self.assertEqual(c["page_url"], "https://airandspace.si.edu/collection-objects/x")
+            self.assertEqual(c["license"]["code"], "CC0")
+            self.assertEqual(got[1]["license"]["policy"], "refuse")             # not CC0: never used
+            self.assertIn("online_media_type%3AImages", net.calls[0])
+            self.assertIn("api_key=test-key", net.calls[0])                     # the API wants it in the query...
+            self.assertNotIn("test-key", A.strip_secrets(net.calls[0]))         # ...but caches and logs never see it
+        finally:
+            os.environ.pop("SI_API_KEY", None)
+
+
 if __name__ == "__main__":
     unittest.main()

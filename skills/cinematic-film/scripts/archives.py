@@ -245,8 +245,11 @@ class Commons(Provider):
         params = dict(action="query", generator="search", gsrsearch=f"{query} {ft}", gsrnamespace=6, gsrlimit=limit,
                       prop="imageinfo", iiprop="url|size|mime|extmetadata", iiurlwidth=self.WIDTH, format="json", formatversion=2)
         d = self.http.get_json(self.API + "?" + urllib.parse.urlencode(params))
+        return self.parse_pages(sorted((d.get("query") or {}).get("pages", []), key=lambda p: p.get("index", 0)), media)
+
+    def parse_pages(self, pages, media):
         out = []
-        for p in sorted((d.get("query") or {}).get("pages", []), key=lambda p: p.get("index", 0)):
+        for p in pages:
             ii = (p.get("imageinfo") or [{}])[0]
             md = ii.get("extmetadata", {})
             mime = ii.get("mime", "")
@@ -262,6 +265,19 @@ class Commons(Provider):
                                  creator=md.get("Artist") or md.get("Credit"), width=ii.get("width"), height=ii.get("height"),
                                  mime=mime, date=md.get("DateTimeOriginal") or md.get("DateTime"),
                                  description=md.get("ImageDescription"), duration=ii.get("duration")))
+        return out
+
+    def lookup(self, title):
+        """The one Commons file a project names, by its exact title: [candidate] or [] if it is not there."""
+        params = dict(action="query", titles=title, prop="imageinfo", iiprop="url|size|mime|extmetadata",
+                      iiurlwidth=self.WIDTH, format="json", formatversion=2)
+        d = self.http.get_json(self.API + "?" + urllib.parse.urlencode(params))
+        pages = [p for p in (d.get("query") or {}).get("pages", []) if not p.get("missing") and p.get("imageinfo")]
+        out = []
+        for p in pages[:1]:
+            mime = p["imageinfo"][0].get("mime", "")
+            media = "video" if mime.startswith("video/") or mime == "application/ogg" else "image"
+            out = self.parse_pages([p], media)
         return out
 
 

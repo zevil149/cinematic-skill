@@ -122,9 +122,22 @@ def search(proj, http=None, providers=None, limit=8, refresh=False, log=print):
         if nid in cands["needs"] and cands["needs"][nid].get("candidates") and not refresh:
             continue
         found, notes = [], []
-        if need.get("commons"):
-            notes.append("named Commons file")
         media = media_of(need)
+        if need.get("commons"):
+            title = need["commons"] if need["commons"].startswith("File:") else "File:" + need["commons"]
+            try:
+                found = A.Commons(http).lookup(title)
+                notes.append("named Commons file" if found else f"{title} is not on Commons")
+            except (A.RateLimited, Offline) as e:
+                notes.append(str(e))
+            except Exception as e:
+                notes.append(f"commons: {type(e).__name__}: {str(e)[:120]}")
+            for c in found:
+                c["score"] = 1.0 if c["license"]["policy"] != "refuse" else 0.0
+            cands["needs"][nid] = {"query": title, "media": c["media"] if found else media, "candidates": found,
+                                   "notes": notes, "named": True}
+            log(f"{nid}: {title} " + (f"[{found[0]['license']['label']}]" if found else "not found"))
+            continue
         query = need.get("commons", "").removeprefix("File:") or need.get("query") or need.get("what") or ""
         for pv in provs:
             if pv.name in blocked or media not in pv.media:
@@ -197,6 +210,34 @@ def fallback_for(need, reason):
     return {"type": "card", "title": title, "reason": reason}
 
 
+def source_record(dst):
+    return dst.with_name(f".{dst.name}.source.json")
+
+
+def place(http, c, dst):
+    """Put candidate c's media at dst. A file there is reused only if its source record names this
+    very candidate; otherwise it and its record are removed first, so a failed download leaves no
+    file at all rather than the previous pick under the new pick's credit and licence. Earlier
+    picks for the same need under another extension (files with a source record) go too; files
+    without a record (yours) are never touched."""
+    rec = source_record(dst)
+    current = rec.exists() and L.load(rec, {}).get("candidate") == c["id"] and dst.exists()
+    nid = dst.stem
+    for old in dst.parent.glob(f"{nid}.*"):
+        orec = source_record(old)
+        if old.name != dst.name and orec.exists() and not old.name.endswith((".part", ".json")):
+            old.unlink(); orec.unlink()
+    if current:
+        return dst
+    for f in (dst, rec, dst.with_name(dst.name + ".part")):
+        if f.exists():
+            f.unlink()
+    http.download(c["media_url"], dst)
+    L.save(rec, {"candidate": c["id"], "media_url": A.strip_secrets(c["media_url"]), "license": c["license"]["label"],
+                 "attribution": c["attribution"]})
+    return dst
+
+
 def fetch(proj, http=None, picks=None, log=print):
     p = vpaths(proj)
     http = http or make_http(proj)
@@ -231,7 +272,7 @@ def fetch(proj, http=None, picks=None, log=print):
                  "source": c.get("page_url", ""), "attribution": c["attribution"], "title": c.get("title", ""),
                  "file": fname, "media": c["media"], "auto": bool(pk.get("auto")), "cleared": pk.get("cleared")}
         try:
-            http.download(c["media_url"], dst)
+            place(http, c, dst)
             manifest[nid] = {**entry, "status": "ok"}
             log(f"{nid}: {fname}  [{c['license']['label']}]")
         except A.RateLimited as e:
@@ -242,14 +283,17 @@ def fetch(proj, http=None, picks=None, log=print):
         except Exception as e:
             manifest[nid] = {**entry, "status": "fallback", "fallback": fallback_for(need, f"download failed: {type(e).__name__}: {str(e)[:120]}")}
             log(f"{nid}: download failed ({e}); using a fallback card")
+    for nid in write_project_files(proj, manifest):
+        manifest[nid]["shadowed"] = True
     L.save(p["assets"], {"generated_by": GEN, "assets": manifest})
-    write_project_files(proj, manifest)
     return manifest
 
 
 def write_project_files(proj, manifest):
-    """Merge into photos.json and footage.json without touching entries this tool did not write."""
+    """Merge into photos.json and footage.json without touching entries this tool did not write.
+    Returns the need ids whose download is shadowed by an entry the user wrote with the same id."""
     p = vpaths(proj)
+    shadowed = []
     look = L.load(p["topic"], {}).get("look", "wall")
     grade = "bw" if look in ("wall", "slate") else "natural"
     for key, media, sub in (("photos_json", "image", "photos"), ("footage_json", "video", "footage")):
@@ -262,13 +306,15 @@ def write_project_files(proj, manifest):
             if a.get("status") not in ("ok", "own") or a.get("media", "image") != media:
                 continue
             if nid in theirs:
-                continue                                  # an entry the user wrote wins
+                shadowed.append(nid)                      # an entry the user wrote wins; check() says so
+                continue
             items.append({"id": nid, "file": a["file"], "kind": KIND_TO_PHOTO.get(a["kind"], "photo"), "what": a["what"],
                           "credit": a.get("credit", ""), "license": a["license"]["label"], "license_url": a["license"].get("url", ""),
                           "source": a.get("source", ""), "attribution": a.get("attribution", ""),
                           "license_ok": a["license"]["policy"] in ("free", "own") or bool(a.get("cleared")), "generated_by": GEN})
         if items or mine or p[key].exists():
             L.save(p[key], cur)
+    return shadowed
 
 
 def check(proj):
@@ -287,6 +333,9 @@ def check(proj):
             r.note(f"{nid}: your own file, rights as you stated them: {a['license']['label']}")
         elif a.get("cleared"):
             r.note(f"{nid}: {a['license']['label']} cleared by {a['cleared'].get('cleared_by')}")
+        if a.get("shadowed"):
+            r.warn(f"{nid}: photos.json or footage.json already has an entry {nid} you wrote; yours is used and the "
+                   f"download ({a.get('file')}) is not. Rename one of them if both should appear")
     r.note("visuals: " + (", ".join(f"{v} {k}" for k, v in sorted(counts.items())) or "no needs"))
     r.partial = bool(counts.get("deferred"))
     L.write_text(p["visuals_md"], render_md(man))

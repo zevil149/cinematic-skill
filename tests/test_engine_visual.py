@@ -142,5 +142,61 @@ class ParallaxAndCamera(unittest.TestCase):
         self.assertTrue(any(c["type"] == "whoosh" and 4 < c["t"] < 5.5 for c in f.all_cues()))
 
 
+def make_clip(proj, name, seconds=3, src="testsrc"):
+    (proj / "assets" / "footage").mkdir(parents=True, exist_ok=True)
+    clip = proj / "assets" / "footage" / name
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"{src}=duration={seconds}:size=320x240:rate=24",
+                    "-c:v", "libvpx", "-b:v", "300k", str(clip)], check=True)
+    return clip
+
+
+def prep(proj):
+    return subprocess.run([sys.executable, str(SCRIPTS / "prep_footage.py"), "--project", str(proj)], capture_output=True, text=True)
+
+
+@unittest.skipUnless(HAVE, "needs skia-python, numpy, pillow and ffmpeg")
+class FootageFixes(unittest.TestCase):
+    def test_start_point_past_the_end(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj = make_proj(tmp)
+            make_clip(proj, "F1.webm", seconds=3)
+            (proj / "footage.json").write_text(json.dumps({"footage": [{"id": "F1", "file": "F1.webm", "clip_in": 10.0}]}))
+            r = prep(proj)
+            self.assertNotEqual(r.returncode, 0)
+            self.assertIn("clip_in 10.0s is past the end of the clip", r.stdout)
+            self.assertFalse((proj / "assets" / "prep" / "footage" / "F1").exists())
+            self.assertEqual(json.loads((proj / "assets" / "prep" / "footage" / "meta.json").read_text()), {})
+
+    def test_hand_written_footage_without_aspect(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj = make_proj(tmp)
+            make_clip(proj, "F1.webm")
+            (proj / "footage.json").write_text(json.dumps({"footage": [{"id": "F1", "file": "F1.webm"}]}))
+            self.assertEqual(prep(proj).returncode, 0)
+            doc = E.Doc(proj)
+            ft = E.Footage("F1", 0, 0, 3000, t_in=0, pin=False)                  # no aspect, as a person might write it
+            frames, r = render(proj, [ft], [0.5])
+            self.assertGreater(frames[0].std(), 5)
+            self.assertAlmostEqual(ft.size(r.res)[1], 3000 * 240 / 320, delta=2)   # shape from the prepared clip
+            x, y = doc.on(E.Footage("F1", 100, 200, 3000), 0.5, 0.5)                # doc.on reads the footage sizes
+            self.assertAlmostEqual(x, 100, places=3); self.assertAlmostEqual(y, 200, places=3)
+            with self.assertRaises(SystemExit) as e:
+                E.Footage("F9", 0, 0, 3000).size_from(doc.fmeta)
+            self.assertIn("run prep_footage.py", str(e.exception))
+
+    def test_replaced_clip_is_prepared_again(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            proj = make_proj(tmp)
+            make_clip(proj, "F1.webm", seconds=2)
+            (proj / "footage.json").write_text(json.dumps({"footage": [{"id": "F1", "file": "F1.webm"}]}))
+            prep(proj)
+            first = (proj / "assets" / "prep" / "footage" / "F1" / "f00001.jpg").read_bytes()
+            self.assertEqual(prep(proj).returncode, 0)                            # unchanged: kept
+            self.assertEqual((proj / "assets" / "prep" / "footage" / "F1" / "f00001.jpg").read_bytes(), first)
+            make_clip(proj, "F1.webm", seconds=2, src="smptebars")                # a new pick replaced the clip
+            prep(proj)
+            self.assertNotEqual((proj / "assets" / "prep" / "footage" / "F1" / "f00001.jpg").read_bytes(), first)
+
+
 if __name__ == "__main__":
     unittest.main()

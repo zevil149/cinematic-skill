@@ -171,7 +171,7 @@ class Doc:
 
     def on(self, pr, fx, fy):
         """World point at a fractional position (0..1, 0..1) inside a print's image area."""
-        w, h = pr.size_from(self.meta)
+        w, h = pr.size_from(self.fmeta if isinstance(pr, Footage) else self.meta)
         return rot_point(pr.x, pr.y, (fx - 0.5) * w, (fy - 0.5) * h, pr.rot)
 
     def res(self):
@@ -607,12 +607,28 @@ def move_state(move, t, t_in, t_out):
 class Footage(Print):
     """An archive film clip playing inside a print frame (muted: archive sound has its own rights).
     Frames come from prep_footage.py; only a few are held in memory at once. The clip starts at
-    t_in, clip_in seconds into the prepared frames, and loops or holds its last frame. Pass
-    aspect=w/h from doc.fmeta[key]. Everything else (rotation, label, move, exit) is as Print."""
+    t_in, clip_in seconds into the prepared frames, and loops or holds its last frame. Its shape
+    comes from the prepared clip (or aspect=w/h). Everything else (rotation, label, move, exit) is as Print."""
 
     def __init__(self, key, x, y, w, rot=0.0, t_in=0.0, t_out=None, clip_in=0.0, speed=1.0, loop=True, **kw):
         super().__init__(key, x, y, w, rot, t_in, t_out, **kw)
         self.clip_in, self.speed, self.loop = clip_in, speed, loop
+
+    def size_from(self, meta):
+        """meta is doc.fmeta / assets/prep/footage/meta.json (the clip sizes), not the photo meta."""
+        if self.aspect:
+            return self.w, self.w / self.aspect
+        if self.key in meta and "w" in meta[self.key]:
+            m = meta[self.key]
+            return self.w, self.w * m["h"] / m["w"]
+        raise SystemExit(f"footage {self.key!r} has no size: run prep_footage.py (it writes assets/prep/footage/meta.json), "
+                         f"or pass aspect=w/h")
+
+    def size(self, res):
+        if not self.aspect:
+            m = self.clip_meta(res)
+            self.aspect = m["w"] / m["h"]
+        return self.size_from({})
 
     def clip_meta(self, res):
         if not hasattr(self, "_cm"):

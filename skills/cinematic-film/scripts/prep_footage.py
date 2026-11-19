@@ -15,6 +15,7 @@ keeps memory small. Frames are at most 1280 px wide; a clip is at most --max-sec
 engine holds only a couple of dozen frames at once, whatever the clip length. Sound is dropped.
 """
 import argparse
+import hashlib
 import json
 import pathlib
 import shutil
@@ -36,22 +37,34 @@ def probe_duration(path):
         return 0.0
 
 
+def signature(src, entry, look, fps, max_seconds, width):
+    """What the frames were made from: the clip's bytes and every setting. A replaced clip (a new
+    pick in selection.json) or a new setting makes new frames."""
+    h = hashlib.sha256()
+    with open(src, "rb") as f:
+        for chunk in iter(lambda: f.read(1 << 20), b""):
+            h.update(chunk)
+    h.update(json.dumps([entry.get("clip_in", 0), entry.get("clip_dur"), entry.get("kind", "photo"), look, fps, max_seconds, width]).encode())
+    return h.hexdigest()[:20]
+
+
 def prep_clip(proj, entry, look, fps=12, max_seconds=20.0, width=1280, force=False):
     src = proj / "assets" / "footage" / entry["file"]
     if not src.exists():
         return None, f"{entry['id']}: {src} not found"
     out = proj / "assets" / "prep" / "footage" / entry["id"]
     meta_p = out / "meta.json"
-    if meta_p.exists() and not force:
+    sig = signature(src, entry, look, fps, max_seconds, width)
+    if meta_p.exists() and not force and json.loads(meta_p.read_text()).get("signature") == sig:
         return json.loads(meta_p.read_text()), None
-    if out.exists():
-        shutil.rmtree(out)
-    out.mkdir(parents=True)
     total = probe_duration(src)
     start = float(entry.get("clip_in", 0.0))
     dur = min(float(entry.get("clip_dur") or max_seconds), max_seconds)
     if total and start >= total:
         return None, f"{entry['id']}: clip_in {start}s is past the end of the clip ({total:.1f}s)"
+    if out.exists():
+        shutil.rmtree(out)
+    out.mkdir(parents=True)
     cmd = ["ffmpeg", "-v", "error", "-y", "-ss", f"{start}", "-t", f"{dur}", "-i", str(src), "-an",
            "-vf", f"fps={fps},scale='min({width},iw)':-2", "-q:v", "3", str(out / "f%05d.jpg")]
     r = subprocess.run(cmd, capture_output=True, text=True)
@@ -65,7 +78,7 @@ def prep_clip(proj, entry, look, fps=12, max_seconds=20.0, width=1280, force=Fal
         g.save(f, quality=90)
     w, h = Image.open(frames[0]).size
     meta = {"w": w, "h": h, "frames": len(frames), "fps": fps, "duration": round(len(frames) / fps, 3),
-            "source": entry["file"], "clip_in": start}
+            "source": entry["file"], "clip_in": start, "signature": sig}
     meta_p.write_text(json.dumps(meta, indent=1))
     return meta, None
 
