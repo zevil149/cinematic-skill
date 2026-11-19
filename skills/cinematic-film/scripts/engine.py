@@ -159,6 +159,16 @@ class Doc:
         Search the SPOKEN text: "1929" is spoken "nineteen twenty-nine", so ask for "nineteen"."""
         vo = self.seg[i]["vo"]
         letters = re.sub(r"[^a-z]", "", vo.lower())
+        if not letters and vo.strip():              # Hindi and other non-Latin lines: by syllables
+            from lang.hi import aksharas
+            idx = vo.find(word)
+            if idx < 0:
+                raise ValueError(f"{word!r} is not in the spoken text of line {i}: {vo!r}")
+            for _ in range(nth):
+                idx = vo.find(word, idx + 1)
+                if idx < 0:
+                    raise ValueError(f"{word!r} (occurrence {nth}) is not in the spoken text of line {i}: {vo!r}")
+            return self.L(i) + (self.E(i) - self.L(i)) * aksharas(vo[:idx]) / max(1, aksharas(vo)) + 0.04
         idx, start = -1, 0
         for _ in range(nth + 1):
             idx = vo.lower().find(word.lower(), start); start = idx + 1

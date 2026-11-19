@@ -6,6 +6,7 @@ film and outputs. English is the default edition.
   python3 editions.py add   --project P hi [--own-beats]   # editions/hi/, a complete film project
   python3 editions.py list  --project P
   python3 editions.py check --project P [hi]                # language isolation and tags
+  python3 editions.py lexicon --project P hi [--add "Kitty Hawk" "किटी हॉक"] [--allow NASA]
 
 An edition folder is a normal film project: render.py, make_beats.py, burn_captions.py and the
 rest run on --project P/editions/hi unchanged. It links (or, where links are not possible,
@@ -134,6 +135,12 @@ def check(root, code, r=None):
         f = ed / name
         if f.exists() and not f.is_symlink() and (pathlib.Path(root) / name).exists() and name != "assets":
             r.note(f"edition {code}: {name} is a copy, not a link; it will not follow changes to the production")
+    for term, entry in (lx.get("terms") or {}).items():
+        spoken = entry.get("spoken", "") if isinstance(entry, dict) else str(entry)
+        if not spoken:
+            r.error(f"edition {code} lexicon: {term!r} has no spoken form")
+        for prob in lg.check_script(spoken):
+            r.error(f"edition {code} lexicon: {term!r} is spoken as {spoken!r}, which {prob.split(' ', 1)[1]}")
     allow = allowed_words(ed)
     n = L.load(ed / "03_script" / "narration.json", {})
     for s in n.get("sections", []):
@@ -151,7 +158,26 @@ def main():
     a.add_argument("--own-beats", action="store_true", help="this edition keeps its own beats (its own cut)")
     li = sub.add_parser("list"); li.add_argument("--project", required=True)
     c = sub.add_parser("check"); c.add_argument("--project", required=True); c.add_argument("lang", nargs="?")
+    x = sub.add_parser("lexicon", help="list the lexicon, or add a pronunciation or an allowed word")
+    x.add_argument("--project", required=True); x.add_argument("lang")
+    x.add_argument("--add", nargs=2, metavar=("TERM", "SPOKEN")); x.add_argument("--allow", action="append", default=[])
     args = ap.parse_args()
+    if args.cmd == "lexicon":
+        path = edition_dir(args.project, args.lang) / "lexicon.json"
+        lx = L.load(path, {"lang": args.lang, "terms": {}, "allow": []})
+        if args.add:
+            lx.setdefault("terms", {})[args.add[0]] = {**lx.get("terms", {}).get(args.add[0], {}), "spoken": args.add[1]}
+        for w in args.allow:
+            if w not in lx.setdefault("allow", []):
+                lx["allow"].append(w)
+        if args.add or args.allow:
+            L.save(path, lx)
+        for term, entry in lx.get("terms", {}).items():
+            print(f"{term} -> {entry.get('spoken') if isinstance(entry, dict) else entry}")
+        print("allowed in the text: " + (", ".join(lx.get("allow", [])) or "none"))
+        r = check(args.project, args.lang)
+        print(r.report("lexicon"))
+        sys.exit(0 if r.ok else 1)
     if args.cmd == "add":
         add(args.project, args.lang, args.own_beats)
     elif args.cmd == "list":

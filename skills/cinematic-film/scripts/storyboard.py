@@ -58,7 +58,7 @@ def build(proj, write=True):
     else:
         r.error("no narration.json or script.json to storyboard"); return r
     import lang
-    lg = lang.get(p["lang"] or src.get("lang") or "en")
+    lg = lang.for_paths(p, src)
     timing = {}
     if p["timing"].exists():
         tj = L.load(p["timing"])

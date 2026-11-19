@@ -92,8 +92,8 @@ class LanguagePlugins(unittest.TestCase):
         self.assertTrue(hi.check_script("राइट Brothers का विमान"))
         self.assertEqual(hi.check_script("NASA का मिशन", allow={"NASA"}), [])
         self.assertIn("mixes", hi.check_script("Wrightबंधु")[0])
-        self.assertTrue(hi.spoken_warnings("1903 में"))                  # Hindi number words come in 3.1
-        self.assertEqual(hi.spoken_text("1903 में"), "1903 में")          # never English words in Hindi
+        self.assertTrue(hi.spoken_warnings("1903 में"))                  # digits left in spoken text are flagged
+        self.assertEqual(hi.spoken_text("1903 में"), "उन्नीस सौ तीन में")  # Hindi words, never English (3.1)
         self.assertGreater(hi.est_seconds("राइट बंधुओं का विमान बारह सेकंड तक उड़ा"), 2)
         self.assertEqual(hi.key_word("विमान बारह सेकंड तक उड़ा।"), "उड़ा")
 

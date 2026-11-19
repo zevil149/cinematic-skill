@@ -36,9 +36,23 @@ def supported():
     return sorted(_REGISTRY)
 
 
+def for_paths(p, data=None):
+    """The language for a project's paths (doclib.paths): the edition's language with its pace and
+    lexicon; else the file's own tag; else English, exactly as a single-language project."""
+    code = p["lang"] or (data or {}).get("lang") or "en"
+    lg = get(code)
+    if p.get("edition"):
+        import json
+        ed = p["proj"] / "edition.json"
+        wpm = json.loads(ed.read_text()).get("wpm") if ed.exists() else None
+        lex = json.loads(p["lexicon"].read_text()) if p["lexicon"].exists() else {}
+        lg = lg.configure(wpm=wpm, lexicon=lex)
+    return lg
+
+
 def _load():
-    if not _REGISTRY:
-        from . import en, hi  # noqa: F401  (each module registers itself)
+    # every built-in language, whichever was imported first (importing lang.hi alone registers only Hindi)
+    from . import en, hi  # noqa: F401  (each module registers itself; repeat imports are free)
 
 
 def script_of(ch):
@@ -51,6 +65,22 @@ def script_of(ch):
     return name.split(" ")[0].title() if name else None
 
 
+def apply_lexicon(text, terms):
+    """Replace each lexicon term with its spoken form, longest first, whole words only; Latin
+    terms match in any letter case."""
+    for term in sorted(terms, key=len, reverse=True):
+        spoken = terms[term].get("spoken") if isinstance(terms[term], dict) else terms[term]
+        if not spoken:
+            continue
+        pat = r"(?<![\wऀ-ॿ])" + re.escape(term) + r"(?![\wऀ-ॿ])"
+        text = re.sub(pat, spoken, text, flags=re.IGNORECASE)
+    return text
+
+
+def lexicon_terms(lexicon):
+    return (lexicon or {}).get("terms", {})
+
+
 class Language:
     code = ""
     name = ""
@@ -58,6 +88,17 @@ class Language:
     scripts = ()                 # writing systems the narration may use
     wpm = 150                    # default pace, words a minute of speech (configurable per edition)
     stopwords = frozenset()
+    lexicon = {}                 # an edition's lexicon.json: {"terms": {...}, "allow": [...]}
+
+    def configure(self, wpm=None, lexicon=None):
+        """This language with an edition's pace and lexicon (a copy; the registered one is unchanged)."""
+        import copy
+        c = copy.copy(self)
+        if wpm:
+            c.wpm = float(wpm)
+        if lexicon is not None:
+            c.lexicon = lexicon
+        return c
 
     @property
     def wps(self):
@@ -94,6 +135,10 @@ class Language:
     def est_seconds(self, spoken):
         words = len(TOKEN.findall(spoken or ""))
         return words / self.wps
+
+    def numbers_in(self, text):
+        import doclib
+        return doclib.numbers_in(text)
 
     def key_word(self, spoken):
         words = TOKEN.findall(spoken or "")

@@ -41,8 +41,7 @@ GENERATOR = "narration.py"
 def language(p, n=None):
     """The narration's language plugin: the edition's language, else the narration's tag, else
     English (a single-language project, exactly as before)."""
-    code = p["lang"] or (n or {}).get("lang") or "en"
-    return lang.get(code)
+    return lang.for_paths(p, n)
 
 
 def init_from_beats(p, force=False):
@@ -173,7 +172,7 @@ def check(proj, write=True):
                 r.error(f"{where}: cites unknown claim(s) {bad}")
             cited = [c for c in cited if c in claims]
             if l.get("kind") == "framing":
-                if L.numbers_in(text):
+                if lg.numbers_in(text):
                     r.warn(f"{where}: marked framing but states a number; cite the claim it comes from")
                 continue
             if not cited:
@@ -190,7 +189,9 @@ def check(proj, write=True):
             have = set()
             for c in cited:
                 have |= L.numbers_in(claims[c].get("text", "")) | L.numbers_in(claims[c].get("quote", ""))
-            missing = sorted(v for v in L.numbers_in(text) if v not in have)
+                if lg.code != "en":                       # a claim may also carry its words in this language
+                    have |= lg.numbers_in(claims[c].get(f"text_{lg.code}", ""))
+            missing = sorted(v for v in lg.numbers_in(text) if v not in have)
             if missing:
                 nums = ", ".join(f"{v:g}" for v in missing)
                 r.warn(f"{where}: states {nums}, which no cited claim contains; check the number or cite its claim")
