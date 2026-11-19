@@ -81,6 +81,18 @@ Archive keys (`SI_API_KEY`, `EUROPEANA_API_KEY`) come from the environment only.
 
 It is a starter: edit the table (positions, moves, sizes) or replace `build_film` with your own engine calls, then run the look test as usual. `scenegen` never overwrites a scene you have edited, nor a root `scene.py` it did not write. Render an act with `CINEMATIC_ACT=2 python3 scripts/render.py ...`; `06_film/acts.json` gives each act's time range.
 
+## Languages and editions
+
+One production can be told in several languages. `docpipe.py new my-doc --topic "..." --editions en,hi` makes the shared production (topic, research, outline, beats, visuals) and one edition per language in `editions/<lang>/`. The first is the default; English is the default for the main channel.
+
+- **Each edition is a complete film project.** It reads the shared stages from the production and keeps its own `03_script`, `04_scenes`, `06_film`, `audio` and `out`, with links to the shared `assets`, `photos.json` and `footage.json`. Run any film tool on `--project my-doc/editions/hi`.
+- **Beats** (`03_beats/beats.json`) are what every edition tells: one hero each, with its claims and images. `beats.py` builds them from the default edition's approved narration (a line is its own beat `B<id>` unless it names one). Every other edition starts from the beats: one line per beat, written in its own language, never copied. All editions share the same images and camera plan; each is timed by its own voice.
+- **Languages never mix.** An English line may not contain Devanagari, and a Hindi line may not contain Latin words unless its `lexicon.json` lists them under `"allow"` (technical terms such as `NASA`). Typed text and image card titles are per edition: a Hindi line gives its own typed text, and every image needs a Hindi card title (`"labels": {"hi": "..."}` in `beats.json`). Every edition file is tagged with its language, and a stage refuses a file from another edition.
+- **Gates are per edition:** `docpipe.py approve --project my-doc script --lang hi`. `run --lang hi` runs that edition, `--lang all` every edition; editing one edition never reopens another.
+- **Language plugins** live in `scripts/lang/` (English, Hindi). English uses the same rules as a single-language project. Hindi numbers and dates as words, and syllable-based timing, arrive in the next milestone; until then digits in a Hindi line are flagged.
+
+A project made without `--editions` is a single English edition at its root, exactly as before.
+
 ## Long films
 
 A 20 or 30 minute film is too big for one board and one review. Build, probe and draft it one act at a time, and look at each act's draft before starting the next.

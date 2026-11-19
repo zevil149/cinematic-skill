@@ -57,31 +57,48 @@ def build(proj, write=True):
         sections = [(t.get("section", t["take"]), t["take"], t["lines"]) for t in src.get("takes", [])]
     else:
         r.error("no narration.json or script.json to storyboard"); return r
+    import lang
+    lg = lang.get(p["lang"] or src.get("lang") or "en")
     timing = {}
     if p["timing"].exists():
-        timing = {s["id"]: s for s in L.load(p["timing"]).get("segments", [])}
+        tj = L.load(p["timing"])
+        if p["lang"] and tj.get("lang") and tj["lang"] != p["lang"]:
+            r.error(f"audio/timing.json is the {tj['lang']} voice; this is the {p['lang']} edition"); return r
+        timing = {s["id"]: s for s in tj.get("segments", [])}
+    beat_needs = None
+    if p["edition"]:
+        # an edition's images come from the shared beats, shown with the first line that tells each beat
+        if not p["image_needs"].exists():
+            r.error("no beats yet: build them from the source edition (beats.py build) first"); return r
+        beat_needs = {}
+        for nd in L.load(p["image_needs"]).get("images", []):
+            beat_needs.setdefault(nd["beat"], []).append(nd["id"])
     flat = [(sid, take, k, l) for sid, take, lines in sections for k, l in enumerate(lines)]
     if not flat:
         r.error("the script has no lines"); return r
     per_section = {sid: len(lines) for sid, _, lines in sections}
     scenes, needs, cursor = [], [], L.LEAD
     for n, (sid, take, k, l) in enumerate(flat):
-        spoken = l.get("spoken") or L.spoken_text(l.get("text", ""))
+        spoken = l.get("spoken") or lg.spoken_text(l.get("text", ""))
         if l["id"] in timing:
             start, dur = timing[l["id"]]["start"], timing[l["id"]]["duration"]
         else:
-            start, dur = cursor, L.est_seconds(spoken)
+            start, dur = cursor, lg.est_seconds(spoken)
         gap = l.get("gap_after", L.TAKE_GAP if k == per_section[sid] - 1 else L.GAP)
         cursor = start + dur + gap
         first_sec = k == 0
         sc = {"scene": f"{sid}-{k + 1:02d}", "section": sid, "take": take, "line": l["id"],
               "start": round(start, 2), "end": round(start + dur, 2), "duration": round(dur, 2),
               "narration": l.get("text", ""), "visual": l.get("visual", ""), "hero": l.get("hero", ""),
-              "typed": l.get("typed", ""), "key_word": key_word(spoken),
+              "typed": l.get("typed", ""), "key_word": lg.key_word(spoken),
               "camera": camera_for(first_sec, n == 0, n == len(flat) - 1, l),
               "transition": "section change" if first_sec and n else "",
               "claims": l.get("claims", []), "images": []}
-        for im in l.get("images", []):
+        if beat_needs is not None:
+            bid = l.get("beat") or f"B{int(l['id']):03d}"
+            sc["beat"] = bid
+            sc["images"] = beat_needs.pop(bid, [])          # the first line of a beat shows its images
+        for im in ([] if beat_needs is not None else l.get("images", [])):
             kind = im.get("kind", "photo")
             if kind not in IMAGE_KINDS:
                 r.warn(f"line {l['id']}: image kind {kind!r} is not one of {IMAGE_KINDS}")
@@ -100,8 +117,11 @@ def build(proj, write=True):
            f"{len(needs)} images ({sum(1 for x in needs if x['status'] == 'needed')} still to find)")
     if write:
         meta = {"title": src.get("title", ""), "timing": "voice" if timing else "estimate", "duration": round(total, 2)}
+        if p["lang"]:
+            meta = {"title": meta["title"], "lang": p["lang"], "timing": meta["timing"], "duration": meta["duration"]}
         L.save(p["storyboard"], {**meta, "scenes": scenes})
-        L.save(p["image_needs"], {**meta, "images": needs})
+        if beat_needs is None:                               # an edition never rewrites the shared image list
+            L.save(p["image_needs"], {**meta, "images": needs})
         L.write_text(p["storyboard_md"], render_md(meta, scenes, needs))
     return r
 

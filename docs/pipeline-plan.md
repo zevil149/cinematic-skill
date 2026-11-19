@@ -55,7 +55,25 @@ The original phase 2 plan:
 - Rights QC: every image used has a licence and credit; BY and BY-SA get their attribution text; "no known restrictions" stays flagged until a person clears it.
 - Tests with recorded API responses (no network in CI).
 
-### Phase 3: voice
+### Phase 3: voice, audio and language editions (approved; milestone by milestone)
+
+English is the default language for the main (US) channel; Hindi is a fully supported second channel. One shared production (topic, research, outline, beats, visuals) feeds separate language editions with their own script, voice, timing, subtitles, metadata and films.
+
+| Milestone | Scope | State |
+|---|---|---|
+| 3.0 | Language plugins (`scripts/lang/`), `editions/<lang>/` folders, shared beats, isolation checks, legacy projects unchanged | done |
+| 3.1 | Hindi language plugin: numbers, dates, currency, Devanagari digits, syllable timing, lexicon, fact-check number words | next, after approval |
+| 3.2 | Devanagari rendering: Noto Devanagari fonts and HarfBuzz shaping (licences verified first) | |
+| 3.3 | Voice framework: per-edition voice and lexicon, mock, espeak and command providers, manifest, resume, edit lock | |
+| 3.4 | ElevenLabs and Sarvam adapters, cost estimate, auditions (no paid call without separate approval) | |
+| 3.5 | Timing per edition: segments, `narration.m4a`, word timings in `timing.json`, re-timed storyboard and scenes | |
+| 3.6 | Music and effects: user-licensed tracks and a synthesised bed, rights gate, per-edition cue sheet and mix | |
+| 3.7 | Subtitles and metadata per edition | |
+| 3.8 | docpipe stages, docs, CI with both editions end to end | |
+
+Approved decisions: ElevenLabs and Sarvam adapters plus espeak and command providers (Azure later); section-level synthesis split into line segments where timestamps are reliable, per-line otherwise; Devanagari for Hindi narration and subtitles, Latin only for allowed technical terms; music from user-licensed tracks and a synthesised bed (CC libraries optional, gated); synthesised effects (Freesound later); `uharfbuzz` and Noto Devanagari after licence checks; a $5 spend cap per run and explicit confirmation for every paid call; optional `words` and `lang` in `timing.json`; Hindi 130-140 and English 145-155 words a minute, configurable; shared beats with a fork option; native-speaker review before paid Hindi synthesis; research canonical in English; per-edition on-screen text; no voice cloning.
+
+### The original phase 3 sketch: voice
 
 - Provider adapters for API TTS (ElevenLabs, OpenAI and others) next to the existing `say`, espeak-ng and `--cmd` routes. Keys only from environment variables; never written to the project or logs.
 - One call per take, cached by a hash of its text, voice and settings, so a re-run only records what changed.

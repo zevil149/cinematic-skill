@@ -17,6 +17,18 @@ Stages (phase 1):
   script    03_script: narration fact-checked, exported to script.json  [gate]  (narration.py)
   scenes    04_scenes: storyboard with timestamps, camera, image needs  (storyboard.py)
 
+Language editions (phase 3): `new --editions en,hi` makes one production with an edition per
+language (editions/<lang>/), English first and the default. Then:
+  topic, research, outline    shared
+  script@<source>  [gate]     the default edition's narration, checked as above, tagged with its language
+  beats                       the shared beats, built from the source narration (beats.py)
+  script@<lang>    [gate]     every other edition: one line per beat, in its own language and script
+  scenes@<lang>               each edition's storyboard, timed by its own voice
+  visuals          [gate]     shared: one set of images for every edition
+  scenegen@<lang>             each edition's scene.py starters, with its own text
+  run --lang hi | --lang all chooses editions (default: the default edition); approve takes --lang.
+  A project made without --editions is a single English edition, exactly as before.
+
 Stages (phase 2):
   visuals   05_visuals: archive search, licences, downloads, fallbacks  [gate]  (visuals.py)
   scenegen  06_film: an editable scene.py starter per act               (scenegen.py)
@@ -37,7 +49,9 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import beats  # noqa: E402
 import doclib as L  # noqa: E402
+import editions  # noqa: E402
 import narration  # noqa: E402
 import outline  # noqa: E402
 import research  # noqa: E402
@@ -126,7 +140,7 @@ def load_state(proj):
     return L.load(L.paths(proj)["state"], {"version": 1, "stages": {}})
 
 
-def new(folder, topic, minutes, angle="", audience="", look="wall", working_title=""):
+def new(folder, topic, minutes, angle="", audience="", look="wall", working_title="", langs=None):
     proj = pathlib.Path(folder)
     if proj.exists() and any(proj.iterdir()):
         raise SystemExit(f"{proj} exists and is not empty")
@@ -141,15 +155,123 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
     L.save(p["sources"], {"sources": []})
     L.save(p["claims"], {"claims": []})
     L.save(p["state"], {"version": 1, "created": L.today(), "stages": {}})
-    print(f"created {proj}: {minutes:g} minute documentary on {topic!r}")
+    for code in langs or []:
+        editions.add(proj, code)
+    print(f"created {proj}: {minutes:g} minute documentary on {topic!r}" +
+          (f", editions {', '.join(langs)} (default {langs[0]})" if langs else ""))
     print("next: research the topic into 01_research (research.py add-source / add-claim), then docpipe.py run")
     return proj
 
 
-def run(proj, until=None, only=None, force=False):
+EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "scenegen"]
+
+
+def edition_steps(root, langs):
+    """The stages of a production with editions, in order: (key, stage name, run, input files, gate)."""
+    root = pathlib.Path(root)
+    src = editions.default_edition(root)
+    E = lambda c: editions.edition_dir(root, c)              # noqa: E731
+    P = L.paths(root)
+    shared = {s[0]: s for s in STAGES}
+    steps = []
+    for name in ("topic", "research", "outline"):
+        _, fn, keys, gate = shared[name]
+        steps.append((name, name, (lambda fn=fn: fn(root)), (lambda keys=keys: _inputs(P, *keys)), gate))
+
+    def script(code):
+        def go():
+            ed = E(code)
+            r = L.Result()
+            editions.check(root, code, r)
+            if not r.ok:
+                return r
+            if not L.paths(ed)["narration"].exists():
+                narration.init(ed)
+            r.extend(narration.export(ed))
+            if code != src and r.ok:
+                beats.check(root, code, r)
+            return r
+        return go
+
+    def script_inputs(code):
+        ep = L.paths(E(code))
+        return [E(code) / "edition.json", ep["lexicon"], ep["narration"], P["outline"], P["claims"], P["sources"]] + \
+               ([P["beats"]] if code != src else [])
+
+    order = [src] + [c for c in langs if c != src] if src in langs else [src] + list(langs)
+    steps.append((f"script@{src}", "script", script(src), lambda: script_inputs(src), True))
+    steps.append(("beats", "beats", lambda: beats.build(root, src), lambda: [L.paths(E(src))["narration"], P["beats"]], False))
+    targets = [c for c in order if c in langs] or [src]
+    for code in targets:
+        if code != src:
+            steps.append((f"script@{code}", "script", script(code), (lambda c=code: script_inputs(c)), True))
+        steps.append((f"scenes@{code}", "scenes", (lambda c=code: storyboard.build(E(c))),
+                      (lambda c=code: [L.paths(E(c))["narration"], L.paths(E(c))["timing"], P["image_needs"]]), False))
+    steps.append(("visuals", "visuals", lambda: visuals.run(root, offline=OPTS["offline"]),
+                  lambda: _inputs(P, "image_needs", "selection", "topic"), True))
+    for code in targets:
+        def gen(c=code):
+            editions.link_shared(root, E(c))                  # photos.json and footage.json exist by now
+            return scenegen.generate(E(c))
+        steps.append((f"scenegen@{code}", "scenegen", gen,
+                      (lambda c=code: [L.paths(E(c))["storyboard"], P["visuals_dir"] / "assets.json", P["outline"], P["beats"]]), False))
+    return steps
+
+
+def run_steps(proj, steps, until=None, only=None, force=False):
+    p = L.paths(proj)
+    state = load_state(proj)
+    stop_at = EDITION_ORDER.index(until) if until else len(EDITION_ORDER)
+    ok = True
+    for key, name, fn, files, gate in steps:
+        if EDITION_ORDER.index(name) > stop_at or (only and name != only):
+            continue
+        st = state["stages"].setdefault(key, {})
+        h = L.hash_files(files())
+        if not force and st.get("status") == "done" and st.get("inputs") == h:
+            print(f"[{key}] up to date"); continue
+        r = fn()
+        h = L.hash_files(files())
+        st.update(inputs=h, at=datetime.datetime.now().isoformat(timespec="seconds"),
+                  errors=r.errors, warnings=r.warnings, notes=r.notes)
+        print(r.report(f"[{key}]"))
+        if not r.ok:
+            st["status"] = "blocked"; ok = False
+            print(f"[{key}] blocked: fix the errors above, then run again")
+            break
+        if gate and st.get("approved") != h:
+            st["status"] = "awaiting approval"; ok = False
+            lang_arg = f" --lang {key.split('@')[1]}" if "@" in key else ""
+            print(f"[{key}] passes its checks; review it, then: docpipe.py approve --project {proj} {name}{lang_arg}")
+            break
+        st["status"] = "partial" if getattr(r, "partial", False) else "done"
+        if st["status"] == "partial":
+            print(f"[{key}] partial: some work is deferred; the next run retries it")
+    L.save(p["state"], state)
+    return ok
+
+
+def langs_for(root, lang):
+    eds = editions.editions_of(root)
+    if lang in (None, ""):
+        return [editions.default_edition(root)]
+    if lang == "all":
+        return eds
+    if lang not in eds:
+        raise SystemExit(f"this production has editions {eds}; add {lang!r} with editions.py add")
+    return [lang]
+
+
+def run(proj, until=None, only=None, force=False, lang=None):
     p = L.paths(proj)
     if not p["state"].exists():
         raise SystemExit(f"{proj} is not a docpipe project (no docpipe.json); start one with docpipe.py new")
+    if editions.editions_of(proj):
+        return run_steps(proj, edition_steps(proj, langs_for(proj, lang)), until, only, force)
+    if lang not in (None, "", "en"):
+        raise SystemExit(f"{proj} is a single-language (English) project; add editions with editions.py add")
+    if (until and until not in NAMES) or (only and only not in NAMES):
+        raise SystemExit(f"the beats stage exists only in a production with editions (editions.py add)")
     state = load_state(proj)
     stop_at = NAMES.index(until) if until else len(NAMES) - 1
     ok = True
@@ -183,9 +305,26 @@ def run(proj, until=None, only=None, force=False):
     return ok
 
 
-def approve(proj, name):
+def approve(proj, name, lang=None):
     p = L.paths(proj)
     state = load_state(proj)
+    if editions.editions_of(proj):
+        code = lang or editions.default_edition(proj)
+        key = f"{name}@{code}" if name == "script" else name
+        steps = {k: f for k, _, _, f, _ in edition_steps(proj, editions.editions_of(proj))}
+        if key not in steps:
+            raise SystemExit(f"no stage {key}")
+        st = state["stages"].get(key)
+        h = L.hash_files(steps[key]())
+        if not st or st.get("status") not in ("awaiting approval", "done", "partial") or st.get("inputs") != h:
+            raise SystemExit(f"{key} has not passed its checks on its current files; run docpipe.py run first")
+        st["approved"] = h
+        st["approved_at"] = datetime.datetime.now().isoformat(timespec="seconds")
+        if st["status"] == "awaiting approval":
+            st["status"] = "done"
+        L.save(p["state"], state)
+        print(f"[{key}] approved")
+        return
     st = state["stages"].get(name)
     keys = dict((s[0], s[2]) for s in STAGES)[name]
     h = L.hash_files(_inputs(p, *keys))
@@ -204,6 +343,16 @@ def status(proj):
     state = load_state(proj)
     t = L.load(p["topic"], {})
     print(f"{t.get('topic', '?')}  ({t.get('minutes', '?')} min)")
+    if editions.editions_of(proj):
+        print(f"  editions: {', '.join(editions.editions_of(proj))} (default {editions.default_edition(proj)})")
+        for key, name, _, files, gate in edition_steps(proj, editions.editions_of(proj)):
+            st = state["stages"].get(key, {})
+            s = st.get("status", "not run")
+            if s == "done" and st.get("inputs") != L.hash_files(files()):
+                s = "out of date"
+            extra = f"  {len(st.get('errors', []))} errors, {len(st.get('warnings', []))} warnings" if st else ""
+            print(f"  {key:<14} {s:<18}{' [gate]' if gate else '       '}{extra}")
+        return
     for name, _, keys, gate in STAGES:
         st = state["stages"].get(name, {})
         s = st.get("status", "not run")
@@ -222,22 +371,26 @@ def main():
     n.add_argument("folder"); n.add_argument("--topic", required=True); n.add_argument("--minutes", type=float, default=5)
     n.add_argument("--angle", default=""); n.add_argument("--audience", default=""); n.add_argument("--title", default="")
     n.add_argument("--look", default="wall", choices=LOOKS)
+    n.add_argument("--editions", default="", help="language editions, the first is the default: en,hi")
     r = sub.add_parser("run")
-    r.add_argument("--project", required=True); r.add_argument("--until", choices=NAMES)
-    r.add_argument("--only", choices=NAMES); r.add_argument("--force", action="store_true")
+    r.add_argument("--project", required=True); r.add_argument("--until", choices=EDITION_ORDER)
+    r.add_argument("--only", choices=EDITION_ORDER); r.add_argument("--force", action="store_true")
     r.add_argument("--offline", action="store_true", help="no network: archive searches come from the cache only")
+    r.add_argument("--lang", default=None, help="edition to run (default: the default edition), or all")
     s = sub.add_parser("status"); s.add_argument("--project", required=True)
     a = sub.add_parser("approve"); a.add_argument("--project", required=True); a.add_argument("stage", choices=[x[0] for x in STAGES if x[3]])
+    a.add_argument("--lang", default=None, help="the edition, for a script approval")
     args = ap.parse_args()
     if args.cmd == "new":
-        new(args.folder, args.topic, args.minutes, args.angle, args.audience, args.look, args.title)
+        langs = [x.strip() for x in args.editions.split(",") if x.strip()]
+        new(args.folder, args.topic, args.minutes, args.angle, args.audience, args.look, args.title, langs)
     elif args.cmd == "run":
         OPTS["offline"] = args.offline
-        sys.exit(0 if run(args.project, args.until, args.only, args.force) else 1)
+        sys.exit(0 if run(args.project, args.until, args.only, args.force, args.lang) else 1)
     elif args.cmd == "status":
         status(args.project)
     else:
-        approve(args.project, args.stage)
+        approve(args.project, args.stage, args.lang)
 
 
 if __name__ == "__main__":

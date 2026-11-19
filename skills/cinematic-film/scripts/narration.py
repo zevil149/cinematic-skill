@@ -33,14 +33,48 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import doclib as L  # noqa: E402
+import lang  # noqa: E402
 
 GENERATOR = "narration.py"
+
+
+def language(p, n=None):
+    """The narration's language plugin: the edition's language, else the narration's tag, else
+    English (a single-language project, exactly as before)."""
+    code = p["lang"] or (n or {}).get("lang") or "en"
+    return lang.get(code)
+
+
+def init_from_beats(p, force=False):
+    """A non-source edition starts from the shared beats: one line per beat, in this edition's
+    language, pointing to its beat, with the beat's claims. Its words are written for this
+    language, never copied from the source edition."""
+    data = L.load(p["beats"])
+    secs, order = {}, []
+    for b in data["beats"]:
+        if b["section"] not in secs:
+            order.append(b["section"]); secs[b["section"]] = []
+        line = {"id": None, "beat": b["id"], "text": "TODO", "claims": list(b.get("claims", [])),
+                "visual": b.get("visual", ""), "hero": b.get("hero", ""), "typed": "TODO" if b["typed"] else ""}
+        secs[b["section"]].append(line)
+    nid, out = 1, []
+    for n, sid in enumerate(order, 1):
+        for line in secs[sid]:
+            line["id"] = nid; nid += 1
+        out.append({"id": sid, "take": f"T{n:02d}_{L.slug(sid)}", "lines": secs[sid]})
+    o = L.load(p["outline"], {})
+    L.save(p["narration"], {"title": o.get("title", ""), "lang": p["lang"], "from_beats": data.get("source"), "sections": out})
+    print(f"narration skeleton for {p['lang']}: {nid - 1} lines, one per beat of the {data.get('source')} edition -> {p['narration']}")
+    return True
 
 
 def init(proj, force=False):
     p = L.paths(proj)
     if p["narration"].exists() and not force:
         print(f"{p['narration']} exists; leaving it alone"); return False
+    if p["edition"] and not p["edition"]["beats"] == "own" and p["beats"].exists() \
+            and L.load(p["beats"]).get("source") != p["lang"]:
+        return init_from_beats(p, force)
     o = L.load(p["outline"])
     secs, nid = [], 1
     for n, s in enumerate(o["sections"], 1):
@@ -49,7 +83,10 @@ def init(proj, force=False):
                      "lines": [{"id": nid, "text": "TODO", "claims": list(s.get("claims", []))[:1],
                                 "visual": "TODO", "hero": "", "typed": ""}]})
         nid += 1
-    L.save(p["narration"], {"title": o.get("title", ""), "sections": secs})
+    data = {"title": o.get("title", ""), "sections": secs}
+    if p["lang"]:
+        data = {"title": data["title"], "lang": p["lang"], "sections": secs}
+    L.save(p["narration"], data)
     print(f"narration skeleton: {len(secs)} sections -> {p['narration']}")
     return True
 
@@ -63,10 +100,11 @@ def _lines(n):
 def fill_spoken(proj, overwrite=False):
     p = L.paths(proj)
     n = L.load(p["narration"])
+    lg = language(p, n)
     changed = 0
     for _, l in _lines(n):
         if overwrite or not l.get("spoken"):
-            new = L.spoken_text(l.get("text", ""))
+            new = lg.spoken_text(l.get("text", ""))
             if new != l.get("spoken"):
                 l["spoken"] = new; changed += 1
     L.save(p["narration"], n)
@@ -80,6 +118,10 @@ def check(proj, write=True):
     if not p["narration"].exists():
         r.error("no narration yet: run narration.py init"); return r
     n = L.load(p["narration"])
+    lg = language(p, n)
+    if p["lang"] and n.get("lang") != p["lang"]:
+        r.error(f"narration.json is tagged {n.get('lang')!r}, but this is the {p['lang']} edition")
+    allow = set(L.load(p["lexicon"], {}).get("allow", [])) if p["lang"] else set()
     claims = {c["id"]: c for c in L.load(p["claims"], {"claims": []})["claims"]}
     sources = {s["id"]: s for s in L.load(p["sources"], {"sources": []})["sources"]}
     outline = L.load(p["outline"], {"sections": [], "minutes": 0})
@@ -116,10 +158,14 @@ def check(proj, write=True):
                 r.warn(f"{where}: no hero (what is the camera on?)")
             if not l.get("visual") or "TODO" in l.get("visual", ""):
                 r.warn(f"{where}: no visual direction")
-            spoken = l.get("spoken") or L.spoken_text(text)
-            for msg in L.spoken_warnings(spoken):
+            spoken = l.get("spoken") or lg.spoken_text(text)
+            for field, value in (("text", text), ("spoken", spoken), ("typed", l.get("typed", ""))):
+                for prob in lg.check_script(value, allow):
+                    # an edition never mixes languages; a single-language project gets a warning, as before it had none
+                    (r.error if p["lang"] else r.warn)(f"{where} {field}: {prob}")
+            for msg in lg.spoken_warnings(spoken):
                 r.warn(f"{where}: {msg}")
-            total_secs += L.est_seconds(spoken) + l.get("gap_after", L.TAKE_GAP if k == len(s["lines"]) - 1 else L.GAP)
+            total_secs += lg.est_seconds(spoken) + l.get("gap_after", L.TAKE_GAP if k == len(s["lines"]) - 1 else L.GAP)
             # the fact check
             cited = l.get("claims", [])
             bad = [c for c in cited if c not in claims]
@@ -157,21 +203,22 @@ def check(proj, write=True):
         r.warn(f"estimated length {L.mmss(total_secs)} against {L.mmss(target)}")
     r.note(f"{nlines} lines, {total_words} words, about {L.mmss(total_secs)} at the scratch-voice pace")
     if write and n.get("sections"):
-        L.write_text(p["script_md"], render_md(n))
+        L.write_text(p["script_md"], render_md(n, lg))
     return r
 
 
-def render_md(n):
+def render_md(n, lg=None):
+    lg = lg or lang.get("en")
     out = [f"# {n.get('title', 'Script')}", "", "Generated by narration.py; edit narration.json, not this file.", "",
            "| Line | Time | Narration | Visual | Claims |", "|---|---|---|---|---|"]
     t = L.LEAD
     for s in n["sections"]:
         out.append(f"| **{s['id']}** | | **{s.get('take', '')}** | | |")
         for k, l in enumerate(s["lines"]):
-            spoken = l.get("spoken") or L.spoken_text(l.get("text", ""))
+            spoken = l.get("spoken") or lg.spoken_text(l.get("text", ""))
             cl = "framing" if l.get("kind") == "framing" else ", ".join(l.get("claims", [])) or "**none**"
             out.append(f"| {l.get('id')} | {L.mmss(t)} | {l.get('text', '')} | {l.get('visual', '')} | {cl} |")
-            t += L.est_seconds(spoken) + l.get("gap_after", L.TAKE_GAP if k == len(s["lines"]) - 1 else L.GAP)
+            t += lg.est_seconds(spoken) + l.get("gap_after", L.TAKE_GAP if k == len(s["lines"]) - 1 else L.GAP)
     return "\n".join(out) + "\n"
 
 
@@ -188,17 +235,20 @@ def export(proj, force=False):
             r.error(f"{p['script_json']} was not written by {GENERATOR}; move it aside or pass --force")
             return r
     n = L.load(p["narration"])
+    lg = language(p, n)
     claims = {c["id"]: c for c in L.load(p["claims"], {"claims": []})["claims"]}
     sources = {s["id"]: s for s in L.load(p["sources"], {"sources": []})["sources"]}
     takes = []
     for s in n["sections"]:
         lines = []
         for l in s["lines"]:
-            out = {"id": l["id"], "text": l["text"].strip(), "spoken": (l.get("spoken") or L.spoken_text(l["text"])).strip(),
+            out = {"id": l["id"], "text": l["text"].strip(), "spoken": (l.get("spoken") or lg.spoken_text(l["text"])).strip(),
                    "hero": l.get("hero", ""), "typed": l.get("typed", ""), "claims": l.get("claims", []),
                    "visual": l.get("visual", "")}
             if "gap_after" in l:
                 out["gap_after"] = l["gap_after"]
+            if l.get("beat"):
+                out["beat"] = l["beat"]
             lines.append(out)
         takes.append({"take": s["take"], "section": s["id"], "lines": lines})
     used = sorted({c for s in n["sections"] for l in s["lines"] for c in l.get("claims", [])},
@@ -209,7 +259,10 @@ def export(proj, force=False):
         refs = "; ".join(f"{sid}: {sources[sid].get('url') or sources[sid].get('title', '')}"
                          for sid in cl.get("sources", []) if sid in sources)
         notes.append(f"{c}: {cl['text']} [{refs}]")
-    L.save(p["script_json"], {"title": n.get("title", ""), "generated_by": GENERATOR, "takes": takes, "fact_notes": notes})
+    data = {"title": n.get("title", ""), "generated_by": GENERATOR, "takes": takes, "fact_notes": notes}
+    if p["lang"]:
+        data = {"title": data["title"], "lang": p["lang"], "generated_by": GENERATOR, "takes": takes, "fact_notes": notes}
+    L.save(p["script_json"], data)
     r.note(f"exported {sum(len(t['lines']) for t in takes)} lines in {len(takes)} takes -> {p['script_json']}")
     return r
 

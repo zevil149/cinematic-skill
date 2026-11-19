@@ -40,6 +40,25 @@ def act_of_sections(outline):
     return acts
 
 
+def edition_table(scenes, assets, beats, code):
+    """An edition's table: each scene's visuals are its beat's images (shared by every edition);
+    a fallback card shows the image's label in this edition's language."""
+    labels = {im["id"]: (im.get("labels") or {}) for b in beats.get("beats", []) for im in b.get("images", [])}
+    whats = {im["id"]: im.get("what", "") for b in beats.get("beats", []) for im in b.get("images", [])}
+    source = beats.get("source")
+    table = []
+    for s in scenes:
+        vis = []
+        for nid in s.get("images", []):
+            a = assets.get(nid, {"need": nid, "status": "fallback", "media": "image", "kind": "photo", "what": ""})
+            what = (a.get("what") or whats.get(nid, "")) if code == source else labels.get(nid, {}).get(code, "")
+            vis.append({"need": nid, "what": what, "status": a["status"], "media": a.get("media", "image"),
+                        "kind": a.get("kind", "photo")})
+        table.append({"line": s["line"], "section": s["section"], "beat": s.get("beat", ""), "key_word": s.get("key_word", ""),
+                      "typed": s.get("typed", ""), "hero": s.get("hero", ""), "visuals": vis})
+    return table
+
+
 def scene_table(scenes, assets):
     by_line = {}
     for a in assets.values():
@@ -122,7 +141,15 @@ def generate(proj, force=False):
     topic = L.load(p["topic"], {})
     look = topic.get("look", "wall")
     sec_act = act_of_sections(outline)
-    table = scene_table(sb.get("scenes", []), assets)
+    if p["edition"]:
+        if sb.get("lang") and sb["lang"] != p["lang"]:
+            r.error(f"04_scenes/storyboard.json is the {sb['lang']} edition's; this is {p['lang']}"); return r
+        table = edition_table(sb.get("scenes", []), assets, L.load(p["beats"], {}), p["lang"])
+        missing = [v["need"] for row in table for v in row["visuals"] if not v["what"]]
+        if missing:
+            r.error(f"images {', '.join(sorted(set(missing)))} have no {p['lang']} label for their cards (beats.py check)"); return r
+    else:
+        table = scene_table(sb.get("scenes", []), assets)
     acts = {}
     for row, sc in zip(table, sb.get("scenes", [])):
         acts.setdefault(sec_act.get(row["section"], 1), []).append((row, sc))
@@ -152,7 +179,8 @@ def generate(proj, force=False):
         out.append({"act": n, "scene": rel, "lines": [x["line"] for x in rows], "sections": sorted({x["section"] for x in rows}),
                     "t0": round(t0, 2), "t1": round(t1, 2), "timing": sb.get("timing", "estimate"),
                     "hash": prev_hash if keep else _hash(text)})
-    L.save(state_p, {"generated_by": GEN, "look": look, "acts": out})
+    L.save(state_p, {"generated_by": GEN, "look": look, "acts": out} if not p["lang"] else
+           {"generated_by": GEN, "lang": p["lang"], "look": look, "acts": out})
     root = p["proj"] / "scene.py"
     if root.exists() and ROOT_MARK not in root.read_text():
         r.warn("scene.py at the project root was not written by scenegen; left as it is. "

@@ -38,6 +38,9 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/prep_footage.py` | Cuts, scales and grades archive film clips into frames for the `Footage` item |
 | `scripts/scenegen.py` | Writes an editable `scene.py` starter per act from the storyboard and the visuals |
 | `scripts/scenekit.py` | Layout and camera helpers the starters use (and hand-written scenes can) |
+| `scripts/editions.py` | Language editions of one production (`editions/<lang>/`, English the default); isolation checks |
+| `scripts/beats.py` | The language-neutral beats every edition tells, built from the source edition's narration |
+| `scripts/lang/` | Language plugins (English, Hindi): writing systems, pace, spoken text, timing |
 
 Needs Python 3.9+, `pip install skia-python numpy pillow` (scipy optional) and ffmpeg. Run `scripts/check_setup.py` first; on Linux or Windows, also run `scripts/get_fonts.py` per project. All commands take `--project <folder>`.
 
@@ -84,7 +87,7 @@ Stop for the user's approval at the four gates (marked **Gate**).
 
 ## Long documentaries
 
-For a documentary of 5 minutes or more, run steps 1 to 2 through `scripts/docpipe.py`: every fact goes into a research store with its sources, the outline is sized to the length, every narration line must cite the claims it states, and a storyboard comes out with timestamps, camera moves and the list of images to find. Then `visuals` finds and licenses an image or clip for every scene (a designed card where none is usable) and `scenegen` writes an editable `scene.py` per act. Each stage keeps its own folder and the pipeline resumes where it stopped. Read `references/pipeline.md`. Then carry on from step 4 (scratch voice), and edit the generated scene at step 6.
+For a documentary of 5 minutes or more, run steps 1 to 2 through `scripts/docpipe.py`: every fact goes into a research store with its sources, the outline is sized to the length, every narration line must cite the claims it states, and a storyboard comes out with timestamps, camera moves and the list of images to find. Then `visuals` finds and licenses an image or clip for every scene (a designed card where none is usable) and `scenegen` writes an editable `scene.py` per act. Each stage keeps its own folder and the pipeline resumes where it stopped. To make the same documentary in more than one language (English by default, Hindi as well), start it with `--editions en,hi`: the research, beats and images are shared, and each language gets its own script, voice and outputs. Read `references/pipeline.md`. Then carry on from step 4 (scratch voice), and edit the generated scene at step 6.
 
 ## Self-review, every time
 
