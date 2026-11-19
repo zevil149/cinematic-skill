@@ -93,6 +93,8 @@ On light looks, use dark type and `BigText(grunge=False, shadow=False)` for a cl
 
 Font roles are `cond` (labels, numbers, stamps), `label` and `labelm` (map labels, captions), `serif` (documents), `mono` (typewriter), `hand` (handwriting). Each falls back through common fonts. Put a file at `fonts/<role>.ttf` in the project to force one, for example Oswald Bold (OFL) as `cond` on Linux. `check_setup.py` prints what each role resolves to, and `get_fonts.py` fetches Bebas Neue (condensed) and Homemade Apple (handwriting) for any role that would fall back to the system default.
 
+Hindi (Devanagari) text works in every item that draws text (`BigText`, `Card`, `Stamp`, labels, pins, captions): it is shaped by HarfBuzz (`uharfbuzz`) and drawn in the bundled Noto Sans Devanagari (SIL OFL, `assets/fonts/`), with each role's weight (the condensed role uses the font's narrow width). Vowel signs, conjuncts, half forms, reph and nukta come out right; a Latin term inside a Hindi line keeps the role's usual font. Put `fonts/deva.ttf` in a project to use another Devanagari font. English text never takes this path.
+
 Colour on dark looks: white or cream type. Dark ink goes only on paper, cards or a full yellow block (`bar_h=0.92`).
 
 Pick one accent per film and keep it for the things that matter. In the documentary kit that is yellow for highlights and dates and red for verdicts and names; teal is water, and RUST then MUSTARD marks map regions (active, then visited). A brand film uses its own brand colour as the accent.

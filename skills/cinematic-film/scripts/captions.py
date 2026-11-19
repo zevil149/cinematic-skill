@@ -14,6 +14,7 @@ import re
 import numpy as np
 import skia
 
+import textshape
 from engine import HILITE, Res, ease_out_cubic, paint, ramp, text_width, draw_text
 
 MAX_WORDS = {"highlighter": 6, "clean": 9, "paper": 8, "redbar": 5}
@@ -25,6 +26,9 @@ def words_with_times(seg):
     lens = []
     for w in disp:
         letters = len(re.sub(r"[^A-Za-z]", "", w))
+        if not letters and textshape.needs_shaping(w):       # Hindi: by syllables
+            from lang.hi import aksharas
+            letters = 2 * aksharas(w)
         if re.search(r"\d", w):                      # 1929 is long when spoken ("nineteen twenty-nine")
             letters = max(letters, 6 * len(re.sub(r"[^0-9]", "", w)) // 2 + 4)
         lens.append(max(1, letters))
@@ -124,7 +128,10 @@ class Captions:
             y = y0 + i * size * 1.25
             cv.save(); cv.translate(0, 3 * k)
             tw = text_width(self.res, ln, size, f)
-            cv.drawString(ln, self.W / 2 - tw / 2, y, self.res.font(f, size), paint((0, 0, 0), 0.85 * a, blur=6 * k))
+            if textshape.needs_shaping(ln):
+                textshape.shape(self.res, ln, size, f).draw(cv, self.W / 2 - tw / 2, y, paint((0, 0, 0), 0.85 * a, blur=6 * k))
+            else:
+                cv.drawString(ln, self.W / 2 - tw / 2, y, self.res.font(f, size), paint((0, 0, 0), 0.85 * a, blur=6 * k))
             cv.restore()
             draw_text(cv, self.res, ln, self.W / 2, y, size, f, (252, 250, 245), a, 0.0, "center")
 

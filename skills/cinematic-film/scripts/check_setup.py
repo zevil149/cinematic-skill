@@ -60,6 +60,15 @@ if "skia" in mods:
     if any(resolve_typeface(r)[1].startswith("system default") for r in FONT_ROLES):
         print("     -> run get_fonts.py --project <folder> to fetch open-licensed replacements")
 
+try:                                     # Hindi (Devanagari) text: HarfBuzz shaping and the bundled font
+    import uharfbuzz  # noqa: F401
+    sys.path.insert(0, str(HERE))
+    import textshape
+    fp = textshape.font_path()
+    line("ok" if fp else "--", "Hindi text: uharfbuzz and " + (f"{fp.name}" if fp else "no Devanagari font"))
+except Exception:
+    line("--", "Hindi text: uharfbuzz not installed (only needed for Hindi editions)", "pip install uharfbuzz")
+
 voice = "say" if shutil.which("say") else "espeak-ng" if shutil.which("espeak-ng") else None
 line("ok" if voice else "--", f"scratch voice: {voice}" if voice else "no local voice for scratch tracks",
      "" if voice else "optional: apt install espeak-ng, or use any TTS and save takes as WAV")

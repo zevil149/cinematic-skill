@@ -28,6 +28,8 @@ import numpy as np
 import skia
 from PIL import Image, ImageFilter
 
+import textshape
+
 # ---------------------------------------------------------------- palette
 TEAL = (112, 178, 182)
 RUST = (186, 86, 52)
@@ -302,7 +304,13 @@ def paint(rgb=(0, 0, 0), a=1.0, stroke=None, blur=None, aa=True):
 
 
 def draw_text(c, res, text, x, y, size, font="serif", rgb=CREAM, a=1.0, track=0.0, align="left", reveal=None):
-    """Draw text with letter tracking (em fraction). reveal=n draws only the first n characters."""
+    """Draw text with letter tracking (em fraction). reveal=n draws only the first n characters.
+    Devanagari (Hindi) is shaped by HarfBuzz (textshape.py); every other string is drawn as always."""
+    if textshape.needs_shaping(text):
+        sh = textshape.shape(res, text, size, font, track)
+        x0 = x - sh.width / 2 if align == "center" else x - sh.width if align == "right" else x
+        sh.draw(c, x0, y, paint(rgb, a), reveal)
+        return sh.width
     f = res.font(font, size)
     widths = f.getWidths(f.textToGlyphs(text))
     gap = track * size
@@ -320,6 +328,8 @@ def draw_text(c, res, text, x, y, size, font="serif", rgb=CREAM, a=1.0, track=0.
 
 
 def text_width(res, text, size, font="serif", track=0.0):
+    if textshape.needs_shaping(text):
+        return textshape.shape(res, text, size, font, track).width
     f = res.font(font, size)
     return sum(f.getWidths(f.textToGlyphs(text))) + track * size * (len(text) - 1)
 
