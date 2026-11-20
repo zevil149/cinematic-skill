@@ -27,7 +27,7 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/render.py` | Stills, contact strips, the cue list, and the parallel MP4 render |
 | `scripts/build_sfx.py` | Synthesises every sound effect from the cue list (no samples, nothing to license) |
 | `scripts/mix_soundtrack.py` | Voice, effects and optional music, ducked and loudness-normalised |
-| `scripts/burn_captions.py` | Burns one of four caption styles into the finished film and writes an SRT |
+| `scripts/burn_captions.py` | Burns one of four caption styles into the finished film (word-level when the voice timed the words) and writes an SRT |
 | `scripts/docpipe.py` | The documentary pipeline: stages in their own folders, checks, approval gates, resume |
 | `scripts/research.py` | Sources and claims for a documentary; flags weak, single-source and unsupported claims |
 | `scripts/outline.py` | Sizes a 5, 10, 20 or 30 minute outline and checks its budget and chronology |
@@ -46,6 +46,8 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/narrate.py` | An edition's `audio/narration.m4a` and `audio/timing.json` (with word times) from its voice segments; re-times the storyboard and scenes |
 | `scripts/audiolib.py` | The production's music and sound library: your files with source, licence, attribution and clearance; nothing uncleared is used |
 | `scripts/cuesheet.py` | An edition's music and effects cue sheet on its own timing, and its checked -15 LUFS mix |
+| `scripts/subtitles.py` | An edition's SRT and WebVTT subtitles from its timing: reading speed, line breaks, no overlaps, each cue marked voice-timed or estimated |
+| `scripts/wordtimes.py` | Word times for captions and subtitles: displayed words matched to the voice's timed words, labelled actual or estimated |
 
 Needs Python 3.9+, `pip install skia-python numpy pillow` (scipy optional) and ffmpeg. Run `scripts/check_setup.py` first; on Linux or Windows, also run `scripts/get_fonts.py` per project. All commands take `--project <folder>`.
 

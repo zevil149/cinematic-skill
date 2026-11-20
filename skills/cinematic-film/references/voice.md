@@ -102,6 +102,18 @@ python3 scripts/narrate.py --project my-doc/editions/en --target 600   # fit to 
 - **What it joins.** Each line's manual recording if there is one, else its segment (yours when you edited it), in script order. Silence is trimmed off both ends of every line, and the pacing is set here: a 0.9 s lead, each line's `gap_after` (0.45 s, 1.0 s after a take, or what the script says) and a 3 s tail. The track is `audio/narration.m4a` at -16 LUFS. Segments, manual files and edited files are only read.
 - **`audio/timing.json`** is the film's clock as before (per line `id`, `caption`, `vo`, `start`, `end`, `duration`), plus `"lang"` and per-line `"words"`: `[{"w", "start", "end"}]` in film seconds. Words come from the voice where it timed them (ElevenLabs, the mock: `"words_from": "voice"`), else from the language's own timing rules (`"estimate"`: espeak, Sarvam, manual and edited lines). `"audio"` says whether a line is the voice, yours (`edited`) or your recording (`manual`).
 - **The camera lands on the word.** `doc.W(line, "word")` uses the word's own start when the line has word times, so `scenekit` starters and your scenes hit the key word. A timing file without words (from `build_narration.py`) works exactly as before.
+
+### Word times in captions and subtitles: actual or estimated
+
+Every word time says where it came from, and nothing estimated is presented as the voice's own alignment:
+
+| Label | Means | Comes from |
+| --- | --- | --- |
+| `voice` | the voice's own time for this word | ElevenLabs character timestamps (and the test mock) |
+| `voice-approx` | a word shown differently from how it is read (`1903` read as "nineteen oh three", `NASA` read as `नासा`), placed across the voice's times for the words it is read as | the voice, matched to the displayed text |
+| `estimate` | placed by the language's timing rules (letters for English, syllables for Hindi) | espeak, Sarvam (no word timestamps), manual recordings, edited segments, and timing files without words |
+
+`timing.json` keeps `words_from` per line (`voice` or `estimate`). `wordtimes.py` matches the displayed words of each line to its timed spoken words (sentence and clause punctuation, Devanagari danda and mixed Hindi and English text included); captions (`burn_captions.py`) and subtitles (`subtitles.py`, `references/pipeline.md`) use the result. The highlighter caption swipes word by word only on `voice` lines by default (`--highlight all` swipes estimated lines too, `--highlight none` never); other lines show whole. A timing file without words keeps the earlier letter-share timing and highlighting exactly.
 - **Re-timed scenes.** Afterwards the storyboard is built again on the voice's times (`"timing": "voice"`) and, if `scenegen.py` has run, the scene starters too; a scene you edited is kept (`--no-retime` skips this step).
 - **Resume.** Built parts are cached in `audio/voice/build/`; a run with the same audio, script, pacing and tempo changes nothing, and one changed line makes one new part.
 - **Nothing is bought here.** A missing, invalid or stale line stops the build with a pointer to `voice.py synth`, which keeps its spend guard; `narrate.py` never calls a provider.

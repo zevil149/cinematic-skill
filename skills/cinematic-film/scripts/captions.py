@@ -1,7 +1,12 @@
 """Burned-in caption styles, chunked from the voiceover timing. Used by burn_captions.py.
 
 Captions are drawn in screen space on their own layer after the film finish, so they stay crisp.
-Word times come from each line's letter share (the same estimate the scene uses for hits).
+Word times come from timing.json: when narrate.py recorded the line's words, each displayed word is
+matched to the spoken words ("voice" when the voice timed it, "voice-approx" for a word read as
+several, such as a year, "estimate" when the times are the language's estimate). A timing file
+without words falls back to each line's letter share (the same estimate the scene uses for hits).
+The highlighter swipes word by word only where the voice timed the words (or, as before, on a
+timing file without words); highlight="all" or "none" overrides that.
 
 Styles:
   highlighter  condensed caps on a dark band, the current word swiped in yellow (grunge newsprint)
@@ -16,27 +21,9 @@ import skia
 
 import textshape
 from engine import HILITE, Res, ease_out_cubic, paint, ramp, text_width, draw_text
+from wordtimes import norm, timed_words, timing_of, words_with_times  # noqa: F401
 
 MAX_WORDS = {"highlighter": 6, "clean": 9, "paper": 8, "redbar": 5}
-
-
-def words_with_times(seg):
-    """[(word as displayed, start time)] for one line: display text, spoken-text timing."""
-    disp = seg["caption"].replace('"', "").split()
-    lens = []
-    for w in disp:
-        letters = len(re.sub(r"[^A-Za-z]", "", w))
-        if not letters and textshape.needs_shaping(w):       # Hindi: by syllables
-            from lang.hi import aksharas
-            letters = 2 * aksharas(w)
-        if re.search(r"\d", w):                      # 1929 is long when spoken ("nineteen twenty-nine")
-            letters = max(letters, 6 * len(re.sub(r"[^0-9]", "", w)) // 2 + 4)
-        lens.append(max(1, letters))
-    s = sum(lens); acc = 0; out = []
-    dur = seg["end"] - seg["start"]
-    for w, l in zip(disp, lens):
-        out.append((w, seg["start"] + dur * acc / s)); acc += l
-    return out
 
 
 def chunks_for(timing, style):
@@ -53,13 +40,16 @@ def chunks_for(timing, style):
         for a, b in zip(line, line[1:]):
             a["t1"] = b["t0"]
         line[-1]["t1"] = seg["end"] + 0.25
+        for ch in line:
+            ch["timing"] = timing_of(seg)
         out += line
     return out
 
 
 class Captions:
-    def __init__(self, style, width, height, timing, fonts_dir=None):
+    def __init__(self, style, width, height, timing, fonts_dir=None, highlight="auto"):
         self.style, self.W, self.H = style, width, height
+        self.highlight = highlight
         self.k = width / 1920.0
         self.res = Res(width / 3840.0, None, fonts_dir)
         self.chunks = chunks_for(timing, style)
@@ -81,6 +71,11 @@ class Captions:
             getattr(self, "_" + self.style)(cv, c, t)
         return self.surface.makeImageSnapshot().toarray(colorType=skia.ColorType.kRGBA_8888_ColorType)
 
+    def word_highlight(self, c):
+        if self.highlight in ("all", "none"):
+            return self.highlight == "all"
+        return c.get("timing", "legacy") in ("voice", "legacy")
+
     def _text(self, c, upper=False):
         txt = " ".join(w for w, _ in c["words"])
         return txt.upper() if upper else txt
@@ -94,6 +89,8 @@ class Captions:
         x = self.W / 2 - total / 2
         a = ramp(t, c["t0"] - 0.05, 0.12)
         cur = max(i for i, (_, wt) in enumerate(c["words"]) if wt <= t + 0.02) if t >= c["words"][0][1] else 0
+        if not self.word_highlight(c):
+            cur = -1                             # word times are only estimated: the line is shown whole
         pad = 26 * k
         cv.drawRoundRect(skia.Rect.MakeXYWH(x - pad, y - size * 0.95, total + 2 * pad, size * 1.25), 6 * k, 6 * k, paint((10, 9, 8), 0.62 * a))
         for i, (w, wd) in enumerate(zip(words, widths)):
@@ -101,6 +98,8 @@ class Captions:
                 # white word underneath; the yellow swipe reveals it in black only where the swipe has reached
                 u = ease_out_cubic(ramp(t, c["words"][i][1], 0.12))
                 box = skia.Rect.MakeXYWH(x - 10 * k, y - size * 0.78, (wd + 20 * k) * u, size * 0.92)
+                if textshape.needs_shaping(w):    # Devanagari marks rise above the headline: a taller swipe
+                    box = skia.Rect.MakeXYWH(x - 10 * k, y - size * 1.0, (wd + 20 * k) * u, size * 1.2)
                 draw_text(cv, self.res, w, x, y, size, f, (250, 247, 240), a, 0.03)
                 cv.drawRect(box, paint(HILITE, 0.95 * a))
                 cv.save(); cv.clipRect(box)

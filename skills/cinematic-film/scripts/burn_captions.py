@@ -8,7 +8,8 @@ N workers each decode a time slice of the video, composite the caption layer ont
 quarter of each frame and encode; the slices are joined losslessly and the audio is muxed.
 Captions sit in the bottom 26% of the frame: keep big on-screen numbers out of that band.
 Styles: highlighter, clean, paper, redbar (see captions.py). The SRT uses sentence-sized chunks
-for players (upload it to YouTube with the clean, caption-free render).
+for players (upload it to YouTube with the clean, caption-free render). For language editions,
+subtitles.py writes SRT and WebVTT per edition with reading-speed and overlap rules.
 """
 import argparse
 import json
@@ -37,10 +38,10 @@ def probe(video):
 
 
 def worker(args):
-    video, style, f0, f1, fps, w, h, out, crf, timing, fonts = args
+    video, style, f0, f1, fps, w, h, out, crf, timing, fonts, highlight = args
     import numpy as np
     from captions import Captions
-    cap = Captions(style, w, h, timing, fonts)
+    cap = Captions(style, w, h, timing, fonts, highlight)
     y0 = int(h * 0.74)
     dec = subprocess.Popen(["ffmpeg", "-v", "error", "-ss", f"{f0 / fps:.4f}", "-i", str(video), "-frames:v", str(f1 - f0),
                             "-f", "rawvideo", "-pix_fmt", "rgb24", "-"], stdout=subprocess.PIPE)
@@ -88,6 +89,8 @@ def main():
     ap.add_argument("--workers", type=int, default=max(1, min(6, (os.cpu_count() or 4) - 1)))
     ap.add_argument("--crf", type=int, default=18)
     ap.add_argument("--srt-only", action="store_true")
+    ap.add_argument("--highlight", default="auto", choices=["auto", "all", "none"],
+                    help="word swipe: auto = where the voice timed the words (and timing files without words)")
     a = ap.parse_args()
     proj = pathlib.Path(a.project).resolve()
     rel = lambda p: p if pathlib.Path(p).is_absolute() else proj / p
@@ -105,7 +108,7 @@ def main():
     k = a.workers
     b = [nb * i // k for i in range(k + 1)]
     fonts = str(proj / "fonts")
-    jobs = [(str(video), a.style, b[i], b[i + 1], fps, w, h, work / f"b{i:02d}.mp4", a.crf, timing, fonts) for i in range(k)]
+    jobs = [(str(video), a.style, b[i], b[i + 1], fps, w, h, work / f"b{i:02d}.mp4", a.crf, timing, fonts, a.highlight) for i in range(k)]
     t0 = time.time()
     with mp.get_context("spawn").Pool(k) as pool:
         for f0, f1, dt in pool.imap_unordered(worker, jobs):

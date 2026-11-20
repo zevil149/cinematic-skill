@@ -26,6 +26,7 @@ A project without editions is a single English edition at its root, exactly as b
 import argparse
 import os
 import pathlib
+import re
 import shutil
 import sys
 
@@ -132,7 +133,8 @@ def check(root, code, r=None):
     for name, path in (("narration.json", ed / "03_script" / "narration.json"), ("script.json", ed / "script.json"),
                        ("timing.json", ed / "audio" / "timing.json"), ("voice.json", ed / "voice.json"),
                        ("audio/voice/manifest.json", ed / "audio" / "voice" / "manifest.json"),
-                       ("audio/cues.json", ed / "audio" / "cues.json"), ("audio/mix_report.json", ed / "audio" / "mix_report.json")):
+                       ("audio/cues.json", ed / "audio" / "cues.json"), ("audio/mix_report.json", ed / "audio" / "mix_report.json"),
+                       ("audio/subs.json", ed / "audio" / "subs.json")):
         if path.exists():
             tag = L.load(path).get("lang")
             if tag and tag != code:
@@ -148,6 +150,17 @@ def check(root, code, r=None):
         for prob in lg.check_script(spoken):
             r.error(f"edition {code} lexicon: {term!r} is spoken as {spoken!r}, which {prob.split(' ', 1)[1]}")
     allow = allowed_words(ed)
+    for f in sorted((ed / "out").glob("subtitles.*")):
+        parts = f.name.split(".")
+        if len(parts) < 3 or parts[-1] not in ("srt", "vtt"):
+            continue
+        if parts[1] != code:
+            r.error(f"edition {code}: out/{f.name} is named for {parts[1]!r}; it belongs to another edition")
+            continue
+        text = [ln for ln in f.read_text(encoding="utf-8", errors="replace").splitlines()
+                if ln.strip() and "-->" not in ln and not ln.strip().isdigit() and not re.match(r"^(WEBVTT|NOTE|Language:|L\d+-\d+$)", ln.strip())]
+        for prob in lg.check_script(" ".join(text), allow)[:3]:
+            r.error(f"edition {code} out/{f.name}: {prob}")
     n = L.load(ed / "03_script" / "narration.json", {})
     for s in n.get("sections", []):
         for line in s.get("lines", []):
