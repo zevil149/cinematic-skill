@@ -52,6 +52,7 @@ import lang  # noqa: E402
 import voices as V  # noqa: E402
 
 DEFAULT_CAP = 5.0
+DEFAULT_BUDGET = 25.0          # the most a production spends on paid voices across all its runs and editions
 MIN_SECONDS, MIN_RMS, CLIP_PEAK = 0.05, 0.002, 0.99
 
 
@@ -226,6 +227,8 @@ def plan(proj, r=None):
            f"; {len(todo)} to make, {chars} characters" + (f", about {prov.describe_cost(info['cost'])}" if prov.paid else " (free)"))
     if prov.paid:
         r.note(f"spent so far in the {p['code']} edition: ${spent(p):.2f} over {len(L.load(p['spend'], {}).get('requests', []))} request(s)")
+        budget, total = production_budget(p)
+        r.note(f"the production has spent ${total:.2f} of its ${budget:.2f} voice budget (00_topic/topic.json voice_budget_usd)")
     return r, info
 
 
@@ -244,6 +247,20 @@ def review(proj, by, note=""):
     print(f"review of the {p['code']} script recorded: {by}")
 
 
+def production_budget(p):
+    """(budget in USD, what the production has spent so far: every edition's spend log, failed
+    requests that may have been billed included). The budget is 00_topic/topic.json
+    "voice_budget_usd" (default DEFAULT_BUDGET)."""
+    import editions as E
+    root = pathlib.Path(p["root"])
+    topic = L.load(L.paths(root)["topic"], {})
+    budget = float(topic.get("voice_budget_usd", DEFAULT_BUDGET))
+    eds = [E.edition_dir(root, c) for c in E.editions_of(root)] or [root]
+    total = sum(float(x.get("usd") or 0) for ed in eds
+                for x in L.load(ed / "audio" / "voice" / "spend.json", {}).get("requests", []))
+    return budget, total
+
+
 def spend_guard(p, info, max_cost, confirm, r):
     prov = info["provider"]
     if not prov.paid or not info["todo"]:
@@ -258,6 +275,11 @@ def spend_guard(p, info, max_cost, confirm, r):
     if cost > max_cost:
         r.error(f"estimated {prov.describe_cost(cost)} for {info['chars']} characters is over the cap of ${max_cost:.2f}; "
                 f"make fewer lines (--only) or raise --max-cost"); return False
+    budget, total = production_budget(p)
+    if total + cost > budget:
+        r.error(f"this would bring the production's paid voice spending to ${total + cost:.2f} (${total:.2f} so far, "
+                f"failed requests that may have been billed included), over its budget of ${budget:.2f}; raise "
+                f"\"voice_budget_usd\" in 00_topic/topic.json if you mean to (nothing was sent)"); return False
     if not confirm:
         r.error(f"{prov.name} is a paid provider: {info['chars']} characters, about {prov.describe_cost(cost)}. "
                 f"Run again with --confirm-cost to spend it"); return False
@@ -273,12 +295,15 @@ def spent(p):
     return sum(float(x.get("usd") or 0) for x in L.load(p["spend"], {}).get("requests", []))
 
 
-def record_spend(p, prov, chars, cost, what):
+def record_spend(p, prov, chars, cost, what, status="ok"):
     """One line per paid request, in this edition only. Only these named fields are written, so
-    nothing from a request (headers, keys) can reach the file."""
+    nothing from a request (headers, keys) can reach the file. status "failed, may be billed": a
+    request that gave no result but may have been charged; it counts against the budget."""
     log = L.load(p["spend"], {"lang": p["code"], "requests": []})
     row = {"at": datetime.datetime.now().isoformat(timespec="seconds"), "provider": prov.name,
            "model": prov.config.get("model", ""), "chars": chars, "usd": cost, "what": what}
+    if status != "ok":
+        row["status"] = status
     last = getattr(prov, "last", None) or {}
     for k in ("request_id", "billed_chars", "inr"):
         if last.get(k) not in (None, ""):
@@ -354,7 +379,11 @@ def synth(proj, only=None, force=False, max_cost=DEFAULT_CAP, confirm=False, pro
                                       context=None)
                 cuts = V.split_takes_by_words([(l["line"], l["spoken"]) for l in lines], res.words or [])
             except V.ProviderError as e:
-                r.error(f"{take}: {e}"); continue
+                r.error(f"{take}: {e}")
+                if prov.paid and e.maybe_billed:
+                    record_spend(p, prov, len(info["texts"][take]), prov.estimate_cost(len(info["texts"][take])), take,
+                                 "failed, may be billed")
+                continue
             if prov.paid:
                 record_spend(p, prov, len(info["texts"][take]), prov.estimate_cost(len(info["texts"][take])), take)
             k = 0
@@ -385,7 +414,11 @@ def synth(proj, only=None, force=False, max_cost=DEFAULT_CAP, confirm=False, pro
             try:
                 res = prov.synthesize(x["spoken"], tmp, p["code"], cfg.get("voice", ""), cfg.get("settings"), context=ctx)
             except V.ProviderError as e:
-                r.error(f"line {x['line']}: {e}"); tmp.unlink(missing_ok=True); continue
+                r.error(f"line {x['line']}: {e}"); tmp.unlink(missing_ok=True)
+                if prov.paid and e.maybe_billed:
+                    record_spend(p, prov, len(x["spoken"]), prov.estimate_cost(len(x["spoken"])), f"line {x['line']}",
+                                 "failed, may be billed")
+                continue
             if prov.paid:
                 record_spend(p, prov, len(x["spoken"]), prov.estimate_cost(len(x["spoken"])), f"line {x['line']}")
             tmp.replace(f)
@@ -450,7 +483,11 @@ def audition(proj, lines=8, max_cost=DEFAULT_CAP, confirm=False, again=False, pr
         try:
             res = prov.synthesize(l["spoken"], f, p["code"], cfg.get("voice", ""), cfg.get("settings"), context=ctx)
         except V.ProviderError as e:
-            r.error(f"audition line {l['line']}: {e}"); continue
+            r.error(f"audition line {l['line']}: {e}")
+            if prov.paid and e.maybe_billed:
+                record_spend(p, prov, len(l["spoken"]), prov.estimate_cost(len(l["spoken"])), f"audition line {l['line']}",
+                             "failed, may be billed")
+            continue
         if prov.paid:
             c = prov.estimate_cost(len(l["spoken"])); usd += c
             record_spend(p, prov, len(l["spoken"]), c, f"audition line {l['line']}")
