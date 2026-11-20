@@ -30,6 +30,7 @@ LPS = 14.5          # letters per second of speech
 GAP = 0.45          # silence after a line
 TAKE_GAP = 1.0      # silence after the last line of a take
 LEAD, TAIL = 0.9, 3.0
+ACT_GAP = 2.5       # held silence before each act after the first, in a film of several acts (its title card)
 WPS = 2.5           # words per second, about 150 a minute, for budgets
 WORDS_PER_LINE = 12
 MAX_LINE_WORDS = 22
@@ -107,6 +108,26 @@ def paths(proj):
         "lexicon": proj / "lexicon.json",
         "timing": proj / "audio" / "timing.json",
     }
+
+
+def section_acts(outline):
+    """{section id: act} with the opening counted in act 1, as scenegen lays the acts out."""
+    return {s["id"]: max(1, int(s.get("act", 1) or 1)) for s in (outline or {}).get("sections", [])}
+
+
+def act_starts(outline, section_of_line):
+    """Line ids that open an act after the first, when the film has more than one act; else none.
+    section_of_line: [(line id, section id)] in story order."""
+    acts = section_acts(outline)
+    if len(set(acts.values())) < 2:
+        return set()
+    out, prev = set(), None
+    for lid, sid in section_of_line:
+        a = acts.get(sid, prev or 1)
+        if prev is not None and a != prev:
+            out.add(lid)
+        prev = a
+    return out
 
 
 def hash_files(files):

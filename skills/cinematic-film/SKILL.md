@@ -36,6 +36,8 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/visuals.py` | Finds, licenses and fetches every storyboard image or clip across archives; designed cards for gaps |
 | `scripts/archives.py` | The archives behind visuals.py (Commons, Library of Congress, Openverse, Smithsonian, Europeana) and the licence rules |
 | `scripts/prep_footage.py` | Cuts, scales and grades archive film clips into frames for the `Footage` item |
+| `scripts/prepare.py` | The pipeline's assets stage: textures, graded photos, footage frames and maps, resumable, your edits kept |
+| `scripts/review.py` | The look review per edition and act: stills at the key words, strips of the moves, a contact sheet, flags and a checklist |
 | `scripts/scenegen.py` | Writes an editable `scene.py` starter per act from the storyboard and the visuals |
 | `scripts/scenekit.py` | Layout and camera helpers the starters use (and hand-written scenes can) |
 | `scripts/editions.py` | Language editions of one production (`editions/<lang>/`, English the default); isolation checks |

@@ -64,6 +64,22 @@ def build(root, source=None, log=print):
             b["typed"][source] = (b["typed"].get(source, "") + " · " if b["typed"].get(source) else "") + l["typed"]
         for im in l.get("images", []):
             b["images"].append(dict(im))
+        if l.get("place") and "place" not in b:             # explicit: the place this beat is at, on a map.json map
+            b["place"] = l["place"]
+            if l.get("map"):
+                b["map"] = l["map"]
+    # explicit links between beats (a line's "links": the ids of the lines it is tied to), never inferred
+    line_beat = {l["id"]: beat_of(l) for _, l in lines}
+    for _, l in lines:
+        for target in l.get("links") or []:
+            tb = line_beat.get(target)
+            if tb is None:
+                r.warn(f"line {l['id']}: links to line {target!r}, which is not in the {source} script; ignored")
+            elif tb != beat_of(l) and tb not in beats[beat_of(l)].setdefault("links", []):
+                beats[beat_of(l)]["links"].append(tb)
+    for b in beats.values():
+        if not b.get("links"):
+            b.pop("links", None)
     needs, k = [], 0
     for bid in order:
         b = beats[bid]

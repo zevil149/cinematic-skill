@@ -126,9 +126,18 @@ def lines_of(p, r):
     for t in s.get("takes", []):
         for k, l in enumerate(t["lines"]):
             last = k == len(t["lines"]) - 1
-            out.append({"id": l["id"], "take": t["take"], "caption": l.get("text", ""),
+            out.append({"id": l["id"], "take": t["take"], "section": t.get("section", t["take"]), "caption": l.get("text", ""),
                         "vo": (l.get("spoken") or l.get("text", "")).strip(),
                         "gap_after": float(l.get("gap_after", L.TAKE_GAP if last else L.GAP))})
+    # a film of several acts holds a silence before each act after the first: its title card
+    starts = L.act_starts(L.load(p["outline"], {}) if p["outline"].exists() else {}, [(x["id"], x["section"]) for x in out])
+    if starts:
+        acts = L.section_acts(L.load(p["outline"]))
+        for prev, x in zip(out, out[1:]):
+            if x["id"] in starts:
+                prev["gap_after"] = max(prev["gap_after"], L.ACT_GAP)
+        for x in out:
+            x["act"] = acts.get(x["section"], 1)
     return out
 
 
@@ -189,7 +198,8 @@ def build(proj, target=0.0, lead=L.LEAD, tail=L.TAIL, force=False, retime=True, 
                 f"{fixed:.1f}s of pauses): make the script shorter or longer instead"); return r
     key = sha(json.dumps({"lang": code, "lead": lead, "tail": tail, "tempo": round(tempo, 6), "rate": RATE,
                           "lines": [(x["id"], x["file_sha"], x["t0"], x["t1"], x["gap_after"], x["vo"], x["caption"],
-                                     x["words"] is not None) for x in plan_rows]}, ensure_ascii=False))
+                                     x["words"] is not None) + ((x["act"],) if "act" in x else ()) for x in plan_rows]},
+                         ensure_ascii=False))
     mine = owned(p, timing_p, track)
     if mine and old.get("build_hash") == key:
         r.note(f"{code} narration is up to date ({old.get('total_duration')}s, {len(plan_rows)} lines); nothing rebuilt")
@@ -229,10 +239,13 @@ def build(proj, target=0.0, lead=L.LEAD, tail=L.TAIL, force=False, retime=True, 
             ws, src = estimate_words(lg, x["vo"], raw), "estimate"
         k = d / raw if raw > 0 else 1.0
         words = [{"w": w["w"], "start": round(cursor + w["start"] * k, 3), "end": round(cursor + w["end"] * k, 3)} for w in ws]
-        timeline.append({"id": x["id"], "scene": x["take"], "caption": x["caption"], "vo": x["vo"],
+        seg_ = {"id": x["id"], "scene": x["take"], "caption": x["caption"], "vo": x["vo"],
                          "start": round(cursor, 3), "end": round(cursor + d, 3), "duration": round(d, 3),
                          "words": words, "words_from": src,
-                         "audio": "manual" if x["state"] == "manual" else "edited" if x["state"] == "edited" else "voice"})
+                         "audio": "manual" if x["state"] == "manual" else "edited" if x["state"] == "edited" else "voice"}
+        if "act" in x:
+            seg_["act"] = x["act"]
+        timeline.append(seg_)
         parts.append(part)
         cursor += d
         if i < len(plan_rows) - 1:

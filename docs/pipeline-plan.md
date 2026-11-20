@@ -83,6 +83,18 @@ Approved decisions: ElevenLabs and Sarvam adapters plus espeak and command provi
 
 What remains: probes and strips per act as a `review` stage, smarter layouts (maps and strings between clusters from the storyboard), and title cards between acts.
 
+Approved milestones (one at a time, each approved before the next; branch `claude/film-assembly-phase-4`, draft PR #5 on PR #4):
+
+| Milestone | Scope | State |
+|---|---|---|
+| 4.1 | `assets` stage: textures, graded photos, footage frames and map data (prep_assets, prep_footage, make_map), resumable, edits kept, map downloads only with `--download-maps` | done |
+| 4.2 | `review` per edition and act: probes at each line's key word, strips of every move, checklist; `look` gate per edition, not blocking the audio stages | done |
+| 4.3 | Title cards between acts of multi-act films, about 2.5 s of held silence at each act change; optional `act_titles`, localized per edition | done |
+| 4.4 | Strings between clusters from explicit links only | done |
+| 4.5 | Maps and routes from explicit `place` fields tied to `map.json`, localized labels | done |
+
+Approved decisions: new features switch on only when their data is present (multi-act films, `place`, `links`), so single-act films, the starter film and the English golden outputs stay unchanged; nothing geographic or linked is inferred from the narration; no new transitions, image-aware composition or camera styles in this phase.
+
 
 - `scene.py` starter generated from the storyboard: one cluster per section, items for each image and typed text, camera and spotlight keys on the key words, using the existing engine API. The agent then edits it, as the skill does today.
 - Per-act scenes for long films (decision B).

@@ -14,17 +14,22 @@ You (the agent) do the research and the writing. The tools scaffold the files, c
 | script | `03_script/` | `narration.py` | every line passes the fact check; `script.json` exported. **Gate** |
 | scenes | `04_scenes/` | `storyboard.py` | storyboard, camera moves and image list written |
 | visuals | `05_visuals/` | `visuals.py` | every image need has a licensed image or clip, or a designed card. **Gate** |
+| assets | `assets/prep/` | `prepare.py` | board textures, graded photos, footage frames and map data prepared for the engine |
 | scenegen | `06_film/` | `scenegen.py` | an editable `scene.py` per act, and a root `scene.py` that renders one |
 | voice | `audio/voice/` | `voice.py` | a segment for every line from `voice.json` (the free espeak scratch voice unless you chose another) |
 | narration | `audio/` | `narrate.py` | `narration.m4a` and `timing.json` with word times; storyboard and scene starters re-timed to the voice |
 | sound | `audio/` | `cuesheet.py`, `audiolib.py` | `cues.json` (a synthesised bed to start) and a `mix.m4a` that passed its loudness and clipping checks |
 | subtitles | `out/` | `subtitles.py` | `subtitles.<lang>.srt` and `.vtt`, each cue marked voice-timed or estimated |
+| review | `07_review/<lang>/` | `review.py` | a still at every line's key word, strips of the camera moves, a contact sheet, flags and a checklist per act. **Gate: look**, per edition |
+
+The `assets` stage (shared by every edition, at the production root) wraps `prep_assets.py`, `prep_footage.py` and `make_map.py`: photos are graded from `photos.json`, clips cut into frames from `footage.json`, and maps built from `map.json`, each only when its source changes. `assets/prep/prepared.json` records what it wrote; a prepared file you edited, or one made before this stage existed, is kept (`prepare.py --project my-doc --force` replaces it, keeping a `.bak`). Originals are only read. Map boundary data given as a URL is downloaded only with `docpipe.py run --download-maps` (public-domain data, cached in `assets/data/`), never `--offline`; a local file needs no network. A missing or unreadable image or clip, or a machine without numpy, Pillow or ffmpeg, leaves the stage `partial`: the film shows designed cards there and the next run tries again.
 
 `run` goes on from `scenegen` to the voice, the narration timing, the mix and the subtitles; `run --until scenegen` stops where earlier versions stopped. After that, carry on with the film tools as in SKILL.md: `prep_assets.py` and `prep_footage.py`, the look test on the generated scenes, `render.py --cues` and `build_sfx.py` for the effects track (the next `run` mixes `audio/sfx.wav` in), the render and the burned captions. Later phases add those as stages.
 
 - **Paid voices are never started by `run` alone.** A paid provider in `voice.json` stops the voice stage until you run `docpipe.py run --confirm-cost` (with `--max-cost`, $5 by default), and a Hindi paid voice also needs `voice.py review --by NAME`. The free espeak and command voices need neither.
 - **A failure stops the stages after it,** with the reason and, where it applies, the command that fixes it. Run again after fixing; finished stages are not redone.
 - **Your files are never replaced by a run.** A segment or recording you edited is used as it is; a `narration.m4a`, `timing.json`, `mix.m4a` or subtitle file you edited (or that another tool made) stops its stage with "it is yours". Replacing it is your decision: the stage's own tool with `--force`, which keeps a `.bak` (for example `subtitles.py --project my-doc --force`), then `run` again.
+- **The look review.** `review` is the last stage of each edition: `07_review/<lang>/act_NN/` holds a still at each line's key word (and the act's first and last frames), a strip of each camera move between sections and of the closing pull-back, `sheet.jpg` with every still, and `review.md`, the checklist (hero lit and readable, nothing cut by the frame edge, type never dark on dark, labels not colliding, no empty frame mid-move, the edition's own script on screen). Automated flags (blank, near-uniform, very dark) point at stills worth a second look; they never pass or fail the look. A person approves it: `docpipe.py approve --project my-doc look --lang hi`, once per edition. It comes after the audio stages, so waiting for a look never holds up a voice, a mix or the other edition; editing a scene, the timing or the assets lapses that edition's approval. Notes you write in `review.md` are kept (the next checklist goes to `review.latest.md`). `run --until subtitles` stops before it.
 - **Resume.** Each stage records a hash of the files it reads and writes. The run after a new voice re-checks the storyboard and scene starters once, because they now follow the voice; nothing is regenerated that did not change. A new voice never reopens the approved visuals: their gate counts the images asked for, not the storyboard's timing.
 
 ```bash
@@ -100,7 +105,7 @@ One production can be told in several languages. `docpipe.py new my-doc --topic 
 - **Beats** (`03_beats/beats.json`) are what every edition tells: one hero each, with its claims and images. `beats.py` builds them from the default edition's approved narration (a line is its own beat `B<id>` unless it names one). Every other edition starts from the beats: one line per beat, written in its own language, never copied. All editions share the same images and camera plan; each is timed by its own voice.
 - **Languages never mix.** An English line may not contain Devanagari, and a Hindi line may not contain Latin words unless its `lexicon.json` lists them under `"allow"` (technical terms such as `NASA`). Typed text and image card titles are per edition: a Hindi line gives its own typed text, and every image needs a Hindi card title (`"labels": {"hi": "..."}` in `beats.json`). Every edition file is tagged with its language, and a stage refuses a file from another edition.
 - **Gates are per edition:** `docpipe.py approve --project my-doc script --lang hi`. `run --lang hi` runs that edition, `--lang all` every edition; editing one edition never reopens another.
-- **The order with editions:** `topic`, `research`, `outline` [gate], `script@en` [gate], `beats`, `script@hi` [gate], `scenes@en`, `scenes@hi`, `visuals` [gate], `scenegen@en`, `scenegen@hi`, then for each edition `voice@<lang>`, `narration@<lang>`, `sound@<lang>`, `subtitles@<lang>`. Each edition's voice, timing, mix and subtitles stay in its folder and are tagged with its language. A typical two-language run:
+- **The order with editions:** `topic`, `research`, `outline` [gate], `script@en` [gate], `beats`, `script@hi` [gate], `scenes@en`, `scenes@hi`, `visuals` [gate], `assets` (shared), `scenegen@en`, `scenegen@hi`, then for each edition `voice@<lang>`, `narration@<lang>`, `sound@<lang>`, `subtitles@<lang>`, and last `review@<lang>` for each edition [gate: look]. Each edition's voice, timing, mix and subtitles stay in its folder and are tagged with its language. A typical two-language run:
 
   ```bash
   python3 scripts/docpipe.py run --project my-doc --lang all            # stops at each gate in turn
@@ -119,6 +124,32 @@ One production can be told in several languages. `docpipe.py new my-doc --topic 
 
 A project made without `--editions` is a single English edition at its root, exactly as before.
 
+## Strings between clusters
+
+Tie two moments of the story with a red string by saying so: a narration line's `"links": [3, 12]` names the lines it is tied to. Nothing is linked on its own: not by shared claims, people or words.
+
+- **Single-language:** the storyboard keeps each line's links (unknown lines and a line linked to itself are dropped with a warning).
+- **Editions:** write the links in the default edition's narration; `beats.py` turns them into links between beats, and every edition draws the same strings between the lines that tell those beats.
+- **On the board:** `scenegen.py` passes `links` into the scene table (only where there are links), and `scenekit.add_strings` pulls a red `StringLine` from the linked line's visual to the linking line's as the linking line is spoken. The strings stay, so the act's closing pull-back shows them together. A link to a line in another act is left out with a warning (each act is its own board). Edit `links` in an act's `LINES` like anything else.
+
+## Maps and routes
+
+A line that happens somewhere can say where: `"place": "Kitty Hawk"` (and `"map": "east"` when the place is on more than one map). The place must be in a map of `map.json` (`"places": {"Kitty Hawk": [36.06, -75.70]}`); places are never looked up or guessed from the narration.
+
+- **Data.** The `assets` stage builds the map from `map.json` (a local boundary file, or one downloaded once with `docpipe.py run --download-maps`).
+- **Labels per edition.** `map.json` gives each place its label per language: `"labels": {"Kitty Hawk": {"hi": "किटी हॉक"}}`. English uses the place name; another language uses its label, then the edition lexicon's spelling of the name, else the pin has no label (with a warning). Labels are checked for the edition's script.
+- **Editions.** Places are written in the default edition's narration; `beats.py` carries them on the beats, so every edition pins the same places on its own lines.
+- **On the board.** `scenegen.py` passes `place` into the scene table (only where there is one). `scenekit.place_maps` lays each map used as a sheet of its own after the act's section clusters, drops a labelled pin as the line begins, puts the line's visuals beside the pin, and draws a route from the previous place on the same map. A map not prepared yet, or a place it does not have, leaves the line in its usual slot. Change `place` (or set `pos`) in an act's `LINES` like anything else.
+
 ## Long films
+
+### Title cards between acts
+
+A film of several acts (over 10 minutes: 3 acts up to 20 minutes, 4 beyond) opens every act after the first on a title card, held in about 2.5 seconds of silence:
+
+- **Timing.** `narrate.py` holds `ACT_GAP` (2.5 s, or the line's own `gap_after` if longer) before the first line of each later act; the storyboard estimates the same pause before a voice exists. Subtitles have no cue in the silence. A film of one act is exactly as before.
+- **Titles.** Each edition's card is in its own language. In order: the edition's `03_script/narration.json` `"act_titles": {"2": "...", "3": "..."}`; for English, the outline's optional `"act_titles"`; for English, the act's first section title. Another language must give its own titles (the scene starters stop with the reason until it does); Latin words in a Hindi title are allowed when the edition's lexicon allows them and only warned about otherwise.
+- **On the board.** `scenegen.py` writes `ACT = {"act", "title", "label", "hold"}` into the act's `scene.py` (label `ACT 2` in English, `भाग 2` in Hindi) and opens the act's board 2.5 s earlier (`acts.json` `t0` and `title_card`). `scenekit.title_card` draws the label and title (Devanagari shaped) beside the act's first cluster, holds the camera on it, and moves on as the first line begins. Edit or delete `ACT` in the scene like anything else; an edited scene is never regenerated.
+- **Review.** The look review adds a still of each title card (`probe_title`).
 
 A 20 or 30 minute film is too big for one board and one review. Build, probe and draft it one act at a time, and look at each act's draft before starting the next.

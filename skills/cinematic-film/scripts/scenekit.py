@@ -11,7 +11,7 @@ yet prepared becomes a designed card, and a key word not in the spoken text fall
 """
 import math
 
-from engine import BigText, Card, Film, FilmFrame, Footage, Parallax, Print, ken_burns
+from engine import BigText, Card, Film, FilmFrame, Footage, GeoMap, MapPin, Parallax, Print, Route, StringLine, ken_burns
 
 CLUSTER_X, CLUSTER_Y, COLS = 11000, 8500, 3       # clusters snake across the act's board
 SLOT_X, SLOT_Y, SLOTS_PER_ROW = 3800, 3400, 3     # line slots inside a cluster
@@ -33,7 +33,7 @@ def slot_pos(origin, j, n):
 
 
 def shows_something(ln):
-    return bool(ln.get("visuals") or ln.get("typed") or ln.get("pos"))
+    return bool(ln.get("visuals") or ln.get("typed") or ln.get("pos") or ln.get("place"))
 
 
 def layout(lines):
@@ -96,6 +96,91 @@ def add_visual(film, doc, v, x, y, t_in, k, look):
                          accent=pal["accent"], rot=rot * 0.5, title_size=170))
 
 
+def title_card(film, doc, title, lines, pos, look):
+    """An act's title card (a film of several acts): its label and title, held on the board in the
+    silence before the act's first line, then the camera moves on to the first cluster.
+    title: {"act", "title", "label", "hold"} (scenegen writes it as ACT in the act's scene.py)."""
+    first = lines[0]["line"]
+    t_first = doc.L(first)
+    t_card = max(0.0, t_first - float(title.get("hold", 2.5)))
+    x0, y0 = pos[first]
+    cx, cy = x0 - CLUSTER_X * 0.6, y0 - SLOT_Y * 0.4                 # beside the act's first cluster
+    pal = palette(look)
+    dark = look not in LIGHT_LOOKS
+    film.add(BigText(title.get("label", ""), cx, cy - 380, 140, t_card + 0.1, rgb=pal["type"], rules=True,
+                     grunge=dark, shadow=dark, sfx=False))
+    film.add(BigText(title.get("title", ""), cx, cy, 340, t_card + 0.35, rgb=pal["type"], grunge=dark, shadow=dark, sfx=False))
+    width = max(len(title.get("title", "")) * 340 * 0.55, 1.0)
+    zoom = min(1.1, max(0.15, 3072.0 / width))                      # close, with the whole title in frame
+    film.shot(0.0, cx, cy - 120, zoom * 0.92)
+    film.shot(max(t_card + 0.1, t_first - 0.45), cx, cy - 120, zoom)     # a slow push while it holds
+    return cx, cy, t_card, t_first
+
+
+def place_maps(film, doc, lines, pos, look):
+    """Lines with an explicit "place" ({"name", "map", "label"}, from the storyboard and map.json):
+    each map used gets a sheet of its own on the board, after the act's section clusters; a pin
+    with its label lands as the line begins, the line's visuals sit beside the pin, and a route
+    is drawn from the previous place on the same map. A map whose data is not prepared yet
+    (assets stage) or a place it does not have is skipped: the line keeps its usual slot."""
+    rows = [ln for ln in lines if ln.get("place")]
+    if not rows:
+        return
+    sections = []
+    for ln in lines:
+        if ln["section"] not in sections:
+            sections.append(ln["section"])
+    sheets, prev = {}, {}
+    for ln in rows:
+        pl = ln["place"]
+        name = pl.get("map")
+        if name not in sheets:
+            try:
+                data = doc.map(name)
+            except (SystemExit, OSError, ValueError):
+                sheets[name] = None
+                continue
+            probe = GeoMap(data, 1.0)
+            f = probe.frame
+            K = CLUSTER_X * 0.9 / max(f[2] - f[0], 1e-9)
+            ox, oy = cluster_origin(len(sections) + len([s for s in sheets.values() if s]))
+            sheet = GeoMap(data, K, (ox - (f[0] + f[2]) / 2 * K, oy - (f[1] + f[3]) / 2 * K),
+                           look="explainer" if look in LIGHT_LOOKS else "period")
+            film.add(sheet)
+            sheets[name] = sheet
+        sheet = sheets.get(name)
+        if sheet is None:
+            continue
+        try:
+            px, py = sheet.place(pl["name"])
+        except KeyError:
+            continue
+        t = doc.L(ln["line"])
+        film.add(MapPin(px, py, pl.get("label") or None, t_in=t - 0.1))
+        if not ln.get("pos"):
+            pos[ln["line"]] = (px + PRINT_W * 0.75, py)          # the line's visuals beside its pin
+        if name in prev and prev[name][0] != pl["name"]:
+            film.add(Route(prev[name][1], (px, py), t_in=t - 0.3))
+        prev[name] = (pl["name"], (px, py))
+
+
+def add_strings(film, doc, lines, pos):
+    """Red string between clusters the storyboard links explicitly (a line's "links": line ids).
+    It is pulled as the linking line is spoken and stays, so the closing pull-back shows the web.
+    A link to a line outside this act, or to itself, is left out."""
+    here = {ln["line"] for ln in lines}
+    done = set()
+    for ln in lines:
+        for t in ln.get("links", []):
+            pair = tuple(sorted((ln["line"], t)))
+            if t not in here or t == ln["line"] or pair in done:
+                continue
+            done.add(pair)
+            (x0, y0), (x1, y1) = pos[t], pos[ln["line"]]
+            film.add(StringLine((x0, y0 - CARD_H * 0.45), (x1, y1 - CARD_H * 0.45), doc.L(ln["line"]) + 0.4,
+                                dur=1.2, persist=True))
+
+
 def build_act(doc, table, look="wall", fps=30, title=None):
     """Build an act's Film from a scene table: every line's visuals and typed text on its slot,
     the camera landing on each line's hero and pushing in to its key word, and a final pull-back."""
@@ -106,6 +191,8 @@ def build_act(doc, table, look="wall", fps=30, title=None):
         film.cam(0, 0, 0, 0.4)
         return film
     pos = layout(lines)
+    place_maps(film, doc, lines, pos, look)
+    card = title_card(film, doc, title, lines, pos, look) if title else None
     k = 0
     prev_section = None
     for n, ln in enumerate(lines):
@@ -129,10 +216,11 @@ def build_act(doc, table, look="wall", fps=30, title=None):
         z = ln.get("zoom", 0.62)
         if first and n:
             film.shot(t - 0.35, x, y + 200, 0.34, rot=0.6 if n % 2 else -0.6)          # whip wide to the new cluster
-        if n == 0:
+        if n == 0 and not card:
             film.shot(0.0, x, y, z * 1.25)
         film.shot(t + 0.3, x, y, z, rot=(-0.5, 0.4, 0.2)[n % 3])
         film.shot(max(t + 0.6, word_time(doc, i, ln.get("key_word"))), x + 120, y + 60, z * 1.12)
+    add_strings(film, doc, lines, pos)
     xs = [p[0] for p in pos.values()]; ys = [p[1] for p in pos.values()]
     cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
     span_w, span_h = max(xs) - min(xs) + 7000, max(ys) - min(ys) + 6000
