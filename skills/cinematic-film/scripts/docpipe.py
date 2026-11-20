@@ -52,6 +52,8 @@ Stages (phase 3), per edition (voice@<lang> ...) or for a single-language projec
              needs the native-speaker review (voice.py review). Nothing paid runs without them.
   narration  audio/narration.m4a and audio/timing.json with word times; re-times the storyboard
              and scene starters (scenes you edited are kept)                (narrate.py)
+  effects    audio/sfx.wav: every act's scene cues and the cue sheet's "synth_cues", synthesised
+             (no samples); partial without skia or scenes (the mix goes on without)  (effects.py)
   sound      audio/cues.json (a synthesised bed to start) and the checked -15 LUFS mix.m4a, with
              only cleared library assets and audio/sfx.wav if you made it   (cuesheet.py, audiolib.py)
   subtitles  out/subtitles.<lang>.srt and .vtt, each cue marked voice-timed or estimated  (subtitles.py)
@@ -84,6 +86,7 @@ import beats  # noqa: E402
 import cuesheet  # noqa: E402
 import doclib as L  # noqa: E402
 import editions  # noqa: E402
+import effects  # noqa: E402
 import narrate  # noqa: E402
 import narration  # noqa: E402
 import outline  # noqa: E402
@@ -97,8 +100,7 @@ import visuals  # noqa: E402
 import voice  # noqa: E402
 
 LOOKS = ("wall", "slate", "charcoal", "paper", "studio", "blueprint", "night")
-PLANNED = [("effects", "the effects track from the film's cues (render.py --cues, build_sfx)"),
-           ("render", "1080p render by chapter, memory-aware (render.py)"),
+PLANNED = [("render", "1080p render by chapter, memory-aware (render.py)"),
            ("captions", "captions burned into the render (burn_captions.py)"),
            ("report", "final report, credits.md and QC")]
 
@@ -184,6 +186,10 @@ def stage_narration(proj):
     return narrate.build(proj, retime=True)
 
 
+def stage_effects(proj):
+    return effects.build(proj)
+
+
 def stage_sound(proj):
     r = cuesheet.init(proj)
     r.extend(cuesheet.mix(proj))
@@ -203,6 +209,11 @@ def audio_inputs(proj, stage):
         return [vp["script_json"], vp["voice_json"], vp["review"], vp["lexicon"], vp["manifest"]] + lines
     if stage == "narration":
         return [vp["script_json"], vp["manifest"], a / "timing.json", a / "narration.m4a"] + lines
+    if stage == "effects":
+        ep_ = effects.ep(proj)
+        scenes = sorted(vp["film_dir"].glob("act_*/scene.py")) + [vp["proj"] / "scene.py"]
+        here = pathlib.Path(__file__).resolve().parent
+        return Fingerprint(effects.fingerprint(proj) + L.hash_files([a / "sfx.wav", ep_["report"]] + scenes))
     if stage == "sound":
         lib = audiolib.lib_paths(proj)["json"]
         return [a / "cues.json", a / "timing.json", a / "narration.m4a", lib, a / "sfx.wav", a / "mix.m4a", a / "mix_report.json"]
@@ -210,7 +221,8 @@ def audio_inputs(proj, stage):
     return [a / "timing.json", sp["subs"], sp["srt"], sp["vtt"]]
 
 
-AUDIO = [("voice", stage_voice), ("narration", stage_narration), ("sound", stage_sound), ("subtitles", stage_subtitles)]
+AUDIO = [("voice", stage_voice), ("narration", stage_narration), ("effects", stage_effects), ("sound", stage_sound),
+         ("subtitles", stage_subtitles)]
 
 
 def _inputs(p, *keys):
@@ -265,7 +277,7 @@ def single_hash(proj, p, keys):
     if keys and keys[0] == "review:":
         return review.fingerprint(proj)
     if keys and keys[0].startswith("audio:"):
-        return L.hash_files(audio_inputs(proj, keys[0][6:]))
+        return hash_of(audio_inputs(proj, keys[0][6:]))
     return stage_hash(p, keys)
 
 
@@ -297,7 +309,7 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
 
 
 EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "assets", "scenegen",
-                 "voice", "narration", "sound", "subtitles", "review"]
+                 "voice", "narration", "effects", "sound", "subtitles", "review"]
 
 
 def edition_steps(root, langs):

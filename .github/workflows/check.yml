@@ -45,8 +45,8 @@ jobs:
           pip install -q -r requirements.txt
       - name: Setup check
         run: python skills/cinematic-film/scripts/check_setup.py
-      - name: Render and voice tests (moves, footage, parallax, scene starters, editions, Hindi, Devanagari, voices, voice APIs offline, narration timing, music and effects, subtitles, pipeline, assets, look review, title cards, strings, maps)
-        run: python -m unittest tests.test_engine_visual tests.test_scenegen tests.test_editions tests.test_lang_hi tests.test_devanagari tests.test_voice tests.test_voice_api tests.test_narrate tests.test_audio_mix tests.test_subtitles tests.test_pipeline_audio tests.test_assets_stage tests.test_review tests.test_title_cards tests.test_strings tests.test_maps -v
+      - name: Render and voice tests (moves, footage, parallax, scene starters, editions, Hindi, Devanagari, voices, voice APIs offline, narration timing, music and effects, subtitles, pipeline, assets, look review, title cards, strings, maps, effects)
+        run: python -m unittest tests.test_engine_visual tests.test_scenegen tests.test_editions tests.test_lang_hi tests.test_devanagari tests.test_voice tests.test_voice_api tests.test_narrate tests.test_audio_mix tests.test_subtitles tests.test_pipeline_audio tests.test_assets_stage tests.test_review tests.test_title_cards tests.test_strings tests.test_maps tests.test_effects -v
       - name: Starter film, end to end
         run: |
           S=skills/cinematic-film/scripts; P="$RUNNER_TEMP/film"

@@ -106,6 +106,16 @@ Approved decisions: new features switch on only when their data is present (mult
 - Stage `render`: 1080p, memory-aware workers, one file per act joined with short crossfades, then the soundtrack.
 - Stage `captions`: chosen style burned in, plus SRT.
 
+Milestones (authorized in full; branch `claude/film-finishing-phase-5`, draft PR on PR #5):
+
+| Milestone | Scope | State |
+|---|---|---|
+| 5.1 | `effects@<lang>`: the effects track from every act's scene cues and the cue sheet's `synth_cues`, per act, resumable, protected | done |
+| 5.2 | `render@<lang>`: each act rendered at its approved timing (after the look gate), resumable per act, verified | |
+| 5.3 | `join@<lang>`: acts joined in order with short crossfades, the full mix laid over, timeline checked | |
+| 5.4 | `captions@<lang>`: the chosen caption style burned in (Devanagari shaped), SRT and VTT kept | |
+| 5.5 | `qc@<lang>`: the finished film checked (streams, duration, black frames, silence, clipping, subtitles, act order) and a delivery manifest; Phase 6's script and image validators and final report are not part of it | |
+
 ### Phase 6: QC and report
 
 - Validators: script (phase 1 checks), images (every need filled, decodable, licensed), audio (duration matches timing, loudness, no clipping), video (ffprobe: 1920x1080, frame rate, duration matches the narration, audio present).

@@ -99,6 +99,15 @@ python3 scripts/cuesheet.py mix  --project my-doc/editions/en    # audio/mix.m4a
 
 The synthesised bed (`"asset": "synth:bed"`) is a low drone and a soft pulse, about -20 dBFS, falling silent for a breath into each section change.
 
+### The effects track (`effects.py`)
+
+In the pipeline, `effects@<lang>` builds each edition's `audio/sfx.wav` before the mix, from cues that are written down, never guessed:
+
+- **The scenes.** Every act's `scene.py`: its `film.cue(...)` calls and the cues items make themselves (a print landing, a stamp, a whoosh on a fast camera move), as `render.py --cues` collects them. Each act gives only the cues inside its own part of the film, so the moments acts share (a title card, a closing pull-back) never sound twice.
+- **The cue sheet.** `"synth_cues"` in `audio/cues.json`, on this edition's timing and the same anchors as music: `{"kind": "boom", "at": {"line": 12, "word": "storm"}, "gain": 0.5}`, `{"kind": "riser", "at": {"section": "s04", "edge": "start", "shift": -1.3}, "dur": 1.2}`, `"pan"` optional. `"effects": {"gain": 0.8}` scales them all; the mix sets the track's level (`synth_sfx.gain_db`).
+- Every sound is synthesised by `build_sfx.py` (no samples, nothing to download or license); cleared library sounds are still placed by the cue sheet's `"sfx"` in the mix.
+- `audio/effects.json` lists every cue with its act, source, time and gain. The same scenes, timing and cue sheet make nothing new. An `sfx.wav` that `effects.py` did not make (from `build_sfx.py`, or yours) is never replaced without `--force` (`.bak` kept). Without skia-python or scenes the stage is partial and the mix goes on without effects.
+
 ### The mix and its checks
 
 - Music is faded, levelled and silenced in the gaps, then ducked under the narration (12 dB by default, starting just before each line, released over 0.6 s); effects ride on top; a limiter and two-pass loudness bring it to **-15 LUFS integrated, -1.5 dBTP**.

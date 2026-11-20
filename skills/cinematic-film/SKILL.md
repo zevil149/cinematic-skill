@@ -47,6 +47,7 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/voices.py` | Voice providers behind one interface (espeak scratch voice, any local command, a test mock) |
 | `scripts/narrate.py` | An edition's `audio/narration.m4a` and `audio/timing.json` (with word times) from its voice segments; re-times the storyboard and scenes |
 | `scripts/audiolib.py` | The production's music and sound library: your files with source, licence, attribution and clearance; nothing uncleared is used |
+| `scripts/effects.py` | An edition's effects track from every act's scene cues and the cue sheet's `synth_cues`, synthesised |
 | `scripts/cuesheet.py` | An edition's music and effects cue sheet on its own timing, and its checked -15 LUFS mix |
 | `scripts/subtitles.py` | An edition's SRT and WebVTT subtitles from its timing: reading speed, line breaks, no overlaps, each cue marked voice-timed or estimated |
 | `scripts/wordtimes.py` | Word times for captions and subtitles: displayed words matched to the voice's timed words, labelled actual or estimated |
