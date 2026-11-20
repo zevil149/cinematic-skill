@@ -300,11 +300,11 @@ class TwoEditionPipeline(unittest.TestCase):
             r = cli("docpipe.py", "run", "--project", proj, "--lang", "hi", "--offline", check=False)
             self.assertIn("script --lang hi", r.stdout)
             cli("docpipe.py", "approve", "--project", proj, "script", "--lang", "hi")
-            r = cli("docpipe.py", "run", "--project", proj, "--lang", "all", "--offline", check=False)
+            r = cli("docpipe.py", "run", "--project", proj, "--lang", "all", "--offline", "--until", "scenegen", check=False)
             self.assertIn("[scenes@en]", r.stdout); self.assertIn("[scenes@hi]", r.stdout)
             self.assertIn("[visuals] passes its checks", r.stdout)
             cli("docpipe.py", "approve", "--project", proj, "visuals")
-            r = cli("docpipe.py", "run", "--project", proj, "--lang", "all", "--offline")
+            r = cli("docpipe.py", "run", "--project", proj, "--lang", "all", "--offline", "--until", "scenegen")
             self.assertIn("[scenegen@en]", r.stdout); self.assertIn("[scenegen@hi]", r.stdout)
             en, hi = editions.edition_dir(proj, "en"), editions.edition_dir(proj, "hi")
             # separate, tagged outputs; one shared set of beats and images
@@ -325,7 +325,7 @@ class TwoEditionPipeline(unittest.TestCase):
             self.assertIn("First flight photograph", (en / "06_film" / "act_01" / "scene.py").read_text())
             self.assertTrue(editions.check(proj, "en").ok and editions.check(proj, "hi").ok)
             # resume, per edition
-            r = cli("docpipe.py", "run", "--project", proj, "--lang", "all", "--offline")
+            r = cli("docpipe.py", "run", "--project", proj, "--lang", "all", "--offline", "--until", "scenegen")
             for key in ("script@en", "beats", "script@hi", "scenes@hi", "visuals", "scenegen@hi"):
                 self.assertIn(f"[{key}] up to date", r.stdout)
             n = L.load(L.paths(hi)["narration"]); n["sections"][0]["lines"][0]["text"] = "विमान रेत से ऊपर उठा।"
