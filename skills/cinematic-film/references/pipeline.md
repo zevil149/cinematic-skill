@@ -60,7 +60,7 @@ Write each section's `title`, `purpose` (what the viewer learns or feels), `peri
 
 ## Storyboard
 
-`storyboard.py` gives every line a scene: start and end time, narration, hero and visual, typed text, the key word to time the hit on (`doc.W(line, "word")`), a suggested camera move, and the images it needs. Times are estimates until `audio/timing.json` exists; run it again after each voice. `04_scenes/image_needs.json` lists every image with a search query, for `fetch_commons.py`.
+`storyboard.py` gives every line a scene: start and end time, narration, hero and visual, typed text, the key word to time the hit on (`doc.W(line, "word")`), a suggested camera move, and the images it needs. Times are estimates until `audio/timing.json` exists; run it again after each voice (in an edition, `narrate.py` builds the timing from the voice segments and re-runs the storyboard and scene starters itself). `04_scenes/image_needs.json` lists every image with a search query, for `fetch_commons.py`.
 
 ## Visuals
 

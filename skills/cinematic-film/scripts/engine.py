@@ -158,8 +158,13 @@ class Doc:
 
     def W(self, i, word, nth=0):
         """When `word` is spoken in line i, by its letter share of the line (pauses spread evenly).
-        Search the SPOKEN text: "1929" is spoken "nineteen twenty-nine", so ask for "nineteen"."""
+        Search the SPOKEN text: "1929" is spoken "nineteen twenty-nine", so ask for "nineteen".
+        When timing.json has the line's word times (narrate.py), the word's own start is used."""
         vo = self.seg[i]["vo"]
+        if self.seg[i].get("words"):
+            t = self._word_start(i, vo, word, nth)
+            if t is not None:
+                return t
         letters = re.sub(r"[^a-z]", "", vo.lower())
         if not letters and vo.strip():              # Hindi and other non-Latin lines: by syllables
             from lang.hi import aksharas
@@ -180,6 +185,21 @@ class Doc:
             raise ValueError(f"{word!r} (occurrence {nth}) is not in the spoken text of line {i}: {vo!r}")
         before = len(re.sub(r"[^a-z]", "", vo[:idx].lower()))
         return self.L(i) + (self.E(i) - self.L(i)) * before / max(1, len(letters)) + 0.04
+
+    def _word_start(self, i, vo, word, nth):
+        """The start of the word containing occurrence nth of `word`, from the line's word times;
+        None when the times do not match the spoken words (then the estimate is used)."""
+        from lang import TOKEN
+        words, toks = self.seg[i]["words"], list(TOKEN.finditer(vo))
+        if len(words) != len(toks):
+            return None
+        idx, start = -1, 0
+        for _ in range(nth + 1):
+            idx = vo.lower().find(word.lower(), start); start = idx + 1
+            if idx < 0:
+                return None
+        k = next((n for n, m in enumerate(toks) if m.end() > idx), None)
+        return None if k is None else words[k]["start"]
 
     def on(self, pr, fx, fy):
         """World point at a fractional position (0..1, 0..1) inside a print's image area."""

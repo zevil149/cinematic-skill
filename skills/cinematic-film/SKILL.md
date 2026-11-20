@@ -43,6 +43,7 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/lang/` | Language plugins (English, Hindi): writing systems, pace, spoken text, timing |
 | `scripts/voice.py` | An edition's narration voice: one segment per line, manifest, resume, edit locks, spend guard, auditions; ElevenLabs (English) and Sarvam (Hindi) with keys from the environment |
 | `scripts/voices.py` | Voice providers behind one interface (espeak scratch voice, any local command, a test mock) |
+| `scripts/narrate.py` | An edition's `audio/narration.m4a` and `audio/timing.json` (with word times) from its voice segments; re-times the storyboard and scenes |
 
 Needs Python 3.9+, `pip install skia-python numpy pillow` (scipy optional) and ffmpeg. Run `scripts/check_setup.py` first; on Linux or Windows, also run `scripts/get_fonts.py` per project. All commands take `--project <folder>`.
 

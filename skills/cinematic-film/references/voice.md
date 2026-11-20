@@ -92,5 +92,18 @@ Both are paid, both refuse the other edition's language, and neither runs withou
 - **Errors and retries.** A rate limit (429) or a server error (500, 502, 503, 504) is retried up to four attempts, honouring `Retry-After` (a wait over 60 seconds gives up). A refusal (bad key, invalid request, quota, unknown voice) is reported with the service's own words and not retried, and neither is a network failure or timeout, which the service may already have done and billed. A paid request is logged only when audio comes back.
 - **Offline.** With `CINEMATIC_OFFLINE=1` (the tests set it) no request is sent. The tests replace the network with a fake; nothing in them reaches a real service.
 
-Joining the segments into `audio/narration.m4a` and `audio/timing.json` for the film is the next step of the pipeline.
+### The edition's narration track and timing (`narrate.py`)
+
+```bash
+python3 scripts/narrate.py --project my-doc/editions/hi                # natural read
+python3 scripts/narrate.py --project my-doc/editions/en --target 600   # fit to 10:00 (tempo 0.90-1.15x only)
+```
+
+- **What it joins.** Each line's manual recording if there is one, else its segment (yours when you edited it), in script order. Silence is trimmed off both ends of every line, and the pacing is set here: a 0.9 s lead, each line's `gap_after` (0.45 s, 1.0 s after a take, or what the script says) and a 3 s tail. The track is `audio/narration.m4a` at -16 LUFS. Segments, manual files and edited files are only read.
+- **`audio/timing.json`** is the film's clock as before (per line `id`, `caption`, `vo`, `start`, `end`, `duration`), plus `"lang"` and per-line `"words"`: `[{"w", "start", "end"}]` in film seconds. Words come from the voice where it timed them (ElevenLabs, the mock: `"words_from": "voice"`), else from the language's own timing rules (`"estimate"`: espeak, Sarvam, manual and edited lines). `"audio"` says whether a line is the voice, yours (`edited`) or your recording (`manual`).
+- **The camera lands on the word.** `doc.W(line, "word")` uses the word's own start when the line has word times, so `scenekit` starters and your scenes hit the key word. A timing file without words (from `build_narration.py`) works exactly as before.
+- **Re-timed scenes.** Afterwards the storyboard is built again on the voice's times (`"timing": "voice"`) and, if `scenegen.py` has run, the scene starters too; a scene you edited is kept (`--no-retime` skips this step).
+- **Resume.** Built parts are cached in `audio/voice/build/`; a run with the same audio, script, pacing and tempo changes nothing, and one changed line makes one new part.
+- **Nothing is bought here.** A missing, invalid or stale line stops the build with a pointer to `voice.py synth`, which keeps its spend guard; `narrate.py` never calls a provider.
+- **Yours is kept.** A `narration.m4a` or `timing.json` that `narrate.py` did not make (for example from `build_narration.py`), or that changed since, is never replaced without `--force`, which keeps both as `.bak`. A timing file of another language is refused.
 
