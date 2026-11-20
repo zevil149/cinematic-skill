@@ -47,3 +47,25 @@ Re-record a whole take, never a single line: one line patched in from another ca
 - Numbers and names go in `spoken` exactly as they should be said.
 - A tempo fit beyond 0.90 to 1.15x sounds wrong. `build_narration.py` refuses it: cut or add lines instead.
 - The narration lands at -16 LUFS. `mix_soundtrack.py` sets the final loudness.
+
+## Language editions: the voice framework
+
+In a production with editions (`references/pipeline.md`), each edition has its own voice: `editions/<lang>/voice.json` (provider, voice, model, settings), its own lexicon and its own audio. `voice.py` makes one WAV segment per narration line from the edition's exported `script.json`:
+
+```bash
+python3 scripts/voice.py plan     --project my-doc/editions/hi    # what would be made, characters, cost
+python3 scripts/voice.py synth    --project my-doc/editions/hi
+python3 scripts/voice.py validate --project my-doc/editions/hi
+python3 scripts/voice.py providers
+```
+
+- **Providers.** `espeak` is the free scratch voice (`en-us` for English, `hi` for Hindi; every new edition starts with it). `command` runs any local TTS tool: `"cmd": "mytts --in {txt} --out {out} --voice {voice} --lang {lang}"` in `voice.json`. `mock` makes test audio. The paid ElevenLabs and Sarvam providers come next, one audition at a time.
+- **One language per edition.** `voice.json`, its locale and its voice must belong to the edition's language, and the script, manifest and segments are all tagged with it: an English voice is refused for the Hindi edition, and the other way round.
+- **Resume.** Each segment records a request hash (the spoken text after the lexicon, the provider and its whole configuration, the language). A run makes only what is missing, invalid or changed.
+- **Your edits are kept.** A segment you edit is locked; `synth --force` remakes it and keeps yours as `.bak`. A recording of your own at `audio/voice/manual/L0012.wav` (16-bit WAV) is always used and never touched.
+- **Validation** flags missing, unreadable, empty or silent segments (errors), and clipping, stale text and lengths far from the expected pace (warnings: listen to those lines).
+- **Whole sections or lines.** A provider with reliable word timings reads each section at once for an even delivery, and the read is cut into line segments; the others read line by line, with the neighbouring lines passed as context.
+- **Spend.** A paid provider runs only with an estimate under the cap (`--max-cost`, $5 a run by default), `--confirm-cost`, and, for Hindi, a native-speaker review of the current script (`voice.py review --by NAME`; a changed script needs a new review). Every paid request is logged in `audio/voice/spend.json`. API keys come from the environment only.
+
+Joining the segments into `audio/narration.m4a` and `audio/timing.json` for the film is the next step of the pipeline.
+

@@ -15,6 +15,7 @@ copies) the production's assets/, photos.json, footage.json and map.json, and ne
 Each edition keeps:
   edition.json     {"lang": "hi", "production": "../..", "beats": "shared" | "own"}
   lexicon.json     pronunciations and the words that may stay in another script ("allow")
+  voice.json       the voice for this language only (voice.py); a scratch espeak voice to start
   03_script/       narration.json (lines point to beats), script.md
   04_scenes/       storyboard timed by this edition's voice
   06_film/         scene.py starters with this edition's text
@@ -93,6 +94,9 @@ def add(root, code, own_beats=False, log=print):
                                      "locale": lg.locale, "wpm": lg.wpm})
     if not (ed / "lexicon.json").exists():
         L.save(ed / "lexicon.json", {"lang": code, "terms": {}, "allow": []})
+    if not (ed / "voice.json").exists():
+        import voice
+        L.save(ed / "voice.json", voice.default_config(code))
     for sub in ("03_script", "04_scenes", "06_film", "audio/takes", "out", "fonts"):
         (ed / sub).mkdir(parents=True, exist_ok=True)
     made = link_shared(root, ed)
@@ -126,7 +130,8 @@ def check(root, code, r=None):
     if lx.get("lang", code) != code:
         r.error(f"edition {code}: lexicon.json is for {lx.get('lang')!r}")
     for name, path in (("narration.json", ed / "03_script" / "narration.json"), ("script.json", ed / "script.json"),
-                       ("timing.json", ed / "audio" / "timing.json")):
+                       ("timing.json", ed / "audio" / "timing.json"), ("voice.json", ed / "voice.json"),
+                       ("audio/voice/manifest.json", ed / "audio" / "voice" / "manifest.json")):
         if path.exists():
             tag = L.load(path).get("lang")
             if tag and tag != code:

@@ -64,8 +64,8 @@ English is the default language for the main (US) channel; Hindi is a fully supp
 | 3.0 | Language plugins (`scripts/lang/`), `editions/<lang>/` folders, shared beats, isolation checks, legacy projects unchanged | done |
 | 3.1 | Hindi language plugin: numbers, dates, currency, Devanagari digits, syllable timing, lexicon, fact-check number words | done |
 | 3.2 | Devanagari rendering: Noto Devanagari fonts and HarfBuzz shaping (licences verified first) | done |
-| 3.3 | Voice framework: per-edition voice and lexicon, mock, espeak and command providers, manifest, resume, edit lock | next, after approval |
-| 3.4 | ElevenLabs and Sarvam adapters, cost estimate, auditions (no paid call without separate approval) | |
+| 3.3 | Voice framework: per-edition voice and lexicon, mock, espeak and command providers, manifest, resume, edit lock | done |
+| 3.4 | ElevenLabs and Sarvam adapters, cost estimate, auditions (no paid call without separate approval) | next, after approval |
 | 3.5 | Timing per edition: segments, `narration.m4a`, word timings in `timing.json`, re-timed storyboard and scenes | |
 | 3.6 | Music and effects: user-licensed tracks and a synthesised bed, rights gate, per-edition cue sheet and mix | |
 | 3.7 | Subtitles and metadata per edition | |
