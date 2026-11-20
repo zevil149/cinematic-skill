@@ -68,6 +68,7 @@ python3 scripts/voice.py providers
 - **Validation** flags missing, unreadable, empty or silent segments (errors), and clipping, stale text and lengths far from the expected pace (warnings: listen to those lines).
 - **Whole sections or lines.** A provider with reliable word timings reads each section at once for an even delivery, and the read is cut into line segments; the others read line by line, with the neighbouring lines passed as context.
 - **Spend.** A paid provider runs only with an estimate under the cap (`--max-cost`, $5 a run by default), `--confirm-cost`, and, for Hindi, a native-speaker review of the current script (`voice.py review --by NAME`; a changed script needs a new review). Every paid request is logged in `audio/voice/spend.json`. API keys come from the environment only.
+- **Budget (phase 6.6).** On top of the cap a run, a production has a budget across every run and edition: `"voice_budget_usd"` in `00_topic/topic.json` (default $25). A run whose estimate would take the production's logged spending past it sends nothing and says how much is left. A request that gave no result but may have been charged (a timeout, a dropped connection, a 504 gateway timeout, or a server error that outlasted the retries) is not retried and is logged as `"failed, may be billed"` at its estimate, counting against the budget; a refusal (4xx) is not billed and not logged. The budget and the log are estimates from your plan's prices, not the provider's invoice.
 
 ### ElevenLabs (English) and Sarvam (Hindi)
 

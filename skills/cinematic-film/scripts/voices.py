@@ -38,7 +38,13 @@ SAMPLE_RATE = 22050
 
 
 class ProviderError(Exception):
-    pass
+    """A request that did not give a result. maybe_billed: the request may have reached the service
+    and been charged (a timeout, a dropped connection, a gateway timeout or a server error after it
+    was sent); the spend log counts it, so a budget is never overrun by work that failed late."""
+
+    def __init__(self, msg="", maybe_billed=False):
+        super().__init__(msg)
+        self.maybe_billed = maybe_billed
 
 
 class Result:
@@ -277,9 +283,10 @@ class Http:
     """JSON over HTTPS for the API providers: retries what is worth retrying, and keeps keys out of
     every message. Retried: 429 (rate limit) and 500/502/503/504, honouring Retry-After, at most
     `tries` attempts and `max_wait` seconds a wait. Not retried: 4xx refusals (a bad key, a bad
-    request, quota) and network failures or timeouts, where the service may already have done (and
-    billed) the work. A response that arrives is never sent twice."""
-    RETRY = (429, 500, 502, 503, 504)
+    request, quota), and network failures, timeouts and 504 (gateway timeout), where the service
+    may already have done (and billed) the work; those raise with maybe_billed, as does a server
+    error that outlasts the retries. A response that arrives is never sent twice."""
+    RETRY = (429, 500, 502, 503)
 
     def __init__(self, opener=None, sleep=time.sleep, tries=4, max_wait=60.0, timeout=180):
         self.opener, self.sleep, self.tries, self.max_wait, self.timeout = opener, sleep, tries, max_wait, timeout
@@ -299,7 +306,8 @@ class Http:
             except ProviderError:
                 raise
             except Exception as e:                 # DNS, refused, reset, timeout: not retried (it may have run)
-                raise ProviderError(redact(f"could not reach {service}: {type(e).__name__}: {e}", secret)) from None
+                raise ProviderError(redact(f"could not reach {service}: {type(e).__name__}: {e}", secret),
+                                    maybe_billed=True) from None
             rh = {str(k).lower(): v for k, v in (rh or {}).items()}
             if 200 <= status < 300:
                 try:
@@ -313,8 +321,8 @@ class Http:
                     raise ProviderError(f"{service} is rate limited for {wait:.0f}s (over {self.max_wait:.0f}s); try later: {msg}")
                 self.sleep(wait)
                 continue
-            raise ProviderError(self.explain(status, msg, service, attempt))
-        raise ProviderError(f"{service}: gave up after {self.tries} attempts")    # not reached
+            raise ProviderError(self.explain(status, msg, service, attempt), maybe_billed=status >= 500)
+        raise ProviderError(f"{service}: gave up after {self.tries} attempts", maybe_billed=True)    # not reached
 
     @staticmethod
     def wait(retry_after, attempt):

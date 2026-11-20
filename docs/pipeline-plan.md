@@ -131,7 +131,7 @@ Milestones follow the Phase 1–5 audit; each is authorized on its own (6.1: bra
 | 6.3 | Composition and typography fidelity: text fitted or wrapped in cards, hero framing, content-aware layout and moves, fewer empty holds, pinned fonts | done |
 | 6.4 | Rights enforcement and on-screen credits: uncleared assets blocked from the finished film; localized credits from the assets actually used | done |
 | 6.5 | Final report and validators: `final_report.md` and `credits.md`, claim-to-line warnings, acknowledgement of automatically picked images | done |
-| 6.6 | Optional: voice and timing readiness (cumulative spend cap, billed-failure logging; an offline aligner and live provider tests only with separate approval) | |
+| 6.6 | Optional: voice and timing readiness (cumulative spend cap, billed-failure logging; an offline aligner and live provider tests only with separate approval) | offline part done: production budget, 504 not retried, may-be-billed failures logged and counted. Not done: the offline word aligner (a new dependency to download and assess) and the live provider tests (need separate approval) |
 | 6.7 | Optional: render robustness and image quality (chunk resume, fewer lossy generations) | |
 | 6.8 | Deferred: legacy tool consolidation and dependency pinning | deferred |
 | 6.9 | Production pilot: a controlled project through every stage and gate, real conditions where authorized, a human viewing checklist | |
