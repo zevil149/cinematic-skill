@@ -33,6 +33,12 @@ Stages (phase 2):
   visuals   05_visuals: archive search, licences, downloads, fallbacks  [gate]  (visuals.py)
   scenegen  06_film: an editable scene.py starter per act               (scenegen.py)
 
+Stage (phase 4), shared by every edition:
+  assets     after the visuals gate: board textures, graded photos, footage frames and map data
+             in assets/prep, made only when their sources change; prepared files you edited are
+             kept (prepare.py --force replaces them with a .bak). Map boundary data that is not
+             downloaded yet needs `run --download-maps`; nothing is downloaded --offline.  (prepare.py)
+
 Stages (phase 3), per edition (voice@<lang> ...) or for a single-language project:
   voice      audio/voice: one segment per line, from voice.json (espeak scratch voice by default)  (voice.py)
              a paid voice needs `run --confirm-cost` (and --max-cost, $5 by default); Hindi also
@@ -55,7 +61,7 @@ the stage "partial": the film goes on with designed cards, and the next run retr
 The research, outline and narration are written by the agent (or a person) into the stage files;
 the pipeline scaffolds them, checks them and refuses to move on while a check fails. A stage
 marked [gate] waits for `approve` before the next stage runs, and an approval lapses when the
-stage's inputs change. Planned stages (assets, review, effects, render, captions, report) are
+stage's inputs change. Planned stages (review, effects, render, captions, report) are
 listed by status and arrive in later phases; until then the film tools run as SKILL.md describes.
 """
 import argparse
@@ -74,6 +80,7 @@ import editions  # noqa: E402
 import narrate  # noqa: E402
 import narration  # noqa: E402
 import outline  # noqa: E402
+import prepare  # noqa: E402
 import research  # noqa: E402
 import scenegen  # noqa: E402
 import storyboard  # noqa: E402
@@ -82,15 +89,14 @@ import visuals  # noqa: E402
 import voice  # noqa: E402
 
 LOOKS = ("wall", "slate", "charcoal", "paper", "studio", "blueprint", "night")
-PLANNED = [("assets", "maps, graded images and footage frames (make_map, prep_assets, prep_footage)"),
-           ("review", "probes and strips of every act for the look test (render.py)"),
+PLANNED = [("review", "probes and strips of every act for the look test (render.py)"),
            ("effects", "the effects track from the film's cues (render.py --cues, build_sfx)"),
            ("render", "1080p render by chapter, memory-aware (render.py)"),
            ("captions", "captions burned into the render (burn_captions.py)"),
            ("report", "final report, credits.md and QC")]
 
 
-OPTS = {"offline": False, "confirm_cost": False, "max_cost": voice.DEFAULT_CAP}
+OPTS = {"offline": False, "confirm_cost": False, "max_cost": voice.DEFAULT_CAP, "download_maps": False}
 
 
 def stage_topic(proj):
@@ -137,6 +143,18 @@ def stage_visuals(proj):
 
 def stage_scenegen(proj):
     return scenegen.generate(proj)
+
+
+def stage_assets(proj):
+    return prepare.run(proj, download_maps=OPTS["download_maps"], offline_flag=OPTS["offline"])
+
+
+class Fingerprint(str):
+    """A stage input hash computed by the stage's own tool (instead of hashing a file list)."""
+
+
+def hash_of(files):
+    return str(files) if isinstance(files, Fingerprint) else L.hash_files(files)
 
 
 def stage_voice(proj):
@@ -224,12 +242,15 @@ STAGES = [
     ("script", stage_script, ("narration", "outline", "claims", "sources"), True),
     ("scenes", stage_scenes, ("narration", "timing"), False),
     ("visuals", stage_visuals, ("image_needs", "selection", "topic"), True),
+    ("assets", stage_assets, ("prepared:",), False),
     ("scenegen", stage_scenegen, ("storyboard", "assets", "outline"), False),
 ] + [(name, fn, ("audio:" + name,), False) for name, fn in AUDIO]
 NAMES = [s[0] for s in STAGES]
 
 
 def single_hash(proj, p, keys):
+    if keys and keys[0] == "prepared:":
+        return prepare.fingerprint(proj)
     if keys and keys[0].startswith("audio:"):
         return L.hash_files(audio_inputs(proj, keys[0][6:]))
     return stage_hash(p, keys)
@@ -262,7 +283,7 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
     return proj
 
 
-EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "scenegen",
+EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "assets", "scenegen",
                  "voice", "narration", "sound", "subtitles"]
 
 
@@ -309,6 +330,7 @@ def edition_steps(root, langs):
                       (lambda c=code: [L.paths(E(c))["narration"], L.paths(E(c))["timing"], P["image_needs"]]), False))
     steps.append(("visuals", "visuals", lambda: visuals.run(root, offline=OPTS["offline"]),
                   lambda: _inputs(P, "image_needs", "selection", "topic"), True))
+    steps.append(("assets", "assets", lambda: stage_assets(root), lambda: Fingerprint(prepare.fingerprint(root)), False))
     for code in targets:
         def gen(c=code):
             editions.link_shared(root, E(c))                  # photos.json and footage.json exist by now
@@ -331,11 +353,11 @@ def run_steps(proj, steps, until=None, only=None, force=False):
         if EDITION_ORDER.index(name) > stop_at or (only and name != only):
             continue
         st = state["stages"].setdefault(key, {})
-        h = L.hash_files(files())
+        h = hash_of(files())
         if not force and st.get("status") == "done" and st.get("inputs") == h:
             print(f"[{key}] up to date"); continue
         r = fn()
-        h = L.hash_files(files())
+        h = hash_of(files())
         st.update(inputs=h, at=datetime.datetime.now().isoformat(timespec="seconds"),
                   errors=r.errors, warnings=r.warnings, notes=r.notes)
         print(r.report(f"[{key}]"))
@@ -420,7 +442,7 @@ def approve(proj, name, lang=None):
         if key not in steps:
             raise SystemExit(f"no stage {key}")
         st = state["stages"].get(key)
-        h = L.hash_files(steps[key]())
+        h = hash_of(steps[key]())
         if not st or st.get("status") not in ("awaiting approval", "done", "partial") or st.get("inputs") != h:
             raise SystemExit(f"{key} has not passed its checks on its current files; run docpipe.py run first")
         st["approved"] = h
@@ -454,7 +476,7 @@ def status(proj):
         for key, name, _, files, gate in edition_steps(proj, editions.editions_of(proj)):
             st = state["stages"].get(key, {})
             s = st.get("status", "not run")
-            if s == "done" and st.get("inputs") != L.hash_files(files()):
+            if s == "done" and st.get("inputs") != hash_of(files()):
                 s = "out of date"
             extra = f"  {len(st.get('errors', []))} errors, {len(st.get('warnings', []))} warnings" if st else ""
             print(f"  {key:<14} {s:<18}{' [gate]' if gate else '       '}{extra}")
@@ -487,6 +509,7 @@ def main():
     r.add_argument("--lang", default=None, help="edition to run (default: the default edition), or all")
     r.add_argument("--confirm-cost", action="store_true", help="allow a paid voice to spend, under --max-cost")
     r.add_argument("--max-cost", type=float, default=voice.DEFAULT_CAP, help="USD cap for this run's paid voice (default 5)")
+    r.add_argument("--download-maps", action="store_true", help="assets: download map boundary data not cached yet (public domain)")
     s = sub.add_parser("status"); s.add_argument("--project", required=True)
     a = sub.add_parser("approve"); a.add_argument("--project", required=True); a.add_argument("stage", choices=[x[0] for x in STAGES if x[3]])
     a.add_argument("--lang", default=None, help="the edition, for a script approval")
@@ -497,6 +520,7 @@ def main():
     elif args.cmd == "run":
         OPTS["offline"] = args.offline
         OPTS["confirm_cost"], OPTS["max_cost"] = args.confirm_cost, args.max_cost
+        OPTS["download_maps"] = args.download_maps
         sys.exit(0 if run(args.project, args.until, args.only, args.force, args.lang) else 1)
     elif args.cmd == "status":
         status(args.project)

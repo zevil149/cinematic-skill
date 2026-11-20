@@ -14,11 +14,14 @@ You (the agent) do the research and the writing. The tools scaffold the files, c
 | script | `03_script/` | `narration.py` | every line passes the fact check; `script.json` exported. **Gate** |
 | scenes | `04_scenes/` | `storyboard.py` | storyboard, camera moves and image list written |
 | visuals | `05_visuals/` | `visuals.py` | every image need has a licensed image or clip, or a designed card. **Gate** |
+| assets | `assets/prep/` | `prepare.py` | board textures, graded photos, footage frames and map data prepared for the engine |
 | scenegen | `06_film/` | `scenegen.py` | an editable `scene.py` per act, and a root `scene.py` that renders one |
 | voice | `audio/voice/` | `voice.py` | a segment for every line from `voice.json` (the free espeak scratch voice unless you chose another) |
 | narration | `audio/` | `narrate.py` | `narration.m4a` and `timing.json` with word times; storyboard and scene starters re-timed to the voice |
 | sound | `audio/` | `cuesheet.py`, `audiolib.py` | `cues.json` (a synthesised bed to start) and a `mix.m4a` that passed its loudness and clipping checks |
 | subtitles | `out/` | `subtitles.py` | `subtitles.<lang>.srt` and `.vtt`, each cue marked voice-timed or estimated |
+
+The `assets` stage (shared by every edition, at the production root) wraps `prep_assets.py`, `prep_footage.py` and `make_map.py`: photos are graded from `photos.json`, clips cut into frames from `footage.json`, and maps built from `map.json`, each only when its source changes. `assets/prep/prepared.json` records what it wrote; a prepared file you edited, or one made before this stage existed, is kept (`prepare.py --project my-doc --force` replaces it, keeping a `.bak`). Originals are only read. Map boundary data given as a URL is downloaded only with `docpipe.py run --download-maps` (public-domain data, cached in `assets/data/`), never `--offline`; a local file needs no network. A missing or unreadable image or clip, or a machine without numpy, Pillow or ffmpeg, leaves the stage `partial`: the film shows designed cards there and the next run tries again.
 
 `run` goes on from `scenegen` to the voice, the narration timing, the mix and the subtitles; `run --until scenegen` stops where earlier versions stopped. After that, carry on with the film tools as in SKILL.md: `prep_assets.py` and `prep_footage.py`, the look test on the generated scenes, `render.py --cues` and `build_sfx.py` for the effects track (the next `run` mixes `audio/sfx.wav` in), the render and the burned captions. Later phases add those as stages.
 
@@ -100,7 +103,7 @@ One production can be told in several languages. `docpipe.py new my-doc --topic 
 - **Beats** (`03_beats/beats.json`) are what every edition tells: one hero each, with its claims and images. `beats.py` builds them from the default edition's approved narration (a line is its own beat `B<id>` unless it names one). Every other edition starts from the beats: one line per beat, written in its own language, never copied. All editions share the same images and camera plan; each is timed by its own voice.
 - **Languages never mix.** An English line may not contain Devanagari, and a Hindi line may not contain Latin words unless its `lexicon.json` lists them under `"allow"` (technical terms such as `NASA`). Typed text and image card titles are per edition: a Hindi line gives its own typed text, and every image needs a Hindi card title (`"labels": {"hi": "..."}` in `beats.json`). Every edition file is tagged with its language, and a stage refuses a file from another edition.
 - **Gates are per edition:** `docpipe.py approve --project my-doc script --lang hi`. `run --lang hi` runs that edition, `--lang all` every edition; editing one edition never reopens another.
-- **The order with editions:** `topic`, `research`, `outline` [gate], `script@en` [gate], `beats`, `script@hi` [gate], `scenes@en`, `scenes@hi`, `visuals` [gate], `scenegen@en`, `scenegen@hi`, then for each edition `voice@<lang>`, `narration@<lang>`, `sound@<lang>`, `subtitles@<lang>`. Each edition's voice, timing, mix and subtitles stay in its folder and are tagged with its language. A typical two-language run:
+- **The order with editions:** `topic`, `research`, `outline` [gate], `script@en` [gate], `beats`, `script@hi` [gate], `scenes@en`, `scenes@hi`, `visuals` [gate], `assets` (shared), `scenegen@en`, `scenegen@hi`, then for each edition `voice@<lang>`, `narration@<lang>`, `sound@<lang>`, `subtitles@<lang>`. Each edition's voice, timing, mix and subtitles stay in its folder and are tagged with its language. A typical two-language run:
 
   ```bash
   python3 scripts/docpipe.py run --project my-doc --lang all            # stops at each gate in turn
