@@ -145,6 +145,61 @@ def to_srt(cues):
     return "\n".join(out)
 
 
+TIME = r"(\d{1,2}):(\d{2}):(\d{2})[,.](\d{3})"
+TIMING_LINE = re.compile(rf"^\s*{TIME}\s*-->\s*{TIME}(?:\s+.*)?$")
+
+
+def _secs(h, m, s, ms):
+    return int(h) * 3600 + int(m) * 60 + int(s) + int(ms) / 1000.0
+
+
+def parse_srt(text):
+    """(cues, problems) from SRT text. A cue is a block of an index line, a timing line and its text
+    lines, blocks parted by blank lines; text that only looks like an index ("1903") stays text.
+    cues: [{"n", "t0", "t1", "lines"}]; problems: what is malformed, by block."""
+    return _parse_blocks(text, vtt=False)
+
+
+def parse_vtt(text):
+    """(cues, problems) from WebVTT text: the WEBVTT header, NOTE and STYLE blocks skipped, optional
+    cue identifiers allowed."""
+    return _parse_blocks(text, vtt=True)
+
+
+def _parse_blocks(text, vtt):
+    text = text.replace("\r\n", "\n").replace("\r", "\n").lstrip("\ufeff")
+    blocks = [b.split("\n") for b in re.split(r"\n[ \t]*\n", text) if b.strip()]
+    cues, problems = [], []
+    if vtt:
+        if not blocks or not blocks[0][0].startswith("WEBVTT"):
+            problems.append("the file does not start with WEBVTT")
+        else:
+            blocks = blocks[1:] if not any(TIMING_LINE.match(x) for x in blocks[0]) else blocks
+    for k, lines in enumerate(blocks, 1):
+        if vtt and lines[0].split(" ")[0] in ("NOTE", "STYLE", "REGION"):
+            continue
+        at = next((i for i, x in enumerate(lines) if TIMING_LINE.match(x)), None)
+        if at is None:
+            problems.append(f"block {k}: no timing line ({lines[0][:40]!r})"); continue
+        head = lines[:at]
+        if not vtt and (len(head) != 1 or not head[0].strip().isdigit()):
+            problems.append(f"block {k}: the line before the timing is not a cue number ({' / '.join(head)[:40]!r})")
+        if vtt and len(head) > 1:
+            problems.append(f"block {k}: more than one line before the timing")
+        m = TIMING_LINE.match(lines[at])
+        t0, t1 = _secs(*m.groups()[:4]), _secs(*m.groups()[4:])
+        body = lines[at + 1:]
+        while body and not body[-1].strip():
+            body.pop()
+        if t1 <= t0:
+            problems.append(f"block {k}: ends at or before it starts")
+        if not any(x.strip() for x in body):
+            problems.append(f"block {k}: no text")
+        n = int(head[0]) if (not vtt and len(head) == 1 and head[0].strip().isdigit()) else len(cues) + 1
+        cues.append({"n": n, "id": head[0] if head else "", "t0": round(t0, 3), "t1": round(t1, 3), "lines": body})
+    return cues, problems
+
+
 def to_vtt(cues, code, counts):
     head = ["WEBVTT", "", "NOTE", f"Language: {code}. Word timing: " +
             ", ".join(f"{n} cue(s) {k}" for k, n in sorted(counts.items())) +

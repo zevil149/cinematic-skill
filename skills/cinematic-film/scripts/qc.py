@@ -11,11 +11,22 @@ look (warnings):
   acts       joined in the order of 06_film/acts.json, each crossfade on its act change
   picture    black frames (ffmpeg blackdetect) outside the film's own fade in and fade out; blank,
              almost single-colour frames in a sample every 2 s
-  sound      every narration line is heard in its own place (narration missing or out of sync is an
-             error); silences of a second or more outside the lead-in, the pauses between lines, the
-             title cards' silence and the tail; clipping (true peak above -0.5 dBTP is an error)
-  subtitles  the SRT and VTT exist and match audio/subs.json, every cue sits on its line in the
-             current timing and inside the film; burned captions are visible where lines are spoken
+  sound      no line is silent; and, against audio/narration.m4a, every line's narration is in the
+             film: over the voice's own speech frames (pauses left out), aligned by cross-correlation,
+             the correlation gives the narration's share of the sound and the projection its gain.
+             A share under -10 dB (missing, or buried under music and effects) is an error; under
+             +3 dB (masked) and a line 10 dB quieter than the others are warnings; a line spoken
+             quietly keeps its share and is not flagged. Silences of a second or more outside the
+             lead-in, the pauses, the title cards' silence and the tail; clipping (true peak above
+             -0.1 dBTP is an error); integrated loudness against the mix report's target (more than
+             1 LU off is a warning, more than 2 LU an error)
+  subtitles  the SRT and VTT parse cue by cue (a text line that is only a number is text), match
+             audio/subs.json in count and times, sit on their lines in the current timing and inside
+             the film; burned captions are visible where lines are spoken
+  layout     from the scenes' own geometry (layoutcheck.py): card titles and lines that do not fit
+             their card, and measured text that an opaque burned caption would cover (warnings)
+A check that cannot be made (no narration track, no mix report, no skia, captions off) is listed as
+not checked, with the reason; it never counts as passed. qc.json keeps every measurement.
 Deliberate choices are not faults: the fades, title cards and pauses are known from the timing,
 and qc.json in the edition can declare more: {"allow_black": [[t0, t1]], "allow_silence": [[t0, t1]]}.
 
@@ -112,17 +123,76 @@ def sample_frames(path, every, w=160, h=90):
     return a[: n * w * h * 3].reshape(n, h, w, 3)
 
 
+NARR_FRAME = 0.02            # seconds: the narration is compared frame by frame where it speaks
+SPEECH_FLOOR_DB = -30.0      # a frame counts as speech within 30 dB of the line's loudest frame
+MISSING_DB, MASKED_DB, QUIET_DB = -10.0, 3.0, -10.0
+LUFS_WARN, LUFS_ERROR = 1.0, 2.0
+
+
+def narration_presence(film, narr, rate, segs):
+    """How much of the film's sound, while each line speaks, is that line's narration.
+
+    The narration track is the reference: its speech frames (pauses and breaths left out) are
+    compared with the same instants of the film, after aligning the two by cross-correlation. The
+    film's sound there is the narration at some gain plus everything else (music, effects); their
+    correlation c gives the narration's share, nrr = c^2 / (1 - c^2) as a level ratio in dB, and the
+    projection gives the narration's gain in the film. A quiet line keeps its share (only the
+    ratio to the rest counts); a line whose voice is missing from the film, or drowned, does not.
+    Returns (lag in seconds, [{"line", "speech_s", "corr", "nrr_db", "gain_db"}])."""
+    import numpy as np
+    n = min(len(film), len(narr), int(120 * rate))
+    lag = 0
+    if n > rate:
+        N = 1 << int(np.ceil(np.log2(2 * n)))
+        xc = np.fft.irfft(np.fft.rfft(film[:n], N) * np.conj(np.fft.rfft(narr[:n], N)), N)
+        m = int(0.5 * rate)
+        cand = np.concatenate([xc[N - m:], xc[:m + 1]])                      # lags -m..m
+        lag = int(np.argmax(np.abs(cand))) - m
+    fr = max(1, int(NARR_FRAME * rate))
+    out = []
+    for s in segs:
+        a, b = int(s["start"] * rate), int(s["end"] * rate)
+        src = narr[a:b]
+        k = len(src) // fr
+        if k == 0:
+            out.append({"line": s["id"], "speech_s": 0.0, "corr": None, "nrr_db": None, "gain_db": None}); continue
+        e = (src[:k * fr].reshape(k, fr) ** 2).mean(axis=1)
+        keep = e > max(e.max() * 10 ** (SPEECH_FLOOR_DB / 10), 1e-7)
+        idx = np.nonzero(keep)[0]
+        if not len(idx):
+            out.append({"line": s["id"], "speech_s": 0.0, "corr": None, "nrr_db": None, "gain_db": None}); continue
+        sel = (idx[:, None] * fr + np.arange(fr)[None, :]).ravel() + a
+        fsel = sel + lag
+        ok = (fsel >= 0) & (fsel < len(film))
+        x, y = narr[sel[ok]].astype(np.float64), film[fsel[ok]].astype(np.float64)
+        xx, yy, xy = float(x @ x), float(y @ y), float(x @ y)
+        c = xy / np.sqrt(xx * yy) if xx > 0 and yy > 0 else 0.0
+        c2 = min(max(c, 0.0) ** 2, 0.9999)
+        nrr = 10 * np.log10(max(c2, 1e-8) / (1 - c2))
+        gain = 20 * np.log10(max(xy / xx, 1e-6)) if xx > 0 else None
+        out.append({"line": s["id"], "speech_s": round(len(x) / rate, 2), "corr": round(float(c), 3),
+                    "nrr_db": round(float(nrr), 1), "gain_db": None if gain is None else round(float(gain), 1)})
+    return lag / rate, out
+
+
 def build(proj, log=print):
     import finish
     p = qp(proj)
     r = L.Result()
     checks = []
 
+    measures = {}
+
     def check(name, ok, msg, blocking=True, seen=""):
         """msg says what is wrong; seen, what was measured when it is right."""
         checks.append({"check": name, "ok": bool(ok), "blocking": blocking, "message": seen if ok else msg})
         if not ok:
             (r.error if blocking else r.warn)(f"{name}: {msg}")
+
+    def unchecked(name, why):
+        """A check that could not be made here: said so, never counted as passed or failed."""
+        checks.append({"check": name, "ok": None, "blocking": False, "message": why})
+        r.note(f"{name}: not checked ({why})")
     if not p["timing"].exists() or not p["state"].exists():
         r.error("nothing to check: the film has not been rendered and joined (finish.py render, join)"); return r
     timing = L.load(p["timing"])
@@ -133,11 +203,11 @@ def build(proj, log=print):
     film = p["film"]
     j = state.get("join") or {}
     if not film.exists():
-        check("film", False, f"{film.relative_to(p['proj'])} is missing"); return finish_report(p, r, checks, timing, state)
+        check("film", False, f"{film.relative_to(p['proj'])} is missing"); return finish_report(p, r, checks, timing, state, measures=measures)
     try:
         info = finish.probe(film)
     except ValueError as e:
-        check("film", False, f"{film.name} cannot be read: {e}"); return finish_report(p, r, checks, timing, state)
+        check("film", False, f"{film.name} cannot be read: {e}"); return finish_report(p, r, checks, timing, state, measures=measures)
     check("film", True, "", seen=f"{film.name}: {info['w']}x{info['h']}, {info['fps']:g} fps, {info['duration']:.2f}s")
     check("video codec", info["vcodec"] == "h264", f"video is {info['vcodec']}, not h264", blocking=False, seen=info["vcodec"])
     check("audio stream", bool(info["audio"]), "the film has no audio stream", seen=str(info["audio"]))
@@ -205,17 +275,41 @@ def build(proj, log=print):
         audio = None
         check("analysis", False, "numpy is not installed: frames and sound were not analysed", blocking=False)
     # sound: every line heard in its own place
+    narr_file = p["proj"] / "audio" / "narration.m4a"
     if audio is not None and len(audio):
         def rms(a, b):
             x = audio[int(a * rate):int(b * rate)]
             return float(np.sqrt((x ** 2).mean())) if len(x) else 0.0
-        quiet_lines = []
-        for s in segs:
-            v = rms(s["start"], s["end"])
-            if v < 0.003:
-                quiet_lines.append(s["id"])
-        check("narration", not quiet_lines, f"line(s) {', '.join(map(str, quiet_lines))} are silent in the film: "
-              "the narration is missing or out of sync there", seen=f"all {len(segs)} lines heard")
+        silent = [s["id"] for s in segs if rms(s["start"], s["end"]) < 0.003]
+        check("sound during lines", not silent, f"line(s) {', '.join(map(str, silent))} are silent in the film",
+              seen=f"sound under all {len(segs)} lines")
+        if narr_file.exists():
+            narr, _ = decode_audio(narr_file, rate)
+            lag, lines = narration_presence(audio, narr, rate, segs)
+            gains = [x["gain_db"] for x in lines if x["gain_db"] is not None and x["nrr_db"] is not None and x["nrr_db"] > MASKED_DB]
+            ref = float(np.median(gains)) if gains else None
+            no_src = [x["line"] for x in lines if x["corr"] is None]
+            missing = [x["line"] for x in lines if x["nrr_db"] is not None and x["nrr_db"] < MISSING_DB]
+            masked = [x for x in lines if x["nrr_db"] is not None and MISSING_DB <= x["nrr_db"] < MASKED_DB]
+            quiet = [x for x in lines if ref is not None and x["gain_db"] is not None and x["line"] not in missing
+                     and x["gain_db"] - ref < QUIET_DB]
+            measures["narration"] = {"lag_ms": round(lag * 1000, 1), "reference_gain_db": None if ref is None else round(ref, 1),
+                                     "min_nrr_db": min((x["nrr_db"] for x in lines if x["nrr_db"] is not None), default=None),
+                                     "lines": lines}
+            if no_src:
+                check("narration source", False, f"line(s) {', '.join(map(str, no_src))} are silent in audio/narration.m4a")
+            check("narration", not missing, f"line(s) {', '.join(map(str, missing))}: the narration is missing from the film there, "
+                  "or buried under the music and effects (its share of the sound is under "
+                  f"{MISSING_DB:g} dB)", seen=f"every line's narration found in the film (lowest share "
+                  f"{measures['narration']['min_nrr_db']} dB over the rest, aligned at {lag * 1000:+.0f} ms)")
+            if masked:
+                check("narration masking", False, "line(s) " + ", ".join(f"{x['line']} ({x['nrr_db']:+.1f} dB)" for x in masked[:8]) +
+                      ": the narration is barely above the music and effects there", blocking=False)
+            if quiet:
+                check("narration level", False, "line(s) " + ", ".join(f"{x['line']} ({x['gain_db'] - ref:+.1f} dB)" for x in quiet[:8]) +
+                      " are much quieter in the film than the other lines", blocking=False)
+        else:
+            unchecked("narration", "no audio/narration.m4a to compare the film with; only silence under the lines was checked")
     allowed_quiet = [(0.0, (segs[0]["start"] if segs else 0) + 0.3)]
     for a_, b_ in zip(segs, segs[1:]):
         allowed_quiet.append((a_["end"] - 0.2, b_["start"] + 0.3))         # the pauses, title cards included
@@ -233,9 +327,27 @@ def build(proj, log=print):
         check("silence", True, "", seen=f"{len(quiet)} silence(s), none outside the lead-in, pauses, title cards or tail")
     import cuesheet
     lufs, tp = cuesheet.measure(film)
-    check("clipping", not tp > -0.1, f"true peak {tp:.1f} dBTP: the sound clips", seen=f"true peak {tp:.1f} dBTP")
-    if -0.1 >= tp > -1.0:
-        check("headroom", False, f"true peak {tp:.1f} dBTP, close to clipping", blocking=False)
+    mrep = p["proj"] / "audio" / "mix_report.json"
+    target = L.load(mrep, {}).get("target_lufs") if mrep.exists() else None
+    measures["loudness"] = {"integrated_lufs": None if lufs != lufs else round(lufs, 1), "target_lufs": target,
+                            "true_peak_dbtp": None if tp != tp else round(tp, 1)}
+    if tp != tp:
+        unchecked("clipping", "ffmpeg's loudness meter gave no true peak for the film")
+    else:
+        check("clipping", not tp > -0.1, f"true peak {tp:.1f} dBTP: the sound clips", seen=f"true peak {tp:.1f} dBTP")
+        if -0.1 >= tp > -1.0:
+            check("headroom", False, f"true peak {tp:.1f} dBTP, close to clipping", blocking=False)
+    if lufs != lufs:
+        unchecked("loudness", "ffmpeg's loudness meter gave no integrated loudness for the film")
+    elif target is None:
+        unchecked("loudness", f"the film measures {lufs:.1f} LUFS; no mix report says what it was meant to be")
+    else:
+        d = lufs - float(target)
+        check("loudness", abs(d) <= LUFS_ERROR,
+              f"the film measures {lufs:.1f} LUFS, the mix was made for {target:g} LUFS ({d:+.1f} LU)",
+              seen=f"{lufs:.1f} LUFS integrated, made for {target:g} ({d:+.1f} LU)")
+        if LUFS_WARN < abs(d) <= LUFS_ERROR:
+            check("loudness drift", False, f"the film measures {lufs:.1f} LUFS, {d:+.1f} LU from the mix's {target:g}", blocking=False)
     # subtitles
     if p["subs"].exists():
         subs = L.load(p["subs"])
@@ -246,11 +358,24 @@ def build(proj, log=print):
             rel = str(f.relative_to(p["proj"]))
             if f.exists() and rec.get(rel) and rec[rel] != sha_file(f):
                 check("subtitles edited", False, f"{f.name} was edited after it was made; it is delivered as edited", blocking=False)
-        if p["srt"].exists():
-            n = len(re.findall(r"^\d+\s*$", p["srt"].read_text(encoding="utf-8"), re.M))
-            check("subtitle cues", n == len(subs.get("cues", [])) or rec.get(str(p["srt"].relative_to(p["proj"]))) != sha_file(p["srt"]),
-                  f"the SRT has {n} cues, subs.json {len(subs.get('cues', []))}",
-                  seen=f"{n} cues")
+        import subtitles
+        want = subs.get("cues", [])
+        for f, parse in ((p["srt"], subtitles.parse_srt), (p["vtt"], subtitles.parse_vtt)):
+            if not f.exists():
+                continue
+            kind = f.suffix[1:].upper()
+            try:
+                got, probs = parse(f.read_text(encoding="utf-8"))
+            except UnicodeDecodeError:
+                check(f"{kind} file", False, f"{f.name} is not UTF-8 text"); continue
+            check(f"{kind} file", not probs, f"{f.name} is malformed: " + "; ".join(probs[:5]), seen=f"{len(got)} cues parsed")
+            edited = rec.get(str(f.relative_to(p["proj"]))) != sha_file(f)
+            if probs or edited:
+                continue
+            same = len(got) == len(want) and all(abs(a["t0"] - b["t0"]) < 0.002 and abs(a["t1"] - b["t1"]) < 0.002
+                                                 for a, b in zip(got, want))
+            check(f"{kind} cues", same, f"{f.name} has {len(got)} cue(s), audio/subs.json {len(want)}, or their times differ: "
+                  "make the subtitles again (subtitles.py)", seen=f"{len(got)} cues, times as in audio/subs.json")
         by_id = {s["id"]: s for s in segs}
         off = [c["n"] for c in subs.get("cues", []) if c["line"] not in by_id
                or not (by_id[c["line"]]["start"] - 0.05 <= c["t0"] <= by_id[c["line"]]["end"])]
@@ -283,7 +408,52 @@ def build(proj, log=print):
                           seen=f"a caption on screen at {t:.1f}s")
             except ValueError as e:
                 check("captioned film", False, f"{cf.name} cannot be read: {e}")
-    return finish_report(p, r, checks, timing, state, info)
+    layout(p, timing, total, cap, check, unchecked, measures)
+    return finish_report(p, r, checks, timing, state, info, measures=measures)
+
+
+def layout(p, timing, total, cap, check, unchecked, measures, size=(960, 540)):
+    """Text that overflows its card, and measured text under the burned captions (layoutcheck.py)."""
+    try:
+        import numpy  # noqa: F401
+        import skia  # noqa: F401
+    except ImportError:
+        unchecked("text fit", "skia-python or numpy is not installed"); unchecked("caption clearance", "skia-python or numpy is not installed")
+        return
+    import finish
+    import layoutcheck
+    import review
+    from engine import Doc, Res
+    films = []
+    try:
+        doc = Doc(p["proj"])
+        for n, scene, s, e, _, _ in finish.acts_of(p, total):
+            films.append((s, e if e < total else total + 1, review.load_act(scene).build_film(doc)))
+    except BaseException as ex:                                   # noqa: BLE001 - a scene that does not build here
+        why = f"the scenes do not build here ({type(ex).__name__}: {str(ex)[:120]})"
+        unchecked("text fit", why); unchecked("caption clearance", why)
+        return
+    W, H = size
+    res = Res(W / 3840.0, doc.prep, doc.dir / "fonts")
+    census = layoutcheck.census(films)
+    measured = {k: v for k, v in census.items() if k in layoutcheck.MEASURED}
+    other = {k: v for k, v in census.items() if k not in layoutcheck.MEASURED}
+    over = [o for _, _, f in films for o in layoutcheck.overflows(f, res)]
+    measures["layout"] = {"measured_items": measured, "unmeasured_items": other, "overflows": over}
+    note = "; text of " + ", ".join(f"{v} {k}" for k, v in sorted(other.items())) + " is not measured" if other else ""
+    check("text fit", not over, "; ".join(f"{o['kind']} at {o['t']:.1f}s: {o['what']} by {o['over'] * 100:.0f}% ({o['text'][:40]!r})"
+                                          for o in over[:6]) + (f" and {len(over) - 6} more" if len(over) > 6 else ""),
+          blocking=False, seen=f"all text fits its card ({', '.join(f'{v} {k}' for k, v in sorted(measured.items())) or 'no measured text'}){note}")
+    if not cap.get("enabled"):
+        unchecked("caption clearance", "burned-in captions are off")
+        return
+    from captions import Captions
+    capt = Captions(cap.get("style", "clean"), W, H, timing, fonts_dir=p["proj"] / "fonts", highlight=cap.get("highlight", "auto"))
+    hits = layoutcheck.collisions(films, capt, W, H, lambda f: res)
+    measures["layout"]["caption_collisions"] = hits
+    check("caption clearance", not hits, "; ".join(f"{h['kind']} {h['text'][:30]!r} at {h['t']:.1f}s, {h['cover'] * 100:.0f}% under the caption"
+                                                   for h in hits[:6]) + (f" and {len(hits) - 6} more" if len(hits) > 6 else ""),
+          blocking=False, seen=f"no measured text under the captions at {len(capt.chunks)} caption(s)")
 
 
 def grab(video, t):
@@ -295,20 +465,37 @@ def grab(video, t):
     return np.frombuffer(out, np.uint8).reshape(i["h"], i["w"], 3)
 
 
-def finish_report(p, r, checks, timing, state, info=None):
+def finish_report(p, r, checks, timing, state, info=None, measures=None):
     complete = r.ok
     qc = {"lang": p["code"], "built_by": BUILT_BY, "complete": complete,
-          "errors": r.errors, "warnings": r.warnings, "checks": checks}
+          "errors": r.errors, "warnings": r.warnings, "checks": checks,
+          "not_checked": [c["check"] for c in checks if c["ok"] is None], "measurements": measures or {}}
     L.save(p["qc_json"], qc)
     md = [f"# Quality control: {p['code']} edition", "",
-          f"**{'Complete' if complete else 'Not complete'}**: {len(r.errors)} blocking error(s), {len(r.warnings)} warning(s).", ""]
+          f"**{'Complete' if complete else 'Not complete'}**: {len(r.errors)} blocking error(s), {len(r.warnings)} warning(s), "
+          f"{len(qc['not_checked'])} check(s) not made.", ""]
     if r.errors:
         md += ["## Blocking", ""] + [f"- {e}" for e in r.errors] + [""]
     if r.warnings:
         md += ["## Worth a look", ""] + [f"- {w}" for w in r.warnings] + [""]
+    if qc["not_checked"]:
+        md += ["## Not checked", ""] + [f"- {c['check']}: {c['message']}" for c in checks if c["ok"] is None] + [""]
+    ms = qc["measurements"]
+    if ms.get("loudness") or ms.get("narration"):
+        md += ["## Measurements", ""]
+        lo = ms.get("loudness") or {}
+        if lo:
+            md.append(f"- Loudness: {lo.get('integrated_lufs')} LUFS integrated (made for {lo.get('target_lufs')}), "
+                      f"true peak {lo.get('true_peak_dbtp')} dBTP")
+        na = ms.get("narration")
+        if na:
+            md.append(f"- Narration: lowest share {na['min_nrr_db']} dB over the music and effects, aligned at {na['lag_ms']:+.0f} ms; "
+                      "per line in qc.json")
+        md.append("")
     md += ["## Every check", "", "| Check | Result | Note |", "|---|---|---|"]
     for c in checks:
-        md.append(f"| {c['check']} | {'ok' if c['ok'] else ('error' if c['blocking'] else 'warning')} | {c['message'].replace('|', '/')} |")
+        res = "not checked" if c["ok"] is None else "ok" if c["ok"] else ("error" if c["blocking"] else "warning")
+        md.append(f"| {c['check']} | {res} | {c['message'].replace('|', '/')} |")
     L.write_text(p["qc_md"], "\n".join(md) + "\n")
     manifest(p, complete, timing, state, info)
     r.note(f"{p['code']} quality control: {'complete' if complete else 'not complete'}, "

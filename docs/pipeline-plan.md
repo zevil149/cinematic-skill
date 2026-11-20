@@ -127,6 +127,16 @@ Milestones follow the Phase 1–5 audit; each is authorized on its own (6.1: bra
 | Milestone | Scope | State |
 |---|---|---|
 | 6.1 | Gate integrity and run durability: the finishing stages need the look approved for the review's current inputs; `run --only` needs every earlier stage run and every earlier gate approved for its current files; `docpipe.json` saved around every stage (`running`, `interrupted`); render, join and caption passes stopped with their process group past a time limit | done |
+| 6.2 | Smarter QC: narration found against its source (missing, buried, masked, quiet), integrated loudness against the target, SRT/VTT parsed as cues, text overflow and caption collisions from scene geometry, unchecked checks reported as such | done |
+| 6.3 | Composition and typography fidelity: text fitted or wrapped in cards, hero framing, content-aware layout and moves, fewer empty holds, pinned fonts | |
+| 6.4 | Rights enforcement and on-screen credits: uncleared assets blocked from the finished film; localized credits from the assets actually used | |
+| 6.5 | Final report and validators: `final_report.md` and `credits.md`, claim-to-line warnings, acknowledgement of automatically picked images | |
+| 6.6 | Optional: voice and timing readiness (cumulative spend cap, billed-failure logging; an offline aligner and live provider tests only with separate approval) | |
+| 6.7 | Optional: render robustness and image quality (chunk resume, fewer lossy generations) | |
+| 6.8 | Deferred: legacy tool consolidation and dependency pinning | deferred |
+| 6.9 | Production pilot: a controlled project through every stage and gate, real conditions where authorized, a human viewing checklist | |
+
+The milestones and their scope come from the Phase 1-5 audit's roadmap (milestones 6.1-6.9), as approved.
 
 ## Decisions
 
