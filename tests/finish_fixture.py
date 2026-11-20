@@ -59,8 +59,58 @@ def timing(code, acts):
             "tail_out": L.TAIL, "tempo": 1.0, "segments": segs}
 
 
-def make(base, code="en", acts=2, edition=False, mix=True):
-    """The project folder (an edition folder editions/<code> when edition=True)."""
+SR = 16000
+
+
+def speech_like(dur, seed, level=0.25):
+    """A stand-in for a voice: band-limited noise in syllable-rate bursts (offline, no TTS)."""
+    import numpy as np
+    rng = np.random.default_rng(seed)
+    n = int(dur * SR)
+    x = rng.standard_normal(n)
+    k = np.exp(-np.arange(-40, 41) ** 2 / 200.0); x = np.convolve(x, k / k.sum(), "same")    # soften the hiss
+    t = np.arange(n) / SR
+    env = np.clip(np.sin(2 * np.pi * 4.0 * t + rng.uniform(0, 6)), 0, None) ** 0.7               # four syllables a second
+    return x / (np.abs(x).max() + 1e-9) * env * level
+
+
+def write_audio(path, sig):
+    """sig: mono float array at SR -> AAC .m4a."""
+    import numpy as np
+    import wave
+    wav = pathlib.Path(path).with_suffix(".wav")
+    with wave.open(str(wav), "wb") as w:
+        w.setnchannels(1); w.setsampwidth(2); w.setframerate(SR)
+        w.writeframes((np.clip(sig, -1, 1) * 32767).astype("<i2").tobytes())
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(wav), "-ac", "2", "-c:a", "aac", "-b:a", "192k", str(path)], check=True)
+    wav.unlink()
+
+
+def voice_tracks(t, bed_db=-30.0, line_gain=None, line_level=None, drop=(), bed_boost=None):
+    """(narration, mix) for timing t: each line a speech-like burst; the mix is the narration plus a
+    sine bed bed_db below full scale. line_gain {id: dB} changes a line in the mix only;
+    line_level {id: dB} changes it in both (a line spoken quietly); drop: lines left out of the mix;
+    bed_boost {id: dB}: the bed louder under that line."""
+    import numpy as np
+    n = int(t["total_duration"] * SR) + SR
+    narr, mixv = np.zeros(n), np.zeros(n)
+    bed = 10 ** (bed_db / 20) * np.sin(2 * np.pi * 220 * np.arange(n) / SR)
+    for s in t["segments"]:
+        a = int(s["start"] * SR)
+        v = speech_like(s["end"] - s["start"], s["id"]) * 10 ** ((line_level or {}).get(s["id"], 0) / 20)
+        narr[a:a + len(v)] += v
+        if s["id"] not in drop:
+            mixv[a:a + len(v)] += v * 10 ** ((line_gain or {}).get(s["id"], 0) / 20)
+        if bed_boost and s["id"] in bed_boost:
+            b = int(s["end"] * SR)
+            bed[a:b] *= 10 ** (bed_boost[s["id"]] / 20)
+    return narr, mixv + bed
+
+
+def make(base, code="en", acts=2, edition=False, mix=True, voice=None):
+    """The project folder (an edition folder editions/<code> when edition=True). voice: None for
+    the plain tone as the mix; a dict of voice_tracks() arguments for a narration track and a mix
+    made of it (audio/narration.m4a, audio/mix.m4a) and a mix report naming the loudness target."""
     base = pathlib.Path(base)
     if edition:
         root = base / "doc"
@@ -96,7 +146,14 @@ def make(base, code="en", acts=2, edition=False, mix=True):
     (proj / "assets" / "prep").mkdir(parents=True, exist_ok=True)
     with contextlib.redirect_stdout(io.StringIO()):
         prep_assets.textures(proj / "assets" / "prep")
-    if mix:
+    if voice is not None:
+        narr, mx = voice_tracks(t, **voice)
+        write_audio(proj / "audio" / "narration.m4a", narr)
+        write_audio(proj / "audio" / "mix.m4a", mx)
+        import cuesheet
+        lufs, _ = cuesheet.measure(proj / "audio" / "mix.m4a")
+        L.save(proj / "audio" / "mix_report.json", {"lang": code, "built_by": "finish_fixture", "target_lufs": round(lufs, 1)})
+    elif mix:
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-f", "lavfi", "-i", f"sine=frequency=220:duration={t['total_duration']}",
                         "-f", "lavfi", "-i", f"sine=frequency=330:duration={t['total_duration']}", "-filter_complex",
                         "[0][1]amerge=inputs=2,volume=0.2", "-ac", "2", "-c:a", "aac", "-b:a", "128k",

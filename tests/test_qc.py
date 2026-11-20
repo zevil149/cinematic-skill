@@ -74,8 +74,8 @@ class QC(unittest.TestCase):
             rep = L.load(proj / "out" / "qc.en.json")
             self.assertTrue(rep["complete"])
             names = {c["check"] for c in rep["checks"]}
-            for want in ("film", "audio stream", "duration", "frames", "act order", "act 2 join", "narration", "clipping",
-                         "subtitle sync", "captions visible"):
+            for want in ("film", "audio stream", "duration", "frames", "act order", "act 2 join", "sound during lines", "clipping",
+                         "subtitle sync", "captions visible", "SRT cues", "VTT cues", "text fit", "caption clearance"):
                 self.assertIn(want, names)
             m = L.load(proj / "out" / "delivery.en.json")
             self.assertTrue(m["complete"])
@@ -98,14 +98,14 @@ class QC(unittest.TestCase):
             r = qc.build(proj, **QUIET)
             self.assertFalse(r.ok)
             self.assertTrue(any(e.startswith("black frames") for e in r.errors), r.errors)
-            self.assertTrue(any(e.startswith("narration") and "3" in e for e in r.errors), r.errors)
+            self.assertTrue(any(e.startswith("sound during lines") and "3" in e for e in r.errors), r.errors)
             self.assertFalse(L.load(proj / "out" / "delivery.en.json")["complete"])
             self.assertIn("Not complete", (proj / "out" / "qc.en.md").read_text())
             # declared on purpose: the black is allowed; the missing line still blocks
             L.save(proj / "qc.json", {"allow_black": [[s3["start"] - 0.2, s3["start"] + 1.8]]})
             r = qc.build(proj, **QUIET)
             self.assertFalse(any(e.startswith("black frames") for e in r.errors), r.errors)
-            self.assertTrue(any(e.startswith("narration") for e in r.errors))
+            self.assertTrue(any(e.startswith("sound during lines") for e in r.errors))
 
     def test_an_incomplete_render_and_stale_subtitles_are_found(self):
         import qc
