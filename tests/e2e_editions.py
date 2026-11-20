@@ -91,6 +91,12 @@ def main():
                               "delivered": sorted({f["kind"] for f in dl["files"]})}
         for f in (f"qc.{code}.md", f"delivery.{code}.json"):
             (out / "outputs" / code / f).write_bytes((ed / "out" / f).read_bytes())
+    rep = json.loads((proj / "reports" / "report.json").read_text())                 # the production's final report (phase 6.5)
+    assert all(e["complete"] for e in rep["editions"].values()), {k: e["complete"] for k, e in rep["editions"].items()}
+    assert "NOT complete" not in (proj / "reports" / "final_report.md").read_text()
+    for f in ("final_report.md", "credits.md", "report.json"):
+        (out / "outputs" / f).write_bytes((proj / "reports" / f).read_bytes())
+    report["final_report"] = {code: e["complete"] for code, e in rep["editions"].items()}
     chk = subprocess.run([sys.executable, str(SCRIPTS / "editions.py"), "check", "--project", str(proj)], capture_output=True, text=True)
     print(chk.stdout)
     if chk.returncode != 0:

@@ -7,6 +7,7 @@ fallback for anything that cannot be used.
   python3 visuals.py fetch  --project P                                         # download, with retry and resume
   python3 visuals.py run    --project P [--offline]                             # all three
   python3 visuals.py hosts  --project P                                         # which archives are cooling down
+  python3 visuals.py acknowledge --project P I003 I007                          # you looked at these automatic picks
 
 Reads   04_scenes/image_needs.json (from storyboard.py), 05_visuals/selection.json (your choices)
 Writes  05_visuals/candidates.json, assets.json (one entry per need), visuals.md, credits.md,
@@ -14,7 +15,9 @@ Writes  05_visuals/candidates.json, assets.json (one entry per need), visuals.md
         photos.json and footage.json (entries marked generated_by visuals.py; other entries are kept)
 
 Choosing: the best-scoring candidate with a free licence is picked unless selection.json says
-otherwise. A selection entry is a candidate id, "fallback", or {"candidate": id, "cleared_by":
+otherwise. A pick made that way is automatic: the visuals gate is not approved until a person has
+looked at each one and chosen it in selection.json or acknowledged it (selection.json
+"acknowledged", by `acknowledge`), which the final report records. A selection entry is a candidate id, "fallback", or {"candidate": id, "cleared_by":
 "name", "note": "why it is clear"} for a "check" licence (no known restrictions, free use) a
 person has cleared. Refused licences (NC, ND, in copyright, none stated) are never used.
 
@@ -333,6 +336,9 @@ def check(proj):
             r.note(f"{nid}: your own file, rights as you stated them: {a['license']['label']}")
         elif a.get("cleared"):
             r.note(f"{nid}: {a['license']['label']} cleared by {a['cleared'].get('cleared_by')}")
+        if a.get("auto") and a["status"] == "ok":
+            r.note(f"{nid} ({a['what']}): picked automatically ({a['license']['label']}); look at it, then choose it in "
+                   "selection.json or acknowledge it (visuals.py acknowledge) before approving")
         if a.get("shadowed"):
             r.warn(f"{nid}: photos.json or footage.json already has an entry {nid} you wrote; yours is used and the "
                    f"download ({a.get('file')}) is not. Rename one of them if both should appear")
@@ -364,6 +370,30 @@ def render_credits(man):
     return "\n".join(out) + "\n"
 
 
+def auto_picks(proj):
+    """[(need id, what, licence)] of images the stage chose by itself (best score, no selection.json
+    entry) that nobody has acknowledged yet. The visuals gate is not approved while any remain."""
+    p = vpaths(proj)
+    man = L.load(p["assets"], {}).get("assets", {}) if p["assets"].exists() else {}
+    sel = L.load(p["selection"], {}) if p["selection"].exists() else {}
+    ack = set(sel.get("acknowledged", []))
+    return [(nid, a.get("what", ""), (a.get("license") or {}).get("label", "")) for nid, a in sorted(man.items())
+            if a.get("auto") and a.get("status") == "ok" and nid not in ack and nid not in sel]
+
+
+def acknowledge(proj, ids, log=print):
+    """Record that a person looked at these automatic picks and keeps them (selection.json "acknowledged")."""
+    p = vpaths(proj)
+    man = L.load(p["assets"], {}).get("assets", {}) if p["assets"].exists() else {}
+    unknown = [i for i in ids if i not in man]
+    if unknown:
+        raise SystemExit(f"no image need {', '.join(unknown)} in 05_visuals/assets.json")
+    sel = L.load(p["selection"], {}) if p["selection"].exists() else {}
+    sel["acknowledged"] = sorted(set(sel.get("acknowledged", [])) | set(ids))
+    L.save(p["selection"], sel)
+    log(f"acknowledged {', '.join(ids)}; run docpipe.py again, then approve visuals")
+
+
 def run(proj, http=None, offline=False, providers=None, log=print):
     if not vpaths(proj)["image_needs"].exists():
         r = L.Result(); r.error("no 04_scenes/image_needs.json: run the scenes stage first"); return r
@@ -376,8 +406,10 @@ def run(proj, http=None, offline=False, providers=None, log=print):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
-    for name in ("search", "select", "fetch", "run", "hosts"):
+    for name in ("search", "select", "fetch", "run", "hosts", "acknowledge"):
         s = sub.add_parser(name); s.add_argument("--project", required=True)
+        if name == "acknowledge":
+            s.add_argument("needs", nargs="+", help="image need ids whose automatic pick you looked at and keep")
         if name in ("search", "run"):
             s.add_argument("--providers", default="", help="comma-separated, in order (default: topic.json archives or all)")
         if name == "search":
@@ -385,6 +417,8 @@ def main():
         if name in ("run", "fetch", "search"):
             s.add_argument("--offline", action="store_true", help="use cached searches only; no network")
     a = ap.parse_args()
+    if a.cmd == "acknowledge":
+        acknowledge(a.project, a.needs); return
     provs = [x for x in getattr(a, "providers", "").split(",") if x] or None
     if a.cmd == "hosts":
         st = L.load(vpaths(a.project)["http_state"], {"cooling": {}})

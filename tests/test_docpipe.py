@@ -383,7 +383,7 @@ class Pipeline(unittest.TestCase):
             status = cli("docpipe.py", "status", "--project", proj).stdout
             self.assertRegex(status, r"research\s+out of date")
             self.assertRegex(status, r"outline\s+out of date")
-            self.assertIn("planned", status)
+            self.assertRegex(status, r"report\s+not run")                       # the last stage (phase 6.5), no longer planned
             r = cli("docpipe.py", "run", "--project", proj, "--until", "scenes", check=False)
             self.assertIn("[outline] passes its checks", r.stdout)
 

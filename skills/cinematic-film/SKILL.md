@@ -48,6 +48,7 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/narrate.py` | An edition's `audio/narration.m4a` and `audio/timing.json` (with word times) from its voice segments; re-times the storyboard and scenes |
 | `scripts/audiolib.py` | The production's music and sound library: your files with source, licence, attribution and clearance; nothing uncleared is used |
 | `scripts/qc.py` | The finished film's quality control (streams, length, acts, black frames, narration against its source, silence, loudness, clipping, subtitles, text fit and caption clearance) and its delivery manifest |
+| `scripts/report.py` | The production's final report and credits: status, claims to lines to scenes to images, rights, sound, QC, and what none of it proves |
 | `scripts/rights.py` | What the finished film shows and plays, judged by the documented licence and clearance policy; blocks what may not be used |
 | `scripts/credits.py` | The closing credits, in the edition's language, from the assets the film actually uses |
 | `scripts/layoutcheck.py` | Text geometry of a film's scenes for QC: text wider than its card, measured text under the burned captions |
