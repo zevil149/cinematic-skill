@@ -85,6 +85,12 @@ the pipeline scaffolds them, checks them and refuses to move on while a check fa
 marked [gate] waits for `approve` before the next stage runs, and an approval lapses when the
 stage's inputs change. The planned stage (report) is
 listed by status and arrives in a later phase.
+
+`run --only STAGE` runs one stage, and only when a full run would have reached it: the stages
+before it have run and every gate before it is approved for its current files. The finishing
+stages need the look approved for the review's current inputs, however they are run.
+docpipe.json is saved around every stage ("running" while it works, "interrupted" if it raises),
+so a crash keeps what finished and the next run redoes the rest.
 """
 import argparse
 import datetime
@@ -424,35 +430,99 @@ def edition_steps(root, langs):
     return steps
 
 
+DONE = ("done", "partial")
+
+
+def look_problem(state, review_key, current, proj, lang_arg=""):
+    """Why the finishing stages may not run yet, or None: the look must be approved, and approved for
+    the review's current inputs (scenes, timing, storyboard, prepared assets, engine). An approval
+    given before any of them changed has lapsed, even if no run has made the review again yet."""
+    st = state["stages"].get(review_key, {})
+    if st.get("status") == "done" and st.get("approved") == current:
+        return None
+    if st.get("approved") and st.get("approved") != current:
+        return (f"the look approved for it no longer matches its scenes, timing or assets; run docpipe.py run --project "
+                f"{proj}{lang_arg} to make the review again, look at it, then: docpipe.py approve --project {proj} look{lang_arg}")
+    return f"docpipe.py approve --project {proj} look{lang_arg}"
+
+
+def run_stage(state, save, st, fn):
+    """Run one stage with its state saved around it: "running" while it works (so a run that is killed
+    leaves it to run again, never "done"), "interrupted" if it raises."""
+    st["status"] = "running"
+    save()
+    try:
+        return fn()
+    except BaseException as e:
+        st.update(status="interrupted", errors=[f"{type(e).__name__}: {e}"[:300]],
+                  at=datetime.datetime.now().isoformat(timespec="seconds"))
+        save()
+        raise
+
+
+def upstream_problems(state, earlier, current_hash):
+    """For run --only: what a full run would have needed before reaching this stage. Every earlier
+    stage it depends on has run successfully, and every earlier gate is approved for its current
+    files. earlier: [(key, gate)]; current_hash(key) gives a gated stage's input hash now."""
+    out = []
+    for key, gate in earlier:
+        st = state["stages"].get(key, {})
+        if gate == "look":
+            continue                                        # only the finishing stages wait for the look
+        if gate:
+            if st.get("approved") != current_hash(key) or st.get("status") not in DONE:
+                out.append(f"{key} is not approved for its current files (docpipe.py approve)")
+        elif st.get("status") not in DONE:
+            out.append(f"{key} has not run successfully ({st.get('status') or 'not run'})")
+    return out
+
+
 def run_steps(proj, steps, until=None, only=None, force=False):
     p = L.paths(proj)
     state = load_state(proj)
+    save = lambda: L.save(p["state"], state)                 # noqa: E731 - after every stage, not only at the end
     stop_at = EDITION_ORDER.index(until) if until else len(EDITION_ORDER)
+    files_of = {k: f for k, _, _, f, _ in steps}
+    src_script = next((k for k, *_ in steps if k.startswith("script@")), None)
+    looks = {}
     ok = True
-    for key, name, fn, files, gate in steps:
+    for idx, (key, name, fn, files, gate) in enumerate(steps):
         if EDITION_ORDER.index(name) > stop_at or (only and name != only):
             continue
         st = state["stages"].setdefault(key, {})
+        code = key.split("@")[1] if "@" in key else None
         if name in AFTER_LOOK:
-            code = key.split("@")[1]
-            if state["stages"].get(f"review@{code}", {}).get("status") != "done":
-                st["status"] = "waiting for the look"; ok = False
-                print(f"[{key}] waits for the look of the {code} edition: docpipe.py approve --project {proj} look --lang {code}")
+            rk = f"review@{code}"
+            if rk not in looks:
+                looks[rk] = hash_of(files_of[rk]()) if rk in files_of else None
+            why = look_problem(state, rk, looks[rk], proj, f" --lang {code}")
+            if why:
+                st["status"] = "waiting for the look"; ok = False; save()
+                print(f"[{key}] waits for the look of the {code} edition: {why}")
+                continue
+        if only:
+            earlier = [(k, g) for k, _, _, _, g in steps[:idx]
+                       if "@" not in k or code is None or k.endswith("@" + code) or k == src_script]
+            missing = upstream_problems(state, earlier, lambda k: hash_of(files_of[k]()))
+            if missing:
+                ok = False
+                print(f"[{key}] cannot run on its own yet: " + "; ".join(missing) +
+                      ". Run docpipe.py run without --only to bring the stages before it up to date.")
                 continue
         h = hash_of(files())
         if not force and st.get("status") == "done" and st.get("inputs") == h:
             print(f"[{key}] up to date"); continue
-        r = fn()
+        r = run_stage(state, save, st, fn)
         h = hash_of(files())
         st.update(inputs=h, at=datetime.datetime.now().isoformat(timespec="seconds"),
                   errors=r.errors, warnings=r.warnings, notes=r.notes)
         print(r.report(f"[{key}]"))
         if not r.ok:
-            st["status"] = "blocked"; ok = False
+            st["status"] = "blocked"; ok = False; save()
             print(f"[{key}] blocked: fix the errors above, then run again")
             break
         if gate and st.get("approved") != h:
-            st["status"] = "awaiting approval"; ok = False
+            st["status"] = "awaiting approval"; ok = False; save()
             lang_arg = f" --lang {key.split('@')[1]}" if "@" in key else ""
             what = "look" if gate == "look" else name
             print(f"[{key}] passes its checks; review it, then: docpipe.py approve --project {proj} {what}{lang_arg}")
@@ -460,9 +530,10 @@ def run_steps(proj, steps, until=None, only=None, force=False):
                 continue                                     # nothing waits on the look: the other editions go on
             break
         st["status"] = "partial" if getattr(r, "partial", False) else "done"
+        save()
         if st["status"] == "partial":
             print(f"[{key}] partial: some work is deferred; the next run retries it")
-    L.save(p["state"], state)
+    save()
     return ok
 
 
@@ -488,7 +559,15 @@ def run(proj, until=None, only=None, force=False, lang=None):
     if (until and until not in NAMES) or (only and only not in NAMES):
         raise SystemExit(f"the beats stage exists only in a production with editions (editions.py add)")
     state = load_state(proj)
+    save = lambda: L.save(p["state"], state)                 # noqa: E731 - after every stage, not only at the end
     stop_at = NAMES.index(until) if until else len(NAMES) - 1
+    keys_of = {s[0]: s[2] for s in STAGES}
+
+    def current(name):
+        h = single_hash(proj, p, keys_of[name])
+        migrate_hash(state["stages"].get(name), p, keys_of[name], h)
+        return h
+    look = None
     ok = True
     for idx, (name, fn, keys, gate) in enumerate(STAGES):
         if idx > stop_at:
@@ -496,35 +575,46 @@ def run(proj, until=None, only=None, force=False, lang=None):
         if only and name != only:
             continue
         st = state["stages"].setdefault(name, {})
-        if name in AFTER_LOOK and state["stages"].get("review", {}).get("status") != "done":
-            st["status"] = "waiting for the look"; ok = False
-            print(f"[{name}] waits for the look: docpipe.py approve --project {proj} look")
-            continue
+        if name in AFTER_LOOK:
+            look = look or current("review")
+            why = look_problem(state, "review", look, proj)
+            if why:
+                st["status"] = "waiting for the look"; ok = False; save()
+                print(f"[{name}] waits for the look: {why}")
+                continue
+        if only:
+            missing = upstream_problems(state, [(s[0], s[3]) for s in STAGES[:idx]], current)
+            if missing:
+                ok = False
+                print(f"[{name}] cannot run on its own yet: " + "; ".join(missing) +
+                      ". Run docpipe.py run without --only to bring the stages before it up to date.")
+                continue
         h = single_hash(proj, p, keys)
         migrate_hash(st, p, keys, h)
         if not force and st.get("status") in ("done", "awaiting approval") and st.get("inputs") == h:   # "partial" always reruns
             if st["status"] == "done":
                 print(f"[{name}] up to date"); continue
-        r = fn(proj)
+        r = run_stage(state, save, st, lambda: fn(proj))
         h = single_hash(proj, p, keys)                # stages may scaffold their own inputs
         st.update(inputs=h, at=datetime.datetime.now().isoformat(timespec="seconds"),
                   errors=r.errors, warnings=r.warnings, notes=r.notes)
         print(r.report(f"[{name}]"))
         if not r.ok:
-            st["status"] = "blocked"; ok = False
+            st["status"] = "blocked"; ok = False; save()
             print(f"[{name}] blocked: fix the errors above, then run again")
             break
         if gate and st.get("approved") != h:
-            st["status"] = "awaiting approval"; ok = False
+            st["status"] = "awaiting approval"; ok = False; save()
             what = "look" if gate == "look" else name
             print(f"[{name}] passes its checks; review it, then: docpipe.py approve --project {proj} {what}")
             if gate == "look":
                 continue
             break
         st["status"] = "partial" if getattr(r, "partial", False) else "done"
+        save()
         if st["status"] == "partial":
             print(f"[{name}] partial: some work is deferred; the next run retries it")
-    L.save(p["state"], state)
+    save()
     return ok
 
 

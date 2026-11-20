@@ -30,6 +30,13 @@ gradient, legible on any background) is the default. Hindi is shaped by HarfBuzz
 Captions follow the edition's word timing; none is on screen in a title card's silence. The burned
 film must have the joined film's frames, length, size and sound before it counts.
 
+Time limits: render.py, the join's ffmpeg and burn_captions.py each run in their own process group
+with a generous time limit (15 minutes plus a minute of work per second of film at 1080p, scaled by
+pixels; the join a fifth of that), or CINEMATIC_RENDER_TIMEOUT seconds. A pass that runs past it is
+taken as hung: the whole group (parallel workers and their encoders included) is stopped, its
+partial file removed, nothing recorded, and the stage fails with a clear error. Interrupting
+finish.py (Ctrl-C) stops the group as well, so no worker is left rendering.
+
 Resume: an act is rendered again only when its scene, the engine, the timing, the prepared assets,
 the size or its time range changed (out/finish.json). An act file that finish.py did not record,
 or that changed since, is yours: never replaced without --force, which keeps it as .bak.
@@ -40,6 +47,7 @@ import json
 import os
 import pathlib
 import shutil
+import signal
 import subprocess
 import sys
 
@@ -50,6 +58,50 @@ BUILT_BY = "finish.py"
 HERE = pathlib.Path(__file__).resolve().parent
 OVERLAP = 0.25          # each act is rendered this far past its edges, for the crossfade between acts
 SIZE, CRF = "1920x1080", 18
+TIMEOUT_ENV = "CINEMATIC_RENDER_TIMEOUT"
+BASE_LIMIT, PER_FILM_SECOND = 900.0, 60.0      # seconds; at 1080p a worker renders about 3 frames a second
+
+
+def time_limit(film_seconds, size, share=1.0):
+    """How long a pass over film_seconds of film at size may run before it is taken as hung."""
+    env = os.environ.get(TIMEOUT_ENV, "").strip()
+    if env:
+        try:
+            if float(env) > 0:
+                return float(env)
+        except ValueError:
+            pass
+    w, h = map(int, str(size).lower().split("x"))
+    return BASE_LIMIT + share * PER_FILM_SECOND * max(0.0, film_seconds) * max(1.0, w * h / (1920 * 1080))
+
+
+def stop_group(proc):
+    """Stop a process started by run_bounded and everything it started."""
+    try:
+        if os.name == "posix":
+            os.killpg(proc.pid, signal.SIGKILL)
+        else:                                                   # pragma: no cover - Windows
+            subprocess.run(["taskkill", "/F", "/T", "/PID", str(proc.pid)], capture_output=True)
+    except (ProcessLookupError, PermissionError):
+        pass
+
+
+def run_bounded(cmd, limit, env=None):
+    """subprocess.run(cmd, capture_output=True, text=True) in its own process group, stopped (with its
+    children) after limit seconds or when this process is interrupted. Returns (result, timed_out)."""
+    kw = {"start_new_session": True} if os.name == "posix" else {"creationflags": subprocess.CREATE_NEW_PROCESS_GROUP}
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, env=env, **kw)
+    try:
+        out, err = proc.communicate(timeout=limit)
+    except subprocess.TimeoutExpired:
+        stop_group(proc)
+        out, err = proc.communicate()
+        return subprocess.CompletedProcess(cmd, proc.returncode, out, err), True
+    except BaseException:                                       # Ctrl-C and the like: leave nothing running
+        stop_group(proc)
+        proc.wait()
+        raise
+    return subprocess.CompletedProcess(cmd, proc.returncode, out, err), False
 
 
 def fp(proj):
@@ -154,7 +206,12 @@ def render_acts(proj, size=SIZE, workers=0, force=False, crf=CRF, log=print):
             cmd += ["--audio", str(p["mix"])]
         env = dict(os.environ, CINEMATIC_ACT=str(n))
         log(f"{p['code']} act {n}: rendering {a:.2f}-{b:.2f}s at {size}")
-        res = subprocess.run(cmd, capture_output=True, text=True, env=env)
+        limit = time_limit(b - a, size)
+        res, hung = run_bounded(cmd, limit, env=env)
+        if hung:
+            tmp.unlink(missing_ok=True)
+            r.error(f"act {n}: the render did not finish in {limit:.0f}s and was stopped; nothing was kept "
+                    f"(set {TIMEOUT_ENV} to allow longer)"); continue
         if res.returncode != 0 or not tmp.exists():
             tmp.unlink(missing_ok=True)
             r.error(f"act {n}: the render failed: {(res.stderr or res.stdout).strip()[-600:]}"); continue
@@ -288,7 +345,12 @@ def join(proj, force=False, crf=CRF, log=print):
                 "-c:v", "libx264", "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p"]
     cmd += ["-t", f"{total:.3f}", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(tmp)]
     log(f"{p['code']} film: joining {len(recs)} act(s), {total:.2f}s")
-    res = subprocess.run(cmd, capture_output=True, text=True)
+    limit = time_limit(total, f"{W}x{H}", share=0.2)
+    res, hung = run_bounded(cmd, limit)
+    if hung:
+        tmp.unlink(missing_ok=True)
+        r.error(f"the join did not finish in {limit:.0f}s and was stopped; nothing was kept (set {TIMEOUT_ENV} to allow longer)")
+        return r
     if res.returncode != 0 or not tmp.exists():
         tmp.unlink(missing_ok=True)
         r.error(f"the join failed: {res.stderr.strip()[-600:]}"); return r
@@ -395,7 +457,13 @@ def captions(proj, force=False, workers=0, log=print):
     if workers:
         cmd += ["--workers", str(workers)]
     log(f"{p['code']} captions: burning the {cfg['style']} style into the film")
-    res = subprocess.run(cmd, capture_output=True, text=True)
+    jf = probe(p["film"])
+    limit = time_limit(jf["duration"], f"{jf['w']}x{jf['h']}")
+    res, hung = run_bounded(cmd, limit)
+    if hung:
+        tmp.unlink(missing_ok=True)
+        r.error(f"burning the captions did not finish in {limit:.0f}s and was stopped; nothing was kept "
+                f"(set {TIMEOUT_ENV} to allow longer)"); return r
     if res.returncode != 0 or not tmp.exists():
         tmp.unlink(missing_ok=True)
         r.error(f"burning the captions failed: {(res.stderr or res.stdout).strip()[-600:]}"); return r
