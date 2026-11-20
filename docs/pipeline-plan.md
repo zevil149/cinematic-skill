@@ -112,7 +112,7 @@ Milestones (authorized in full; branch `claude/film-finishing-phase-5`, draft PR
 |---|---|---|
 | 5.1 | `effects@<lang>`: the effects track from every act's scene cues and the cue sheet's `synth_cues`, per act, resumable, protected | done |
 | 5.2 | `render@<lang>`: each act rendered at its approved timing (after the look gate), resumable per act, verified | done |
-| 5.3 | `join@<lang>`: acts joined in order with short crossfades, the full mix laid over, timeline checked | |
+| 5.3 | `join@<lang>`: acts joined in order with short crossfades, the full mix laid over, timeline checked | done |
 | 5.4 | `captions@<lang>`: the chosen caption style burned in (Devanagari shaped), SRT and VTT kept | |
 | 5.5 | `qc@<lang>`: the finished film checked (streams, duration, black frames, silence, clipping, subtitles, act order) and a delivery manifest; Phase 6's script and image validators and final report are not part of it | |
 

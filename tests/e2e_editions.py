@@ -79,6 +79,8 @@ def main():
         fin = json.loads((ed / "out" / "finish.json").read_text())
         assert fin["lang"] == code and fin["acts"], fin
         report[code]["render"] = {str(k): {"frames": v["frames"], "from": v["from"], "to": v["to"]} for k, v in fin["acts"].items()}
+        report[code]["film"] = {k: fin["join"][k] for k in ("duration", "frames", "size", "order")}
+        assert abs(fin["join"]["duration"] - t["total_duration"]) < 0.1, fin["join"]
     chk = subprocess.run([sys.executable, str(SCRIPTS / "editions.py"), "check", "--project", str(proj)], capture_output=True, text=True)
     print(chk.stdout)
     if chk.returncode != 0:

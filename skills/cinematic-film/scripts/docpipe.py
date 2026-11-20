@@ -49,6 +49,8 @@ Stage (phase 4), per edition, last:
 Stages (phase 5), per edition, after its look is approved:
   render     out/acts/act_NN.mp4: every act at its approved timing, through render.py (memory-aware
              parallel workers), checked frame by frame count, resumable per act  (finish.py render)
+  join       out/film.<lang>.mp4: the acts in order, crossfaded where they meet, with the mix over
+             the whole film; checked against the timeline  (finish.py join)
   These wait, without rendering anything, until `approve look` for that edition; `run --size
   1280x720` (default 1920x1080) and `--workers N` set the render.
 
@@ -113,7 +115,7 @@ PLANNED = [("captions", "captions burned into the render (burn_captions.py)"),
 
 OPTS = {"offline": False, "confirm_cost": False, "max_cost": voice.DEFAULT_CAP, "download_maps": False,
         "size": finish.SIZE, "workers": 0}
-AFTER_LOOK = ("render",)                          # stages that wait for the edition's look approval
+AFTER_LOOK = ("render", "join")                          # stages that wait for the edition's look approval
 
 
 def stage_topic(proj):
@@ -164,6 +166,10 @@ def stage_scenegen(proj):
 
 def stage_render(proj):
     return finish.render_acts(proj, OPTS["size"], OPTS["workers"])
+
+
+def stage_join(proj):
+    return finish.join(proj)
 
 
 def stage_review(proj):
@@ -280,7 +286,8 @@ STAGES = [
     ("assets", stage_assets, ("prepared:",), False),
     ("scenegen", stage_scenegen, ("storyboard", "assets", "outline"), False),
 ] + [(name, fn, ("audio:" + name,), False) for name, fn in AUDIO] + [("review", stage_review, ("review:",), "look"),
-                                                                        ("render", stage_render, ("render:",), False)]
+                                                                        ("render", stage_render, ("render:",), False),
+                                                                        ("join", stage_join, ("join:",), False)]
 NAMES = [s[0] for s in STAGES]
 
 
@@ -291,6 +298,8 @@ def single_hash(proj, p, keys):
         return review.fingerprint(proj)
     if keys and keys[0] == "render:":
         return finish.render_fingerprint(proj, OPTS["size"])
+    if keys and keys[0] == "join:":
+        return finish.join_fingerprint(proj)
     if keys and keys[0].startswith("audio:"):
         return hash_of(audio_inputs(proj, keys[0][6:]))
     return stage_hash(p, keys)
@@ -324,7 +333,7 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
 
 
 EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "assets", "scenegen",
-                 "voice", "narration", "effects", "sound", "subtitles", "review", "render"]
+                 "voice", "narration", "effects", "sound", "subtitles", "review", "render", "join"]
 
 
 def edition_steps(root, langs):
@@ -387,6 +396,8 @@ def edition_steps(root, langs):
     for code in targets:                                     # phase 5: finishing, once the look is approved
         steps.append((f"render@{code}", "render", (lambda c=code: stage_render(E(c))),
                       (lambda c=code: Fingerprint(finish.render_fingerprint(E(c), OPTS["size"]))), False))
+        steps.append((f"join@{code}", "join", (lambda c=code: stage_join(E(c))),
+                      (lambda c=code: Fingerprint(finish.join_fingerprint(E(c)))), False))
     return steps
 
 
