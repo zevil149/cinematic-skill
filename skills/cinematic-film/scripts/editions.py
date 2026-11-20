@@ -134,7 +134,9 @@ def check(root, code, r=None):
                        ("timing.json", ed / "audio" / "timing.json"), ("voice.json", ed / "voice.json"),
                        ("audio/voice/manifest.json", ed / "audio" / "voice" / "manifest.json"),
                        ("audio/cues.json", ed / "audio" / "cues.json"), ("audio/mix_report.json", ed / "audio" / "mix_report.json"),
-                       ("audio/subs.json", ed / "audio" / "subs.json"), ("out/finish.json", ed / "out" / "finish.json")):
+                       ("audio/subs.json", ed / "audio" / "subs.json"), ("out/finish.json", ed / "out" / "finish.json"),
+                       (f"out/qc.{code}.json", ed / "out" / f"qc.{code}.json"),
+                       (f"out/delivery.{code}.json", ed / "out" / f"delivery.{code}.json")):
         if path.exists():
             tag = L.load(path).get("lang")
             if tag and tag != code:

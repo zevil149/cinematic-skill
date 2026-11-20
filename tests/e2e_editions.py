@@ -84,6 +84,13 @@ def main():
         for f in (f"film.{code}.mp4", f"film.{code}.captions.mp4"):
             (out / "outputs" / code / f).write_bytes((ed / "out" / f).read_bytes())
         assert abs(fin["join"]["duration"] - t["total_duration"]) < 0.1, fin["join"]
+        q = json.loads((ed / "out" / f"qc.{code}.json").read_text())
+        dl = json.loads((ed / "out" / f"delivery.{code}.json").read_text())
+        assert q["lang"] == dl["lang"] == code and q["complete"] and dl["complete"] and not q["errors"], q["errors"]
+        report[code]["qc"] = {"complete": q["complete"], "checks": len(q["checks"]), "warnings": q["warnings"],
+                              "delivered": sorted({f["kind"] for f in dl["files"]})}
+        for f in (f"qc.{code}.md", f"delivery.{code}.json"):
+            (out / "outputs" / code / f).write_bytes((ed / "out" / f).read_bytes())
     chk = subprocess.run([sys.executable, str(SCRIPTS / "editions.py"), "check", "--project", str(proj)], capture_output=True, text=True)
     print(chk.stdout)
     if chk.returncode != 0:

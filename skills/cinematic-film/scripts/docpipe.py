@@ -53,6 +53,9 @@ Stages (phase 5), per edition, after its look is approved:
              the whole film; checked against the timeline  (finish.py join)
   captions   out/film.<lang>.captions.mp4: the film with the edition's caption style burned in
              (captions.json; clean by default); SRT and VTT untouched  (finish.py captions)
+  qc         out/qc.<lang>.md|json and the delivery manifest out/delivery.<lang>.json: the film's
+             streams, length, acts, picture, sound and subtitles checked, with blocking errors
+             apart from warnings; the edition is complete only when nothing blocks it  (qc.py)
   These wait, without rendering anything, until `approve look` for that edition; `run --size
   1280x720` (default 1920x1080) and `--workers N` set the render.
 
@@ -80,8 +83,8 @@ the stage "partial": the film goes on with designed cards, and the next run retr
 The research, outline and narration are written by the agent (or a person) into the stage files;
 the pipeline scaffolds them, checks them and refuses to move on while a check fails. A stage
 marked [gate] waits for `approve` before the next stage runs, and an approval lapses when the
-stage's inputs change. Planned stages (effects, render, captions, report) are
-listed by status and arrive in later phases; until then the film tools run as SKILL.md describes.
+stage's inputs change. The planned stage (report) is
+listed by status and arrives in a later phase.
 """
 import argparse
 import datetime
@@ -102,6 +105,7 @@ import narrate  # noqa: E402
 import narration  # noqa: E402
 import outline  # noqa: E402
 import prepare  # noqa: E402
+import qc  # noqa: E402
 import research  # noqa: E402
 import review  # noqa: E402
 import scenegen  # noqa: E402
@@ -111,12 +115,12 @@ import visuals  # noqa: E402
 import voice  # noqa: E402
 
 LOOKS = ("wall", "slate", "charcoal", "paper", "studio", "blueprint", "night")
-PLANNED = [("report", "final report, credits.md and QC")]
+PLANNED = [("report", "final report and credits.md")]
 
 
 OPTS = {"offline": False, "confirm_cost": False, "max_cost": voice.DEFAULT_CAP, "download_maps": False,
         "size": finish.SIZE, "workers": 0}
-AFTER_LOOK = ("render", "join", "captions")                          # stages that wait for the edition's look approval
+AFTER_LOOK = ("render", "join", "captions", "qc")                          # stages that wait for the edition's look approval
 
 
 def stage_topic(proj):
@@ -175,6 +179,10 @@ def stage_join(proj):
 
 def stage_captions(proj):
     return finish.captions(proj, workers=OPTS["workers"])
+
+
+def stage_qc(proj):
+    return qc.build(proj)
 
 
 def stage_review(proj):
@@ -293,7 +301,8 @@ STAGES = [
 ] + [(name, fn, ("audio:" + name,), False) for name, fn in AUDIO] + [("review", stage_review, ("review:",), "look"),
                                                                         ("render", stage_render, ("render:",), False),
                                                                         ("join", stage_join, ("join:",), False),
-                                                                        ("captions", stage_captions, ("captions:",), False)]
+                                                                        ("captions", stage_captions, ("captions:",), False),
+                                                                        ("qc", stage_qc, ("qc:",), False)]
 NAMES = [s[0] for s in STAGES]
 
 
@@ -308,6 +317,8 @@ def single_hash(proj, p, keys):
         return finish.join_fingerprint(proj)
     if keys and keys[0] == "captions:":
         return finish.captions_fingerprint(proj)
+    if keys and keys[0] == "qc:":
+        return qc.fingerprint(proj)
     if keys and keys[0].startswith("audio:"):
         return hash_of(audio_inputs(proj, keys[0][6:]))
     return stage_hash(p, keys)
@@ -341,7 +352,7 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
 
 
 EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "assets", "scenegen",
-                 "voice", "narration", "effects", "sound", "subtitles", "review", "render", "join", "captions"]
+                 "voice", "narration", "effects", "sound", "subtitles", "review", "render", "join", "captions", "qc"]
 
 
 def edition_steps(root, langs):
@@ -408,6 +419,8 @@ def edition_steps(root, langs):
                       (lambda c=code: Fingerprint(finish.join_fingerprint(E(c)))), False))
         steps.append((f"captions@{code}", "captions", (lambda c=code: stage_captions(E(c))),
                       (lambda c=code: Fingerprint(finish.captions_fingerprint(E(c)))), False))
+        steps.append((f"qc@{code}", "qc", (lambda c=code: stage_qc(E(c))),
+                      (lambda c=code: Fingerprint(qc.fingerprint(E(c)))), False))
     return steps
 
 
