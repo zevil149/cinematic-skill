@@ -96,6 +96,27 @@ def add_visual(film, doc, v, x, y, t_in, k, look):
                          accent=pal["accent"], rot=rot * 0.5, title_size=170))
 
 
+def title_card(film, doc, title, lines, pos, look):
+    """An act's title card (a film of several acts): its label and title, held on the board in the
+    silence before the act's first line, then the camera moves on to the first cluster.
+    title: {"act", "title", "label", "hold"} (scenegen writes it as ACT in the act's scene.py)."""
+    first = lines[0]["line"]
+    t_first = doc.L(first)
+    t_card = max(0.0, t_first - float(title.get("hold", 2.5)))
+    x0, y0 = pos[first]
+    cx, cy = x0 - CLUSTER_X * 0.6, y0 - SLOT_Y * 0.4                 # beside the act's first cluster
+    pal = palette(look)
+    dark = look not in LIGHT_LOOKS
+    film.add(BigText(title.get("label", ""), cx, cy - 380, 140, t_card + 0.1, rgb=pal["type"], rules=True,
+                     grunge=dark, shadow=dark, sfx=False))
+    film.add(BigText(title.get("title", ""), cx, cy, 340, t_card + 0.35, rgb=pal["type"], grunge=dark, shadow=dark, sfx=False))
+    width = max(len(title.get("title", "")) * 340 * 0.55, 1.0)
+    zoom = min(1.1, max(0.15, 3072.0 / width))                      # close, with the whole title in frame
+    film.shot(0.0, cx, cy - 120, zoom * 0.92)
+    film.shot(max(t_card + 0.1, t_first - 0.45), cx, cy - 120, zoom)     # a slow push while it holds
+    return cx, cy, t_card, t_first
+
+
 def build_act(doc, table, look="wall", fps=30, title=None):
     """Build an act's Film from a scene table: every line's visuals and typed text on its slot,
     the camera landing on each line's hero and pushing in to its key word, and a final pull-back."""
@@ -106,6 +127,7 @@ def build_act(doc, table, look="wall", fps=30, title=None):
         film.cam(0, 0, 0, 0.4)
         return film
     pos = layout(lines)
+    card = title_card(film, doc, title, lines, pos, look) if title else None
     k = 0
     prev_section = None
     for n, ln in enumerate(lines):
@@ -129,7 +151,7 @@ def build_act(doc, table, look="wall", fps=30, title=None):
         z = ln.get("zoom", 0.62)
         if first and n:
             film.shot(t - 0.35, x, y + 200, 0.34, rot=0.6 if n % 2 else -0.6)          # whip wide to the new cluster
-        if n == 0:
+        if n == 0 and not card:
             film.shot(0.0, x, y, z * 1.25)
         film.shot(t + 0.3, x, y, z, rot=(-0.5, 0.4, 0.2)[n % 3])
         film.shot(max(t + 0.6, word_time(doc, i, ln.get("key_word"))), x + 120, y + 60, z * 1.12)

@@ -126,4 +126,13 @@ A project made without `--editions` is a single English edition at its root, exa
 
 ## Long films
 
+### Title cards between acts
+
+A film of several acts (over 10 minutes: 3 acts up to 20 minutes, 4 beyond) opens every act after the first on a title card, held in about 2.5 seconds of silence:
+
+- **Timing.** `narrate.py` holds `ACT_GAP` (2.5 s, or the line's own `gap_after` if longer) before the first line of each later act; the storyboard estimates the same pause before a voice exists. Subtitles have no cue in the silence. A film of one act is exactly as before.
+- **Titles.** Each edition's card is in its own language. In order: the edition's `03_script/narration.json` `"act_titles": {"2": "...", "3": "..."}`; for English, the outline's optional `"act_titles"`; for English, the act's first section title. Another language must give its own titles (the scene starters stop with the reason until it does); Latin words in a Hindi title are allowed when the edition's lexicon allows them and only warned about otherwise.
+- **On the board.** `scenegen.py` writes `ACT = {"act", "title", "label", "hold"}` into the act's `scene.py` (label `ACT 2` in English, `भाग 2` in Hindi) and opens the act's board 2.5 s earlier (`acts.json` `t0` and `title_card`). `scenekit.title_card` draws the label and title (Devanagari shaped) beside the act's first cluster, holds the camera on it, and moves on as the first line begins. Edit or delete `ACT` in the scene like anything else; an edited scene is never regenerated.
+- **Review.** The look review adds a still of each title card (`probe_title`).
+
 A 20 or 30 minute film is too big for one board and one review. Build, probe and draft it one act at a time, and look at each act's draft before starting the next.

@@ -77,6 +77,7 @@ def build(proj, write=True):
     if not flat:
         r.error("the script has no lines"); return r
     per_section = {sid: len(lines) for sid, _, lines in sections}
+    act_open = L.act_starts(L.load(p["outline"], {}) if p["outline"].exists() else {}, [(l["id"], sid) for sid, _, _, l in flat])
     scenes, needs, cursor = [], [], L.LEAD
     for n, (sid, take, k, l) in enumerate(flat):
         spoken = l.get("spoken") or lg.spoken_text(l.get("text", ""))
@@ -85,6 +86,8 @@ def build(proj, write=True):
         else:
             start, dur = cursor, lg.est_seconds(spoken)
         gap = l.get("gap_after", L.TAKE_GAP if k == per_section[sid] - 1 else L.GAP)
+        if n + 1 < len(flat) and flat[n + 1][3]["id"] in act_open:
+            gap = max(gap, L.ACT_GAP)                        # the next act's title card holds in silence
         cursor = start + dur + gap
         first_sec = k == 0
         sc = {"scene": f"{sid}-{k + 1:02d}", "section": sid, "take": take, "line": l["id"],

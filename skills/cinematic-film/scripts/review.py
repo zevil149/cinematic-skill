@@ -66,7 +66,9 @@ def fingerprint(proj, size="960x540"):
     assets. A change in any of them makes a new review (and lapses its approval)."""
     import prepare
     p = rp(proj)
-    files = [p["acts"], p["timing"], p["storyboard"], p["proj"] / "scene.py"]
+    here = pathlib.Path(__file__).resolve().parent
+    files = [p["acts"], p["timing"], p["storyboard"], p["proj"] / "scene.py",
+             here / "scenekit.py", here / "engine.py"]                 # how the starters and the engine draw
     files += sorted(p["film_dir"].glob("act_*/scene.py"))
     h = hashlib.sha256(size.encode())
     for f in files:
@@ -166,6 +168,10 @@ def build(proj, size="960x540", log=print):
             fl, mean, std = flags_of(fr)
             return {"name": name, "t": round(t, 2), "file": f"act_{n:02d}/{name}.png", "flags": fl, "mean": mean, "std": std}
         probes = []
+        tc = act.get("title_card")
+        if tc:                                              # a film of several acts: the act's title card
+            probes.append({**still(tc["t0"] + (tc["t1"] - tc["t0"]) * 0.7, "probe_title"), "line": None,
+                           "what": f"title card: {tc.get('label', '')} {tc.get('title', '')}"})
         if lines:
             probes.append({**still(doc.L(lines[0]) + 0.2, "probe_open"), "line": None, "what": "the act opens"})
         for ln in lines:
