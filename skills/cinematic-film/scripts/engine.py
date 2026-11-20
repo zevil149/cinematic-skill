@@ -306,6 +306,23 @@ def resolve_typeface(role, fonts_dir=None):
     return tf, f"system default ({tf.getFamilyName() if tf else '?'}): install one of {[f for f, _ in FONT_ROLES.get(role, [])][:3]}"
 
 
+def font_identity(fonts_dir=None):
+    """{role: what it resolves to on this machine}: a project font file by name and SHA-256 (the
+    pinned way: get_fonts.py or your own fonts/<role>.ttf), else the system family and weight, or
+    "system default (...)" when none of the role's candidates is installed. A change here changes
+    how the film looks, so the look review and the act renders are keyed on it."""
+    import hashlib
+    out = {}
+    for role in FONT_ROLES:
+        tf, desc = resolve_typeface(role, fonts_dir)
+        if desc.endswith("(project file)"):
+            f = next(pathlib.Path(fonts_dir) / f"{role}{ext}" for ext in (".ttf", ".otf")
+                     if (pathlib.Path(fonts_dir) / f"{role}{ext}").exists())
+            desc = f"{f.name} sha256:{hashlib.sha256(f.read_bytes()).hexdigest()[:16]}"
+        out[role] = desc
+    return out
+
+
 SAMPLING = skia.SamplingOptions(skia.FilterMode.kLinear, skia.MipmapMode.kLinear)
 
 
@@ -1109,6 +1126,9 @@ class PaperDoc(Item):
         c.restore()
 
 
+CARD_FIT_MIN = 0.55            # a card's text is never set smaller than this share of its size to fit
+
+
 class Card(Item):
     """A clean panel for explainers and product stories: rounded, flat colour, an optional accent bar,
     a title and a few short lines of real text. Rises into place with a soft shadow."""
@@ -1121,6 +1141,7 @@ class Card(Item):
         self.title, self.lines, self.rgb, self.text_rgb, self.accent, self.radius = title, list(lines), rgb, text_rgb, accent, radius
         self.ts = title_size or h * 0.16
         self.bs = body_size or h * 0.085
+        self._lay = None
 
     def bounds(self, res):
         r = max(self.w, self.h) * 0.8 + 300
@@ -1128,6 +1149,61 @@ class Card(Item):
 
     def cues(self):
         return [("pop", self.t_in, 0.6, {})]
+
+    def layout(self, res):
+        """[(text, x, baseline y, size, font, kind)] in the card's own frame: the text as drawn.
+        Text that fits is set exactly as always. A title too wide for the card (inside its padding)
+        wraps onto two lines at the word break that balances them, and is made smaller only if
+        that is still too wide; a line too wide is made smaller; text running below the card is
+        scaled down as a block. Nothing goes below CARD_FIT_MIN of its size; what still does not
+        fit then is left for the review and QC to report. Shaped (Hindi) text is measured as drawn."""
+        key = (id(res), self.title, tuple(self.lines))
+        if self._lay and self._lay[0] == key:
+            return self._lay[1]
+        W, H = self.w, self.h
+        pad = W * 0.08
+        room = W - 2 * pad
+        ts, bs = self.ts, self.bs
+        titles = [self.title] if self.title else []
+        if self.title and text_width(res, self.title, ts, "label", 0.0) > room:
+            words = self.title.split()
+            best = None
+            for i in range(1, len(words)):
+                pair = [" ".join(words[:i]), " ".join(words[i:])]
+                wid = max(text_width(res, x, ts, "label", 0.0) for x in pair)
+                if best is None or wid < best[0]:
+                    best = (wid, pair)
+            if best is None:
+                best = (text_width(res, self.title, ts, "label", 0.0), [self.title])
+            titles = best[1]
+            if best[0] > room:
+                ts = ts * max(CARD_FIT_MIN, room / best[0])
+        body = []
+        for ln in self.lines:
+            wid = text_width(res, ln, bs, "labelm", 0.0)
+            body.append((ln, bs * max(CARD_FIT_MIN, room / wid) if wid > room else bs))
+
+        def place(f):
+            out = []
+            y = -H / 2 + pad + ts * f * 0.85
+            for k, tl in enumerate(titles):
+                if k:
+                    y += ts * f * 1.05
+                out.append((tl, -W / 2 + pad, y, ts * f, "label", "title"))
+            if titles:
+                y += ts * f * 0.55
+            for ln, size in body:
+                y += bs * f * 1.45
+                out.append((ln, -W / 2 + pad, y, size * f, "labelm", "line"))
+            bottom = out[-1][2] + out[-1][3] * (0.3 if out[-1][5] == "line" else 0.2) if out else -H / 2
+            return out, bottom
+        f = 1.0
+        lay, bottom = place(f)
+        while bottom > H / 2 and f > CARD_FIT_MIN + 1e-9:
+            f = max(CARD_FIT_MIN, f - 0.05)
+            lay, bottom = place(f)
+        self._lay = (key, lay)
+        return lay
 
     def draw(self, c, res, t):
         u = ease_out_back(ramp(t, self.t_in, 0.45), 1.2)
@@ -1145,14 +1221,14 @@ class Card(Item):
             c.save(); c.clipRRect(rr, skia.ClipOp.kIntersect, True)
             c.drawRect(skia.Rect.MakeXYWH(-W / 2, -H / 2, W * 0.035, H), paint(self.accent, a))
             c.restore()
-        y = -H / 2 + pad + self.ts * 0.85
-        if self.title:
-            draw_text(c, res, self.title, -W / 2 + pad, y, self.ts, "label", self.text_rgb, a, 0.0)
-            y += self.ts * 0.55
-        for i, ln in enumerate(self.lines):
-            la = a * ramp(t, self.t_in + 0.25 + 0.12 * i, 0.3)
-            y += self.bs * 1.45
-            draw_text(c, res, ln, -W / 2 + pad, y, self.bs, "labelm", self.text_rgb, la * 0.85, 0.0)
+        i = 0
+        for text, x, y, size, font, kind in self.layout(res):
+            if kind == "title":
+                draw_text(c, res, text, x, y, size, font, self.text_rgb, a, 0.0)
+            else:
+                la = a * ramp(t, self.t_in + 0.25 + 0.12 * i, 0.3)
+                draw_text(c, res, text, x, y, size, font, self.text_rgb, la * 0.85, 0.0)
+                i += 1
         c.restore()
 
 

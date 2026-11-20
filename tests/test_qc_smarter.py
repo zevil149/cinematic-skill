@@ -110,7 +110,7 @@ class Narration(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             proj = finished(pathlib.Path(tmp) / "a", voice={"bed_db": -50.0, "line_level": {2: -14.0}})
             r = qc.build(proj, **QUIET)                                                        # line 2 spoken softly, mixed as spoken
-            self.assertTrue(r.ok, r.errors); self.assertEqual(r.warnings, [])
+            self.assertTrue(r.ok, r.errors); self.assertEqual([w for w in r.warnings if not w.startswith("fonts:")], [])
             m = L.load(proj / "out" / "qc.en.json")["measurements"]["narration"]
             self.assertLess(abs(m["lag_ms"]), 30)
             proj = finished(pathlib.Path(tmp) / "b", voice={"bed_db": -40.0, "line_gain": {2: -18.0}, "bed_boost": {4: 22.0}})
@@ -181,8 +181,9 @@ class Layout(unittest.TestCase):
         import layoutcheck as LC
         from captions import Captions
         f = E.Film(8, look="wall")
-        f.add(E.Card(0, -3000, 2700, 1650, 0.0, title="A TITLE MUCH TOO LONG FOR THIS CARD", lines=["short"]))
-        f.add(E.Card(5000, -3000, 2700, 1650, 0.0, title="FITS", lines=["one", "two", "three", "four", "five", "six", "seven"]))
+        # beyond what fitting (6.3: wrap, then down to 55%) can do: one endless word, and fourteen lines
+        f.add(E.Card(0, -3000, 2700, 1650, 0.0, title="ATITLEOFONEWORDFARTOOLONGFORANYCARDATALL", lines=["short"]))
+        f.add(E.Card(5000, -3000, 2700, 1650, 0.0, title="FITS", lines=[f"line {i}" for i in range(14)]))
         f.add(E.Card(9000, -3000, 2700, 1650, 0.0, title="FITS", lines=["fine"]))
         low = f.add(E.Parallax(E.BigText("UNDER THE CAPTION", 0, 1800, 260, 0.0, grunge=False), depth=1.08))
         f.add(E.BigText("ABOVE IT", 0, -200, 260, 0.0, grunge=False))
@@ -190,7 +191,7 @@ class Layout(unittest.TestCase):
         res = E.Res(960 / 3840.0)
         over = LC.overflows(f, res)
         self.assertEqual(sorted((o["text"][:6], o["what"]) for o in over),
-                         [("A TITL", "title wider than the card"), ("FITS", "text runs below the card")])
+                         [("ATITLE", "title wider than the card"), ("FITS", "text runs below the card")])
         boxes = {text: b for _, text, b in LC.screen_text(f, res, 4.0, 960, 540)}
         self.assertGreater(boxes["UNDER THE CAPTION"][3], 470); self.assertLess(boxes["ABOVE IT"][3], 300)
         timing = {"total_duration": 8.0, "segments": [{"id": 1, "caption": "A caption is on screen now.", "vo": "x",
@@ -229,7 +230,7 @@ class Layout(unittest.TestCase):
             proj = F.make(tmp)
             sc = proj / "06_film" / "act_01" / "scene.py"
             sc.write_text(sc.read_text().replace(
-                "    film.add(BigText(", "    from engine import Card\n    film.add(Card(0, 900, 2700, 1650, 0.2, title='A TITLE MUCH TOO LONG FOR ANY CARD'))\n"
+                "    film.add(BigText(", "    from engine import Card\n    film.add(Card(0, 900, 2700, 1650, 0.2, title='ATITLEOFONEWORDFARTOOLONGFORANYCARDATALL'))\n"
                 "    film.add(BigText(", 1))
             import finish
             assert subtitles.build(proj, **QUIET).ok

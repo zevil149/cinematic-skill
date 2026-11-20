@@ -444,6 +444,22 @@ def layout(p, timing, total, cap, check, unchecked, measures, size=(960, 540)):
     check("text fit", not over, "; ".join(f"{o['kind']} at {o['t']:.1f}s: {o['what']} by {o['over'] * 100:.0f}% ({o['text'][:40]!r})"
                                           for o in over[:6]) + (f" and {len(over) - 6} more" if len(over) > 6 else ""),
           blocking=False, seen=f"all text fits its card ({', '.join(f'{v} {k}' for k, v in sorted(measured.items())) or 'no measured text'}){note}")
+    import engine
+    used = layoutcheck.fonts_used(films)
+    resolved = {role: engine.resolve_typeface(role, p["proj"] / "fonts")[1] for role in used}
+    fallback = {k: v for k, v in resolved.items() if v.startswith("system default")}
+    measures["layout"]["fonts"] = resolved
+    check("fonts", not fallback, "; ".join(f"{k}: {v}" for k, v in fallback.items()) +
+          " (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)",
+          blocking=False, seen=", ".join(f"{k}: {v}" for k, v in resolved.items()) or "no measured text")
+    acts = sorted(L.load(p["acts"], {}).get("acts", []), key=lambda a: a["act"]) if p["acts"].exists() else []
+    allowed = [(0.0, FADE_IN + 0.3), (total - FADE_OUT - 0.3, total + 1)] + \
+        [(a["title_card"]["t0"] - 0.3, a["title_card"]["t1"] + 0.3) for a in acts if a.get("title_card")]
+    holds = layoutcheck.empty_holds(films, doc, total, allowed)
+    measures["layout"]["empty_holds"] = holds
+    check("empty frames", not holds, "; ".join(f"{a:.1f}-{b:.1f}s" for a, b in holds[:6]) +
+          ": the camera holds still on bare board (nothing measured in frame)", blocking=False,
+          seen="no still frame of bare board outside the fades and title cards")
     if not cap.get("enabled"):
         unchecked("caption clearance", "burned-in captions are off")
         return

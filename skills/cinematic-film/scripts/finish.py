@@ -158,6 +158,11 @@ def act_key(p, scene, a, b, size, crf):
         f = pathlib.Path(f)
         h.update(f.name.encode() + (f.read_bytes() if f.exists() else b"<missing>"))
     h.update(prepare.fingerprint(p["proj"]).encode())
+    try:                                                             # the fonts the film is drawn in
+        import engine
+        h.update(json.dumps(engine.font_identity(p["proj"] / "fonts"), sort_keys=True).encode())
+    except ImportError:
+        pass
     return h.hexdigest()[:20]
 
 
