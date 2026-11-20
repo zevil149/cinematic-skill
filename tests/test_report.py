@@ -96,6 +96,19 @@ class Report(unittest.TestCase):
             c = L.load(L.paths(proj)["claims"]); c["claims"][0]["notes"] = "rechecked"; L.save(L.paths(proj)["claims"], c)
             self.assertNotEqual(h, report.fingerprint(proj, ["en", "hi"]))
 
+    def test_the_mix_is_judged_as_the_mix_stage_judged_it(self):
+        import cuesheet
+        with tempfile.TemporaryDirectory() as tmp:
+            ed = pathlib.Path(tmp)
+            L.save(ed / "audio" / "timing.json", {"total_duration": 12.0, "segments": []})
+            base = {"duration": 12.0, "lufs": -15.0, "target_lufs": -15.0, "ceiling_dbtp": -1.5, "clipped_samples": 0}
+            L.save(ed / "audio" / "mix_report.json", {**base, "true_peak_dbtp": -1.5 + cuesheet.TP_TOL - 0.2})   # CI measured -1.3
+            self.assertEqual(report.audio_part(ed)["problems"], [])
+            L.save(ed / "audio" / "mix_report.json", {**base, "true_peak_dbtp": -1.5 + cuesheet.TP_TOL + 0.1})
+            self.assertTrue(any("over the" in x for x in report.audio_part(ed)["problems"]))
+            L.save(ed / "audio" / "mix_report.json", {**base, "true_peak_dbtp": -2.0, "lufs": -15.0 - cuesheet.LOUDNESS_TOL - 0.1})
+            self.assertTrue(any("LUFS" in x for x in report.audio_part(ed)["problems"]))
+
     def test_claim_to_line_warnings(self):
         self.assertLess(report.claim_match("The machine left the sand.", "The first flight lasted twelve seconds")[0], report.OVERLAP_WARN)
         share, extra = report.claim_match("The first flight lasted twelve seconds in 1903.", "The first flight lasted twelve seconds.")
