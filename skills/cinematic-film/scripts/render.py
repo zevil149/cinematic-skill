@@ -11,6 +11,12 @@ Each worker builds the film, renders a contiguous range of frames and pipes raw 
 ffmpeg; the chunks are joined losslessly, then the soundtrack is muxed. --workers defaults to what
 fits in memory (a 4K worker plus its encoder needs about 2 GB; past that the machine swaps and
 everything slows to a crawl).
+
+--resume-dir DIR (with --resume-key K; finish.py passes both for each act): the frames are rendered
+in fixed chunks of --chunk frames, each kept in DIR once its encoder has finished it, so a render
+that is interrupted (a time limit, Ctrl-C, a crash) starts again from the chunks it has not made.
+DIR is cleared when K, the range, the size or the quality changed, and removed when the render is
+written.
 """
 import argparse
 import importlib.util
@@ -18,6 +24,7 @@ import json
 import multiprocessing as mp
 import os
 import pathlib
+import shutil
 import subprocess
 import sys
 import time
@@ -83,6 +90,61 @@ def worker(args):
     return f0, f1, time.time() - t0
 
 
+_W = {}
+
+
+def init_worker(project, size):
+    """Build the film once per worker process (resume mode), not once per chunk."""
+    _W["film"], _W["r"], _ = make(project, size)
+
+
+def chunk_worker(args):
+    """Render frames [f0, f1) into out: written as .part, renamed when the encoder has finished, so a
+    file with the final name is always a whole chunk."""
+    f0, f1, out, crf = args
+    film, r = _W["film"], _W["r"]
+    part = pathlib.Path(out).with_suffix(".part.mp4")
+    ff = subprocess.Popen(["ffmpeg", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{r.W}x{r.H}",
+                           "-r", str(film.fps), "-i", "-", *encoder_args(r.W, crf), str(part)], stdin=subprocess.PIPE)
+    t0 = time.time()
+    for n in range(f0, f1):
+        ff.stdin.write(r.frame(n).tobytes())
+    ff.stdin.close()
+    if ff.wait() != 0:
+        raise RuntimeError(f"ffmpeg failed for chunk {out}")
+    os.replace(part, out)
+    return f0, f1, time.time() - t0
+
+
+def resumable_chunks(proj, a, f0, f1, k):
+    """The chunk files for [f0, f1) in --resume-dir, rendering only the ones not made yet."""
+    rd = pathlib.Path(a.resume_dir)
+    rd = rd if rd.is_absolute() else proj / rd
+    want = {"key": a.resume_key, "f0": f0, "f1": f1, "size": a.size, "crf": a.crf, "chunk": a.chunk}
+    meta = rd / "resume.json"
+    if rd.exists():
+        try:
+            have = json.loads(meta.read_text())
+        except (OSError, ValueError):
+            have = None
+        if have != want:
+            shutil.rmtree(rd)
+    rd.mkdir(parents=True, exist_ok=True)
+    meta.write_text(json.dumps(want))
+    for p in rd.glob("*.part.mp4"):
+        p.unlink()
+    edges = list(range(f0, f1, a.chunk)) + [f1]
+    files = [(b0, b1, rd / f"c_{b0:07d}_{b1:07d}.mp4") for b0, b1 in zip(edges, edges[1:])]
+    todo = [(b0, b1, str(f), a.crf) for b0, b1, f in files if not f.exists()]
+    print(f"rendering {f1 - f0} frames at {a.size}: {len(files) - len(todo)} of {len(files)} chunk(s) already made, "
+          f"{len(todo)} to make on {min(k, max(1, len(todo)))} workers")
+    if todo:
+        with mp.get_context("spawn").Pool(min(k, len(todo)), initializer=init_worker, initargs=(str(proj), a.size)) as pool:
+            for b0, b1, dt in pool.imap_unordered(chunk_worker, todo):
+                print(f"  frames {b0}-{b1}: {dt:.0f}s ({(b1 - b0) / dt:.1f} fps/worker)", flush=True)
+    return rd, [f for _, _, f in files]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--project", required=True)
@@ -96,6 +158,9 @@ def main():
     ap.add_argument("--workers", type=int, default=0, help="0 = as many as fit in memory")
     ap.add_argument("--crf", type=int, default=16)
     ap.add_argument("--cues", action="store_true")
+    ap.add_argument("--resume-dir", default="", help="keep finished chunks here, so an interrupted render resumes")
+    ap.add_argument("--resume-key", default="", help="what the frames are made from; a new key starts over")
+    ap.add_argument("--chunk", type=int, default=240, help="frames a resumable chunk holds")
     a = ap.parse_args()
     proj = pathlib.Path(a.project).resolve()
 
@@ -140,18 +205,24 @@ def main():
     n = f1 - f0
     w, h = map(int, a.size.lower().split("x"))
     k = max(1, min(a.workers or auto_workers(w, h), n // 30 or 1))
-    work = proj / "out" / "chunks"; work.mkdir(parents=True, exist_ok=True)
-    for old in work.glob("*.mp4"):
-        old.unlink()
-    bounds = [f0 + n * i // k for i in range(k + 1)]
-    jobs = [(str(proj), a.size, bounds[i], bounds[i + 1], work / f"c{i:03d}.mp4", a.crf) for i in range(k)]
-    print(f"rendering {n} frames ({n / fps:.1f}s) at {a.size} on {k} workers")
     t0 = time.time()
-    with mp.get_context("spawn").Pool(k) as pool:
-        for b0, b1, dt in pool.imap_unordered(worker, jobs):
-            print(f"  frames {b0}-{b1}: {dt:.0f}s ({(b1 - b0) / dt:.1f} fps/worker)", flush=True)
-    lst = work / "list.txt"
-    lst.write_text("".join(f"file '{j[4].resolve()}'\n" for j in jobs))
+    resume = None
+    if a.resume_dir:
+        resume, chunk_files = resumable_chunks(proj, a, f0, f1, k)
+        lst = resume / "list.txt"
+        lst.write_text("".join(f"file '{f.resolve()}'\n" for f in chunk_files))
+    else:
+        work = proj / "out" / "chunks"; work.mkdir(parents=True, exist_ok=True)
+        for old in work.glob("*.mp4"):
+            old.unlink()
+        bounds = [f0 + n * i // k for i in range(k + 1)]
+        jobs = [(str(proj), a.size, bounds[i], bounds[i + 1], work / f"c{i:03d}.mp4", a.crf) for i in range(k)]
+        print(f"rendering {n} frames ({n / fps:.1f}s) at {a.size} on {k} workers")
+        with mp.get_context("spawn").Pool(k) as pool:
+            for b0, b1, dt in pool.imap_unordered(worker, jobs):
+                print(f"  frames {b0}-{b1}: {dt:.0f}s ({(b1 - b0) / dt:.1f} fps/worker)", flush=True)
+        lst = work / "list.txt"
+        lst.write_text("".join(f"file '{j[4].resolve()}'\n" for j in jobs))
     out = pathlib.Path(a.out)
     out = (out if out.is_absolute() else proj / out).resolve()
     out.parent.mkdir(parents=True, exist_ok=True)
@@ -163,6 +234,8 @@ def main():
                 "-map", "0:v", "-map", "1:a", "-c:a", "aac", "-b:a", "192k", "-shortest"]
     cmd += ["-c:v", "copy", "-movflags", "+faststart", str(out)]
     subprocess.run(cmd, check=True)
+    if resume is not None:
+        shutil.rmtree(resume, ignore_errors=True)               # written: the chunks are no longer needed
     print(f"wrote {out}  ({n} frames in {time.time() - t0:.0f}s)")
 
 

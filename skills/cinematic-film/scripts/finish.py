@@ -58,6 +58,7 @@ BUILT_BY = "finish.py"
 HERE = pathlib.Path(__file__).resolve().parent
 OVERLAP = 0.25          # each act is rendered this far past its edges, for the crossfade between acts
 SIZE, CRF = "1920x1080", 18
+INTERMEDIATE_CRF = 12           # acts the join encodes again (a film of several acts) are kept near-lossless
 TIMEOUT_ENV = "CINEMATIC_RENDER_TIMEOUT"
 BASE_LIMIT, PER_FILM_SECOND = 900.0, 60.0      # seconds; at 1080p a worker renders about 3 frames a second
 
@@ -172,6 +173,12 @@ def load_state(p):
 
 
 
+def act_crf(acts, crf=CRF):
+    """The quality an act is rendered at: near-lossless when the join will encode it again (several
+    acts), the delivery quality when it is copied into the film as it is (one act)."""
+    return INTERMEDIATE_CRF if len(acts) > 1 else crf
+
+
 def render_acts(proj, size=SIZE, workers=0, force=False, crf=CRF, log=print):
     p = fp(proj)
     r = L.Result()
@@ -199,6 +206,7 @@ def render_acts(proj, size=SIZE, workers=0, force=False, crf=CRF, log=print):
     for x in rr.errors:
         r.error(f"rights: {x}")
     done = {}
+    crf = act_crf(acts, crf)
     for n, scene, s, e, a, b in acts:
         f = p["acts_dir"] / f"act_{n:02d}.mp4"
         if blocked.get(n):
@@ -218,7 +226,9 @@ def render_acts(proj, size=SIZE, workers=0, force=False, crf=CRF, log=print):
                 r.note(f"act {n}: your {f.name} kept as {f.name}.bak")
         tmp = f.with_name(f.stem + ".rendering.mp4")
         cmd = [sys.executable, str(HERE / "render.py"), "--project", str(p["proj"]), "--t0", f"{a:.3f}", "--t1", f"{b:.3f}",
-               "--size", size, "--crf", str(crf), "--out", str(tmp)] + (["--workers", str(workers)] if workers else [])
+               "--size", size, "--crf", str(crf), "--out", str(tmp),
+               "--resume-dir", str(p["acts_dir"] / f".act_{n:02d}.parts"), "--resume-key", key] + \
+            (["--workers", str(workers)] if workers else [])
         if p["mix"].exists():
             cmd += ["--audio", str(p["mix"])]
         env = dict(os.environ, CINEMATIC_ACT=str(n))
@@ -251,7 +261,7 @@ def render_acts(proj, size=SIZE, workers=0, force=False, crf=CRF, log=print):
         tmp.replace(f)
         rec = {"act": n, "file": str(f.relative_to(p["proj"])), "scene": str(pathlib.Path(scene).relative_to(p["proj"])),
                "t0": s, "t1": e, "from": a, "to": b, "frames": info["frames"], "fps": info["fps"], "size": size,
-               "audio": bool(info["audio"]), "key": key, "sha256": sha_file(f)}
+               "audio": bool(info["audio"]), "key": key, "crf": crf, "sha256": sha_file(f)}
         state["acts"][str(n)] = rec
         done[n] = rec
         L.save(p["state"], state)
@@ -325,7 +335,9 @@ def render_fingerprint(proj, size=SIZE, crf=CRF):
         return "no-timing"
     total = float(L.load(p["timing"])["total_duration"])
     h = hashlib.sha256()
-    for n, scene, s, e, a, b in acts_of(p, total):
+    acts = acts_of(p, total)
+    crf = act_crf(acts, crf)
+    for n, scene, s, e, a, b in acts:
         h.update(act_key(p, scene, a, b, size, crf).encode())
         f = p["acts_dir"] / f"act_{n:02d}.mp4"
         h.update(f"{f.exists() and f.stat().st_size}".encode())
@@ -369,7 +381,7 @@ def join(proj, force=False, crf=CRF, log=print):
             r.error(f"act {n} is not rendered (finish.py render)"); continue
         if rec.get("sha256") != sha_file(f):
             r.error(f"act {n}: {f.name} changed after it was rendered; render it again"); continue
-        if rec.get("key") != act_key(p, scene, a, b, rec.get("size", state.get("size", SIZE)), crf):
+        if rec.get("key") != act_key(p, scene, a, b, rec.get("size", state.get("size", SIZE)), rec.get("crf", crf)):
             r.error(f"act {n} was rendered from older scenes, timing or assets; render it again"); continue
         recs.append(rec)
     cred = state.get("credits")

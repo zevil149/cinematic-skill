@@ -244,7 +244,7 @@ def build(proj, log=print):
         unrendered = [a["act"] for a in acts if str(a["act"]) not in recs]
         check("act renders", not unrendered, f"act(s) {', '.join(map(str, unrendered))} have no recorded render: the film is incomplete",
               seen=f"{len(acts)} act(s) rendered")
-    leftovers = sorted(f.name for f in p["out"].rglob("*") if f.name.endswith((".rendering.mp4", ".joining.mp4", ".burning.mp4")))
+    leftovers = sorted(f.name for f in p["out"].rglob("*") if f.name.endswith((".rendering.mp4", ".joining.mp4", ".burning.mp4", ".parts")))
     if leftovers:
         check("interrupted renders", False, f"{', '.join(leftovers)} left by an interrupted run; nothing uses them", blocking=False)
     # picture: black frames outside the fades and declared spans
