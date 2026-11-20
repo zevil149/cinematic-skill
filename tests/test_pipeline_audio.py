@@ -241,7 +241,7 @@ class SingleLanguage(unittest.TestCase):
                 self.assertIn(f"[{k}] up to date", out)
             st = status(proj)
             self.assertRegex(st, r"visuals\s+done\s+\[gate\]"); self.assertRegex(st, r"subtitles\s+done")
-            self.assertNotRegex(st, r"voice\s+planned"); self.assertRegex(st, r"render\s+planned")
+            self.assertNotRegex(st, r"voice\s+planned"); self.assertNotRegex(st, r"render\s+planned")   # stages since phase 5
             # a new image need still reopens the visuals gate
             n = L.load(proj / "03_script" / "narration.json")
             n["sections"][0]["lines"][0].setdefault("images", []).append({"what": "a second photo of the sand", "kind": "photo"})
