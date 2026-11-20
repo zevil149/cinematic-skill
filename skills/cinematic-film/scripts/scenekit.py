@@ -11,13 +11,139 @@ yet prepared becomes a designed card, and a key word not in the spoken text fall
 """
 import math
 
-from engine import BigText, Card, Film, FilmFrame, Footage, GeoMap, MapPin, Parallax, Print, Route, StringLine, ken_burns
+from engine import BigText, Card, Film, FilmFrame, Footage, GeoMap, MapPin, Parallax, Print, Res, Route, StringLine, ken_burns, text_width
 
 CLUSTER_X, CLUSTER_Y, COLS = 11000, 8500, 3       # clusters snake across the act's board
 SLOT_X, SLOT_Y, SLOTS_PER_ROW = 3800, 3400, 3     # line slots inside a cluster
 PRINT_W, CARD_W, CARD_H = 2800, 2700, 1650
 MOVES = ("push", "drift", "pan_right", "pull", "pan_left")
 LIGHT_LOOKS = ("paper", "studio")
+ZOOM, PUSH, MIN_ZOOM = 0.62, 1.12, 0.18       # a line's shot, the push to its key word, the widest a line's shot goes
+TIGHT = PUSH * 1.01                           # the closest a line's shot gets: its push, then the slow hold
+SAFE = (0.10, 0.08, 0.10, 0.20)               # frame margins kept clear of the hero: left, top, right, bottom (captions)
+
+
+def parallax_of(it):
+    """(anchor x, anchor y, depth) of an item on a Parallax plane, or None."""
+    return (it.anchor[0], it.anchor[1], it.depth) if isinstance(it, Parallax) else None
+
+
+def item_box(doc, it):
+    """(x0, y0, x1, y1) in world units of a line's visual or typed words, as drawn (rotation allowed
+    for), or None. Typed words are measured in the font they are drawn in (Hindi shaped). An item
+    on a Parallax plane is given where it sits with the camera on its anchor (see parallax_of)."""
+    inner = it.item if isinstance(it, Parallax) else it
+    if isinstance(inner, BigText):
+        res = getattr(doc, "_measure_res", None)
+        if res is None:
+            res = doc._measure_res = Res(1.0, None, doc.dir / "fonts")
+        w = text_width(res, inner.text, inner.size, inner.font, inner.track)
+        return inner.x - w / 2, inner.y - inner.size * 0.85, inner.x + w / 2, inner.y + inner.size * 0.25
+    if isinstance(inner, (Print, Footage)):
+        w, h = inner.size_from(doc.fmeta if isinstance(inner, Footage) else doc.meta)
+        rot = getattr(inner, "rot", 0.0)
+    elif isinstance(inner, Card):
+        w, h, rot = inner.w, inner.h, inner.rot
+    else:
+        return None
+    r = math.radians(rot)
+    hw = (abs(w * math.cos(r)) + abs(h * math.sin(r))) / 2
+    hh = (abs(w * math.sin(r)) + abs(h * math.cos(r))) / 2
+    return inner.x - hw, inner.y - hh, inner.x + hw, inner.y + hh
+
+
+def _clear_axis(lo, hi, c, half, others, gap):
+    """A centre in [lo, hi] (where the hero stays whole) nearest c that leaves every other box
+    (a0, a1) on this axis wholly outside the frame (centre +- half), or None."""
+    want = [(lo, hi)]
+    for a0, a1 in others:
+        cut = []
+        for x0, x1 in want:                       # the frame must not overlap (a0, a1): c - half >= a1 + gap or c + half <= a0 - gap
+            if x0 <= a0 - gap - half:
+                cut.append((x0, min(x1, a0 - gap - half)))
+            if x1 >= a1 + gap + half:
+                cut.append((max(x0, a1 + gap + half), x1))
+        want = cut
+    if not want:
+        return None
+    return min((min(max(c, x0), x1) for x0, x1 in want), key=lambda v: abs(v - c))
+
+
+def frame_on(boxes, zoom=None, avoid=(), planes=None):
+    """(x, y, zoom) that shows the union of boxes whole inside the frame's safe area (clear of the
+    captions at the bottom), with room for the push to the key word. zoom given: kept, only the
+    centre is placed. No boxes: None.
+    avoid: boxes already on the board (earlier lines). One the frame would cut at its edge is
+    moved out of frame by shifting the shot, as far as the hero stays whole, or failing that by a
+    tighter shot that still holds the hero; when neither works the shot is left as it is."""
+    pairs = [(bx, pl) for bx, pl in zip(boxes, planes or [None] * len(boxes)) if bx]
+    if not pairs:
+        return None
+    l, t, r, b = SAFE
+
+    def union(cam):
+        """The hero's extent with the camera at cam: items on a Parallax plane drift with it."""
+        out = []
+        for (a0, a1, a2, a3), pl in pairs:
+            if pl and cam:
+                k = 1.0 - pl[2]
+                dx, dy = (cam[0] - pl[0]) * k, (cam[1] - pl[1]) * k
+                a0, a1, a2, a3 = a0 + dx, a1 + dy, a2 + dx, a3 + dy
+            out.append((a0, a1, a2, a3))
+        return min(q[0] for q in out), min(q[1] for q in out), max(q[2] for q in out), max(q[3] for q in out)
+    x0, y0, x1, y1 = union(None)
+    cam = ((x0 + x1) / 2, (y0 + y1) / 2)
+    for _ in range(3):                                       # settle the parallax drift against the framing
+        x0, y0, x1, y1 = union(cam)
+        cam = ((x0 + x1) / 2, (y0 + y1) / 2)
+    fit = min(3840 * (1 - l - r) / max(x1 - x0, 1.0), 2160 * (1 - t - b) / max(y1 - y0, 1.0)) / TIGHT
+    fixed = zoom is not None
+    if not fixed:
+        zoom = max(MIN_ZOOM, min(ZOOM, fit))
+
+    def place(z):
+        fw, fh = 3840 / z, 2160 / z
+        fw2, fh2 = fw / TIGHT, fh / TIGHT                    # the hero must stay whole in the push and hold too
+        cx = (x0 + x1) / 2 - (l - r) / 2 * fw2               # the tightest shot's safe area centred on the group
+        cy = (y0 + y1) / 2 - (t - b) / 2 * fh2
+        lo_x, hi_x = x1 - fw2 / 2 + r * fw2, x0 + fw2 / 2 - l * fw2
+        lo_y, hi_y = y1 - fh2 / 2 + b * fh2, y0 + fh2 / 2 - t * fh2
+        if lo_x > hi_x or lo_y > hi_y:
+            return cx, cy, False
+        near = [a for a in avoid if a and _cut(a, (cx - fw / 2, cy - fh / 2, cx + fw / 2, cy + fh / 2))]
+        if not near:
+            return cx, cy, True
+        gap = 60 / z
+        across = [a for a in near if a[3] > y0 and a[1] < y1]           # side by side with the hero: move sideways
+        above = [a for a in near if not (a[3] > y0 and a[1] < y1)]      # above or below it: move up or down
+        nx = _clear_axis(lo_x, hi_x, cx, fw / 2, [(a[0], a[2]) for a in across], gap) if across else cx
+        ny = _clear_axis(lo_y, hi_y, cy, fh / 2, [(a[1], a[3]) for a in above], gap) if above else cy
+        if nx is None or ny is None:
+            return cx, cy, False
+        return nx, ny, True
+    def centred(z):
+        fw, fh = 3840 / (z * TIGHT), 2160 / (z * TIGHT)
+        return (x0 + x1) / 2 - (l - r) / 2 * fw, (y0 + y1) / 2 - (t - b) / 2 * fh
+    cx, cy = centred(zoom)
+    clean = lambda z, c: not any(a and _cut(a, (c[0] - 1920 / z, c[1] - 1080 / z, c[0] + 1920 / z, c[1] + 1080 / z))  # noqa: E731
+                                 for a in avoid)
+    if clean(zoom, (cx, cy)):
+        return cx, cy, zoom
+    z = zoom
+    while not fixed and z * 1.08 <= min(fit, 1.1):            # a closer shot, still centred, that leaves the others out
+        z *= 1.08
+        if clean(z, centred(z)):
+            return (*centred(z), z)
+    nx, ny, ok = place(zoom)                                  # or the same shot, moved as far as the hero allows
+    return (nx, ny, zoom) if ok else (cx, cy, zoom)
+
+
+def _cut(a, f):
+    """Whether box a is partly, not wholly, inside frame f."""
+    ix = max(0.0, min(a[2], f[2]) - max(a[0], f[0]))
+    iy = max(0.0, min(a[3], f[3]) - max(a[1], f[1]))
+    area = max(1.0, (a[2] - a[0]) * (a[3] - a[1]))
+    return 0.0 < ix * iy / area < 0.999
 
 
 def cluster_origin(k):
@@ -195,31 +321,50 @@ def build_act(doc, table, look="wall", fps=30, title=None):
     card = title_card(film, doc, title, lines, pos, look) if title else None
     k = 0
     prev_section = None
+    last_aim = None
+    shown = []                                                        # boxes of earlier lines, still on the board
     for n, ln in enumerate(lines):
         i = ln["line"]
         x, y = pos[i]
         t = doc.L(i)
+        hero = []
         for j, v in enumerate(ln.get("visuals", [])):
             vx = x + j * 600
-            add_visual(film, doc, v, vx, y + j * 300, t + 0.05 + j * 0.4, k, look)
+            hero.append(add_visual(film, doc, v, vx, y + j * 300, t + 0.05 + j * 0.4, k, look))
             k += 1
         if ln.get("typed"):
             # over a visual, the type lands on the key word; on its own it is the hero, so it opens the line
             t_type = word_time(doc, i, ln.get("key_word")) - 0.15 if ln.get("visuals") else t + 0.1
-            bt = BigText(ln["typed"], x, y - (CARD_H if ln.get("visuals") else 0) - 250, ln.get("typed_size", 330),
+            size = ln.get("typed_size", 330)
+            top = min((bx[1] for bx in (item_box(doc, it) for it in hero) if bx), default=None)
+            ty = (top - size * 0.45 - 140) if top is not None else y - (CARD_H if ln.get("visuals") else 0) - 250
+            bt = BigText(ln["typed"], x, ty, size,
                          t_type, rgb=pal["type"],
                          grunge=look not in LIGHT_LOOKS, shadow=look not in LIGHT_LOOKS)
-            film.add(Parallax(bt, depth=ln.get("typed_depth", 1.08)))       # type floats just above the board
-        # camera
+            hero.append(film.add(Parallax(bt, depth=ln.get("typed_depth", 1.08))))       # type floats just above the board
+        # camera: on the line's whole hero (its visuals and typed words), clear of the captions;
+        # a line with nothing of its own stays on the last hero; a scene's own "zoom" is kept
         first = ln["section"] != prev_section
         prev_section = ln["section"]
-        z = ln.get("zoom", 0.62)
+        boxes = [item_box(doc, it) for it in hero]
+        aim = frame_on(boxes, ln.get("zoom"), avoid=shown, planes=[parallax_of(it) for it in hero])
+        shown += [bx for bx in boxes if bx]
+        if aim:
+            x, y, z = aim
+            last_aim = aim
+        elif last_aim:
+            x, y, z = last_aim[0], last_aim[1], ln.get("zoom", last_aim[2])
+        else:
+            z = ln.get("zoom", ZOOM)
         if first and n:
             film.shot(t - 0.35, x, y + 200, 0.34, rot=0.6 if n % 2 else -0.6)          # whip wide to the new cluster
         if n == 0 and not card:
             film.shot(0.0, x, y, z * 1.25)
         film.shot(t + 0.3, x, y, z, rot=(-0.5, 0.4, 0.2)[n % 3])
-        film.shot(max(t + 0.6, word_time(doc, i, ln.get("key_word"))), x + 120, y + 60, z * 1.12)
+        t_push = max(t + 0.6, word_time(doc, i, ln.get("key_word")))
+        film.shot(t_push, x + 60, y, z * PUSH)
+        if doc.E(i) - 0.15 > t_push + 0.3:                       # hold the hero while its line is spoken; move in the pause
+            film.shot(doc.E(i) - 0.15, x + 90, y, z * TIGHT)
     add_strings(film, doc, lines, pos)
     xs = [p[0] for p in pos.values()]; ys = [p[1] for p in pos.values()]
     cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2

@@ -70,7 +70,7 @@ class QC(unittest.TestCase):
             proj = finished(tmp, captions=True)
             r = qc.build(proj, **QUIET)
             self.assertTrue(r.ok, r.errors)
-            self.assertEqual(r.warnings, [])                     # the fades, the title card's silence and the pauses are not faults
+            self.assertEqual([w for w in r.warnings if not w.startswith("fonts:")], [])   # the fades, the title card's silence and the pauses are not faults (a font fallback depends on the machine: test_composition)
             rep = L.load(proj / "out" / "qc.en.json")
             self.assertTrue(rep["complete"])
             names = {c["check"] for c in rep["checks"]}

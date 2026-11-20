@@ -74,6 +74,11 @@ def fingerprint(proj, size="960x540"):
     for f in files:
         h.update(str(f.name).encode() + (pathlib.Path(f).read_bytes() if pathlib.Path(f).exists() else b"<missing>"))
     h.update(prepare.fingerprint(proj).encode())
+    try:                                                             # the fonts the film is drawn in
+        import engine
+        h.update(json.dumps(engine.font_identity(p["proj"] / "fonts"), sort_keys=True).encode())
+    except ImportError:
+        pass
     h.update(b"made" if p["json"].exists() else b"not made")          # whether a review exists, not its contents
     return h.hexdigest()[:16]
 
