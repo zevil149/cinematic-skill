@@ -58,6 +58,7 @@ DEFAULTS = {"synth_sfx": {"use": True, "file": "audio/sfx.wav", "gain_db": -7.0}
             "duck": {"db": -12.0, "threshold": 0.015, "attack": 0.08, "release": 0.6},
             "loudness": {"lufs": -15.0, "true_peak": -1.5}}
 LOUDNESS_TOL, MIN_MARGIN, GOOD_MARGIN = 1.0, 6.0, 10.0
+TP_TOL = 0.5                    # dB a mix's measured true peak may sit over its ceiling (AAC encoding overshoot)
 
 
 def cp(proj):
@@ -479,7 +480,7 @@ def mix(proj, force=False, log=print):
     problems, warns = [], []
     if not abs(got_i - lufs) <= LOUDNESS_TOL:
         problems.append(f"integrated loudness {got_i:.1f} LUFS is not within {LOUDNESS_TOL} LU of {lufs}")
-    if not got_tp <= tp + 0.5:
+    if not got_tp <= tp + TP_TOL:
         problems.append(f"true peak {got_tp:.1f} dBTP is over the {tp} dBTP ceiling")
     if clipped:
         problems.append(f"{clipped} clipped sample(s)")
