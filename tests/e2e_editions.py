@@ -39,14 +39,16 @@ def main():
     write_hindi(proj)
     dp("run", "--project", proj, "--lang", "hi", "--offline", ok=False); dp("approve", "--project", proj, "script", "--lang", "hi")
     dp("run", "--project", proj, "--lang", "all", "--offline", ok=False); dp("approve", "--project", proj, "visuals")
-    r = dp("run", "--project", proj, "--lang", "all", "--offline", ok=False)   # assets, scenes, voices, mixes, subtitles, reviews
+    small = ("--size", "256x144", "--workers", "2")                           # the film at a size CI can render
+    r = dp("run", "--project", proj, "--lang", "all", "--offline", *small, ok=False)   # assets ... reviews
     for code in ("en", "hi"):
         if f"[review@{code}] passes its checks" not in r.stdout:
             sys.exit(f"review@{code} did not reach the look gate:\n{r.stdout[-3000:]}")
-    r = dp("run", "--project", proj, "--lang", "all", "--offline", ok=False)   # the run after a new voice re-checks scenes
+    r = dp("run", "--project", proj, "--lang", "all", "--offline", *small, ok=False)   # the run after a new voice re-checks scenes
     for code in ("en", "hi"):                                                  # a person looks at 07_review/<lang>/ here
         dp("approve", "--project", proj, "look", "--lang", code)
-    r = dp("run", "--project", proj, "--lang", "all", "--offline")
+    dp("run", "--project", proj, "--lang", "all", "--offline", *small)        # the finishing stages
+    r = dp("run", "--project", proj, "--lang", "all", "--offline", *small)
     stale = [ln for ln in r.stdout.splitlines() if ln.startswith("[") and "up to date" not in ln]
     if stale:
         sys.exit(f"the third run should change nothing: {stale}")
@@ -74,6 +76,9 @@ def main():
                                   "flagged": [x["name"] for a in rv["acts"] for x in a["probes"] + a["strips"] if x["flags"]]}
         import shutil
         shutil.copytree(proj / "07_review" / code, out / "outputs" / code / "review", dirs_exist_ok=True)
+        fin = json.loads((ed / "out" / "finish.json").read_text())
+        assert fin["lang"] == code and fin["acts"], fin
+        report[code]["render"] = {str(k): {"frames": v["frames"], "from": v["from"], "to": v["to"]} for k, v in fin["acts"].items()}
     chk = subprocess.run([sys.executable, str(SCRIPTS / "editions.py"), "check", "--project", str(proj)], capture_output=True, text=True)
     print(chk.stdout)
     if chk.returncode != 0:

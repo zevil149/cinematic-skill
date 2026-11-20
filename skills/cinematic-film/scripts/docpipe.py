@@ -46,6 +46,12 @@ Stage (phase 4), per edition, last:
              last stage, so waiting for a look never holds up a voice, a mix or the other edition;
              a change to a scene, the timing or the assets lapses the approval.  (review.py)
 
+Stages (phase 5), per edition, after its look is approved:
+  render     out/acts/act_NN.mp4: every act at its approved timing, through render.py (memory-aware
+             parallel workers), checked frame by frame count, resumable per act  (finish.py render)
+  These wait, without rendering anything, until `approve look` for that edition; `run --size
+  1280x720` (default 1920x1080) and `--workers N` set the render.
+
 Stages (phase 3), per edition (voice@<lang> ...) or for a single-language project:
   voice      audio/voice: one segment per line, from voice.json (espeak scratch voice by default)  (voice.py)
              a paid voice needs `run --confirm-cost` (and --max-cost, $5 by default); Hindi also
@@ -86,6 +92,7 @@ import beats  # noqa: E402
 import cuesheet  # noqa: E402
 import doclib as L  # noqa: E402
 import editions  # noqa: E402
+import finish  # noqa: E402
 import effects  # noqa: E402
 import narrate  # noqa: E402
 import narration  # noqa: E402
@@ -100,12 +107,13 @@ import visuals  # noqa: E402
 import voice  # noqa: E402
 
 LOOKS = ("wall", "slate", "charcoal", "paper", "studio", "blueprint", "night")
-PLANNED = [("render", "1080p render by chapter, memory-aware (render.py)"),
-           ("captions", "captions burned into the render (burn_captions.py)"),
+PLANNED = [("captions", "captions burned into the render (burn_captions.py)"),
            ("report", "final report, credits.md and QC")]
 
 
-OPTS = {"offline": False, "confirm_cost": False, "max_cost": voice.DEFAULT_CAP, "download_maps": False}
+OPTS = {"offline": False, "confirm_cost": False, "max_cost": voice.DEFAULT_CAP, "download_maps": False,
+        "size": finish.SIZE, "workers": 0}
+AFTER_LOOK = ("render",)                          # stages that wait for the edition's look approval
 
 
 def stage_topic(proj):
@@ -152,6 +160,10 @@ def stage_visuals(proj):
 
 def stage_scenegen(proj):
     return scenegen.generate(proj)
+
+
+def stage_render(proj):
+    return finish.render_acts(proj, OPTS["size"], OPTS["workers"])
 
 
 def stage_review(proj):
@@ -267,7 +279,8 @@ STAGES = [
     ("visuals", stage_visuals, ("image_needs", "selection", "topic"), True),
     ("assets", stage_assets, ("prepared:",), False),
     ("scenegen", stage_scenegen, ("storyboard", "assets", "outline"), False),
-] + [(name, fn, ("audio:" + name,), False) for name, fn in AUDIO] + [("review", stage_review, ("review:",), "look")]
+] + [(name, fn, ("audio:" + name,), False) for name, fn in AUDIO] + [("review", stage_review, ("review:",), "look"),
+                                                                        ("render", stage_render, ("render:",), False)]
 NAMES = [s[0] for s in STAGES]
 
 
@@ -276,6 +289,8 @@ def single_hash(proj, p, keys):
         return prepare.fingerprint(proj)
     if keys and keys[0] == "review:":
         return review.fingerprint(proj)
+    if keys and keys[0] == "render:":
+        return finish.render_fingerprint(proj, OPTS["size"])
     if keys and keys[0].startswith("audio:"):
         return hash_of(audio_inputs(proj, keys[0][6:]))
     return stage_hash(p, keys)
@@ -309,7 +324,7 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
 
 
 EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "assets", "scenegen",
-                 "voice", "narration", "effects", "sound", "subtitles", "review"]
+                 "voice", "narration", "effects", "sound", "subtitles", "review", "render"]
 
 
 def edition_steps(root, langs):
@@ -369,6 +384,9 @@ def edition_steps(root, langs):
     for code in targets:                                     # phase 4: the look of each edition, approved per edition
         steps.append((f"review@{code}", "review", (lambda c=code: stage_review(E(c))),
                       (lambda c=code: Fingerprint(review.fingerprint(E(c)))), "look"))
+    for code in targets:                                     # phase 5: finishing, once the look is approved
+        steps.append((f"render@{code}", "render", (lambda c=code: stage_render(E(c))),
+                      (lambda c=code: Fingerprint(finish.render_fingerprint(E(c), OPTS["size"]))), False))
     return steps
 
 
@@ -381,6 +399,12 @@ def run_steps(proj, steps, until=None, only=None, force=False):
         if EDITION_ORDER.index(name) > stop_at or (only and name != only):
             continue
         st = state["stages"].setdefault(key, {})
+        if name in AFTER_LOOK:
+            code = key.split("@")[1]
+            if state["stages"].get(f"review@{code}", {}).get("status") != "done":
+                st["status"] = "waiting for the look"; ok = False
+                print(f"[{key}] waits for the look of the {code} edition: docpipe.py approve --project {proj} look --lang {code}")
+                continue
         h = hash_of(files())
         if not force and st.get("status") == "done" and st.get("inputs") == h:
             print(f"[{key}] up to date"); continue
@@ -438,6 +462,10 @@ def run(proj, until=None, only=None, force=False, lang=None):
         if only and name != only:
             continue
         st = state["stages"].setdefault(name, {})
+        if name in AFTER_LOOK and state["stages"].get("review", {}).get("status") != "done":
+            st["status"] = "waiting for the look"; ok = False
+            print(f"[{name}] waits for the look: docpipe.py approve --project {proj} look")
+            continue
         h = single_hash(proj, p, keys)
         migrate_hash(st, p, keys, h)
         if not force and st.get("status") in ("done", "awaiting approval") and st.get("inputs") == h:   # "partial" always reruns
@@ -545,6 +573,8 @@ def main():
     r.add_argument("--lang", default=None, help="edition to run (default: the default edition), or all")
     r.add_argument("--confirm-cost", action="store_true", help="allow a paid voice to spend, under --max-cost")
     r.add_argument("--max-cost", type=float, default=voice.DEFAULT_CAP, help="USD cap for this run's paid voice (default 5)")
+    r.add_argument("--size", default=finish.SIZE, help="render size, e.g. 1920x1080 (default) or 1280x720")
+    r.add_argument("--workers", type=int, default=0, help="render workers (0: as many as fit in memory)")
     r.add_argument("--download-maps", action="store_true", help="assets: download map boundary data not cached yet (public domain)")
     s = sub.add_parser("status"); s.add_argument("--project", required=True)
     a = sub.add_parser("approve"); a.add_argument("--project", required=True)
@@ -558,6 +588,7 @@ def main():
         OPTS["offline"] = args.offline
         OPTS["confirm_cost"], OPTS["max_cost"] = args.confirm_cost, args.max_cost
         OPTS["download_maps"] = args.download_maps
+        OPTS["size"], OPTS["workers"] = args.size, args.workers
         sys.exit(0 if run(args.project, args.until, args.only, args.force, args.lang) else 1)
     elif args.cmd == "status":
         status(args.project)

@@ -41,7 +41,7 @@ def dp(proj, **kw):
     docpipe.OPTS.update(offline=True)
     try:
         with contextlib.redirect_stdout(out):
-            ok = docpipe.run(proj, **kw)
+            ok = docpipe.run(proj, **{"until": "review", **kw})        # rendering is test_render's
     finally:
         docpipe.OPTS.update(offline=False)
     return ok, out.getvalue()
