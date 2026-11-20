@@ -112,12 +112,15 @@ def build(proj, write=True):
                 if k in im:
                     need[k] = im[k]
             needs.append(need); sc["images"].append(need["id"])
+        if beat_needs is None and l.get("place"):
+            sc["place"] = {"name": l["place"], "map": l.get("map", "")}
         if beat_needs is None and l.get("links"):
             sc["links"] = list(l["links"])                   # explicit: the lines this one is tied to
         if not sc["images"] and not sc["typed"] and not sc["hero"]:
             r.warn(f"line {l['id']}: nothing to show (no hero, image or typed text)")
         scenes.append(sc)
     link_scenes(p, scenes, beat_needs is not None, r)
+    place_scenes(p, scenes, beat_needs is not None, lg, r)
     total = scenes[-1]["end"] + L.TAIL
     r.note(f"{len(scenes)} scenes, {L.mmss(total)} ({'voice timing' if timing else 'estimated'}), "
            f"{len(needs)} images ({sum(1 for x in needs if x['status'] == 'needed')} still to find)")
@@ -161,6 +164,48 @@ def link_scenes(p, scenes, edition, r):
                 s["links"] = keep
             else:
                 del s["links"]
+
+
+def place_scenes(p, scenes, edition, lg, r):
+    """Resolve explicit places against map.json: the map that has the place (the line's "map" when
+    several do), and the label in this edition's language (the map's "labels", then, outside
+    English, the lexicon's spelling). A place that no map has is dropped with a warning: nothing is
+    looked up or guessed from the narration."""
+    if edition:
+        first = {}
+        for s in scenes:
+            first.setdefault(s.get("beat"), s)
+        for b in L.load(p["beats"], {"beats": []}).get("beats", []):
+            if b.get("place") and b["id"] in first:
+                first[b["id"]]["place"] = {"name": b["place"], "map": b.get("map", "")}
+    todo = [s for s in scenes if "place" in s]
+    if not todo:
+        return
+    maps = L.load(pathlib.Path(p["root"]) / "map.json", {"maps": []}).get("maps", [])
+    code = p["lang"] or "en"
+    lx = L.load(p["lexicon"], {}) if p["lexicon"].exists() else {}
+    allow = set(lx.get("allow", []))
+    for s in todo:
+        name, want = s["place"]["name"], s["place"].get("map") or ""
+        has = [m for m in maps if name in (m.get("places") or {})]
+        m = next((x for x in has if x.get("name") == want), None) if want else (has[0] if len(has) == 1 else None)
+        if m is None:
+            why = (f"map {want!r} in map.json has no place {name!r}" if want else
+                   f"no map in map.json has the place {name!r}" if not has else
+                   f"{name!r} is on several maps ({', '.join(x['name'] for x in has)}): give the line a \"map\"")
+            r.warn(f"line {s['line']}: {why}; no map pin for it")
+            del s["place"]
+            continue
+        labels = (m.get("labels") or {}).get(name) or {}
+        label = labels.get(code) or (name if code == "en" else "")
+        if not label and code != "en":
+            term = (lx.get("terms") or {}).get(name)
+            label = (term.get("spoken") if isinstance(term, dict) else term) or ""
+        if not label:
+            r.warn(f"line {s['line']}: place {name!r} has no {code} label (\"labels\" in map.json); its pin has no label")
+        for prob in (lg.check_script(label, allow) if label else []):
+            r.warn(f"line {s['line']}: map label {label!r}: {prob}")
+        s["place"] = {"name": name, "map": m["name"], "label": label}
 
 
 def render_md(meta, scenes, needs):

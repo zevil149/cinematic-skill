@@ -58,6 +58,8 @@ def edition_table(scenes, assets, beats, code):
                       "typed": s.get("typed", ""), "hero": s.get("hero", ""), "visuals": vis})
         if s.get("links"):
             table[-1]["links"] = list(s["links"])
+        if s.get("place"):
+            table[-1]["place"] = dict(s["place"])
     return table
 
 
@@ -75,6 +77,8 @@ def scene_table(scenes, assets):
                       "typed": s.get("typed", ""), "hero": s.get("hero", ""), "visuals": vis})
         if s.get("links"):
             table[-1]["links"] = list(s["links"])
+        if s.get("place"):
+            table[-1]["place"] = dict(s["place"])
     return table
 
 

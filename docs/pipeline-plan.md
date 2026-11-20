@@ -91,7 +91,7 @@ Approved milestones (one at a time, each approved before the next; branch `claud
 | 4.2 | `review` per edition and act: probes at each line's key word, strips of every move, checklist; `look` gate per edition, not blocking the audio stages | done |
 | 4.3 | Title cards between acts of multi-act films, about 2.5 s of held silence at each act change; optional `act_titles`, localized per edition | done |
 | 4.4 | Strings between clusters from explicit links only | done |
-| 4.5 | Maps and routes from explicit `place` fields tied to `map.json`, localized labels | |
+| 4.5 | Maps and routes from explicit `place` fields tied to `map.json`, localized labels | done |
 
 Approved decisions: new features switch on only when their data is present (multi-act films, `place`, `links`), so single-act films, the starter film and the English golden outputs stay unchanged; nothing geographic or linked is inferred from the narration; no new transitions, image-aware composition or camera styles in this phase.
 

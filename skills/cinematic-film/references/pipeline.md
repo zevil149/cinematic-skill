@@ -132,6 +132,15 @@ Tie two moments of the story with a red string by saying so: a narration line's 
 - **Editions:** write the links in the default edition's narration; `beats.py` turns them into links between beats, and every edition draws the same strings between the lines that tell those beats.
 - **On the board:** `scenegen.py` passes `links` into the scene table (only where there are links), and `scenekit.add_strings` pulls a red `StringLine` from the linked line's visual to the linking line's as the linking line is spoken. The strings stay, so the act's closing pull-back shows them together. A link to a line in another act is left out with a warning (each act is its own board). Edit `links` in an act's `LINES` like anything else.
 
+## Maps and routes
+
+A line that happens somewhere can say where: `"place": "Kitty Hawk"` (and `"map": "east"` when the place is on more than one map). The place must be in a map of `map.json` (`"places": {"Kitty Hawk": [36.06, -75.70]}`); places are never looked up or guessed from the narration.
+
+- **Data.** The `assets` stage builds the map from `map.json` (a local boundary file, or one downloaded once with `docpipe.py run --download-maps`).
+- **Labels per edition.** `map.json` gives each place its label per language: `"labels": {"Kitty Hawk": {"hi": "किटी हॉक"}}`. English uses the place name; another language uses its label, then the edition lexicon's spelling of the name, else the pin has no label (with a warning). Labels are checked for the edition's script.
+- **Editions.** Places are written in the default edition's narration; `beats.py` carries them on the beats, so every edition pins the same places on its own lines.
+- **On the board.** `scenegen.py` passes `place` into the scene table (only where there is one). `scenekit.place_maps` lays each map used as a sheet of its own after the act's section clusters, drops a labelled pin as the line begins, puts the line's visuals beside the pin, and draws a route from the previous place on the same map. A map not prepared yet, or a place it does not have, leaves the line in its usual slot. Change `place` (or set `pos`) in an act's `LINES` like anything else.
+
 ## Long films
 
 ### Title cards between acts

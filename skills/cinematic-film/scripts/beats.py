@@ -64,6 +64,10 @@ def build(root, source=None, log=print):
             b["typed"][source] = (b["typed"].get(source, "") + " · " if b["typed"].get(source) else "") + l["typed"]
         for im in l.get("images", []):
             b["images"].append(dict(im))
+        if l.get("place") and "place" not in b:             # explicit: the place this beat is at, on a map.json map
+            b["place"] = l["place"]
+            if l.get("map"):
+                b["map"] = l["map"]
     # explicit links between beats (a line's "links": the ids of the lines it is tied to), never inferred
     line_beat = {l["id"]: beat_of(l) for _, l in lines}
     for _, l in lines:

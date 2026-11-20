@@ -11,7 +11,7 @@ yet prepared becomes a designed card, and a key word not in the spoken text fall
 """
 import math
 
-from engine import BigText, Card, Film, FilmFrame, Footage, Parallax, Print, StringLine, ken_burns
+from engine import BigText, Card, Film, FilmFrame, Footage, GeoMap, MapPin, Parallax, Print, Route, StringLine, ken_burns
 
 CLUSTER_X, CLUSTER_Y, COLS = 11000, 8500, 3       # clusters snake across the act's board
 SLOT_X, SLOT_Y, SLOTS_PER_ROW = 3800, 3400, 3     # line slots inside a cluster
@@ -33,7 +33,7 @@ def slot_pos(origin, j, n):
 
 
 def shows_something(ln):
-    return bool(ln.get("visuals") or ln.get("typed") or ln.get("pos"))
+    return bool(ln.get("visuals") or ln.get("typed") or ln.get("pos") or ln.get("place"))
 
 
 def layout(lines):
@@ -117,6 +117,53 @@ def title_card(film, doc, title, lines, pos, look):
     return cx, cy, t_card, t_first
 
 
+def place_maps(film, doc, lines, pos, look):
+    """Lines with an explicit "place" ({"name", "map", "label"}, from the storyboard and map.json):
+    each map used gets a sheet of its own on the board, after the act's section clusters; a pin
+    with its label lands as the line begins, the line's visuals sit beside the pin, and a route
+    is drawn from the previous place on the same map. A map whose data is not prepared yet
+    (assets stage) or a place it does not have is skipped: the line keeps its usual slot."""
+    rows = [ln for ln in lines if ln.get("place")]
+    if not rows:
+        return
+    sections = []
+    for ln in lines:
+        if ln["section"] not in sections:
+            sections.append(ln["section"])
+    sheets, prev = {}, {}
+    for ln in rows:
+        pl = ln["place"]
+        name = pl.get("map")
+        if name not in sheets:
+            try:
+                data = doc.map(name)
+            except (SystemExit, OSError, ValueError):
+                sheets[name] = None
+                continue
+            probe = GeoMap(data, 1.0)
+            f = probe.frame
+            K = CLUSTER_X * 0.9 / max(f[2] - f[0], 1e-9)
+            ox, oy = cluster_origin(len(sections) + len([s for s in sheets.values() if s]))
+            sheet = GeoMap(data, K, (ox - (f[0] + f[2]) / 2 * K, oy - (f[1] + f[3]) / 2 * K),
+                           look="explainer" if look in LIGHT_LOOKS else "period")
+            film.add(sheet)
+            sheets[name] = sheet
+        sheet = sheets.get(name)
+        if sheet is None:
+            continue
+        try:
+            px, py = sheet.place(pl["name"])
+        except KeyError:
+            continue
+        t = doc.L(ln["line"])
+        film.add(MapPin(px, py, pl.get("label") or None, t_in=t - 0.1))
+        if not ln.get("pos"):
+            pos[ln["line"]] = (px + PRINT_W * 0.75, py)          # the line's visuals beside its pin
+        if name in prev and prev[name][0] != pl["name"]:
+            film.add(Route(prev[name][1], (px, py), t_in=t - 0.3))
+        prev[name] = (pl["name"], (px, py))
+
+
 def add_strings(film, doc, lines, pos):
     """Red string between clusters the storyboard links explicitly (a line's "links": line ids).
     It is pulled as the linking line is spoken and stays, so the closing pull-back shows the web.
@@ -144,6 +191,7 @@ def build_act(doc, table, look="wall", fps=30, title=None):
         film.cam(0, 0, 0, 0.4)
         return film
     pos = layout(lines)
+    place_maps(film, doc, lines, pos, look)
     card = title_card(film, doc, title, lines, pos, look) if title else None
     k = 0
     prev_section = None
