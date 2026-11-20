@@ -5,6 +5,7 @@ and captions@<lang>, after the look of that edition is approved.
 
   python3 finish.py render   --project P/editions/hi [--size 1920x1080] [--workers 0] [--force]
   python3 finish.py join     --project P/editions/hi [--force]      # out/film.<lang>.mp4
+  python3 finish.py captions --project P/editions/hi [--force]      # out/film.<lang>.captions.mp4
 
 render: every act of 06_film/acts.json (or the project's scene.py, a film of one act) through
 render.py, the engine's memory-aware parallel renderer, into out/acts/act_NN.mp4. An act covers its
@@ -20,6 +21,14 @@ the act change (the title card's silence), so the film is exactly as long as the
 another size or frame rate are normalised to the first act's. A film of one act is copied, not
 encoded again. Before it counts, the film must match the timeline (duration and frames), carry an
 audio stream and be the asked size. An act rendered from older scenes or timing is not joined.
+
+captions: the joined film with captions burned in, as a second file out/film.<lang>.captions.mp4
+(the clean film stays, with its SRT and VTT, for platforms that show subtitles themselves). The
+edition's captions.json chooses {"style": "clean" | "highlighter" | "paper" | "redbar",
+"highlight": "auto" | "all" | "none", "enabled": true}; clean (sentence case over a soft dark
+gradient, legible on any background) is the default. Hindi is shaped by HarfBuzz as everywhere.
+Captions follow the edition's word timing; none is on screen in a title card's silence. The burned
+film must have the joined film's frames, length, size and sound before it counts.
 
 Resume: an act is rendered again only when its scene, the engine, the timing, the prepared assets,
 the size or its time range changed (out/finish.json). An act file that finish.py did not record,
@@ -320,17 +329,125 @@ def join_fingerprint(proj):
     return h.hexdigest()[:16]
 
 
+
+# ---------------------------------------------------------------------------------------- captions
+
+CAPTION_STYLES = ("clean", "highlighter", "paper", "redbar")
+CAPTION_DEFAULT = {"enabled": True, "style": "clean", "highlight": "auto"}
+
+
+def caption_config(p, r):
+    """The edition's captions.json (optional): style, highlight, enabled."""
+    f = p["proj"] / "captions.json"
+    cfg = dict(CAPTION_DEFAULT, **(L.load(f, {}) if f.exists() else {}))
+    if cfg["style"] not in CAPTION_STYLES:
+        r.error(f"captions.json: style {cfg['style']!r} is not one of {', '.join(CAPTION_STYLES)}")
+    if cfg["highlight"] not in ("auto", "all", "none"):
+        r.error("captions.json: highlight is auto, all or none")
+    return cfg
+
+
+def caption_key(p, cfg):
+    h = hashlib.sha256(json.dumps({k: cfg[k] for k in ("style", "highlight")}).encode())
+    for f in (p["film"], p["timing"], p["proj"] / "fonts", HERE / "captions.py", HERE / "burn_captions.py",
+              HERE / "wordtimes.py", HERE / "textshape.py", HERE / "engine.py"):
+        f = pathlib.Path(f)
+        h.update(f.name.encode())
+        if f.is_file():
+            h.update(sha_file(f).encode())
+    return h.hexdigest()[:20]
+
+
+def captions(proj, force=False, workers=0, log=print):
+    """The joined film with captions burned in, as a second file (the clean film stays for platforms
+    that show the SRT or VTT themselves)."""
+    p = fp(proj)
+    r = L.Result()
+    cfg = caption_config(p, r)
+    if not r.ok:
+        return r
+    state = load_state(p)
+    if not cfg["enabled"]:
+        r.note("captions.json: burned-in captions are off; the film is delivered with its SRT and VTT")
+        state["captions"] = {"enabled": False}
+        L.save(p["state"], state)
+        return r
+    j = state.get("join")
+    if not j or not p["film"].exists() or j.get("sha256") != sha_file(p["film"]):
+        r.error("no joined film (finish.py join), or it changed since it was joined"); return r
+    key = caption_key(p, cfg)
+    old = state.get("captions", {})
+    f = p["captioned"]
+    if f.exists():
+        ours = old.get("sha256") == sha_file(f)
+        if ours and old.get("key") == key:
+            r.note(f"{p['code']} captioned film is up to date ({cfg['style']})"); return r
+        if not ours:
+            if not force:
+                r.error(f"{f.relative_to(p['proj'])} was not made by finish.py or was changed since; it is kept "
+                        "(--force burns the captions again, keeping a .bak)"); return r
+            shutil.copyfile(f, f.with_name(f.name + ".bak"))
+            r.note(f"your {f.name} kept as {f.name}.bak")
+    tmp = f.with_name(f.stem + ".burning.mp4")
+    rel = lambda x: os.path.relpath(x, p["proj"])          # noqa: E731 - burn_captions takes project-relative paths
+    cmd = [sys.executable, str(HERE / "burn_captions.py"), "--project", str(p["proj"]), "--video", rel(p["film"]),
+           "--audio", rel(p["film"]), "--style", cfg["style"], "--highlight", cfg["highlight"], "--out", rel(tmp)]
+    if workers:
+        cmd += ["--workers", str(workers)]
+    log(f"{p['code']} captions: burning the {cfg['style']} style into the film")
+    res = subprocess.run(cmd, capture_output=True, text=True)
+    if res.returncode != 0 or not tmp.exists():
+        tmp.unlink(missing_ok=True)
+        r.error(f"burning the captions failed: {(res.stderr or res.stdout).strip()[-600:]}"); return r
+    try:
+        info, film = probe(tmp), probe(p["film"])
+    except ValueError as ex:
+        tmp.unlink(missing_ok=True)
+        r.error(f"the captioned film cannot be read: {ex}"); return r
+    problems = []
+    if abs(info["frames"] - film["frames"]) > 1:
+        problems.append(f"{info['frames']} frames, the film has {film['frames']}")
+    if abs(info["duration"] - film["duration"]) > 0.15:
+        problems.append(f"{info['duration']:.2f}s, the film is {film['duration']:.2f}s")
+    if not info["audio"]:
+        problems.append("no audio stream")
+    if (info["w"], info["h"]) != (film["w"], film["h"]):
+        problems.append("another size than the film")
+    if problems:
+        tmp.unlink(missing_ok=True)
+        r.error(f"the captioned film is wrong ({'; '.join(problems)}); nothing was kept"); return r
+    tmp.replace(f)
+    state["captions"] = {"enabled": True, "file": str(f.relative_to(p["proj"])), "style": cfg["style"], "highlight": cfg["highlight"],
+                         "frames": info["frames"], "duration": round(info["duration"], 3), "key": key, "sha256": sha_file(f)}
+    L.save(p["state"], state)
+    r.note(f"{f.relative_to(p['proj'])}: {cfg['style']} captions, {info['duration']:.2f}s")
+    return r
+
+
+def captions_fingerprint(proj):
+    p = fp(proj)
+    r = L.Result()
+    cfg = caption_config(p, r)
+    h = hashlib.sha256(caption_key(p, cfg).encode() + json.dumps(cfg, sort_keys=True).encode())
+    h.update(f"{p['captioned'].exists() and p['captioned'].stat().st_size}".encode())
+    return h.hexdigest()[:16]
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
     rd = sub.add_parser("render"); rd.add_argument("--project", required=True); rd.add_argument("--size", default=SIZE)
     rd.add_argument("--workers", type=int, default=0); rd.add_argument("--force", action="store_true")
     jn = sub.add_parser("join"); jn.add_argument("--project", required=True); jn.add_argument("--force", action="store_true")
+    cp_ = sub.add_parser("captions"); cp_.add_argument("--project", required=True); cp_.add_argument("--force", action="store_true")
+    cp_.add_argument("--workers", type=int, default=0)
     a = ap.parse_args()
     if a.cmd == "render":
         r = render_acts(a.project, a.size, a.workers, a.force)
     elif a.cmd == "join":
         r = join(a.project, a.force)
+    elif a.cmd == "captions":
+        r = captions(a.project, a.force, a.workers)
     print(r.report(f"{a.cmd} ({fp(a.project)['code']})"))
     sys.exit(0 if r.ok else 1)
 

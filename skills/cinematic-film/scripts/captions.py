@@ -30,7 +30,8 @@ def chunks_for(timing, style):
     """[{'words': [(w, t)], 't0', 't1'}], breaking at punctuation where possible."""
     mx = MAX_WORDS[style]
     out = []
-    for seg in timing["segments"]:
+    segs = timing["segments"]
+    for k, seg in enumerate(segs):
         ws = words_with_times(seg)
         cur, line = [], []
         for i, (w, t) in enumerate(ws):
@@ -40,6 +41,8 @@ def chunks_for(timing, style):
         for a, b in zip(line, line[1:]):
             a["t1"] = b["t0"]
         line[-1]["t1"] = seg["end"] + 0.25
+        if "act" in seg and k + 1 < len(segs) and segs[k + 1].get("act") != seg["act"]:
+            line[-1]["t1"] = seg["end"]                  # the next act's title card holds in silence, uncaptioned
         for ch in line:
             ch["timing"] = timing_of(seg)
         out += line

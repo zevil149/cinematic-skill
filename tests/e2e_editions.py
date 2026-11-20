@@ -80,6 +80,9 @@ def main():
         assert fin["lang"] == code and fin["acts"], fin
         report[code]["render"] = {str(k): {"frames": v["frames"], "from": v["from"], "to": v["to"]} for k, v in fin["acts"].items()}
         report[code]["film"] = {k: fin["join"][k] for k in ("duration", "frames", "size", "order")}
+        report[code]["captions"] = {k: fin["captions"][k] for k in ("style", "frames", "duration")}
+        for f in (f"film.{code}.mp4", f"film.{code}.captions.mp4"):
+            (out / "outputs" / code / f).write_bytes((ed / "out" / f).read_bytes())
         assert abs(fin["join"]["duration"] - t["total_duration"]) < 0.1, fin["join"]
     chk = subprocess.run([sys.executable, str(SCRIPTS / "editions.py"), "check", "--project", str(proj)], capture_output=True, text=True)
     print(chk.stdout)
