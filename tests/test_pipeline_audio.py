@@ -46,7 +46,7 @@ def dp(proj, *, until=None, lang=None, confirm=False, only=None):
     docpipe.OPTS.update(offline=True, confirm_cost=confirm, max_cost=5.0)
     try:
         with contextlib.redirect_stdout(out):
-            ok = docpipe.run(proj, until=until, only=only, lang=lang)
+            ok = docpipe.run(proj, until=until or "subtitles", only=only, lang=lang)   # the look review: test_review
     finally:
         docpipe.OPTS.update(offline=False, confirm_cost=False)
     return ok, out.getvalue()

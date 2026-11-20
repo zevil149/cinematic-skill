@@ -39,6 +39,13 @@ Stage (phase 4), shared by every edition:
              kept (prepare.py --force replaces them with a .bak). Map boundary data that is not
              downloaded yet needs `run --download-maps`; nothing is downloaded --offline.  (prepare.py)
 
+Stage (phase 4), per edition, last:
+  review     07_review/<lang>/act_NN/: a still at each line's key word, strips of the camera moves,
+             a contact sheet, automated flags (blank, near-uniform, very dark) and a checklist
+             [gate "look"]: `approve --project P look --lang hi`, one approval per edition. It is the
+             last stage, so waiting for a look never holds up a voice, a mix or the other edition;
+             a change to a scene, the timing or the assets lapses the approval.  (review.py)
+
 Stages (phase 3), per edition (voice@<lang> ...) or for a single-language project:
   voice      audio/voice: one segment per line, from voice.json (espeak scratch voice by default)  (voice.py)
              a paid voice needs `run --confirm-cost` (and --max-cost, $5 by default); Hindi also
@@ -61,7 +68,7 @@ the stage "partial": the film goes on with designed cards, and the next run retr
 The research, outline and narration are written by the agent (or a person) into the stage files;
 the pipeline scaffolds them, checks them and refuses to move on while a check fails. A stage
 marked [gate] waits for `approve` before the next stage runs, and an approval lapses when the
-stage's inputs change. Planned stages (review, effects, render, captions, report) are
+stage's inputs change. Planned stages (effects, render, captions, report) are
 listed by status and arrive in later phases; until then the film tools run as SKILL.md describes.
 """
 import argparse
@@ -82,6 +89,7 @@ import narration  # noqa: E402
 import outline  # noqa: E402
 import prepare  # noqa: E402
 import research  # noqa: E402
+import review  # noqa: E402
 import scenegen  # noqa: E402
 import storyboard  # noqa: E402
 import subtitles  # noqa: E402
@@ -89,8 +97,7 @@ import visuals  # noqa: E402
 import voice  # noqa: E402
 
 LOOKS = ("wall", "slate", "charcoal", "paper", "studio", "blueprint", "night")
-PLANNED = [("review", "probes and strips of every act for the look test (render.py)"),
-           ("effects", "the effects track from the film's cues (render.py --cues, build_sfx)"),
+PLANNED = [("effects", "the effects track from the film's cues (render.py --cues, build_sfx)"),
            ("render", "1080p render by chapter, memory-aware (render.py)"),
            ("captions", "captions burned into the render (burn_captions.py)"),
            ("report", "final report, credits.md and QC")]
@@ -143,6 +150,10 @@ def stage_visuals(proj):
 
 def stage_scenegen(proj):
     return scenegen.generate(proj)
+
+
+def stage_review(proj):
+    return review.build(proj)
 
 
 def stage_assets(proj):
@@ -244,13 +255,15 @@ STAGES = [
     ("visuals", stage_visuals, ("image_needs", "selection", "topic"), True),
     ("assets", stage_assets, ("prepared:",), False),
     ("scenegen", stage_scenegen, ("storyboard", "assets", "outline"), False),
-] + [(name, fn, ("audio:" + name,), False) for name, fn in AUDIO]
+] + [(name, fn, ("audio:" + name,), False) for name, fn in AUDIO] + [("review", stage_review, ("review:",), "look")]
 NAMES = [s[0] for s in STAGES]
 
 
 def single_hash(proj, p, keys):
     if keys and keys[0] == "prepared:":
         return prepare.fingerprint(proj)
+    if keys and keys[0] == "review:":
+        return review.fingerprint(proj)
     if keys and keys[0].startswith("audio:"):
         return L.hash_files(audio_inputs(proj, keys[0][6:]))
     return stage_hash(p, keys)
@@ -284,7 +297,7 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
 
 
 EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "assets", "scenegen",
-                 "voice", "narration", "sound", "subtitles"]
+                 "voice", "narration", "sound", "subtitles", "review"]
 
 
 def edition_steps(root, langs):
@@ -341,6 +354,9 @@ def edition_steps(root, langs):
         for name, fn in AUDIO:
             steps.append((f"{name}@{code}", name, (lambda c=code, fn=fn: fn(E(c))),
                           (lambda c=code, n=name: audio_inputs(E(c), n)), False))
+    for code in targets:                                     # phase 4: the look of each edition, approved per edition
+        steps.append((f"review@{code}", "review", (lambda c=code: stage_review(E(c))),
+                      (lambda c=code: Fingerprint(review.fingerprint(E(c)))), "look"))
     return steps
 
 
@@ -368,7 +384,10 @@ def run_steps(proj, steps, until=None, only=None, force=False):
         if gate and st.get("approved") != h:
             st["status"] = "awaiting approval"; ok = False
             lang_arg = f" --lang {key.split('@')[1]}" if "@" in key else ""
-            print(f"[{key}] passes its checks; review it, then: docpipe.py approve --project {proj} {name}{lang_arg}")
+            what = "look" if gate == "look" else name
+            print(f"[{key}] passes its checks; review it, then: docpipe.py approve --project {proj} {what}{lang_arg}")
+            if gate == "look":
+                continue                                     # nothing waits on the look: the other editions go on
             break
         st["status"] = "partial" if getattr(r, "partial", False) else "done"
         if st["status"] == "partial":
@@ -423,7 +442,10 @@ def run(proj, until=None, only=None, force=False, lang=None):
             break
         if gate and st.get("approved") != h:
             st["status"] = "awaiting approval"; ok = False
-            print(f"[{name}] passes its checks; review it, then: docpipe.py approve --project {proj} {name}")
+            what = "look" if gate == "look" else name
+            print(f"[{name}] passes its checks; review it, then: docpipe.py approve --project {proj} {what}")
+            if gate == "look":
+                continue
             break
         st["status"] = "partial" if getattr(r, "partial", False) else "done"
         if st["status"] == "partial":
@@ -435,9 +457,11 @@ def run(proj, until=None, only=None, force=False, lang=None):
 def approve(proj, name, lang=None):
     p = L.paths(proj)
     state = load_state(proj)
+    if name == "look":
+        name = "review"
     if editions.editions_of(proj):
         code = lang or editions.default_edition(proj)
-        key = f"{name}@{code}" if name == "script" else name
+        key = f"{name}@{code}" if name in ("script", "review") else name
         steps = {k: f for k, _, _, f, _ in edition_steps(proj, editions.editions_of(proj))}
         if key not in steps:
             raise SystemExit(f"no stage {key}")
@@ -511,8 +535,9 @@ def main():
     r.add_argument("--max-cost", type=float, default=voice.DEFAULT_CAP, help="USD cap for this run's paid voice (default 5)")
     r.add_argument("--download-maps", action="store_true", help="assets: download map boundary data not cached yet (public domain)")
     s = sub.add_parser("status"); s.add_argument("--project", required=True)
-    a = sub.add_parser("approve"); a.add_argument("--project", required=True); a.add_argument("stage", choices=[x[0] for x in STAGES if x[3]])
-    a.add_argument("--lang", default=None, help="the edition, for a script approval")
+    a = sub.add_parser("approve"); a.add_argument("--project", required=True)
+    a.add_argument("stage", choices=[x[0] for x in STAGES if x[3] is True] + ["look"])
+    a.add_argument("--lang", default=None, help="the edition, for a script or look approval")
     args = ap.parse_args()
     if args.cmd == "new":
         langs = [x.strip() for x in args.editions.split(",") if x.strip()]

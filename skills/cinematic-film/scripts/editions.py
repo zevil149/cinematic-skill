@@ -139,6 +139,9 @@ def check(root, code, r=None):
             tag = L.load(path).get("lang")
             if tag and tag != code:
                 r.error(f"edition {code}: {name} is tagged {tag!r}; it belongs to another edition")
+    rv = pathlib.Path(root) / "07_review" / code / "review.json"
+    if rv.exists() and L.load(rv).get("lang") not in (None, code):
+        r.error(f"edition {code}: 07_review/{code}/review.json is tagged {L.load(rv).get('lang')!r}; it belongs to another edition")
     for name in SHARED_LINKS:
         f = ed / name
         if f.exists() and not f.is_symlink() and (pathlib.Path(root) / name).exists() and name != "assets":

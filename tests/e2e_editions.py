@@ -39,8 +39,13 @@ def main():
     write_hindi(proj)
     dp("run", "--project", proj, "--lang", "hi", "--offline", ok=False); dp("approve", "--project", proj, "script", "--lang", "hi")
     dp("run", "--project", proj, "--lang", "all", "--offline", ok=False); dp("approve", "--project", proj, "visuals")
-    dp("run", "--project", proj, "--lang", "all", "--offline")                 # scenes, voices, timing, mixes, subtitles
-    r = dp("run", "--project", proj, "--lang", "all", "--offline")             # the run after a new voice re-checks scenes
+    r = dp("run", "--project", proj, "--lang", "all", "--offline", ok=False)   # assets, scenes, voices, mixes, subtitles, reviews
+    for code in ("en", "hi"):
+        if f"[review@{code}] passes its checks" not in r.stdout:
+            sys.exit(f"review@{code} did not reach the look gate:\n{r.stdout[-3000:]}")
+    r = dp("run", "--project", proj, "--lang", "all", "--offline", ok=False)   # the run after a new voice re-checks scenes
+    for code in ("en", "hi"):                                                  # a person looks at 07_review/<lang>/ here
+        dp("approve", "--project", proj, "look", "--lang", code)
     r = dp("run", "--project", proj, "--lang", "all", "--offline")
     stale = [ln for ln in r.stdout.splitlines() if ln.startswith("[") and "up to date" not in ln]
     if stale:
@@ -62,6 +67,13 @@ def main():
             dst = out / "outputs" / code / pathlib.Path(f).name
             dst.parent.mkdir(parents=True, exist_ok=True)
             dst.write_bytes((ed / f).read_bytes())
+        rv = json.loads((proj / "07_review" / code / "review.json").read_text())
+        assert rv["lang"] == code and rv["acts"], rv
+        report[code]["review"] = {"acts": len(rv["acts"]), "stills": sum(len(a["probes"]) for a in rv["acts"]),
+                                  "strips": sum(len(a["strips"]) for a in rv["acts"]),
+                                  "flagged": [x["name"] for a in rv["acts"] for x in a["probes"] + a["strips"] if x["flags"]]}
+        import shutil
+        shutil.copytree(proj / "07_review" / code, out / "outputs" / code / "review", dirs_exist_ok=True)
     chk = subprocess.run([sys.executable, str(SCRIPTS / "editions.py"), "check", "--project", str(proj)], capture_output=True, text=True)
     print(chk.stdout)
     if chk.returncode != 0:
