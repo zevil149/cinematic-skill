@@ -124,6 +124,14 @@ One production can be told in several languages. `docpipe.py new my-doc --topic 
 
 A project made without `--editions` is a single English edition at its root, exactly as before.
 
+## Strings between clusters
+
+Tie two moments of the story with a red string by saying so: a narration line's `"links": [3, 12]` names the lines it is tied to. Nothing is linked on its own: not by shared claims, people or words.
+
+- **Single-language:** the storyboard keeps each line's links (unknown lines and a line linked to itself are dropped with a warning).
+- **Editions:** write the links in the default edition's narration; `beats.py` turns them into links between beats, and every edition draws the same strings between the lines that tell those beats.
+- **On the board:** `scenegen.py` passes `links` into the scene table (only where there are links), and `scenekit.add_strings` pulls a red `StringLine` from the linked line's visual to the linking line's as the linking line is spoken. The strings stay, so the act's closing pull-back shows them together. A link to a line in another act is left out with a warning (each act is its own board). Edit `links` in an act's `LINES` like anything else.
+
 ## Long films
 
 ### Title cards between acts

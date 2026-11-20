@@ -56,6 +56,8 @@ def edition_table(scenes, assets, beats, code):
                         "kind": a.get("kind", "photo")})
         table.append({"line": s["line"], "section": s["section"], "beat": s.get("beat", ""), "key_word": s.get("key_word", ""),
                       "typed": s.get("typed", ""), "hero": s.get("hero", ""), "visuals": vis})
+        if s.get("links"):
+            table[-1]["links"] = list(s["links"])
     return table
 
 
@@ -71,6 +73,8 @@ def scene_table(scenes, assets):
                         "kind": a.get("kind", "photo")})
         table.append({"line": s["line"], "section": s["section"], "key_word": s.get("key_word", ""),
                       "typed": s.get("typed", ""), "hero": s.get("hero", ""), "visuals": vis})
+        if s.get("links"):
+            table[-1]["links"] = list(s["links"])
     return table
 
 
@@ -198,6 +202,11 @@ def generate(proj, force=False):
     for n in sorted(acts):
         rows = [x[0] for x in acts[n]]
         scs = [x[1] for x in acts[n]]
+        here = {x["line"] for x in rows}
+        for row in rows:
+            for t in row.get("links", []):
+                if t not in here:
+                    r.warn(f"line {row['line']} links to line {t}, which is in another act: strings stay within an act's board")
         t0, t1 = scs[0]["start"], scs[-1]["end"] + L.TAIL
         if n in titles:
             t0 = max(0.0, t0 - L.ACT_GAP)                   # the act's board opens on its title card

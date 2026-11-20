@@ -179,7 +179,10 @@ def build(proj, size="960x540", log=print):
             t = scenekit.word_time(doc, ln, kw)
             pr = still(t, f"L{int(ln):04d}")
             probes.append({**pr, "line": ln, "what": sb.get(ln, {}).get("narration", ""), "key_word": kw})
-        t_close = max(0.0, min(act.get("t1", film.duration), film.duration) - 0.3)
+        end = min(act.get("t1", film.duration), film.duration)
+        if end >= film.duration - 0.01:                     # the film's own fade to black is not the act's last look
+            end -= getattr(film, "fade_out", 0.0)
+        t_close = max(0.0, end - 0.3)
         probes.append({**still(t_close, "probe_close"), "line": None, "what": "the act's last frame"})
         strips = []
         sections = {ln: sb.get(ln, {}).get("section") for ln in lines}

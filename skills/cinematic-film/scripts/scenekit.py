@@ -11,7 +11,7 @@ yet prepared becomes a designed card, and a key word not in the spoken text fall
 """
 import math
 
-from engine import BigText, Card, Film, FilmFrame, Footage, Parallax, Print, ken_burns
+from engine import BigText, Card, Film, FilmFrame, Footage, Parallax, Print, StringLine, ken_burns
 
 CLUSTER_X, CLUSTER_Y, COLS = 11000, 8500, 3       # clusters snake across the act's board
 SLOT_X, SLOT_Y, SLOTS_PER_ROW = 3800, 3400, 3     # line slots inside a cluster
@@ -117,6 +117,23 @@ def title_card(film, doc, title, lines, pos, look):
     return cx, cy, t_card, t_first
 
 
+def add_strings(film, doc, lines, pos):
+    """Red string between clusters the storyboard links explicitly (a line's "links": line ids).
+    It is pulled as the linking line is spoken and stays, so the closing pull-back shows the web.
+    A link to a line outside this act, or to itself, is left out."""
+    here = {ln["line"] for ln in lines}
+    done = set()
+    for ln in lines:
+        for t in ln.get("links", []):
+            pair = tuple(sorted((ln["line"], t)))
+            if t not in here or t == ln["line"] or pair in done:
+                continue
+            done.add(pair)
+            (x0, y0), (x1, y1) = pos[t], pos[ln["line"]]
+            film.add(StringLine((x0, y0 - CARD_H * 0.45), (x1, y1 - CARD_H * 0.45), doc.L(ln["line"]) + 0.4,
+                                dur=1.2, persist=True))
+
+
 def build_act(doc, table, look="wall", fps=30, title=None):
     """Build an act's Film from a scene table: every line's visuals and typed text on its slot,
     the camera landing on each line's hero and pushing in to its key word, and a final pull-back."""
@@ -155,6 +172,7 @@ def build_act(doc, table, look="wall", fps=30, title=None):
             film.shot(0.0, x, y, z * 1.25)
         film.shot(t + 0.3, x, y, z, rot=(-0.5, 0.4, 0.2)[n % 3])
         film.shot(max(t + 0.6, word_time(doc, i, ln.get("key_word"))), x + 120, y + 60, z * 1.12)
+    add_strings(film, doc, lines, pos)
     xs = [p[0] for p in pos.values()]; ys = [p[1] for p in pos.values()]
     cx, cy = (min(xs) + max(xs)) / 2, (min(ys) + max(ys)) / 2
     span_w, span_h = max(xs) - min(xs) + 7000, max(ys) - min(ys) + 6000

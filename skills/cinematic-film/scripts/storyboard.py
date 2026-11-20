@@ -112,9 +112,12 @@ def build(proj, write=True):
                 if k in im:
                     need[k] = im[k]
             needs.append(need); sc["images"].append(need["id"])
+        if beat_needs is None and l.get("links"):
+            sc["links"] = list(l["links"])                   # explicit: the lines this one is tied to
         if not sc["images"] and not sc["typed"] and not sc["hero"]:
             r.warn(f"line {l['id']}: nothing to show (no hero, image or typed text)")
         scenes.append(sc)
+    link_scenes(p, scenes, beat_needs is not None, r)
     total = scenes[-1]["end"] + L.TAIL
     r.note(f"{len(scenes)} scenes, {L.mmss(total)} ({'voice timing' if timing else 'estimated'}), "
            f"{len(needs)} images ({sum(1 for x in needs if x['status'] == 'needed')} still to find)")
@@ -127,6 +130,37 @@ def build(proj, write=True):
             L.save(p["image_needs"], {**meta, "images": needs})
         L.write_text(p["storyboard_md"], render_md(meta, scenes, needs))
     return r
+
+
+def link_scenes(p, scenes, edition, r):
+    """Resolve explicit links to this storyboard's line ids: a line's own "links" (lines), or in an
+    edition its beat's "links" (beats), shown from the first line that tells each beat. Never inferred."""
+    ids = {s["line"] for s in scenes}
+    if edition:
+        first = {}
+        for s in scenes:
+            first.setdefault(s.get("beat"), s["line"])
+        blinks = {b["id"]: b.get("links", []) for b in L.load(p["beats"], {"beats": []}).get("beats", [])}
+        for bid, line in first.items():
+            targets = []
+            for tb in blinks.get(bid, []):
+                if tb in first and first[tb] != line:
+                    targets.append(first[tb])
+                elif tb not in first:
+                    r.warn(f"beat {bid} links to beat {tb}, which this edition does not tell; that string is left out")
+            if targets:
+                next(s for s in scenes if s["line"] == line)["links"] = targets
+        return
+    for s in scenes:
+        if "links" in s:
+            keep = [t for t in s["links"] if t in ids and t != s["line"]]
+            for t in s["links"]:
+                if t not in ids:
+                    r.warn(f"line {s['line']}: links to line {t!r}, which is not in the script; ignored")
+            if keep:
+                s["links"] = keep
+            else:
+                del s["links"]
 
 
 def render_md(meta, scenes, needs):
