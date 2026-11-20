@@ -137,7 +137,7 @@ class QC(unittest.TestCase):
         import contextlib
         import docpipe
         import io
-        self.assertEqual(docpipe.EDITION_ORDER[-1], "qc")
+        self.assertEqual(docpipe.EDITION_ORDER[-2:], ["qc", "report"])            # the last edition stage; then the production report (6.5)
         self.assertIn("qc", docpipe.AFTER_LOOK)
         with tempfile.TemporaryDirectory() as tmp:
             proj = finished(tmp)

@@ -56,6 +56,10 @@ Stages (phase 5), per edition, after its look is approved:
   qc         out/qc.<lang>.md|json and the delivery manifest out/delivery.<lang>.json: the film's
              streams, length, acts, picture, sound and subtitles checked, with blocking errors
              apart from warnings; the edition is complete only when nothing blocks it  (qc.py)
+  report     reports/final_report.md, reports/credits.md, reports/report.json (production) and
+             out/credits.<lang>.md per edition: status, script and claims, images and who acknowledged
+             automatic picks, sound, QC, the claim -> line -> scene -> image trail, and what none of it
+             proves  (report.py)
   These wait, without rendering anything, until `approve look` for that edition; `run --size
   1280x720` (default 1920x1080) and `--workers N` set the render.
 
@@ -83,8 +87,8 @@ the stage "partial": the film goes on with designed cards, and the next run retr
 The research, outline and narration are written by the agent (or a person) into the stage files;
 the pipeline scaffolds them, checks them and refuses to move on while a check fails. A stage
 marked [gate] waits for `approve` before the next stage runs, and an approval lapses when the
-stage's inputs change. The planned stage (report) is
-listed by status and arrives in a later phase.
+stage's inputs change. The last stage, report, gathers the production into reports/final_report.md
+and reports/credits.md (report.py); it is not complete until every edition run is.
 
 `run --only STAGE` runs one stage, and only when a full run would have reached it: the stages
 before it have run and every gate before it is approved for its current files. The finishing
@@ -112,6 +116,7 @@ import narration  # noqa: E402
 import outline  # noqa: E402
 import prepare  # noqa: E402
 import qc  # noqa: E402
+import report  # noqa: E402
 import research  # noqa: E402
 import review  # noqa: E402
 import scenegen  # noqa: E402
@@ -121,7 +126,7 @@ import visuals  # noqa: E402
 import voice  # noqa: E402
 
 LOOKS = ("wall", "slate", "charcoal", "paper", "studio", "blueprint", "night")
-PLANNED = [("report", "final report and credits.md")]
+PLANNED = []
 
 
 OPTS = {"offline": False, "confirm_cost": False, "max_cost": voice.DEFAULT_CAP, "download_maps": False,
@@ -185,6 +190,10 @@ def stage_join(proj):
 
 def stage_captions(proj):
     return finish.captions(proj, workers=OPTS["workers"])
+
+
+def stage_report(proj):
+    return report.build(proj)
 
 
 def stage_qc(proj):
@@ -308,7 +317,8 @@ STAGES = [
                                                                         ("render", stage_render, ("render:",), False),
                                                                         ("join", stage_join, ("join:",), False),
                                                                         ("captions", stage_captions, ("captions:",), False),
-                                                                        ("qc", stage_qc, ("qc:",), False)]
+                                                                        ("qc", stage_qc, ("qc:",), False),
+                                                                        ("report", stage_report, ("report:",), False)]
 NAMES = [s[0] for s in STAGES]
 
 
@@ -323,6 +333,8 @@ def single_hash(proj, p, keys):
         return finish.join_fingerprint(proj)
     if keys and keys[0] == "captions:":
         return finish.captions_fingerprint(proj)
+    if keys and keys[0] == "report:":
+        return report.fingerprint(proj)
     if keys and keys[0] == "qc:":
         return qc.fingerprint(proj)
     if keys and keys[0].startswith("audio:"):
@@ -358,7 +370,7 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
 
 
 EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "assets", "scenegen",
-                 "voice", "narration", "effects", "sound", "subtitles", "review", "render", "join", "captions", "qc"]
+                 "voice", "narration", "effects", "sound", "subtitles", "review", "render", "join", "captions", "qc", "report"]
 
 
 def edition_steps(root, langs):
@@ -427,6 +439,8 @@ def edition_steps(root, langs):
                       (lambda c=code: Fingerprint(finish.captions_fingerprint(E(c)))), False))
         steps.append((f"qc@{code}", "qc", (lambda c=code: stage_qc(E(c))),
                       (lambda c=code: Fingerprint(qc.fingerprint(E(c)))), False))
+    steps.append(("report", "report", lambda: report.build(root, targets),           # phase 6.5: the production's final report
+                  lambda: Fingerprint(report.fingerprint(root, targets)), False))
     return steps
 
 
@@ -623,6 +637,13 @@ def approve(proj, name, lang=None):
     state = load_state(proj)
     if name == "look":
         name = "review"
+    if name == "visuals":
+        auto = visuals.auto_picks(proj)
+        if auto:
+            raise SystemExit("the visuals stage picked these images by itself; look at each, then choose it in "
+                             "05_visuals/selection.json or keep it with `visuals.py acknowledge --project "
+                             f"{proj} {' '.join(n for n, _, _ in auto)}`, run docpipe.py again and approve:\n" +
+                             "\n".join(f"  {n}: {w} ({lic})" for n, w, lic in auto))
     if editions.editions_of(proj):
         code = lang or editions.default_edition(proj)
         key = f"{name}@{code}" if name in ("script", "review") else name

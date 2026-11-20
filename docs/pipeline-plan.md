@@ -130,7 +130,7 @@ Milestones follow the Phase 1–5 audit; each is authorized on its own (6.1: bra
 | 6.2 | Smarter QC: narration found against its source (missing, buried, masked, quiet), integrated loudness against the target, SRT/VTT parsed as cues, text overflow and caption collisions from scene geometry, unchecked checks reported as such | done |
 | 6.3 | Composition and typography fidelity: text fitted or wrapped in cards, hero framing, content-aware layout and moves, fewer empty holds, pinned fonts | done |
 | 6.4 | Rights enforcement and on-screen credits: uncleared assets blocked from the finished film; localized credits from the assets actually used | done |
-| 6.5 | Final report and validators: `final_report.md` and `credits.md`, claim-to-line warnings, acknowledgement of automatically picked images | |
+| 6.5 | Final report and validators: `final_report.md` and `credits.md`, claim-to-line warnings, acknowledgement of automatically picked images | done |
 | 6.6 | Optional: voice and timing readiness (cumulative spend cap, billed-failure logging; an offline aligner and live provider tests only with separate approval) | |
 | 6.7 | Optional: render robustness and image quality (chunk resume, fewer lossy generations) | |
 | 6.8 | Deferred: legacy tool consolidation and dependency pinning | deferred |
