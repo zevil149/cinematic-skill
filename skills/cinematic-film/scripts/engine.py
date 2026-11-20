@@ -28,6 +28,8 @@ import numpy as np
 import skia
 from PIL import Image, ImageFilter
 
+import textshape
+
 # ---------------------------------------------------------------- palette
 TEAL = (112, 178, 182)
 RUST = (186, 86, 52)
@@ -156,9 +158,24 @@ class Doc:
 
     def W(self, i, word, nth=0):
         """When `word` is spoken in line i, by its letter share of the line (pauses spread evenly).
-        Search the SPOKEN text: "1929" is spoken "nineteen twenty-nine", so ask for "nineteen"."""
+        Search the SPOKEN text: "1929" is spoken "nineteen twenty-nine", so ask for "nineteen".
+        When timing.json has the line's word times (narrate.py), the word's own start is used."""
         vo = self.seg[i]["vo"]
+        if self.seg[i].get("words"):
+            t = self._word_start(i, vo, word, nth)
+            if t is not None:
+                return t
         letters = re.sub(r"[^a-z]", "", vo.lower())
+        if not letters and vo.strip():              # Hindi and other non-Latin lines: by syllables
+            from lang.hi import aksharas
+            idx = vo.find(word)
+            if idx < 0:
+                raise ValueError(f"{word!r} is not in the spoken text of line {i}: {vo!r}")
+            for _ in range(nth):
+                idx = vo.find(word, idx + 1)
+                if idx < 0:
+                    raise ValueError(f"{word!r} (occurrence {nth}) is not in the spoken text of line {i}: {vo!r}")
+            return self.L(i) + (self.E(i) - self.L(i)) * aksharas(vo[:idx]) / max(1, aksharas(vo)) + 0.04
         idx, start = -1, 0
         for _ in range(nth + 1):
             idx = vo.lower().find(word.lower(), start); start = idx + 1
@@ -168,6 +185,21 @@ class Doc:
             raise ValueError(f"{word!r} (occurrence {nth}) is not in the spoken text of line {i}: {vo!r}")
         before = len(re.sub(r"[^a-z]", "", vo[:idx].lower()))
         return self.L(i) + (self.E(i) - self.L(i)) * before / max(1, len(letters)) + 0.04
+
+    def _word_start(self, i, vo, word, nth):
+        """The start of the word containing occurrence nth of `word`, from the line's word times;
+        None when the times do not match the spoken words (then the estimate is used)."""
+        from lang import TOKEN
+        words, toks = self.seg[i]["words"], list(TOKEN.finditer(vo))
+        if len(words) != len(toks):
+            return None
+        idx, start = -1, 0
+        for _ in range(nth + 1):
+            idx = vo.lower().find(word.lower(), start); start = idx + 1
+            if idx < 0:
+                return None
+        k = next((n for n, m in enumerate(toks) if m.end() > idx), None)
+        return None if k is None else words[k]["start"]
 
     def on(self, pr, fx, fy):
         """World point at a fractional position (0..1, 0..1) inside a print's image area."""
@@ -292,7 +324,13 @@ def paint(rgb=(0, 0, 0), a=1.0, stroke=None, blur=None, aa=True):
 
 
 def draw_text(c, res, text, x, y, size, font="serif", rgb=CREAM, a=1.0, track=0.0, align="left", reveal=None):
-    """Draw text with letter tracking (em fraction). reveal=n draws only the first n characters."""
+    """Draw text with letter tracking (em fraction). reveal=n draws only the first n characters.
+    Devanagari (Hindi) is shaped by HarfBuzz (textshape.py); every other string is drawn as always."""
+    if textshape.needs_shaping(text):
+        sh = textshape.shape(res, text, size, font, track)
+        x0 = x - sh.width / 2 if align == "center" else x - sh.width if align == "right" else x
+        sh.draw(c, x0, y, paint(rgb, a), reveal)
+        return sh.width
     f = res.font(font, size)
     widths = f.getWidths(f.textToGlyphs(text))
     gap = track * size
@@ -310,6 +348,8 @@ def draw_text(c, res, text, x, y, size, font="serif", rgb=CREAM, a=1.0, track=0.
 
 
 def text_width(res, text, size, font="serif", track=0.0):
+    if textshape.needs_shaping(text):
+        return textshape.shape(res, text, size, font, track).width
     f = res.font(font, size)
     return sum(f.getWidths(f.textToGlyphs(text))) + track * size * (len(text) - 1)
 

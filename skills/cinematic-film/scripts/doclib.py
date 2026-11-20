@@ -63,19 +63,48 @@ def write_text(path, text):
     p.write_text(text)
 
 
+SHARED_STAGES = ("topic", "research", "outline", "visuals")       # one per production, in every edition
+EDITION_STAGES = ("script", "scenes", "film")                      # one per language edition
+
+
+def edition_info(proj):
+    """For an edition folder (editions/<lang>/ with edition.json): its language, the production root
+    it belongs to, and whether it keeps its own beats. None for a production root or a legacy project."""
+    ep = pathlib.Path(proj) / "edition.json"
+    if not ep.exists():
+        return None
+    e = json.loads(ep.read_text())
+    return {"lang": e["lang"], "root": (pathlib.Path(proj) / e.get("production", "../..")).resolve(),
+            "beats": e.get("beats", "shared"), "source": e.get("source", False)}
+
+
 def paths(proj):
+    """Every file the pipeline reads or writes, for a project folder.
+
+    A legacy project (no editions) and a production root keep every stage folder in the project.
+    An edition folder (editions/<lang>/) reads the shared stages (topic, research, outline, beats,
+    visuals) from its production root and keeps its own script, scenes, film and audio."""
     proj = pathlib.Path(proj)
-    d = {k: proj / v for k, v in STAGE_DIRS.items()}
+    ed = edition_info(proj)
+    root = ed["root"] if ed else proj
+    d = {k: (proj if (ed and k in EDITION_STAGES) else root) / v for k, v in STAGE_DIRS.items()}
+    beats_dir = (proj if ed and ed["beats"] == "own" else root) / "03_beats"
+    topic = d["topic"] / "topic.json"
+    multi = ed is not None or bool(load(topic, {}).get("editions"))
     return {
         "proj": proj, "state": proj / "docpipe.json", **{k + "_dir": v for k, v in d.items()},
-        "topic": d["topic"] / "topic.json",
+        "root": root, "lang": ed["lang"] if ed else None, "edition": ed, "multi": multi,
+        "topic": topic,
         "sources": d["research"] / "sources.json", "claims": d["research"] / "claims.json",
         "research_md": d["research"] / "research.md",
         "outline": d["outline"] / "outline.json", "outline_md": d["outline"] / "outline.md",
         "narration": d["script"] / "narration.json", "script_md": d["script"] / "script.md",
         "script_json": proj / "script.json",
         "storyboard": d["scenes"] / "storyboard.json", "storyboard_md": d["scenes"] / "storyboard.md",
-        "image_needs": d["scenes"] / "image_needs.json",
+        # the images visuals.py fetches: per storyboard in a legacy project, per beat once a production has editions
+        "image_needs": (beats_dir / "image_needs.json") if multi else d["scenes"] / "image_needs.json",
+        "beats_dir": beats_dir, "beats": beats_dir / "beats.json", "beats_md": beats_dir / "beats.md",
+        "lexicon": proj / "lexicon.json",
         "timing": proj / "audio" / "timing.json",
     }
 

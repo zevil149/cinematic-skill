@@ -45,8 +45,8 @@ jobs:
           pip install -q -r requirements.txt
       - name: Setup check
         run: python skills/cinematic-film/scripts/check_setup.py
-      - name: Visual engine render tests (moves, footage, parallax, scene starters)
-        run: python -m unittest tests.test_engine_visual tests.test_scenegen -v
+      - name: Render and voice tests (moves, footage, parallax, scene starters, editions, Hindi, Devanagari, voices, voice APIs offline, narration timing, music and effects, subtitles, pipeline)
+        run: python -m unittest tests.test_engine_visual tests.test_scenegen tests.test_editions tests.test_lang_hi tests.test_devanagari tests.test_voice tests.test_voice_api tests.test_narrate tests.test_audio_mix tests.test_subtitles tests.test_pipeline_audio -v
       - name: Starter film, end to end
         run: |
           S=skills/cinematic-film/scripts; P="$RUNNER_TEMP/film"
@@ -71,3 +71,10 @@ jobs:
         with:
           name: starter-film
           path: ${{ runner.temp }}/film/out
+      - name: English and Hindi editions, every docpipe stage, end to end (espeak voices, offline)
+        run: python tests/e2e_editions.py "$RUNNER_TEMP/editions"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: editions-en-hi
+          path: ${{ runner.temp }}/editions/outputs

@@ -17,9 +17,36 @@ Stages (phase 1):
   script    03_script: narration fact-checked, exported to script.json  [gate]  (narration.py)
   scenes    04_scenes: storyboard with timestamps, camera, image needs  (storyboard.py)
 
+Language editions (phase 3): `new --editions en,hi` makes one production with an edition per
+language (editions/<lang>/), English first and the default. Then:
+  topic, research, outline    shared
+  script@<source>  [gate]     the default edition's narration, checked as above, tagged with its language
+  beats                       the shared beats, built from the source narration (beats.py)
+  script@<lang>    [gate]     every other edition: one line per beat, in its own language and script
+  scenes@<lang>               each edition's storyboard, timed by its own voice
+  visuals          [gate]     shared: one set of images for every edition
+  scenegen@<lang>             each edition's scene.py starters, with its own text
+  run --lang hi | --lang all chooses editions (default: the default edition); approve takes --lang.
+  A project made without --editions is a single English edition, exactly as before.
+
 Stages (phase 2):
   visuals   05_visuals: archive search, licences, downloads, fallbacks  [gate]  (visuals.py)
   scenegen  06_film: an editable scene.py starter per act               (scenegen.py)
+
+Stages (phase 3), per edition (voice@<lang> ...) or for a single-language project:
+  voice      audio/voice: one segment per line, from voice.json (espeak scratch voice by default)  (voice.py)
+             a paid voice needs `run --confirm-cost` (and --max-cost, $5 by default); Hindi also
+             needs the native-speaker review (voice.py review). Nothing paid runs without them.
+  narration  audio/narration.m4a and audio/timing.json with word times; re-times the storyboard
+             and scene starters (scenes you edited are kept)                (narrate.py)
+  sound      audio/cues.json (a synthesised bed to start) and the checked -15 LUFS mix.m4a, with
+             only cleared library assets and audio/sfx.wav if you made it   (cuesheet.py, audiolib.py)
+  subtitles  out/subtitles.<lang>.srt and .vtt, each cue marked voice-timed or estimated  (subtitles.py)
+  run --until scenegen stops before the voice, as before phase 3. The run after a new voice
+  re-checks the storyboard and scene starters once (they follow the voice; nothing else changes).
+  Files you edited (segments, recordings, narration, timing, mix, subtitles, scenes) are never
+  replaced: a stage that would need to stops with the reason, and the tool's own --force (with a
+  .bak) is yours to use.
 
 visuals talks to the archives (politely: paced, cached, and silent towards any archive that is
 rate-limiting us). --offline uses cached searches only. Downloads deferred by a rate limit leave
@@ -28,34 +55,42 @@ the stage "partial": the film goes on with designed cards, and the next run retr
 The research, outline and narration are written by the agent (or a person) into the stage files;
 the pipeline scaffolds them, checks them and refuses to move on while a check fails. A stage
 marked [gate] waits for `approve` before the next stage runs, and an approval lapses when the
-stage's inputs change. Planned stages (images, voice, sound, render, captions, report) are listed
-by status and arrive in later phases; until then the film tools run as SKILL.md describes.
+stage's inputs change. Planned stages (assets, review, effects, render, captions, report) are
+listed by status and arrive in later phases; until then the film tools run as SKILL.md describes.
 """
 import argparse
 import datetime
+import hashlib
+import json
 import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+import audiolib  # noqa: E402
+import beats  # noqa: E402
+import cuesheet  # noqa: E402
 import doclib as L  # noqa: E402
+import editions  # noqa: E402
+import narrate  # noqa: E402
 import narration  # noqa: E402
 import outline  # noqa: E402
 import research  # noqa: E402
 import scenegen  # noqa: E402
 import storyboard  # noqa: E402
+import subtitles  # noqa: E402
 import visuals  # noqa: E402
+import voice  # noqa: E402
 
 LOOKS = ("wall", "slate", "charcoal", "paper", "studio", "blueprint", "night")
-PLANNED = [("voice", "scratch then final voice; timing.json (tts_say, split_takes, build_narration)"),
-           ("assets", "maps, graded images and footage frames (make_map, prep_assets, prep_footage)"),
+PLANNED = [("assets", "maps, graded images and footage frames (make_map, prep_assets, prep_footage)"),
            ("review", "probes and strips of every act for the look test (render.py)"),
-           ("sound", "effects, music, ducked mix (build_sfx, mix_soundtrack)"),
+           ("effects", "the effects track from the film's cues (render.py --cues, build_sfx)"),
            ("render", "1080p render by chapter, memory-aware (render.py)"),
-           ("captions", "burned captions and SRT (burn_captions.py)"),
+           ("captions", "captions burned into the render (burn_captions.py)"),
            ("report", "final report, credits.md and QC")]
 
 
-OPTS = {"offline": False}
+OPTS = {"offline": False, "confirm_cost": False, "max_cost": voice.DEFAULT_CAP}
 
 
 def stage_topic(proj):
@@ -104,10 +139,82 @@ def stage_scenegen(proj):
     return scenegen.generate(proj)
 
 
+def stage_voice(proj):
+    """One segment per line from the project's voice.json. Free voices run; a paid one only with
+    run --confirm-cost under the cap (and, for Hindi, after the native-speaker review)."""
+    p = voice.vp(proj)
+    if not p["voice_json"].exists():
+        voice.init(proj)                            # the free espeak scratch voice for this language
+    r = voice.synth(proj, max_cost=OPTS["max_cost"], confirm=OPTS["confirm_cost"])
+    if any("--confirm-cost" in e for e in r.errors):
+        r.note("from docpipe: run again with --confirm-cost (and --max-cost) to allow the paid voice")
+    return r
+
+
+def stage_narration(proj):
+    return narrate.build(proj, retime=True)
+
+
+def stage_sound(proj):
+    r = cuesheet.init(proj)
+    r.extend(cuesheet.mix(proj))
+    return r
+
+
+def stage_subtitles(proj):
+    return subtitles.build(proj)
+
+
+def audio_inputs(proj, stage):
+    """The files each phase 3 stage reads (and the ones it writes, so an edit is noticed)."""
+    vp = voice.vp(proj)
+    a = vp["proj"] / "audio"
+    lines = sorted(vp["segments"].glob("L*.wav")) + sorted(vp["manual"].glob("L*.wav"))
+    if stage == "voice":
+        return [vp["script_json"], vp["voice_json"], vp["review"], vp["lexicon"], vp["manifest"]] + lines
+    if stage == "narration":
+        return [vp["script_json"], vp["manifest"], a / "timing.json", a / "narration.m4a"] + lines
+    if stage == "sound":
+        lib = audiolib.lib_paths(proj)["json"]
+        return [a / "cues.json", a / "timing.json", a / "narration.m4a", lib, a / "sfx.wav", a / "mix.m4a", a / "mix_report.json"]
+    sp = subtitles.sp(proj)
+    return [a / "timing.json", sp["subs"], sp["srt"], sp["vtt"]]
+
+
+AUDIO = [("voice", stage_voice), ("narration", stage_narration), ("sound", stage_sound), ("subtitles", stage_subtitles)]
+
+
 def _inputs(p, *keys):
     d = p["visuals_dir"]
     extra = {"image_needs": p["image_needs"], "selection": d / "selection.json", "assets": d / "assets.json"}
     return [p[k] if k in p else extra[k] for k in keys]
+
+
+def stage_hash(p, keys):
+    """The input hash of a single-language stage. The image needs count by the images they ask
+    for, not the storyboard's timing note in the same file, so a new voice (which re-times the
+    storyboard) never reopens the approved visuals."""
+    files = _inputs(p, *keys)
+    if "image_needs" not in keys:
+        return L.hash_files(files)
+    h = hashlib.sha256()
+    for f in files:
+        h.update(f.name.encode())
+        if f == p["image_needs"] and f.exists():
+            d = L.load(f)
+            h.update(json.dumps({k: v for k, v in d.items() if k not in ("timing", "duration")}, sort_keys=True,
+                                ensure_ascii=False).encode())
+        else:
+            h.update(f.read_bytes() if f.exists() else b"<missing>")
+    return h.hexdigest()[:16]
+
+
+def migrate_hash(st, p, keys, h):
+    """A stage recorded before stage_hash existed (by its file bytes) keeps its status and approval."""
+    if st and st.get("inputs") != h and "image_needs" in keys and st.get("inputs") == L.hash_files(_inputs(p, *keys)):
+        if st.get("approved") == st["inputs"]:
+            st["approved"] = h
+        st["inputs"] = h
 
 
 STAGES = [
@@ -118,15 +225,21 @@ STAGES = [
     ("scenes", stage_scenes, ("narration", "timing"), False),
     ("visuals", stage_visuals, ("image_needs", "selection", "topic"), True),
     ("scenegen", stage_scenegen, ("storyboard", "assets", "outline"), False),
-]
+] + [(name, fn, ("audio:" + name,), False) for name, fn in AUDIO]
 NAMES = [s[0] for s in STAGES]
+
+
+def single_hash(proj, p, keys):
+    if keys and keys[0].startswith("audio:"):
+        return L.hash_files(audio_inputs(proj, keys[0][6:]))
+    return stage_hash(p, keys)
 
 
 def load_state(proj):
     return L.load(L.paths(proj)["state"], {"version": 1, "stages": {}})
 
 
-def new(folder, topic, minutes, angle="", audience="", look="wall", working_title=""):
+def new(folder, topic, minutes, angle="", audience="", look="wall", working_title="", langs=None):
     proj = pathlib.Path(folder)
     if proj.exists() and any(proj.iterdir()):
         raise SystemExit(f"{proj} exists and is not empty")
@@ -141,15 +254,128 @@ def new(folder, topic, minutes, angle="", audience="", look="wall", working_titl
     L.save(p["sources"], {"sources": []})
     L.save(p["claims"], {"claims": []})
     L.save(p["state"], {"version": 1, "created": L.today(), "stages": {}})
-    print(f"created {proj}: {minutes:g} minute documentary on {topic!r}")
+    for code in langs or []:
+        editions.add(proj, code)
+    print(f"created {proj}: {minutes:g} minute documentary on {topic!r}" +
+          (f", editions {', '.join(langs)} (default {langs[0]})" if langs else ""))
     print("next: research the topic into 01_research (research.py add-source / add-claim), then docpipe.py run")
     return proj
 
 
-def run(proj, until=None, only=None, force=False):
+EDITION_ORDER = ["topic", "research", "outline", "script", "beats", "scenes", "visuals", "scenegen",
+                 "voice", "narration", "sound", "subtitles"]
+
+
+def edition_steps(root, langs):
+    """The stages of a production with editions, in order: (key, stage name, run, input files, gate)."""
+    root = pathlib.Path(root)
+    src = editions.default_edition(root)
+    E = lambda c: editions.edition_dir(root, c)              # noqa: E731
+    P = L.paths(root)
+    shared = {s[0]: s for s in STAGES}
+    steps = []
+    for name in ("topic", "research", "outline"):
+        _, fn, keys, gate = shared[name]
+        steps.append((name, name, (lambda fn=fn: fn(root)), (lambda keys=keys: _inputs(P, *keys)), gate))
+
+    def script(code):
+        def go():
+            ed = E(code)
+            r = L.Result()
+            editions.check(root, code, r)
+            if not r.ok:
+                return r
+            if not L.paths(ed)["narration"].exists():
+                narration.init(ed)
+            r.extend(narration.export(ed))
+            if code != src and r.ok:
+                beats.check(root, code, r)
+            return r
+        return go
+
+    def script_inputs(code):
+        ep = L.paths(E(code))
+        return [E(code) / "edition.json", ep["lexicon"], ep["narration"], P["outline"], P["claims"], P["sources"]] + \
+               ([P["beats"]] if code != src else [])
+
+    order = [src] + [c for c in langs if c != src] if src in langs else [src] + list(langs)
+    steps.append((f"script@{src}", "script", script(src), lambda: script_inputs(src), True))
+    steps.append(("beats", "beats", lambda: beats.build(root, src), lambda: [L.paths(E(src))["narration"], P["beats"]], False))
+    targets = [c for c in order if c in langs] or [src]
+    for code in targets:
+        if code != src:
+            steps.append((f"script@{code}", "script", script(code), (lambda c=code: script_inputs(c)), True))
+        steps.append((f"scenes@{code}", "scenes", (lambda c=code: storyboard.build(E(c))),
+                      (lambda c=code: [L.paths(E(c))["narration"], L.paths(E(c))["timing"], P["image_needs"]]), False))
+    steps.append(("visuals", "visuals", lambda: visuals.run(root, offline=OPTS["offline"]),
+                  lambda: _inputs(P, "image_needs", "selection", "topic"), True))
+    for code in targets:
+        def gen(c=code):
+            editions.link_shared(root, E(c))                  # photos.json and footage.json exist by now
+            return scenegen.generate(E(c))
+        steps.append((f"scenegen@{code}", "scenegen", gen,
+                      (lambda c=code: [L.paths(E(c))["storyboard"], P["visuals_dir"] / "assets.json", P["outline"], P["beats"]]), False))
+    for code in targets:                                     # phase 3: each edition's voice, timing, mix and subtitles
+        for name, fn in AUDIO:
+            steps.append((f"{name}@{code}", name, (lambda c=code, fn=fn: fn(E(c))),
+                          (lambda c=code, n=name: audio_inputs(E(c), n)), False))
+    return steps
+
+
+def run_steps(proj, steps, until=None, only=None, force=False):
+    p = L.paths(proj)
+    state = load_state(proj)
+    stop_at = EDITION_ORDER.index(until) if until else len(EDITION_ORDER)
+    ok = True
+    for key, name, fn, files, gate in steps:
+        if EDITION_ORDER.index(name) > stop_at or (only and name != only):
+            continue
+        st = state["stages"].setdefault(key, {})
+        h = L.hash_files(files())
+        if not force and st.get("status") == "done" and st.get("inputs") == h:
+            print(f"[{key}] up to date"); continue
+        r = fn()
+        h = L.hash_files(files())
+        st.update(inputs=h, at=datetime.datetime.now().isoformat(timespec="seconds"),
+                  errors=r.errors, warnings=r.warnings, notes=r.notes)
+        print(r.report(f"[{key}]"))
+        if not r.ok:
+            st["status"] = "blocked"; ok = False
+            print(f"[{key}] blocked: fix the errors above, then run again")
+            break
+        if gate and st.get("approved") != h:
+            st["status"] = "awaiting approval"; ok = False
+            lang_arg = f" --lang {key.split('@')[1]}" if "@" in key else ""
+            print(f"[{key}] passes its checks; review it, then: docpipe.py approve --project {proj} {name}{lang_arg}")
+            break
+        st["status"] = "partial" if getattr(r, "partial", False) else "done"
+        if st["status"] == "partial":
+            print(f"[{key}] partial: some work is deferred; the next run retries it")
+    L.save(p["state"], state)
+    return ok
+
+
+def langs_for(root, lang):
+    eds = editions.editions_of(root)
+    if lang in (None, ""):
+        return [editions.default_edition(root)]
+    if lang == "all":
+        return eds
+    if lang not in eds:
+        raise SystemExit(f"this production has editions {eds}; add {lang!r} with editions.py add")
+    return [lang]
+
+
+def run(proj, until=None, only=None, force=False, lang=None):
     p = L.paths(proj)
     if not p["state"].exists():
         raise SystemExit(f"{proj} is not a docpipe project (no docpipe.json); start one with docpipe.py new")
+    if editions.editions_of(proj):
+        return run_steps(proj, edition_steps(proj, langs_for(proj, lang)), until, only, force)
+    if lang not in (None, "", "en"):
+        raise SystemExit(f"{proj} is a single-language (English) project; add editions with editions.py add")
+    if (until and until not in NAMES) or (only and only not in NAMES):
+        raise SystemExit(f"the beats stage exists only in a production with editions (editions.py add)")
     state = load_state(proj)
     stop_at = NAMES.index(until) if until else len(NAMES) - 1
     ok = True
@@ -159,12 +385,13 @@ def run(proj, until=None, only=None, force=False):
         if only and name != only:
             continue
         st = state["stages"].setdefault(name, {})
-        h = L.hash_files(_inputs(p, *keys))
+        h = single_hash(proj, p, keys)
+        migrate_hash(st, p, keys, h)
         if not force and st.get("status") in ("done", "awaiting approval") and st.get("inputs") == h:   # "partial" always reruns
             if st["status"] == "done":
                 print(f"[{name}] up to date"); continue
         r = fn(proj)
-        h = L.hash_files(_inputs(p, *keys))           # stages may scaffold their own inputs
+        h = single_hash(proj, p, keys)                # stages may scaffold their own inputs
         st.update(inputs=h, at=datetime.datetime.now().isoformat(timespec="seconds"),
                   errors=r.errors, warnings=r.warnings, notes=r.notes)
         print(r.report(f"[{name}]"))
@@ -183,12 +410,30 @@ def run(proj, until=None, only=None, force=False):
     return ok
 
 
-def approve(proj, name):
+def approve(proj, name, lang=None):
     p = L.paths(proj)
     state = load_state(proj)
+    if editions.editions_of(proj):
+        code = lang or editions.default_edition(proj)
+        key = f"{name}@{code}" if name == "script" else name
+        steps = {k: f for k, _, _, f, _ in edition_steps(proj, editions.editions_of(proj))}
+        if key not in steps:
+            raise SystemExit(f"no stage {key}")
+        st = state["stages"].get(key)
+        h = L.hash_files(steps[key]())
+        if not st or st.get("status") not in ("awaiting approval", "done", "partial") or st.get("inputs") != h:
+            raise SystemExit(f"{key} has not passed its checks on its current files; run docpipe.py run first")
+        st["approved"] = h
+        st["approved_at"] = datetime.datetime.now().isoformat(timespec="seconds")
+        if st["status"] == "awaiting approval":
+            st["status"] = "done"
+        L.save(p["state"], state)
+        print(f"[{key}] approved")
+        return
     st = state["stages"].get(name)
     keys = dict((s[0], s[2]) for s in STAGES)[name]
-    h = L.hash_files(_inputs(p, *keys))
+    h = single_hash(proj, p, keys)
+    migrate_hash(st, p, keys, h)
     if not st or st.get("status") not in ("awaiting approval", "done", "partial") or st.get("inputs") != h:
         raise SystemExit(f"{name} has not passed its checks on its current files; run docpipe.py run first")
     st["approved"] = h
@@ -204,10 +449,22 @@ def status(proj):
     state = load_state(proj)
     t = L.load(p["topic"], {})
     print(f"{t.get('topic', '?')}  ({t.get('minutes', '?')} min)")
+    if editions.editions_of(proj):
+        print(f"  editions: {', '.join(editions.editions_of(proj))} (default {editions.default_edition(proj)})")
+        for key, name, _, files, gate in edition_steps(proj, editions.editions_of(proj)):
+            st = state["stages"].get(key, {})
+            s = st.get("status", "not run")
+            if s == "done" and st.get("inputs") != L.hash_files(files()):
+                s = "out of date"
+            extra = f"  {len(st.get('errors', []))} errors, {len(st.get('warnings', []))} warnings" if st else ""
+            print(f"  {key:<14} {s:<18}{' [gate]' if gate else '       '}{extra}")
+        return
     for name, _, keys, gate in STAGES:
         st = state["stages"].get(name, {})
         s = st.get("status", "not run")
-        if s == "done" and st.get("inputs") != L.hash_files(_inputs(p, *keys)):
+        h = single_hash(proj, p, keys)
+        migrate_hash(st, p, keys, h)
+        if s == "done" and st.get("inputs") != h:
             s = "out of date"
         extra = f"  {len(st.get('errors', []))} errors, {len(st.get('warnings', []))} warnings" if st else ""
         print(f"  {name:<9} {s:<18}{' [gate]' if gate else '       '}{extra}")
@@ -222,22 +479,29 @@ def main():
     n.add_argument("folder"); n.add_argument("--topic", required=True); n.add_argument("--minutes", type=float, default=5)
     n.add_argument("--angle", default=""); n.add_argument("--audience", default=""); n.add_argument("--title", default="")
     n.add_argument("--look", default="wall", choices=LOOKS)
+    n.add_argument("--editions", default="", help="language editions, the first is the default: en,hi")
     r = sub.add_parser("run")
-    r.add_argument("--project", required=True); r.add_argument("--until", choices=NAMES)
-    r.add_argument("--only", choices=NAMES); r.add_argument("--force", action="store_true")
+    r.add_argument("--project", required=True); r.add_argument("--until", choices=EDITION_ORDER)
+    r.add_argument("--only", choices=EDITION_ORDER); r.add_argument("--force", action="store_true")
     r.add_argument("--offline", action="store_true", help="no network: archive searches come from the cache only")
+    r.add_argument("--lang", default=None, help="edition to run (default: the default edition), or all")
+    r.add_argument("--confirm-cost", action="store_true", help="allow a paid voice to spend, under --max-cost")
+    r.add_argument("--max-cost", type=float, default=voice.DEFAULT_CAP, help="USD cap for this run's paid voice (default 5)")
     s = sub.add_parser("status"); s.add_argument("--project", required=True)
     a = sub.add_parser("approve"); a.add_argument("--project", required=True); a.add_argument("stage", choices=[x[0] for x in STAGES if x[3]])
+    a.add_argument("--lang", default=None, help="the edition, for a script approval")
     args = ap.parse_args()
     if args.cmd == "new":
-        new(args.folder, args.topic, args.minutes, args.angle, args.audience, args.look, args.title)
+        langs = [x.strip() for x in args.editions.split(",") if x.strip()]
+        new(args.folder, args.topic, args.minutes, args.angle, args.audience, args.look, args.title, langs)
     elif args.cmd == "run":
         OPTS["offline"] = args.offline
-        sys.exit(0 if run(args.project, args.until, args.only, args.force) else 1)
+        OPTS["confirm_cost"], OPTS["max_cost"] = args.confirm_cost, args.max_cost
+        sys.exit(0 if run(args.project, args.until, args.only, args.force, args.lang) else 1)
     elif args.cmd == "status":
         status(args.project)
     else:
-        approve(args.project, args.stage)
+        approve(args.project, args.stage, args.lang)
 
 
 if __name__ == "__main__":

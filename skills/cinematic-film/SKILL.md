@@ -27,7 +27,7 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/render.py` | Stills, contact strips, the cue list, and the parallel MP4 render |
 | `scripts/build_sfx.py` | Synthesises every sound effect from the cue list (no samples, nothing to license) |
 | `scripts/mix_soundtrack.py` | Voice, effects and optional music, ducked and loudness-normalised |
-| `scripts/burn_captions.py` | Burns one of four caption styles into the finished film and writes an SRT |
+| `scripts/burn_captions.py` | Burns one of four caption styles into the finished film (word-level when the voice timed the words) and writes an SRT |
 | `scripts/docpipe.py` | The documentary pipeline: stages in their own folders, checks, approval gates, resume |
 | `scripts/research.py` | Sources and claims for a documentary; flags weak, single-source and unsupported claims |
 | `scripts/outline.py` | Sizes a 5, 10, 20 or 30 minute outline and checks its budget and chronology |
@@ -38,6 +38,16 @@ Built from a 5:22 documentary about Al Capone, then opened up to any subject. Th
 | `scripts/prep_footage.py` | Cuts, scales and grades archive film clips into frames for the `Footage` item |
 | `scripts/scenegen.py` | Writes an editable `scene.py` starter per act from the storyboard and the visuals |
 | `scripts/scenekit.py` | Layout and camera helpers the starters use (and hand-written scenes can) |
+| `scripts/editions.py` | Language editions of one production (`editions/<lang>/`, English the default); isolation checks |
+| `scripts/beats.py` | The language-neutral beats every edition tells, built from the source edition's narration |
+| `scripts/lang/` | Language plugins (English, Hindi): writing systems, pace, spoken text, timing |
+| `scripts/voice.py` | An edition's narration voice: one segment per line, manifest, resume, edit locks, spend guard, auditions; ElevenLabs (English) and Sarvam (Hindi) with keys from the environment |
+| `scripts/voices.py` | Voice providers behind one interface (espeak scratch voice, any local command, a test mock) |
+| `scripts/narrate.py` | An edition's `audio/narration.m4a` and `audio/timing.json` (with word times) from its voice segments; re-times the storyboard and scenes |
+| `scripts/audiolib.py` | The production's music and sound library: your files with source, licence, attribution and clearance; nothing uncleared is used |
+| `scripts/cuesheet.py` | An edition's music and effects cue sheet on its own timing, and its checked -15 LUFS mix |
+| `scripts/subtitles.py` | An edition's SRT and WebVTT subtitles from its timing: reading speed, line breaks, no overlaps, each cue marked voice-timed or estimated |
+| `scripts/wordtimes.py` | Word times for captions and subtitles: displayed words matched to the voice's timed words, labelled actual or estimated |
 
 Needs Python 3.9+, `pip install skia-python numpy pillow` (scipy optional) and ffmpeg. Run `scripts/check_setup.py` first; on Linux or Windows, also run `scripts/get_fonts.py` per project. All commands take `--project <folder>`.
 
@@ -84,7 +94,7 @@ Stop for the user's approval at the four gates (marked **Gate**).
 
 ## Long documentaries
 
-For a documentary of 5 minutes or more, run steps 1 to 2 through `scripts/docpipe.py`: every fact goes into a research store with its sources, the outline is sized to the length, every narration line must cite the claims it states, and a storyboard comes out with timestamps, camera moves and the list of images to find. Then `visuals` finds and licenses an image or clip for every scene (a designed card where none is usable) and `scenegen` writes an editable `scene.py` per act. Each stage keeps its own folder and the pipeline resumes where it stopped. Read `references/pipeline.md`. Then carry on from step 4 (scratch voice), and edit the generated scene at step 6.
+For a documentary of 5 minutes or more, run steps 1 to 2 through `scripts/docpipe.py`: every fact goes into a research store with its sources, the outline is sized to the length, every narration line must cite the claims it states, and a storyboard comes out with timestamps, camera moves and the list of images to find. Then `visuals` finds and licenses an image or clip for every scene (a designed card where none is usable) and `scenegen` writes an editable `scene.py` per act. Each stage keeps its own folder and the pipeline resumes where it stopped. To make the same documentary in more than one language (English by default, Hindi as well), start it with `--editions en,hi`: the research, beats and images are shared, and each language gets its own script, voice and outputs. Read `references/pipeline.md`. The pipeline then goes on to each edition's voice (the free espeak scratch voice unless you choose another; a paid voice only with `run --confirm-cost`), its narration timing, its checked mix and its subtitles. Then carry on with the look test and the render, editing the generated scene at step 6.
 
 ## Self-review, every time
 

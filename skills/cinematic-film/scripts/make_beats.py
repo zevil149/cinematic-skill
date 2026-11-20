@@ -35,6 +35,13 @@ def main():
     tp = proj / "audio" / "timing.json"
     timing = {s["id"]: s for s in json.loads(tp.read_text())["segments"]} if tp.exists() else {}
     lines = [(t["take"], l) for t in script["takes"] for l in t["lines"]]
+    lg = None
+    if script.get("lang"):                       # an edition's script: its own language's timing
+        import sys
+        sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+        import doclib
+        import lang
+        lg = lang.for_paths(doclib.paths(proj), script)
 
     warn, rows, cursor, max_year = [], [], 0.9, None
     first_take = script["takes"][0]["take"]
@@ -43,7 +50,7 @@ def main():
         if i in timing:
             start, dur = timing[i]["start"], timing[i]["duration"]
         else:
-            dur = len(re.sub(r"[^A-Za-z]", "", l["spoken"])) / LPS
+            dur = lg.est_seconds(l["spoken"]) if lg else len(re.sub(r"[^A-Za-z]", "", l["spoken"])) / LPS
             start = cursor
             cursor += dur + l.get("gap_after", 0.45)
         typed = l.get("typed", "") or "--"

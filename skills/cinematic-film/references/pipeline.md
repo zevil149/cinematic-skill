@@ -15,8 +15,17 @@ You (the agent) do the research and the writing. The tools scaffold the files, c
 | scenes | `04_scenes/` | `storyboard.py` | storyboard, camera moves and image list written |
 | visuals | `05_visuals/` | `visuals.py` | every image need has a licensed image or clip, or a designed card. **Gate** |
 | scenegen | `06_film/` | `scenegen.py` | an editable `scene.py` per act, and a root `scene.py` that renders one |
+| voice | `audio/voice/` | `voice.py` | a segment for every line from `voice.json` (the free espeak scratch voice unless you chose another) |
+| narration | `audio/` | `narrate.py` | `narration.m4a` and `timing.json` with word times; storyboard and scene starters re-timed to the voice |
+| sound | `audio/` | `cuesheet.py`, `audiolib.py` | `cues.json` (a synthesised bed to start) and a `mix.m4a` that passed its loudness and clipping checks |
+| subtitles | `out/` | `subtitles.py` | `subtitles.<lang>.srt` and `.vtt`, each cue marked voice-timed or estimated |
 
-After `scenegen`, carry on with the film tools as in SKILL.md: scratch voice, `prep_assets.py` and `prep_footage.py`, then the look test on the generated scenes. Later phases add those as stages.
+`run` goes on from `scenegen` to the voice, the narration timing, the mix and the subtitles; `run --until scenegen` stops where earlier versions stopped. After that, carry on with the film tools as in SKILL.md: `prep_assets.py` and `prep_footage.py`, the look test on the generated scenes, `render.py --cues` and `build_sfx.py` for the effects track (the next `run` mixes `audio/sfx.wav` in), the render and the burned captions. Later phases add those as stages.
+
+- **Paid voices are never started by `run` alone.** A paid provider in `voice.json` stops the voice stage until you run `docpipe.py run --confirm-cost` (with `--max-cost`, $5 by default), and a Hindi paid voice also needs `voice.py review --by NAME`. The free espeak and command voices need neither.
+- **A failure stops the stages after it,** with the reason and, where it applies, the command that fixes it. Run again after fixing; finished stages are not redone.
+- **Your files are never replaced by a run.** A segment or recording you edited is used as it is; a `narration.m4a`, `timing.json`, `mix.m4a` or subtitle file you edited (or that another tool made) stops its stage with "it is yours". Replacing it is your decision: the stage's own tool with `--force`, which keeps a `.bak` (for example `subtitles.py --project my-doc --force`), then `run` again.
+- **Resume.** Each stage records a hash of the files it reads and writes. The run after a new voice re-checks the storyboard and scene starters once, because they now follow the voice; nothing is regenerated that did not change. A new voice never reopens the approved visuals: their gate counts the images asked for, not the storyboard's timing.
 
 ```bash
 python3 scripts/docpipe.py new my-doc --topic "The 1919 Boston molasses flood" --minutes 10
@@ -27,7 +36,9 @@ python3 scripts/docpipe.py approve --project my-doc outline
 python3 scripts/docpipe.py run --project my-doc        # narration skeleton, then the fact check
 python3 scripts/narration.py spoken --project my-doc   # numbers and dates as words
 python3 scripts/docpipe.py approve --project my-doc script
-python3 scripts/docpipe.py run --project my-doc        # storyboard
+python3 scripts/docpipe.py run --project my-doc        # storyboard, then the visuals (approve them), scene starters,
+python3 scripts/docpipe.py approve --project my-doc visuals
+python3 scripts/docpipe.py run --project my-doc        # voice, narration timing, mix, subtitles
 python3 scripts/docpipe.py status --project my-doc
 ```
 
@@ -60,7 +71,7 @@ Write each section's `title`, `purpose` (what the viewer learns or feels), `peri
 
 ## Storyboard
 
-`storyboard.py` gives every line a scene: start and end time, narration, hero and visual, typed text, the key word to time the hit on (`doc.W(line, "word")`), a suggested camera move, and the images it needs. Times are estimates until `audio/timing.json` exists; run it again after each voice. `04_scenes/image_needs.json` lists every image with a search query, for `fetch_commons.py`.
+`storyboard.py` gives every line a scene: start and end time, narration, hero and visual, typed text, the key word to time the hit on (`doc.W(line, "word")`), a suggested camera move, and the images it needs. Times are estimates until `audio/timing.json` exists; run it again after each voice (in an edition, `narrate.py` builds the timing from the voice segments and re-runs the storyboard and scene starters itself). `04_scenes/image_needs.json` lists every image with a search query, for `fetch_commons.py`.
 
 ## Visuals
 
@@ -80,6 +91,33 @@ Archive keys (`SI_API_KEY`, `EUROPEANA_API_KEY`) come from the environment only.
 `scenegen.py` writes `06_film/act_NN/scene.py` for every act: a table of the act's lines (section, key word, typed text, visuals) and `build_film(doc)`, which lays the act out as one cluster per section, puts each visual in a print (with a slow move inside the frame), plays footage in a film frame, floats typed text on a parallax plane, and keys the camera onto each hero and in to its key word, ending on a pull-back over the whole act. Lines with nothing of their own to show hold on what is there.
 
 It is a starter: edit the table (positions, moves, sizes) or replace `build_film` with your own engine calls, then run the look test as usual. `scenegen` never overwrites a scene you have edited, nor a root `scene.py` it did not write. Render an act with `CINEMATIC_ACT=2 python3 scripts/render.py ...`; `06_film/acts.json` gives each act's time range.
+
+## Languages and editions
+
+One production can be told in several languages. `docpipe.py new my-doc --topic "..." --editions en,hi` makes the shared production (topic, research, outline, beats, visuals) and one edition per language in `editions/<lang>/`. The first is the default; English is the default for the main channel.
+
+- **Each edition is a complete film project.** It reads the shared stages from the production and keeps its own `03_script`, `04_scenes`, `06_film`, `audio` and `out`, with links to the shared `assets`, `photos.json` and `footage.json`. Run any film tool on `--project my-doc/editions/hi`.
+- **Beats** (`03_beats/beats.json`) are what every edition tells: one hero each, with its claims and images. `beats.py` builds them from the default edition's approved narration (a line is its own beat `B<id>` unless it names one). Every other edition starts from the beats: one line per beat, written in its own language, never copied. All editions share the same images and camera plan; each is timed by its own voice.
+- **Languages never mix.** An English line may not contain Devanagari, and a Hindi line may not contain Latin words unless its `lexicon.json` lists them under `"allow"` (technical terms such as `NASA`). Typed text and image card titles are per edition: a Hindi line gives its own typed text, and every image needs a Hindi card title (`"labels": {"hi": "..."}` in `beats.json`). Every edition file is tagged with its language, and a stage refuses a file from another edition.
+- **Gates are per edition:** `docpipe.py approve --project my-doc script --lang hi`. `run --lang hi` runs that edition, `--lang all` every edition; editing one edition never reopens another.
+- **The order with editions:** `topic`, `research`, `outline` [gate], `script@en` [gate], `beats`, `script@hi` [gate], `scenes@en`, `scenes@hi`, `visuals` [gate], `scenegen@en`, `scenegen@hi`, then for each edition `voice@<lang>`, `narration@<lang>`, `sound@<lang>`, `subtitles@<lang>`. Each edition's voice, timing, mix and subtitles stay in its folder and are tagged with its language. A typical two-language run:
+
+  ```bash
+  python3 scripts/docpipe.py run --project my-doc --lang all            # stops at each gate in turn
+  python3 scripts/docpipe.py approve --project my-doc script --lang hi
+  python3 scripts/voice.py review --project my-doc/editions/hi --by "Reviewer"   # before a paid Hindi voice
+  python3 scripts/docpipe.py run --project my-doc --lang all --confirm-cost     # only if a voice.json names a paid voice
+  python3 scripts/docpipe.py status --project my-doc
+  ```
+- **Language plugins** live in `scripts/lang/` (English, Hindi). English uses the same rules as a single-language project.
+- **Hindi** (`lang/hi.py`): `narration.py spoken` turns numbers into Hindi words with the Indian scale (`17 दिसंबर 1903` becomes `सत्रह दिसंबर उन्नीस सौ तीन`, `₹1,00,000` becomes `एक लाख रुपये`), including percentages, decimals, ordinals (`21वीं`) and Devanagari digits. Timing counts syllables at the edition's pace (`"wpm"` in `edition.json`, 135 by default), and key words skip pronouns and postpositions. The fact check reads Hindi numbers in digits or words (`बारह`, `डेढ़ सौ`, `साढ़े तीन`) and compares them with the claims; a claim may carry `"text_hi"` too. The number words follow standard Hindi; the native-speaker review of the script is where a regional preference is corrected.
+- **Voice per edition:** each edition has its own `voice.json` and makes its own segments with `voice.py` (see `references/voice.md`); an edition never gets another language's voice. ElevenLabs is the English voice and Sarvam the Hindi one, both paid and behind the spend guard, chosen by `voice.py audition`.
+- **Music and effects per edition:** one rights-gated library for the production (`audiolib.py`), and a cue sheet and mix per edition on its own timing (`cuesheet.py`); see `references/sound.md`.
+- **Hindi on screen:** typed text, cards, labels and captions draw Devanagari correctly (HarfBuzz shaping, bundled Noto Sans Devanagari); see `references/film.md`.
+- **Subtitles per edition:** `subtitles.py --project my-doc/editions/hi` writes `out/subtitles.hi.srt` and `out/subtitles.hi.vtt` (UTF-8, WebVTT with a note of how many cues are on estimated times) and `audio/subs.json` (every cue with its line, timing source and reading speed) from the edition's `audio/timing.json`, which it only reads. Cues show the script's text, cut at sentence ends (. ! ? ।), then clauses, then length: at most 2 lines of 42 characters and 7 seconds, lines broken evenly and after punctuation where possible, held at least 1 s and about 17 characters a second for reading, never overlapping (80 ms apart) and never crossing from one narration line into the next. A cue is labelled `voice`, `voice-approx` or `estimate` by its words (`references/voice.md`). The same timing makes nothing new; a subtitle file it did not write, or that you edited, is never replaced without `--force` (`.bak` kept). `editions.py check` refuses subtitles named for another language or written in another script. `burn_captions.py --srt-only` still writes the single-film SRT as before.
+- **Lexicon** (`editions/<lang>/lexicon.json`): give every English name, place or term its pronunciation in the edition's language: `python3 scripts/editions.py lexicon --project my-doc hi --add "Kitty Hawk" "किटी हॉक"`. The spoken text uses it and the displayed text keeps what you wrote. A term that may stay in Latin in a Hindi line also goes under `"allow"` (`--allow NASA`, with `--add NASA नासा` for how it is said). `editions.py check` refuses a pronunciation written in the wrong script.
+
+A project made without `--editions` is a single English edition at its root, exactly as before.
 
 ## Long films
 

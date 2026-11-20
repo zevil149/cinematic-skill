@@ -5,3 +5,4 @@ skia-python>=87.6     # the film engine (tested with 144.1)
 numpy>=1.24
 pillow>=10
 scipy>=1.10           # optional: faster sound-effects render
+uharfbuzz>=0.40     # Hindi (Devanagari) text shaping; HarfBuzz under Apache 2.0 / Old MIT

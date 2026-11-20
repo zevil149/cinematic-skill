@@ -121,17 +121,17 @@ class PipelinePhase2(unittest.TestCase):
             self.assertIn("[visuals] passes its checks", r.stdout)
             self.assertTrue((proj / "05_visuals" / "assets.json").exists())
             cli("docpipe.py", "approve", "--project", proj, "visuals")
-            r = cli("docpipe.py", "run", "--project", proj, "--offline")
+            r = cli("docpipe.py", "run", "--project", proj, "--offline", "--until", "scenegen")
             self.assertIn("[scenegen]", r.stdout)
             self.assertTrue((proj / "06_film" / "act_01" / "scene.py").exists())
             st = cli("docpipe.py", "status", "--project", proj).stdout
             self.assertRegex(st, r"scenegen\s+done")
             self.assertRegex(st, r"visuals\s+done\s+\[gate\]")
-            r = cli("docpipe.py", "run", "--project", proj, "--offline")
+            r = cli("docpipe.py", "run", "--project", proj, "--offline", "--until", "scenegen")
             self.assertIn("[scenegen] up to date", r.stdout)
             # choosing a fallback in selection.json reopens visuals and lapses its approval
             L.save(proj / "05_visuals" / "selection.json", {"I001": "fallback"})
-            r = cli("docpipe.py", "run", "--project", proj, "--offline", check=False)
+            r = cli("docpipe.py", "run", "--project", proj, "--offline", "--until", "scenegen", check=False)
             self.assertIn("[visuals] passes its checks", r.stdout)
 
     def test_partial_when_deferred(self):
