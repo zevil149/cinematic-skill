@@ -9,6 +9,8 @@ gets another language's voice.
   python3 voice.py validate  --project P/editions/hi      # missing, invalid, stale, edited, outliers
   python3 voice.py status    --project P/editions/hi
   python3 voice.py review    --project P/editions/hi --by "Reviewer name"   # native-speaker review of the script
+  python3 voice.py audition  --project P/editions/en [--lines 8] [--confirm-cost]  # a short sample, for choosing
+  python3 voice.py verify    --project P/editions/en --online   # free check that the voice id exists (ElevenLabs)
   python3 voice.py providers
 
 --project is an edition folder (or a single-language project, which is English).
@@ -19,7 +21,9 @@ Files (all inside the edition):
   audio/voice/manual/L0012.wav     your own recording of a line: always used, never touched
   audio/voice/manifest.json        per line: text, spoken text, request hash, file hash, duration,
                                    levels, word timings, status; tagged with the edition's language
-  audio/voice/spend.json           every paid request (paid providers arrive in milestone 3.4)
+  audio/voice/spend.json           every paid request of this edition: provider, characters, dollars
+                                   (and rupees for Sarvam), request id; never a key
+  audio/voice/auditions/<name>/    audition samples and audition.json; never used as segments
 
 A line is made again only when it is missing, its file is invalid, or its request changed (the
 spoken text after the lexicon, provider, model, voice, settings or language: the request hash).
@@ -28,13 +32,17 @@ it again and keeps yours as .bak. Manual files are never touched, even with --fo
 
 Providers with reliable word timings read a whole section at once and the section is cut into line
 segments; the others read line by line. A paid provider needs an estimate under the cap ($5 a run
-by default), --confirm-cost, and for Hindi a native-speaker review of the current script.
+by default), --confirm-cost, and for Hindi a native-speaker review of the current script. That
+holds for auditions and retakes too. API keys come from the environment only (ELEVENLABS_API_KEY,
+SARVAM_API_KEY); a voice.json that holds one is refused.
 """
 import argparse
 import datetime
 import hashlib
 import json
+import os
 import pathlib
+import re
 import shutil
 import sys
 
@@ -71,7 +79,7 @@ def default_config(code):
     lg = lang.get(code)
     return {"lang": code, "locale": lg.locale, "provider": "espeak", "voice": V.Espeak().default_voice(code),
             "model": "", "settings": {"wpm": int(lg.wpm)}, "mode": "auto",
-            "note": "scratch voice; the final voice is chosen by audition (milestone 3.4)"}
+            "note": "scratch voice; the final voice is chosen by audition (voice.py audition)"}
 
 
 def init(proj, provider="espeak", voice="", force=False):
@@ -97,12 +105,18 @@ def load_config(p, r):
     loc = (cfg.get("locale") or "").lower()
     if loc and not loc.startswith(code):
         r.error(f"voice.json locale {cfg['locale']!r} is not {code}")
+    secrets = V.secret_fields(cfg)
+    for e in secrets:
+        r.error(e)
     try:
         prov = V.get(cfg.get("provider", ""), cfg)
     except V.ProviderError as e:
         r.error(str(e)); return cfg, None
     if not prov.supports(code):
         r.error(f"the {prov.name} provider does not speak {code}")
+    for e in prov.check(cfg, code):
+        if e not in secrets and not e.startswith(f"the {prov.name} provider speaks"):
+            r.error(e)
     voice_id = (cfg.get("voice") or "").lower()
     other = [c for c in lang.supported() if c != code]
     if prov.name == "espeak" and voice_id and any(voice_id == V.Espeak.VOICES.get(c) or voice_id.startswith(c + "-") for c in other):
@@ -133,7 +147,7 @@ def mode_of(cfg, prov):
 def request_hash(cfg, prov, line, take_text=None):
     """Everything that shapes the audio: the provider and its whole configuration (model, voice,
     settings, a command template...), the language, and the spoken text after the lexicon."""
-    conf = {k: v for k, v in cfg.items() if k not in ("note", "provider")}
+    conf = {k: v for k, v in cfg.items() if k not in V.NOT_IN_REQUEST}     # not the price or exchange rate
     req = {"provider": prov.name, "config": conf, "spoken": line["spoken"], "take": take_text}
     return hashlib.sha256(json.dumps(req, sort_keys=True, ensure_ascii=False).encode()).hexdigest()[:20]
 
@@ -209,7 +223,9 @@ def plan(proj, r=None):
         counts[x["state"]] = counts.get(x["state"], 0) + 1
     r.note(f"{p['code']} voice: {prov.name} {cfg.get('voice')!r}, {mode} mode; " +
            ", ".join(f"{v} {k}" for k, v in sorted(counts.items())) +
-           f"; {len(todo)} to make, {chars} characters" + (f", about ${info['cost']:.2f}" if prov.paid else " (free)"))
+           f"; {len(todo)} to make, {chars} characters" + (f", about {prov.describe_cost(info['cost'])}" if prov.paid else " (free)"))
+    if prov.paid:
+        r.note(f"spent so far in the {p['code']} edition: ${spent(p):.2f} over {len(L.load(p['spend'], {}).get('requests', []))} request(s)")
     return r, info
 
 
@@ -233,11 +249,17 @@ def spend_guard(p, info, max_cost, confirm, r):
     if not prov.paid or not info["todo"]:
         return True
     cost = info["cost"]
+    for t in info.get("requests") or []:
+        if prov.max_chars and len(t) > prov.limit():
+            r.error(f"one request would carry {len(t)} characters; {prov.name} takes at most {prov.limit()}: "
+                    f"use \"mode\": \"line\" or shorter lines (nothing was sent)"); return False
+    if cost == float("inf"):
+        r.error(f"{prov.name}: the cost in dollars is unknown (inr_per_usd is not set); nothing was sent"); return False
     if cost > max_cost:
-        r.error(f"estimated ${cost:.2f} for {info['chars']} characters is over the cap of ${max_cost:.2f}; "
+        r.error(f"estimated {prov.describe_cost(cost)} for {info['chars']} characters is over the cap of ${max_cost:.2f}; "
                 f"make fewer lines (--only) or raise --max-cost"); return False
     if not confirm:
-        r.error(f"{prov.name} is a paid provider: {info['chars']} characters, about ${cost:.2f}. "
+        r.error(f"{prov.name} is a paid provider: {info['chars']} characters, about {prov.describe_cost(cost)}. "
                 f"Run again with --confirm-cost to spend it"); return False
     if p["code"] == "hi":
         rv = L.load(p["review"], {})
@@ -247,10 +269,23 @@ def spend_guard(p, info, max_cost, confirm, r):
     return True
 
 
+def spent(p):
+    return sum(float(x.get("usd") or 0) for x in L.load(p["spend"], {}).get("requests", []))
+
+
 def record_spend(p, prov, chars, cost, what):
+    """One line per paid request, in this edition only. Only these named fields are written, so
+    nothing from a request (headers, keys) can reach the file."""
     log = L.load(p["spend"], {"lang": p["code"], "requests": []})
-    log["requests"].append({"at": datetime.datetime.now().isoformat(timespec="seconds"), "provider": prov.name,
-                            "chars": chars, "usd": cost, "what": what})
+    row = {"at": datetime.datetime.now().isoformat(timespec="seconds"), "provider": prov.name,
+           "model": prov.config.get("model", ""), "chars": chars, "usd": cost, "what": what}
+    last = getattr(prov, "last", None) or {}
+    for k in ("request_id", "billed_chars", "inr"):
+        if last.get(k) not in (None, ""):
+            row[k] = last[k] if k != "request_id" else str(last[k])[:80]
+    if getattr(prov, "inr_per_usd", 0):
+        row["inr_per_usd"] = prov.inr_per_usd
+    log["requests"].append(row)
     L.save(p["spend"], log)
 
 
@@ -273,6 +308,14 @@ def synth(proj, only=None, force=False, max_cost=DEFAULT_CAP, confirm=False, pro
     prov = provider or info["provider"]
     info["provider"] = prov
     cfg, mode = info["config"], mode_of(info["config"], prov)
+    if provider is not None:
+        if not prov.supports(p["code"]):
+            r.error(f"the {prov.name} provider does not speak {p['code']}")
+        for e in prov.check(cfg, p["code"]):
+            if not e.startswith(f"the {prov.name} provider speaks"):
+                r.error(e)
+        if not r.ok:
+            return r
     if provider is not None:                            # the hashes belong to the provider actually used
         for x in info["rows"]:
             x["hash"] = request_hash(cfg, prov, x, info["texts"][x["take"]] if mode == "section" else None)
@@ -281,9 +324,10 @@ def synth(proj, only=None, force=False, max_cost=DEFAULT_CAP, confirm=False, pro
         rows = [x for x in rows if x["line"] in only]
     todo = [x for x in rows if x["state"] in ("missing", "stale", "invalid") or (force and x["state"] == "edited")]
     if mode == "section":
-        info["chars"] = sum(len(info["texts"][t]) for t in sorted({x["take"] for x in todo}))
+        info["requests"] = [info["texts"][t] for t in sorted({x["take"] for x in todo})]
     else:
-        info["chars"] = sum(len(x["spoken"]) for x in todo)
+        info["requests"] = [x["spoken"] for x in todo]
+    info["chars"] = sum(len(t) for t in info["requests"])
     info["cost"], info["todo"] = prov.estimate_cost(info["chars"]), todo
     if not spend_guard(p, info, max_cost, confirm, r):
         return r
@@ -365,6 +409,85 @@ def synth(proj, only=None, force=False, max_cost=DEFAULT_CAP, confirm=False, pro
     return r
 
 
+def audition(proj, lines=8, max_cost=DEFAULT_CAP, confirm=False, again=False, provider=None, log=print):
+    """A short sample of this edition's voice, for choosing it: the first few lines, read one by
+    one into audio/voice/auditions/, never into the segments or the manifest. A paid provider goes
+    through the same guard as synth (cap, --confirm-cost, Hindi review). One audition per provider
+    and edition; --again makes another (and spends again)."""
+    p = vp(proj)
+    r = L.Result()
+    cfg, prov0 = load_config(p, r)
+    script = script_lines(p, r)
+    if not r.ok or prov0 is None:
+        return r
+    prov = provider or prov0
+    if provider is not None:
+        if not prov.supports(p["code"]):
+            r.error(f"the {prov.name} provider does not speak {p['code']}"); return r
+        for e in prov.check(cfg, p["code"]):
+            r.error(e)
+        if not r.ok:
+            return r
+    pick = [l for l in script if l["spoken"]][:max(1, int(lines))]
+    root = p["vdir"] / "auditions"
+    done = [d.parent.name for d in sorted(root.glob("*/audition.json")) if L.load(d, {}).get("provider") == prov.name]
+    if done and not again:
+        r.error(f"this edition already has a {prov.name} audition ({', '.join(done)}); listen to it, or --again "
+                f"to make another (it spends again)"); return r
+    name = re.sub(r"[^A-Za-z0-9_.-]+", "-", f"{prov.name}-{cfg.get('model') or 'default'}-{cfg.get('voice') or 'default'}").strip("-")
+    if again and (root / name / "audition.json").exists():
+        name += "-" + datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+    d = root / name
+    info = {"provider": prov, "todo": pick, "requests": [l["spoken"] for l in pick]}
+    info["chars"] = sum(len(t) for t in info["requests"])
+    info["cost"] = prov.estimate_cost(info["chars"])
+    if not spend_guard(p, info, max_cost, confirm, r):
+        return r
+    rows, usd = [], 0.0
+    for i, l in enumerate(pick):
+        f = d / seg_name(l["line"])
+        ctx = {"previous": pick[i - 1]["spoken"] if i else "", "next": pick[i + 1]["spoken"] if i + 1 < len(pick) else ""}
+        try:
+            res = prov.synthesize(l["spoken"], f, p["code"], cfg.get("voice", ""), cfg.get("settings"), context=ctx)
+        except V.ProviderError as e:
+            r.error(f"audition line {l['line']}: {e}"); continue
+        if prov.paid:
+            c = prov.estimate_cost(len(l["spoken"])); usd += c
+            record_spend(p, prov, len(l["spoken"]), c, f"audition line {l['line']}")
+        rows.append({"line": l["line"], "spoken": l["spoken"], "file": str(f.relative_to(p["proj"])),
+                     "duration": round(res.duration, 3), "word_timings": bool(res.words)})
+        log(f"audition line {l['line']}: {f.name} ({res.duration:.2f}s)")
+    if rows:
+        L.save(d / "audition.json", {"lang": p["code"], "provider": prov.name, "model": cfg.get("model", ""),
+                                     "voice": cfg.get("voice", ""), "settings": cfg.get("settings") or {},
+                                     "lines": rows, "chars": sum(len(x["spoken"]) for x in rows), "usd": usd,
+                                     "at": datetime.datetime.now().isoformat(timespec="seconds")})
+        r.note(f"{len(rows)} audition line(s) in {d.relative_to(p['proj'])}" + (f", {prov.describe_cost(usd)}" if prov.paid else ""))
+    return r
+
+
+def verify(proj, online=False):
+    """Does the configured voice exist for this key? Offline: the checks in voice.json only. With
+    online=True, one free lookup where the provider has one (ElevenLabs); never a synthesis."""
+    p = vp(proj)
+    r = L.Result()
+    cfg, prov = load_config(p, r)
+    if not r.ok or prov is None:
+        return r
+    r.note(f"{p['code']} voice.json passes the offline checks for {prov.name}")
+    if not hasattr(prov, "verify"):
+        r.note(f"{prov.name} has no voice lookup; its speakers are checked offline")
+    elif not online:
+        r.note(f"--online looks the voice up at {prov.host} (free, no synthesis); nothing was sent")
+    else:
+        try:
+            v = prov.verify(cfg.get("voice", ""))
+            r.note(f"{prov.name} knows voice {v['voice_id']}: {v['name'] or 'unnamed'} ({v['category'] or 'no category'})")
+        except V.ProviderError as e:
+            r.error(str(e))
+    return r
+
+
 def validate(proj):
     """Is every line's audio there, readable, current and plausible? Missing and invalid are errors."""
     p = vp(proj)
@@ -412,20 +535,30 @@ def main():
     s.add_argument("--confirm-cost", action="store_true")
     rv = sub.add_parser("review"); rv.add_argument("--project", required=True); rv.add_argument("--by", required=True)
     rv.add_argument("--note", default="")
+    au = sub.add_parser("audition"); au.add_argument("--project", required=True); au.add_argument("--lines", type=int, default=8)
+    au.add_argument("--max-cost", type=float, default=DEFAULT_CAP); au.add_argument("--confirm-cost", action="store_true")
+    au.add_argument("--again", action="store_true")
+    ve = sub.add_parser("verify"); ve.add_argument("--project", required=True); ve.add_argument("--online", action="store_true")
     sub.add_parser("providers")
     a = ap.parse_args()
     if a.cmd == "providers":
         for name, cls in V.PROVIDERS.items():
             pv = cls()
-            print(f"{name:<9} {'paid' if pv.paid else 'free'}  languages: {', '.join(pv.langs) or 'any'}")
-        for name, when in V.PLANNED.items():
-            print(f"{name:<9} planned for {when}")
+            line = f"{name:<11} {'paid' if pv.paid else 'free'}  languages: {', '.join(pv.langs) or 'any':<4}"
+            line += "  word timings (section reads)" if pv.timestamps else ""
+            if pv.key_env:                                  # whether the key is there, never what it is
+                line += f"  key: {pv.key_env} {'set' if os.environ.get(pv.key_env) else 'not set'}"
+            print(line)
         return
     if a.cmd == "init":
         init(a.project, a.provider, a.voice, a.force); return
     if a.cmd == "review":
         review(a.project, a.by, a.note); return
-    if a.cmd == "synth":
+    if a.cmd == "audition":
+        r = audition(a.project, a.lines, a.max_cost, a.confirm_cost, a.again)
+    elif a.cmd == "verify":
+        r = verify(a.project, a.online)
+    elif a.cmd == "synth":
         only = {int(x) for x in a.only.split(",") if x.strip()} or None
         r = synth(a.project, only, a.force, a.max_cost, a.confirm_cost)
     elif a.cmd == "validate":

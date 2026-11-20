@@ -1,4 +1,4 @@
-"""Tests for milestone 3.3: the per-edition voice framework. Offline (CINEMATIC_OFFLINE=1) and
+"""Tests for milestone 3.3: the per-edition voice framework (the API providers: test_voice_api). Offline (CINEMATIC_OFFLINE=1) and
 standard library only, except the espeak test (it needs espeak-ng; the CI film job has it).
 """
 import os
@@ -65,15 +65,14 @@ class Registry(unittest.TestCase):
         self.assertIsInstance(V.get("mock"), V.Mock)
         self.assertIsInstance(V.get("espeak"), V.Espeak)
         self.assertIsInstance(V.get("command", {"cmd": "x"}), V.Command)
-        for name in ("elevenlabs", "sarvam"):
-            with self.assertRaises(V.ProviderError) as e:
-                V.get(name)
-            self.assertIn("milestone 3.4", str(e.exception))
+        self.assertIsInstance(V.get("elevenlabs"), V.ElevenLabs)                 # milestone 3.4 (tests: test_voice_api)
+        self.assertIsInstance(V.get("sarvam"), V.Sarvam)
         with self.assertRaises(V.ProviderError):
             V.get("azure")
         self.assertFalse(any(V.get(n, {"cmd": "x"}).paid for n in ("mock", "espeak", "command")))
+        self.assertTrue(all(V.get(n).paid for n in ("elevenlabs", "sarvam")))
         out = cli("voice.py", "providers").stdout
-        self.assertIn("espeak", out); self.assertIn("elevenlabs planned for milestone 3.4", out)
+        self.assertIn("espeak", out); self.assertIn("ELEVENLABS_API_KEY", out); self.assertIn("SARVAM_API_KEY", out)
 
     def test_default_voice_per_language(self):
         en, hi = voice.default_config("en"), voice.default_config("hi")
