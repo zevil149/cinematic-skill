@@ -134,7 +134,7 @@ Milestones follow the Phase 1–5 audit; each is authorized on its own (6.1: bra
 | 6.6 | Optional: voice and timing readiness (cumulative spend cap, billed-failure logging; an offline aligner and live provider tests only with separate approval) | offline part done: production budget, 504 not retried, may-be-billed failures logged and counted. Not done: the offline word aligner (a new dependency to download and assess) and the live provider tests (need separate approval) |
 | 6.7 | Optional: render robustness and image quality (chunk resume, fewer lossy generations) | done: act renders resume from their finished chunks; acts the join encodes again are kept near-lossless (CRF 12; measured +0.5 to +0.8 dB PSNR after the join and caption passes, intermediate files twice the size). Not done: burning the captions in the render pass, so the captioned film is still one more encode |
 | 6.8 | Deferred: legacy tool consolidation and dependency pinning | deferred |
-| 6.9 | Production pilot: a controlled project through every stage and gate, real conditions where authorized, a human viewing checklist | |
+| 6.9 | Production pilot: a controlled project through every stage and gate, real conditions where authorized, a human viewing checklist | done as an offline, controlled pilot (`docs/pilot-6.9.md`): two editions, two acts, 1080p, every gate; not a real production (fixture script, no archive downloads, no paid voice, no licensed music, no human review), and its findings are listed there |
 
 The milestones and their scope come from the Phase 1-5 audit's roadmap (milestones 6.1-6.9), as approved.
 
