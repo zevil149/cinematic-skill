@@ -189,9 +189,21 @@ def render_acts(proj, size=SIZE, workers=0, force=False, crf=CRF, log=print):
     state = load_state(p)
     p["acts_dir"].mkdir(parents=True, exist_ok=True)
     w, h = map(int, size.lower().split("x"))
+    import rights
+    rr, report = rights.check(proj)                              # what the film uses, and whether it may
+    for x in rr.warnings:
+        r.warn(x)
+    if not report:
+        r.extend(rr); return r
+    blocked = rights.blocked_by_act(report)
+    for x in rr.errors:
+        r.error(f"rights: {x}")
     done = {}
     for n, scene, s, e, a, b in acts:
         f = p["acts_dir"] / f"act_{n:02d}.mp4"
+        if blocked.get(n):
+            r.error(f"act {n} is not rendered: it shows {', '.join(blocked[n])}, which cannot be used (out/rights.{p['code']}.json)")
+            continue
         key = act_key(p, scene, a, b, size, crf)
         rec = state["acts"].get(str(n), {})
         if f.exists():
@@ -252,7 +264,59 @@ def render_acts(proj, size=SIZE, workers=0, force=False, crf=CRF, log=print):
     missing = [x[0] for x in acts if x[0] not in done]
     if missing:
         r.error(f"act(s) {', '.join(map(str, missing))} not rendered: the film is not complete")
+    if rr.ok:
+        render_credits(p, report, size, force, state, r, log)
     return r
+
+
+def credits_lines(p, report):
+    import credits
+    cfg = L.load(p["proj"] / "credits.json", {}) if (p["proj"] / "credits.json").exists() else {}
+    return [] if cfg.get("enabled", True) is False else credits.lines_for(report, p["code"])
+
+
+def render_credits(p, report, size, force, state, r, log):
+    """out/credits.<lang>.mp4: the closing credits, from what the film uses (credits.py)."""
+    import credits
+    import engine
+    lines = credits_lines(p, report)
+    f = p["out"] / f"credits.{p['code']}.mp4"
+    old = state.get("credits") or {}
+    if not lines:
+        if old:
+            state.pop("credits", None); L.save(p["state"], state)
+        if (L.load(p["proj"] / "credits.json", {}) if (p["proj"] / "credits.json").exists() else {}).get("enabled", True) is False:
+            r.warn("credits.json turns the closing credits off: give the attributions where the film is published (credits.md)")
+        return
+    look = (L.load(p["topic"], {}) if p["topic"].exists() else {}).get("look", "wall")
+    key = credits.key(lines, size, look, engine.font_identity(p["proj"] / "fonts"))
+    if f.exists():
+        ours = old.get("sha256") == sha_file(f)
+        if ours and old.get("key") == key:
+            r.note(f"credits: up to date ({old['duration']:.1f}s)"); return
+        if not ours and not force:
+            r.error(f"{f.relative_to(p['proj'])} was not rendered by finish.py or was changed since; it is kept "
+                    "(--force renders it again, keeping a .bak)"); return
+        if not ours:
+            shutil.copyfile(f, f.with_name(f.name + ".bak"))
+    tmp = f.with_name(f.stem + ".rendering.mp4")
+    log(f"{p['code']} credits: {sum(1 for k, _ in lines if k == 'line')} line(s)")
+    try:
+        dur, frames = credits.render(lines, tmp, size, p["proj"], look)
+        info = probe(tmp)
+    except BaseException as ex:                                  # noqa: BLE001 - nothing half-made is kept
+        tmp.unlink(missing_ok=True)
+        if not isinstance(ex, Exception):
+            raise
+        r.error(f"the credits could not be rendered: {type(ex).__name__}: {str(ex)[:300]}"); return
+    if abs(info["frames"] - frames) > 1 or f"{info['w']}x{info['h']}" != size:
+        tmp.unlink(missing_ok=True)
+        r.error(f"the credits render is wrong ({info['frames']} frames of {frames}, {info['w']}x{info['h']}); nothing was kept"); return
+    tmp.replace(f)
+    state["credits"] = {"file": str(f.relative_to(p["proj"])), "key": key, "sha256": sha_file(f), "duration": round(info["duration"], 3),
+                        "frames": info["frames"], "lines": len(lines)}
+    L.save(p["state"], state)
+    r.note(f"{f.relative_to(p['proj'])}: {len(lines)} credit line(s), {info['duration']:.1f}s")
 
 
 def render_fingerprint(proj, size=SIZE, crf=CRF):
@@ -265,14 +329,22 @@ def render_fingerprint(proj, size=SIZE, crf=CRF):
         h.update(act_key(p, scene, a, b, size, crf).encode())
         f = p["acts_dir"] / f"act_{n:02d}.mp4"
         h.update(f"{f.exists() and f.stat().st_size}".encode())
+    import rights                                                 # the rights records and the credits' inputs
+    rp_ = rights.rp(proj)
+    for f in (rp_["manifest"], rp_["selection"], rp_["photos_json"], rp_["footage_json"], rp_["map_json"], rp_["mix_report"],
+              rp_["voice_json"], p["proj"] / "credits.json", HERE / "rights.py", HERE / "credits.py"):
+        f = pathlib.Path(f)
+        h.update(f.name.encode() + (f.read_bytes() if f.exists() else b"-"))
+    c = p["out"] / f"credits.{p['code']}.mp4"
+    h.update(f"{c.exists() and c.stat().st_size}".encode())
     return h.hexdigest()[:16]
 
 
 
 # ------------------------------------------------------------------------------------------- join
 
-def join_key(p, recs, size):
-    h = hashlib.sha256(json.dumps([size, OVERLAP, [r["sha256"] for r in recs]]).encode())
+def join_key(p, recs, size, credits=None):
+    h = hashlib.sha256(json.dumps([size, OVERLAP, [r["sha256"] for r in recs]] + ([credits["sha256"]] if credits else [])).encode())
     h.update((sha_file(p["mix"]) if p["mix"].exists() else "no mix").encode())
     return h.hexdigest()[:20]
 
@@ -300,6 +372,11 @@ def join(proj, force=False, crf=CRF, log=print):
         if rec.get("key") != act_key(p, scene, a, b, rec.get("size", state.get("size", SIZE)), crf):
             r.error(f"act {n} was rendered from older scenes, timing or assets; render it again"); continue
         recs.append(rec)
+    cred = state.get("credits")
+    if cred:
+        cf = p["proj"] / cred["file"]
+        if not cf.exists() or sha_file(cf) != cred.get("sha256"):
+            r.error(f"{cred['file']} is missing or changed since it was rendered; render again (finish.py render)")
     if not r.ok:
         r.error("the film was not joined"); return r
     starts = [x["from"] for x in recs]
@@ -315,7 +392,9 @@ def join(proj, force=False, crf=CRF, log=print):
     odd = [rec["act"] for rec, i in zip(recs, infos) if (i["w"], i["h"], round(i["fps"], 3)) != (W, H, round(FPS, 3))]
     if odd:
         r.warn(f"act(s) {', '.join(map(str, odd))} differ in size or frame rate from act {recs[0]['act']}: normalised to {W}x{H} at {FPS:g} fps")
-    key = join_key(p, recs, f"{W}x{H}")
+    key = join_key(p, recs, f"{W}x{H}", cred)
+    cd = float(cred["duration"]) if cred else 0.0
+    end = total + cd
     old = state.get("join", {})
     f = p["film"]
     if f.exists():
@@ -333,8 +412,28 @@ def join(proj, force=False, crf=CRF, log=print):
     for rec in recs:
         cmd += ["-i", str(p["proj"] / rec["file"])]
     cmd += ["-i", str(p["mix"])]
+    if cred:
+        cmd += ["-i", str(p["proj"] / cred["file"])]
     xfades = []
-    if len(recs) == 1 and not odd:
+    if cred:                                                     # the credits after the film's last fade
+        D = 2 * OVERLAP
+        m = len(recs)
+        g = [f"[{i}:v]scale={W}:{H}:force_original_aspect_ratio=decrease,pad={W}:{H}:(ow-iw)/2:(oh-ih)/2,"
+             f"fps={FPS},format=yuv420p,setpts=PTS-STARTPTS[v{i}]" for i in range(m)]
+        cur = "v0"
+        for i in range(1, m):
+            off = recs[i]["from"]
+            g.append(f"[{cur}][v{i}]xfade=transition=fade:duration={D:.3f}:offset={off:.3f}[x{i}]")
+            xfades.append({"between": [recs[i - 1]["act"], recs[i]["act"]], "at": round(off, 3), "duration": D})
+            cur = f"x{i}"
+        g.append(f"[{cur}]trim=duration={total:.3f},setpts=PTS-STARTPTS[film]")
+        g.append(f"[{m + 1}:v]scale={W}:{H}:force_original_aspect_ratio=decrease,pad={W}:{H}:(ow-iw)/2:(oh-ih)/2,"
+                 f"fps={FPS},format=yuv420p,setpts=PTS-STARTPTS[cv]")
+        g.append("[film][cv]concat=n=2:v=1:a=0[vout]")
+        g.append(f"[{m}:a]atrim=duration={total:.3f},asetpts=PTS-STARTPTS,apad[aout]")
+        cmd += ["-filter_complex", ";".join(g), "-map", "[vout]", "-map", "[aout]",
+                "-c:v", "libx264", "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p"]
+    elif len(recs) == 1 and not odd:
         cmd += ["-map", "0:v", "-map", f"{len(recs)}:a", "-c:v", "copy"]          # one act: no re-encode
     else:
         D = 2 * OVERLAP
@@ -348,9 +447,9 @@ def join(proj, force=False, crf=CRF, log=print):
             cur = f"x{i}"
         cmd += ["-filter_complex", ";".join(g), "-map", f"[{cur}]", "-map", f"{len(recs)}:a",
                 "-c:v", "libx264", "-preset", "medium", "-crf", str(crf), "-pix_fmt", "yuv420p"]
-    cmd += ["-t", f"{total:.3f}", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(tmp)]
-    log(f"{p['code']} film: joining {len(recs)} act(s), {total:.2f}s")
-    limit = time_limit(total, f"{W}x{H}", share=0.2)
+    cmd += ["-t", f"{end:.3f}", "-c:a", "aac", "-b:a", "192k", "-movflags", "+faststart", str(tmp)]
+    log(f"{p['code']} film: joining {len(recs)} act(s), {total:.2f}s" + (f", then {cd:.1f}s of credits" if cred else ""))
+    limit = time_limit(end, f"{W}x{H}", share=0.2)
     res, hung = run_bounded(cmd, limit)
     if hung:
         tmp.unlink(missing_ok=True)
@@ -364,10 +463,10 @@ def join(proj, force=False, crf=CRF, log=print):
     except ValueError as ex:
         tmp.unlink(missing_ok=True)
         r.error(f"the joined film cannot be read: {ex}"); return r
-    want = round(total * FPS)
+    want = round(end * FPS)
     problems = []
-    if abs(info["duration"] - total) > max(0.1, 2.0 / FPS):
-        problems.append(f"{info['duration']:.2f}s long, the timeline is {total:.2f}s")
+    if abs(info["duration"] - end) > max(0.1, 2.0 / FPS):
+        problems.append(f"{info['duration']:.2f}s long, the timeline is {total:.2f}s" + (f" and the credits {cd:.2f}s" if cred else ""))
     if abs(info["frames"] - want) > 2:
         problems.append(f"{info['frames']} frames, {want} expected")
     if not info["audio"]:
@@ -380,7 +479,8 @@ def join(proj, force=False, crf=CRF, log=print):
     tmp.replace(f)
     state["join"] = {"file": str(f.relative_to(p["proj"])), "order": [x["act"] for x in recs], "crossfades": xfades,
                      "duration": round(info["duration"], 3), "frames": info["frames"], "fps": FPS, "size": f"{W}x{H}",
-                     "mix_sha256": sha_file(p["mix"]), "key": key, "sha256": sha_file(f)}
+                     "mix_sha256": sha_file(p["mix"]), "key": key, "sha256": sha_file(f),
+                     "timeline": round(total, 3), "credits": round(cd, 3)}
     L.save(p["state"], state)
     r.note(f"{f.relative_to(p['proj'])}: {len(recs)} act(s), {info['duration']:.2f}s, {info['frames']} frames at {W}x{H}"
            + (f", {len(xfades)} crossfade(s)" if xfades else ""))
@@ -392,6 +492,7 @@ def join_fingerprint(proj):
     st = load_state(p)
     h = hashlib.sha256(json.dumps(sorted((k, v.get("sha256")) for k, v in st.get("acts", {}).items())).encode())
     h.update((sha_file(p["mix"]) if p["mix"].exists() else "no mix").encode())
+    h.update(str((st.get("credits") or {}).get("sha256")).encode())
     h.update(f"{p['film'].exists() and p['film'].stat().st_size}".encode())
     return h.hexdigest()[:16]
 

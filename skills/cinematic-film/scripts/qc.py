@@ -216,10 +216,13 @@ def build(proj, log=print):
         check("size", f"{info['w']}x{info['h']}" == want_size, f"{info['w']}x{info['h']}, rendered at {want_size}", seen=want_size)
     fps = j.get("fps") or 30.0
     check("frame rate", abs(info["fps"] - fps) < 0.01, f"{info['fps']:g} fps, rendered at {fps:g}", seen=f"{fps:g} fps")
-    check("duration", abs(info["duration"] - total) <= 0.1, f"{info['duration']:.2f}s, the timeline is {total:.2f}s",
-          seen=f"{info['duration']:.2f}s, the timeline {total:.2f}s")
-    check("frames", abs(info["frames"] - round(total * info["fps"])) <= 2,
-          f"{info['frames']} frames, {round(total * info['fps'])} expected: the render is incomplete",
+    cd = float(j.get("credits") or 0.0)                   # the closing credits after the timeline (rights.py, credits.py)
+    end = total + cd
+    tail = f" and {cd:.2f}s of credits" if cd else ""
+    check("duration", abs(info["duration"] - end) <= 0.1, f"{info['duration']:.2f}s, the timeline is {total:.2f}s{tail}",
+          seen=f"{info['duration']:.2f}s, the timeline {total:.2f}s{tail}")
+    check("frames", abs(info["frames"] - round(end * info["fps"])) <= 2,
+          f"{info['frames']} frames, {round(end * info['fps'])} expected: the render is incomplete",
           seen=f"{info['frames']} frames")
     sd = stream_durations(film)
     if "audio" in sd and "video" in sd:
@@ -246,7 +249,8 @@ def build(proj, log=print):
         check("interrupted renders", False, f"{', '.join(leftovers)} left by an interrupted run; nothing uses them", blocking=False)
     # picture: black frames outside the fades and declared spans
     cards = [(a["title_card"]["t0"] - 0.3, a["title_card"]["t1"] + 0.3) for a in acts if a.get("title_card")]
-    allowed_black = [(0.0, FADE_IN + 0.3), (total - FADE_OUT - 0.3, total + 1)] + cards + \
+    allowed_black = [(0.0, FADE_IN + 0.3), (total - FADE_OUT - 0.3, total + FADE_IN + 0.3 if cd else total + 1)] + \
+        ([(end - FADE_OUT - 0.3, end + 1)] if cd else []) + cards + \
         [tuple(x) for x in cfg.get("allow_black", [])]
     bd = run(["ffmpeg", "-v", "info", "-nostats", "-i", str(film), "-vf", f"blackdetect=d={BLACK_MIN}:pic_th=0.995:pix_th=0.05",
               "-an", "-f", "null", "-"]).stderr
@@ -314,7 +318,7 @@ def build(proj, log=print):
     for a_, b_ in zip(segs, segs[1:]):
         allowed_quiet.append((a_["end"] - 0.2, b_["start"] + 0.3))         # the pauses, title cards included
     if segs:
-        allowed_quiet.append((segs[-1]["end"] - 0.2, total + 1))
+        allowed_quiet.append((segs[-1]["end"] - 0.2, end + 1))                 # the tail, and the credits (silent)
     allowed_quiet += [tuple(x) for x in cfg.get("allow_silence", [])]
     sdx = run(["ffmpeg", "-v", "info", "-nostats", "-i", str(film), "-af", f"silencedetect=noise=-50dB:d={SILENCE_MIN}",
                "-vn", "-f", "null", "-"]).stderr
@@ -409,7 +413,45 @@ def build(proj, log=print):
             except ValueError as e:
                 check("captioned film", False, f"{cf.name} cannot be read: {e}")
     layout(p, timing, total, cap, check, unchecked, measures)
+    rights_and_credits(proj, p, state, check, unchecked, measures, r)
     return finish_report(p, r, checks, timing, state, info, measures=measures)
+
+
+def rights_and_credits(proj, p, state, check, unchecked, measures, r):
+    """Every asset the film uses may be used (rights.py), and the credits that need giving are in it."""
+    try:
+        import rights
+        rr, report = rights.check(proj)
+    except ImportError as e:
+        unchecked("rights", f"cannot read the scenes here ({e})"); return
+    if not report:
+        check("rights", False, "; ".join(rr.errors)); return
+    used = report["images"] + report["footage"] + report["audio"]
+    bad = [a for a in used if not a["usable"]]
+    cleared = [a for a in used if a["usable"] and a.get("cleared")]
+    measures["rights"] = {"used": len(used), "not_usable": [a["id"] for a in bad], "cleared_by_a_person": [a["id"] for a in cleared],
+                          "maps": len(report["maps"]), "report": f"out/{rights.rp(proj)['report'].name}"}
+    check("rights", not bad, "; ".join(f"{a['media']} {a['id']}: {a['basis']}" for a in bad[:6]) +
+          (f" and {len(bad) - 6} more" if len(bad) > 6 else ""),
+          seen=f"{len(used)} asset(s) used, each free as stated, your own as stated, or cleared" + (" (none needs rights)" if not used else ""))
+    if cleared:
+        check("clearances", False, "; ".join(f"{a['id']}: {a['basis']}" for a in cleared[:6]) +
+              " (a person's clearance, recorded; check it before publishing)", blocking=False)
+    for w in rr.warnings:
+        check("map licence", False, w, blocking=False)
+    import finish
+    lines = finish.credits_lines(p, report)
+    import credits
+    owed = credits.lines_for(report, p["code"])
+    cd = float((state.get("join") or {}).get("credits") or 0)
+    if not owed:
+        check("credits", True, "", seen="nothing used needs crediting on screen")
+    elif not lines:
+        check("credits", False, "credits.json turns the closing credits off while the film uses credited assets: "
+              "give the attributions where it is published (credits.md)", blocking=False)
+    else:
+        check("credits", cd > 0, "the film has no closing credits although it uses credited assets: render and join again",
+              seen=f"{sum(1 for k, _ in lines if k == 'line')} credit line(s), {cd:.1f}s at the end")
 
 
 def layout(p, timing, total, cap, check, unchecked, measures, size=(960, 540)):
@@ -528,6 +570,7 @@ def manifest(p, complete, timing, state, info):
             return None
         return {"kind": kind, "path": str(f.relative_to(root)), "bytes": f.stat().st_size, "sha256": sha_file(f)}
     files = [entry("film", p["film"]), entry("film with captions", p["captioned"]), entry("subtitles", p["srt"]),
+             entry("rights", p["out"] / f"rights.{p['code']}.json"), entry("credits sequence", p["out"] / f"credits.{p['code']}.mp4"),
              entry("subtitles", p["vtt"]), entry("soundtrack", p["mix"]), entry("narration", p["proj"] / "audio" / "narration.m4a"),
              entry("quality control", p["qc_md"]), entry("quality control", p["qc_json"]),
              entry("mix report", p["proj"] / "audio" / "mix_report.json"), entry("effects report", p["proj"] / "audio" / "effects.json"),
@@ -539,15 +582,32 @@ def manifest(p, complete, timing, state, info):
             "created": datetime.datetime.now().isoformat(timespec="seconds"),
             "film": {"duration": info["duration"] if info else None, "size": f"{info['w']}x{info['h']}" if info else None,
                      "fps": info["fps"] if info else None, "acts": (state.get("join") or {}).get("order"),
-                     "captions": (state.get("captions") or {}).get("style") if (state.get("captions") or {}).get("enabled") else None},
+                     "captions": (state.get("captions") or {}).get("style") if (state.get("captions") or {}).get("enabled") else None,
+                     "timeline": (state.get("join") or {}).get("timeline"), "credits": (state.get("join") or {}).get("credits")},
+            "rights": _rights_summary(p),
             "files": [f for f in files if f]}
     L.save(p["manifest"], data)
+
+
+def _rights_summary(p):
+    f = p["out"] / f"rights.{p['code']}.json"
+    if not f.exists():
+        return None
+    rep = L.load(f)
+    used = rep.get("images", []) + rep.get("footage", []) + rep.get("audio", [])
+    return {"usable": rep.get("usable"), "note": rep.get("note"),
+            "assets": [{k: a.get(k) for k in ("id", "media", "what", "license", "credit", "source", "basis", "usable")} for a in used],
+            "maps": [{k: m.get(k) for k in ("id", "source", "license", "credit")} for m in rep.get("maps", [])]}
 
 
 def fingerprint(proj):
     p = qp(proj)
     h = hashlib.sha256()
-    for f in (p["film"], p["captioned"], p["timing"], p["subs"], p["srt"], p["vtt"], p["acts"], p["config"], p["state"]):
+    import rights
+    rp_ = rights.rp(proj)
+    for f in (p["film"], p["captioned"], p["timing"], p["subs"], p["srt"], p["vtt"], p["acts"], p["config"], p["state"],
+              rp_["manifest"], rp_["selection"], rp_["photos_json"], rp_["footage_json"], rp_["map_json"], rp_["mix_report"],
+              p["proj"] / "credits.json"):
         f = pathlib.Path(f)
         h.update(f.name.encode() + (f"{f.stat().st_size}:{f.stat().st_mtime_ns}".encode() if f.exists() else b"-"))
     h.update(f"{p['qc_json'].exists()}".encode())
