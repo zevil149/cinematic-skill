@@ -125,6 +125,8 @@ def images_part(root, eds):
 
 
 def audio_part(ed):
+    """The mix as the mix stage judged it: the same loudness and true-peak tolerances (cuesheet.py)."""
+    from cuesheet import LOUDNESS_TOL, TP_TOL
     p = L.paths(ed)
     rep = L.load(ed / "audio" / "mix_report.json", {}) if (ed / "audio" / "mix_report.json").exists() else None
     t = L.load(p["timing"], {}) if p["timing"].exists() else {}
@@ -138,11 +140,11 @@ def audio_part(ed):
                                               "voice_over_music_db")}
         if t and abs(float(rep.get("duration", 0)) - float(t.get("total_duration", 0))) > 0.25:
             out["problems"].append(f"the mix lasts {rep.get('duration')}s, the timing {t.get('total_duration')}s")
-        if rep.get("target_lufs") is not None and rep.get("lufs") is not None and abs(rep["lufs"] - rep["target_lufs"]) > 1.0:
+        if rep.get("target_lufs") is not None and rep.get("lufs") is not None and abs(rep["lufs"] - rep["target_lufs"]) > LOUDNESS_TOL:
             out["problems"].append(f"the mix is {rep['lufs']} LUFS, made for {rep['target_lufs']}")
         if rep.get("clipped_samples"):
             out["problems"].append(f"{rep['clipped_samples']} clipped sample(s)")
-        if rep.get("true_peak_dbtp") is not None and rep.get("ceiling_dbtp") is not None and rep["true_peak_dbtp"] > rep["ceiling_dbtp"] + 0.1:
+        if rep.get("true_peak_dbtp") is not None and rep.get("ceiling_dbtp") is not None and rep["true_peak_dbtp"] > rep["ceiling_dbtp"] + TP_TOL:
             out["problems"].append(f"true peak {rep['true_peak_dbtp']} dBTP over the {rep['ceiling_dbtp']} ceiling")
     else:
         out["problems"].append("no mix report")
