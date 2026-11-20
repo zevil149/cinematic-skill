@@ -131,7 +131,8 @@ def check(root, code, r=None):
         r.error(f"edition {code}: lexicon.json is for {lx.get('lang')!r}")
     for name, path in (("narration.json", ed / "03_script" / "narration.json"), ("script.json", ed / "script.json"),
                        ("timing.json", ed / "audio" / "timing.json"), ("voice.json", ed / "voice.json"),
-                       ("audio/voice/manifest.json", ed / "audio" / "voice" / "manifest.json")):
+                       ("audio/voice/manifest.json", ed / "audio" / "voice" / "manifest.json"),
+                       ("audio/cues.json", ed / "audio" / "cues.json"), ("audio/mix_report.json", ed / "audio" / "mix_report.json")):
         if path.exists():
             tag = L.load(path).get("lang")
             if tag and tag != code:

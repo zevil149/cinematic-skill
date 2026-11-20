@@ -107,3 +107,5 @@ python3 scripts/narrate.py --project my-doc/editions/en --target 600   # fit to 
 - **Nothing is bought here.** A missing, invalid or stale line stops the build with a pointer to `voice.py synth`, which keeps its spend guard; `narrate.py` never calls a provider.
 - **Yours is kept.** A `narration.m4a` or `timing.json` that `narrate.py` did not make (for example from `build_narration.py`), or that changed since, is never replaced without `--force`, which keeps both as `.bak`. A timing file of another language is refused.
 
+Music and effects for each edition, placed on this timing, are in `references/sound.md` (`audiolib.py`, `cuesheet.py`).
+

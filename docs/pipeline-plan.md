@@ -67,8 +67,8 @@ English is the default language for the main (US) channel; Hindi is a fully supp
 | 3.3 | Voice framework: per-edition voice and lexicon, mock, espeak and command providers, manifest, resume, edit lock | done |
 | 3.4 | ElevenLabs and Sarvam adapters, cost estimate, auditions (built and tested offline; no live or paid call yet: the first audition needs separate approval) | done |
 | 3.5 | Timing per edition: segments, `narration.m4a`, word timings in `timing.json`, re-timed storyboard and scenes | done |
-| 3.6 | Music and effects: user-licensed tracks and a synthesised bed, rights gate, per-edition cue sheet and mix | next, after approval |
-| 3.7 | Subtitles and metadata per edition | |
+| 3.6 | Music and effects: user-licensed tracks and a synthesised bed, rights gate, per-edition cue sheet and mix | done |
+| 3.7 | Subtitles and metadata per edition | next, after approval |
 | 3.8 | docpipe stages, docs, CI with both editions end to end | |
 
 Approved decisions: ElevenLabs and Sarvam adapters plus espeak and command providers (Azure later); section-level synthesis split into line segments where timestamps are reliable, per-line otherwise; Devanagari for Hindi narration and subtitles, Latin only for allowed technical terms; music from user-licensed tracks and a synthesised bed (CC libraries optional, gated); synthesised effects (Freesound later); `uharfbuzz` and Noto Devanagari after licence checks; a $5 spend cap per run and explicit confirmation for every paid call; optional `words` and `lang` in `timing.json`; Hindi 130-140 and English 145-155 words a minute, configurable; shared beats with a fork option; native-speaker review before paid Hindi synthesis; research canonical in English; per-edition on-screen text; no voice cloning.
