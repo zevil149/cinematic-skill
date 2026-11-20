@@ -122,6 +122,12 @@ Milestones (authorized in full; branch `claude/film-finishing-phase-5`, draft PR
 - `reports/final_report.md`: stages, warnings, the facts and their sources, image credits, voice and music provenance; `credits.md` next to the film.
 - Tests for each validator, and an end-to-end CI run of a tiny documentary through every stage with a scratch voice.
 
+Milestones follow the Phase 1–5 audit; each is authorized on its own (6.1: branch `claude/phase-6-1-gate-integrity`, draft PR on PR #6):
+
+| Milestone | Scope | State |
+|---|---|---|
+| 6.1 | Gate integrity and run durability: the finishing stages need the look approved for the review's current inputs; `run --only` needs every earlier stage run and every earlier gate approved for its current files; `docpipe.json` saved around every stage (`running`, `interrupted`); render, join and caption passes stopped with their process group past a time limit | done |
+
 ## Decisions
 
 Approved before phase 2:

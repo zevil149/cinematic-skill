@@ -58,6 +58,10 @@ python3 scripts/docpipe.py status --project my-doc
 
 `run` skips every stage whose inputs have not changed, so run it as often as you like; an interrupted job resumes at the first stage that is out of date. Editing a file reopens its stage and every stage after it, and an approval lapses when its stage's files change.
 
+- **Gates hold under every kind of run.** The finishing stages (`render`, `join`, `captions`, `qc`) run only when the edition's look is approved for the review's current inputs: edit a scene, the timing, the storyboard or the prepared assets after `approve look` and they wait (`waits for the look ... no longer matches`) until a run makes the review again and you approve it. `run --only <stage>` does only what a full run would have reached: every earlier stage of that edition (and the shared ones) must have run successfully, and every earlier gate (outline, scripts, visuals) must be approved for its current files; otherwise it says what is missing and runs nothing.
+- **State is saved as the run goes.** `docpipe.json` is written around every stage: a stage at work is `running`, one that raised or was interrupted (Ctrl-C) is `interrupted` with the reason, and the stages before it keep `done`. A killed run leaves `running`, which is never taken for `done`: the next `run` redoes that stage and skips the ones that finished.
+- **Long passes have a time limit.** Each act render, the join and the caption burn run in their own process group, stopped (parallel workers and encoders included) if they run past 15 minutes plus a minute per second of film at 1080p, scaled by pixels (the join a fifth of that). The partial file is removed, nothing is recorded, and the stage fails; set `CINEMATIC_RENDER_TIMEOUT` (seconds) for a slower machine. Ctrl-C stops the group too.
+
 ## Research
 
 - One source per entry in `01_research/sources.json`: a url (with the date you read it) or, for print, a title with an author or publisher. `research.py add-source` fills the id and accessed date.
