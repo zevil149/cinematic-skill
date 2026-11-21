@@ -53,7 +53,7 @@
    "approved_at": "2026-11-21T06:09:28"
   },
   "script@hi": {
-   "status": "awaiting approval",
+   "status": "done",
    "inputs": "1cd67b72089e86a5",
    "at": "2026-11-21T06:18:55",
    "errors": [],
@@ -84,6 +84,28 @@
    "notes": [
     "55 lines, 732 words, about 5:40.1 at the scratch-voice pace",
     "exported 55 lines in 9 takes -> productions/molasses-flood/editions/hi/script.json"
+   ],
+   "approved": "1cd67b72089e86a5",
+   "approved_at": "2026-11-21T06:20:00"
+  },
+  "beats": {
+   "status": "done",
+   "inputs": "ae21f984bc7b7363",
+   "at": "2026-11-21T06:20:11",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "55 beats from edition hi, 15 images"
+   ]
+  },
+  "scenes@hi": {
+   "status": "done",
+   "inputs": "0f584b071214f1e2",
+   "at": "2026-11-21T06:20:11",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "55 scenes, 5:39.1 (estimated), 0 images (0 still to find)"
    ]
   }
  }

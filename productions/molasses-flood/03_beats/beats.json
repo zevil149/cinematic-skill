@@ -1,0 +1,1019 @@
+{
+ "generated_by": "beats.py",
+ "source": "hi",
+ "beats": [
+  {
+   "id": "B001",
+   "section": "SEC01",
+   "hero": "the panorama of the site",
+   "visual": "slow push across the BPL panorama of the site; date types on",
+   "claims": [
+    "C1"
+   ],
+   "images": [
+    {
+     "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+     "kind": "photo",
+     "query": "Boston Molasses Disaster panorama 1919",
+     "id": "I001"
+    }
+   ],
+   "typed": {
+    "hi": "15 जनवरी 1919"
+   },
+   "source_lines": {
+    "hi": [
+     1
+    ]
+   }
+  },
+  {
+   "id": "B002",
+   "section": "SEC01",
+   "hero": "the street in the panorama",
+   "visual": "the panorama darkens; a brown wash spreads along the street line",
+   "claims": [
+    "C1"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     2
+    ]
+   }
+  },
+  {
+   "id": "B003",
+   "section": "SEC01",
+   "hero": "the Post headline",
+   "visual": "cut to the Post masthead and deck; highlight '50 Feet High'; a stamp 'विवादित'",
+   "claims": [
+    "C7"
+   ],
+   "images": [
+    {
+     "what": "Boston Post front page, January 16, 1919",
+     "kind": "paper",
+     "query": "Boston post January 16, 1919",
+     "id": "I002"
+    }
+   ],
+   "typed": {
+    "hi": "50 फ़ुट?"
+   },
+   "source_lines": {
+    "hi": [
+     3
+    ]
+   }
+  },
+  {
+   "id": "B004",
+   "section": "SEC01",
+   "hero": "the Post headline",
+   "visual": "the Post headline '11 DEAD, 50 HURT' underlined",
+   "claims": [
+    "C5"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "11 मृत"
+   },
+   "source_lines": {
+    "hi": [
+     4
+    ]
+   }
+  },
+  {
+   "id": "B005",
+   "section": "SEC02",
+   "hero": "the title card",
+   "visual": "title card on the evidence wall",
+   "claims": [],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     5
+    ]
+   }
+  },
+  {
+   "id": "B006",
+   "section": "SEC02",
+   "hero": "the two source cards",
+   "visual": "two labelled cards pin to the wall: the Post (1919) and the City of Boston (retrospective)",
+   "claims": [],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     6
+    ]
+   }
+  },
+  {
+   "id": "B007",
+   "section": "SEC03",
+   "hero": "the tank",
+   "visual": "the tank photo, slow push-in",
+   "claims": [
+    "C1"
+   ],
+   "images": [
+    {
+     "what": "The North End molasses tank before the disaster",
+     "kind": "photo",
+     "query": "North End molasses tank",
+     "id": "I003"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     7
+    ]
+   }
+  },
+  {
+   "id": "B008",
+   "section": "SEC03",
+   "hero": "the tank",
+   "visual": "City of Boston source card; year types on",
+   "claims": [
+    "C25"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "1915"
+   },
+   "source_lines": {
+    "hi": [
+     8
+    ]
+   }
+  },
+  {
+   "id": "B009",
+   "section": "SEC03",
+   "hero": "the scale bar",
+   "visual": "a scale bar rises beside the tank to 50 ft",
+   "claims": [
+    "C25",
+    "C1"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "50 फ़ुट"
+   },
+   "source_lines": {
+    "hi": [
+     9
+    ]
+   }
+  },
+  {
+   "id": "B010",
+   "section": "SEC03",
+   "hero": "the Post deck",
+   "visual": "the Post deck, '2,300,000 Gallons' highlighted",
+   "claims": [
+    "C1"
+   ],
+   "images": [
+    {
+     "what": "Boston Post front page, January 16, 1919",
+     "kind": "paper",
+     "query": "Boston post January 16, 1919",
+     "id": "I004"
+    }
+   ],
+   "typed": {
+    "hi": "23,00,000 गैलन"
+   },
+   "source_lines": {
+    "hi": [
+     10
+    ]
+   }
+  },
+  {
+   "id": "B011",
+   "section": "SEC03",
+   "hero": "the two source cards",
+   "visual": "the two source cards drawn together by a thread",
+   "claims": [
+    "C1",
+    "C25"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     11
+    ]
+   }
+  },
+  {
+   "id": "B012",
+   "section": "SEC03",
+   "hero": "the City of Boston card",
+   "visual": "City of Boston card brought forward",
+   "claims": [],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     12
+    ]
+   }
+  },
+  {
+   "id": "B013",
+   "section": "SEC03",
+   "hero": "the tank",
+   "visual": "the tank photo; slow drips drawn down its side, labelled 'बताया गया'",
+   "claims": [
+    "C26"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     13
+    ]
+   }
+  },
+  {
+   "id": "B014",
+   "section": "SEC03",
+   "hero": "the tank",
+   "visual": "hold on the tank; the light dims",
+   "claims": [
+    "C26"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     14
+    ]
+   }
+  },
+  {
+   "id": "B015",
+   "section": "SEC04",
+   "hero": "the tank",
+   "visual": "the tank photo cracks to black",
+   "claims": [
+    "C1",
+    "C28"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     15
+    ]
+   }
+  },
+  {
+   "id": "B016",
+   "section": "SEC04",
+   "hero": "the three slots",
+   "visual": "City of Boston card; three empty slots appear",
+   "claims": [
+    "C28"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     16
+    ]
+   }
+  },
+  {
+   "id": "B017",
+   "section": "SEC04",
+   "hero": "the three slots",
+   "visual": "the three slots fill one by one",
+   "claims": [
+    "C28"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "कमज़ोर निर्माण · तापमान · बड़ी खेप"
+   },
+   "source_lines": {
+    "hi": [
+     17
+    ]
+   }
+  },
+  {
+   "id": "B018",
+   "section": "SEC04",
+   "hero": "the map",
+   "visual": "the area map; the flooded zone fills along Commercial Street",
+   "claims": [
+    "C2"
+   ],
+   "images": [
+    {
+     "what": "Map of the molasses flood area, North End",
+     "kind": "map",
+     "query": "Boston molasses area map",
+     "id": "I005"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     18
+    ]
+   }
+  },
+  {
+   "id": "B019",
+   "section": "SEC04",
+   "hero": "the route line",
+   "visual": "a route line runs from Charter Street to North End Park",
+   "claims": [
+    "C2"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     19
+    ]
+   }
+  },
+  {
+   "id": "B020",
+   "section": "SEC04",
+   "hero": "the speed figure",
+   "visual": "a speed figure counts up on the map; labelled as an estimate",
+   "claims": [
+    "C8"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "~35 मील/घंटा"
+   },
+   "source_lines": {
+    "hi": [
+     20
+    ]
+   }
+  },
+  {
+   "id": "B021",
+   "section": "SEC04",
+   "hero": "the Post deck",
+   "visual": "the Post's '50 Feet High' beside a question mark",
+   "claims": [
+    "C7"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     21
+    ]
+   }
+  },
+  {
+   "id": "B022",
+   "section": "SEC04",
+   "hero": "the scale bar",
+   "visual": "the 50 ft scale bar from the tank slides beside the headline",
+   "claims": [
+    "C7",
+    "C25"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     22
+    ]
+   }
+  },
+  {
+   "id": "B023",
+   "section": "SEC04",
+   "hero": "the scale bar",
+   "visual": "the bar lowers and blurs; label 'बाद के अनुमान'",
+   "claims": [
+    "C7"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     23
+    ]
+   }
+  },
+  {
+   "id": "B024",
+   "section": "SEC05",
+   "hero": "the Post column",
+   "visual": "the Post column, the passage highlighted",
+   "claims": [
+    "C3"
+   ],
+   "images": [
+    {
+     "what": "Boston Post front page, January 16, 1919",
+     "kind": "paper",
+     "query": "Boston post January 16, 1919",
+     "id": "I006"
+    }
+   ],
+   "typed": {
+    "hi": "100+"
+   },
+   "source_lines": {
+    "hi": [
+     24
+    ]
+   }
+  },
+  {
+   "id": "B025",
+   "section": "SEC05",
+   "hero": "the wreckage",
+   "visual": "pan across the wreckage photo",
+   "claims": [
+    "C3"
+   ],
+   "images": [
+    {
+     "what": "Wreckage under the elevated tracks, 1919",
+     "kind": "photo",
+     "query": "Great Molasses Flood wreckage under the elevated tracks",
+     "id": "I007"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     25
+    ]
+   }
+  },
+  {
+   "id": "B026",
+   "section": "SEC05",
+   "hero": "the elevated structure",
+   "visual": "the elevated-railway photo; slow tilt up the bent structure",
+   "claims": [
+    "C9"
+   ],
+   "images": [
+    {
+     "what": "Boston Elevated Railway structure after the molasses flood, January 1919",
+     "kind": "photo",
+     "query": "Boston Elevated Railway after the Molasses Flood January 1919",
+     "id": "I008"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     26
+    ]
+   }
+  },
+  {
+   "id": "B027",
+   "section": "SEC05",
+   "hero": "the map arrow",
+   "visual": "the map; an arrow drives towards Copp's Hill",
+   "claims": [
+    "C4"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     27
+    ]
+   }
+  },
+  {
+   "id": "B028",
+   "section": "SEC05",
+   "hero": "the map arrow",
+   "visual": "the arrow swings back to the harbour",
+   "claims": [
+    "C4"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     28
+    ]
+   }
+  },
+  {
+   "id": "B029",
+   "section": "SEC05",
+   "hero": "the list of the dead",
+   "visual": "the Post's list of the known dead; one name highlighted",
+   "claims": [
+    "C10"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "इंजन 31"
+   },
+   "source_lines": {
+    "hi": [
+     29
+    ]
+   }
+  },
+  {
+   "id": "B030",
+   "section": "SEC05",
+   "hero": "the name",
+   "visual": "the name 'GEORGE LAHEY' lit in the list",
+   "claims": [
+    "C10"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     30
+    ]
+   }
+  },
+  {
+   "id": "B031",
+   "section": "SEC05",
+   "hero": "the paragraph",
+   "visual": "the Post's 'unidentified dead' paragraph",
+   "claims": [
+    "C11"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     31
+    ]
+   }
+  },
+  {
+   "id": "B032",
+   "section": "SEC05",
+   "hero": "the paragraph",
+   "visual": "the words 'Revere Rubber Company' highlighted; hold",
+   "claims": [
+    "C11"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     32
+    ]
+   }
+  },
+  {
+   "id": "B033",
+   "section": "SEC06",
+   "hero": "the bird's-eye photo",
+   "visual": "the Post's bird's-eye photo; its caption highlighted",
+   "claims": [
+    "C13"
+   ],
+   "images": [
+    {
+     "what": "Boston Post front page, January 16, 1919",
+     "kind": "paper",
+     "query": "Boston post January 16, 1919",
+     "id": "I009"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     33
+    ]
+   }
+  },
+  {
+   "id": "B034",
+   "section": "SEC06",
+   "hero": "the playground",
+   "visual": "push into the playground area of the photo",
+   "claims": [
+    "C13"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     34
+    ]
+   }
+  },
+  {
+   "id": "B035",
+   "section": "SEC06",
+   "hero": "the wreckage",
+   "visual": "the panorama, slow drift across the wreckage",
+   "claims": [
+    "C12"
+   ],
+   "images": [
+    {
+     "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+     "kind": "photo",
+     "query": "Boston Molasses Disaster panorama 1919",
+     "id": "I010"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     35
+    ]
+   }
+  },
+  {
+   "id": "B036",
+   "section": "SEC06",
+   "hero": "the ruins",
+   "visual": "hold on the ruined buildings",
+   "claims": [
+    "C12"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     36
+    ]
+   }
+  },
+  {
+   "id": "B037",
+   "section": "SEC06",
+   "hero": "the tally",
+   "visual": "a tally types on: 11",
+   "claims": [
+    "C5"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "11"
+   },
+   "source_lines": {
+    "hi": [
+     37
+    ]
+   }
+  },
+  {
+   "id": "B038",
+   "section": "SEC06",
+   "hero": "the tally",
+   "visual": "the tally holds, then a second card slides in",
+   "claims": [
+    "C5",
+    "C6"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     38
+    ]
+   }
+  },
+  {
+   "id": "B039",
+   "section": "SEC06",
+   "hero": "the tally",
+   "visual": "the tally rolls from 11 to 21; City of Boston card",
+   "claims": [
+    "C6"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "21"
+   },
+   "source_lines": {
+    "hi": [
+     39
+    ]
+   }
+  },
+  {
+   "id": "B040",
+   "section": "SEC07",
+   "hero": "the evidence wall",
+   "visual": "the evidence wall; a red thread from the tank to two cards",
+   "claims": [],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     40
+    ]
+   }
+  },
+  {
+   "id": "B041",
+   "section": "SEC07",
+   "hero": "the Post column",
+   "visual": "the Post's 'INTERNAL EXPLOSION WAS CAUSE, SAYS STATE CHEMIST' column",
+   "claims": [
+    "C14"
+   ],
+   "images": [
+    {
+     "what": "Boston Post front page, January 16, 1919",
+     "kind": "paper",
+     "query": "Boston post January 16, 1919",
+     "id": "I011"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     41
+    ]
+   }
+  },
+  {
+   "id": "B042",
+   "section": "SEC07",
+   "hero": "the Post column",
+   "visual": "the words 'internal explosion' highlighted",
+   "claims": [
+    "C14"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     42
+    ]
+   }
+  },
+  {
+   "id": "B043",
+   "section": "SEC07",
+   "hero": "the stamp",
+   "visual": "a stamp 'शुरुआती सिद्धांत' over the column",
+   "claims": [
+    "C14"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     43
+    ]
+   }
+  },
+  {
+   "id": "B044",
+   "section": "SEC07",
+   "hero": "the wall diagram",
+   "visual": "City of Boston card; a cross-section of a wall drawn thin",
+   "claims": [
+    "C27"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     44
+    ]
+   }
+  },
+  {
+   "id": "B045",
+   "section": "SEC07",
+   "hero": "the wall diagram",
+   "visual": "a crack runs through the diagram",
+   "claims": [
+    "C27"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     45
+    ]
+   }
+  },
+  {
+   "id": "B046",
+   "section": "SEC07",
+   "hero": "the 1925 card",
+   "visual": "a dated card '1925' pins over the thread's end",
+   "claims": [
+    "C29"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "1925"
+   },
+   "source_lines": {
+    "hi": [
+     46
+    ]
+   }
+  },
+  {
+   "id": "B047",
+   "section": "SEC07",
+   "hero": "the 1925 card",
+   "visual": "the explosion card fades; the negligence card stays lit",
+   "claims": [
+    "C29",
+    "C27",
+    "C14"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "लापरवाही"
+   },
+   "source_lines": {
+    "hi": [
+     47
+    ]
+   }
+  },
+  {
+   "id": "B048",
+   "section": "SEC08",
+   "hero": "the front page",
+   "visual": "pull back to the whole Post front page",
+   "claims": [
+    "C15"
+   ],
+   "images": [
+    {
+     "what": "Boston Post front page, January 16, 1919",
+     "kind": "paper",
+     "query": "Boston post January 16, 1919",
+     "id": "I012"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     48
+    ]
+   }
+  },
+  {
+   "id": "B049",
+   "section": "SEC08",
+   "hero": "the Prohibition column",
+   "visual": "'35 STATES ON DRY LAW LIST' highlighted",
+   "claims": [
+    "C15"
+   ],
+   "images": [],
+   "typed": {
+    "hi": "35"
+   },
+   "source_lines": {
+    "hi": [
+     49
+    ]
+   }
+  },
+  {
+   "id": "B050",
+   "section": "SEC08",
+   "hero": "the front page",
+   "visual": "the two columns lit side by side",
+   "claims": [
+    "C15"
+   ],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     50
+    ]
+   }
+  },
+  {
+   "id": "B051",
+   "section": "SEC08",
+   "hero": "the front page",
+   "visual": "hold on the full page; slow fade of the highlights",
+   "claims": [],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     51
+    ]
+   }
+  },
+  {
+   "id": "B052",
+   "section": "SEC09",
+   "hero": "the Post column",
+   "visual": "the Post column 'released in some manner yet unexplained' highlighted",
+   "claims": [
+    "C1"
+   ],
+   "images": [
+    {
+     "what": "Boston Post front page, January 16, 1919",
+     "kind": "paper",
+     "query": "Boston post January 16, 1919",
+     "id": "I013"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     52
+    ]
+   }
+  },
+  {
+   "id": "B053",
+   "section": "SEC09",
+   "hero": "the tank",
+   "visual": "the thin-wall diagram and the 1925 card return beside the tank photo",
+   "claims": [
+    "C27",
+    "C29"
+   ],
+   "images": [
+    {
+     "what": "The North End molasses tank before the disaster",
+     "kind": "photo",
+     "query": "North End molasses tank",
+     "id": "I014"
+    }
+   ],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     53
+    ]
+   }
+  },
+  {
+   "id": "B054",
+   "section": "SEC09",
+   "hero": "the panorama",
+   "visual": "the panorama; the tally 21 holds in silence",
+   "claims": [
+    "C6"
+   ],
+   "images": [
+    {
+     "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+     "kind": "photo",
+     "query": "Boston Molasses Disaster panorama 1919",
+     "id": "I015"
+    }
+   ],
+   "typed": {
+    "hi": "21"
+   },
+   "source_lines": {
+    "hi": [
+     54
+    ]
+   }
+  },
+  {
+   "id": "B055",
+   "section": "SEC09",
+   "hero": "the evidence wall",
+   "visual": "slow pull-back to the whole evidence wall; fade to black",
+   "claims": [],
+   "images": [],
+   "typed": {},
+   "source_lines": {
+    "hi": [
+     55
+    ]
+   }
+  }
+ ]
+}
