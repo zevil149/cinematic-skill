@@ -206,6 +206,16 @@
     "hi cue sheet: 1 music cue(s), 0 library sound(s), 0 gap(s), synthesised effects, 5:56.0",
     "audio/mix.m4a for hi: -15.0 LUFS, -1.5 dBTP, no clipping"
    ]
+  },
+  "subtitles@hi": {
+   "status": "done",
+   "inputs": "42fd5b14fa343df3",
+   "at": "2026-11-21T20:24:00",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "hi subtitles: 74 cues -> out/subtitles.hi.srt, out/subtitles.hi.vtt; 74 cue(s) on estimated word times"
+   ]
   }
  }
 }
