@@ -156,6 +156,18 @@
    "notes": [
     "1 act(s): act 1 55 lines 0:00.9-5:39.1"
    ]
+  },
+  "voice@hi": {
+   "status": "done",
+   "inputs": "bdbbe4ea8feb68aa",
+   "at": "2026-11-21T17:27:30",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "hi voice: espeak 'hi', line mode; 55 missing; 55 to make, 3659 characters (free)",
+    "made 55 segment(s)",
+    "hi voice: espeak 'hi', line mode; 55 ok; 0 to make, 0 characters (free)"
+   ]
   }
  }
 }
