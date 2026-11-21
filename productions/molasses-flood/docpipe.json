@@ -168,6 +168,22 @@
     "made 55 segment(s)",
     "hi voice: espeak 'hi', line mode; 55 ok; 0 to make, 0 characters (free)"
    ]
+  },
+  "narration@hi": {
+   "status": "done",
+   "inputs": "d653b183c0f00e85",
+   "at": "2026-11-21T17:30:47",
+   "errors": [],
+   "warnings": [
+    "act 1: 06_film/act_01/scene.py has your edits; left as it is (--force regenerates it and keeps yours as scene.py.bak)",
+    "3 of 15 visuals are designed cards until their images arrive"
+   ],
+   "notes": [
+    "hi voice: espeak 'hi', line mode; 55 ok; 0 to make, 0 characters (free)",
+    "audio/narration.m4a and audio/timing.json for hi: 55 lines, 5:56.0",
+    "55 scenes, 5:56.0 (voice timing), 0 images (0 still to find)",
+    "1 act(s): act 1 55 lines 0:00.9-5:56.0"
+   ]
   }
  }
 }
