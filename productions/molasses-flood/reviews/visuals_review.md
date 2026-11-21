@@ -82,7 +82,7 @@ credit lines below are what `rights.py` and `credits.py` produce from them (veri
 
 | Need | Credit line |
 |---|---|
-| I002, I004, I006, I009 | Boston Post front page, January 16, 1919 · The Boston Post, 16 January 1919 · Public domain in the US (published 1919) |
+| I002, I004, I006, I009, I011, I012 | Boston Post front page, January 16, 1919 · The Boston Post, 16 January 1919 · Public domain in the US (published 1919) |
 | I001, I010, I015 | Panorama of the molasses disaster site, January 15, 1919 (BPL) · Boston Public Library · Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified) |
 | I008 | Boston Elevated Railway structure after the molasses flood, January 1919 · Boston Elevated Railway Company; City of Boston Archives · Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified) |
 | I005 | Map of the molasses flood area, North End · 2005 reconstruction by Wikimedia Commons user IMeowbot, after 1895 and 1915 City of Boston maps · Public domain (released by its author) |
@@ -107,13 +107,13 @@ replaces its credit and licence wording.
 
 ## Unresolved risks and blockers
 
-1. **I011, I012, I013 not downloaded.** upload.wikimedia.org rate-limited every retry, including
-   the single retry at 12:33 UTC after the 12:32 cooldown (now cooling down until 12:48 UTC).
-   Per your instruction, retrying stopped. Until a later
-   `docpipe.py run` fetches them, those three scenes show designed cards. When they arrive, they
-   need the same hand-written credit entry as I002 in `photos.json` (otherwise they carry the
-   Commons wording "not specified"). They are not pre-entered now: an entry naming a file that
-   does not exist yet would break the later assets stage.
+1. **I013 not downloaded.** At the single retry at 16:00 UTC (after the 12:48 cooldown), I011 and
+   I012 downloaded; their SHA-1 matches the Commons file and the other Post copies, their source
+   records name the same Commons file, and they now have the same corrected credit entry as I002
+   in `photos.json`. I013 was rate-limited again (cooling down until 16:15 UTC); per your
+   instruction, retrying stopped. Until a later run fetches it, its scene (SEC09, the close) shows
+   a designed card; when it arrives it needs the same credit entry. It is not pre-entered: an entry
+   naming a file that does not exist yet would break the later assets stage.
 2. **Copyright of the panorama and the elevated-railway photo is provisional.** Public domain in
    the US depends on publication before 1931, not verified at BPL or the City of Boston Archives.
    If either was unpublished until recently, its US term could run to 2039. Confirm before
@@ -129,3 +129,10 @@ replaces its credit and licence wording.
 Approving the visuals gate accepts the selections above, including the provisional two, and the
 fallback cards. The next stages (assets, scene starters, then voice) would follow. To approve,
 when you are satisfied: `docpipe.py approve --project productions/molasses-flood visuals`.
+
+## Checks run (16:00 UTC)
+
+* visuals: 0 errors, 13 warnings (1 deferred: I013; 3 fallbacks by choice; 9 hand-written credit entries in use).
+* rights, per asset: all 11 downloaded needs usable, with the corrected credit lines; I013 not usable until downloaded.
+* `rights.py check` for the edition cannot run yet: it reads what the built scenes use, which needs the voice timing
+  (a later stage). It runs again before rendering, where it blocks any unusable asset.

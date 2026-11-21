@@ -376,7 +376,7 @@ def render_credits(man, theirs=None):
     out = ["# Image and footage credits", ""]
 
     def line(a):
-        e = theirs.get(a["need"]) if a.get("shadowed") else None
+        e = theirs.get(a["need"]) if a["status"] == "ok" else None   # as rights.py: an entry you wrote wins
         if e:                                          # the entry written in photos.json is what the film credits
             text = e.get("attribution") or " · ".join(x for x in (e.get("what"), e.get("credit"), e.get("license")) if x)
             return f"- {a['need']}: {text} (as written in photos.json)"

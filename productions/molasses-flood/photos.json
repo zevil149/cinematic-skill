@@ -117,6 +117,32 @@
    "provenance": "PROVISIONAL: institutional source (BPL); publication date, on which US public-domain status depends, not verified at the source.",
    "license_url": "",
    "written_by": "producer decision 2026-11-21 (credit correction), entered by the agent"
+  },
+  {
+   "id": "I011",
+   "file": "I011.jpg",
+   "kind": "paper",
+   "what": "Boston Post front page, January 16, 1919",
+   "credit": "The Boston Post, 16 January 1919",
+   "license": "Public domain in the US (published 1919)",
+   "license_url": "",
+   "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+   "attribution": "Front page of The Boston Post, 16 January 1919. Public domain in the US (published 1919). Scan via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+   "provenance": "Newspaper published 16 Jan 1919; scanner not stated on Commons; file checksum equals the scan read for the research (S1).",
+   "written_by": "producer decision 2026-11-21 (credit correction), entered by the agent"
+  },
+  {
+   "id": "I012",
+   "file": "I012.jpg",
+   "kind": "paper",
+   "what": "Boston Post front page, January 16, 1919",
+   "credit": "The Boston Post, 16 January 1919",
+   "license": "Public domain in the US (published 1919)",
+   "license_url": "",
+   "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+   "attribution": "Front page of The Boston Post, 16 January 1919. Public domain in the US (published 1919). Scan via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+   "provenance": "Newspaper published 16 Jan 1919; scanner not stated on Commons; file checksum equals the scan read for the research (S1).",
+   "written_by": "producer decision 2026-11-21 (credit correction), entered by the agent"
   }
  ]
 }
