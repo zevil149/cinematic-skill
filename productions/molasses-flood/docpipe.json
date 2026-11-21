@@ -100,12 +100,12 @@
   },
   "scenes@hi": {
    "status": "done",
-   "inputs": "843bbde4ef67058e",
-   "at": "2026-11-21T06:28:27",
+   "inputs": "3cb7d81ac6d655ba",
+   "at": "2026-11-21T17:40:26",
    "errors": [],
    "warnings": [],
    "notes": [
-    "55 scenes, 5:39.1 (estimated), 0 images (0 still to find)"
+    "55 scenes, 5:56.0 (voice timing), 0 images (0 still to find)"
    ]
   },
   "visuals": {
@@ -147,14 +147,15 @@
   },
   "scenegen@hi": {
    "status": "done",
-   "inputs": "34fd7c2f61a799e9",
-   "at": "2026-11-21T16:40:04",
+   "inputs": "e46831c3bcaa1eb3",
+   "at": "2026-11-21T17:40:26",
    "errors": [],
    "warnings": [
+    "act 1: 06_film/act_01/scene.py has your edits; left as it is (--force regenerates it and keeps yours as scene.py.bak)",
     "3 of 15 visuals are designed cards until their images arrive"
    ],
    "notes": [
-    "1 act(s): act 1 55 lines 0:00.9-5:39.1"
+    "1 act(s): act 1 55 lines 0:00.9-5:56.0"
    ]
   },
   "voice@hi": {
@@ -183,6 +184,16 @@
     "audio/narration.m4a and audio/timing.json for hi: 55 lines, 5:56.0",
     "55 scenes, 5:56.0 (voice timing), 0 images (0 still to find)",
     "1 act(s): act 1 55 lines 0:00.9-5:56.0"
+   ]
+  },
+  "effects@hi": {
+   "status": "done",
+   "inputs": "a3c90b990d680d4e4145cc708116ac49c7e5",
+   "at": "2026-11-21T17:40:31",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "audio/sfx.wav for hi: 43 cues from 1 act(s)"
    ]
   }
  }

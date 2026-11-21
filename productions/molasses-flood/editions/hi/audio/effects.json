@@ -1,0 +1,321 @@
+{
+ "lang": "hi",
+ "built_by": "effects.py",
+ "input_hash": "a3c90b990d680d4e4145",
+ "sfx_sha256": "ef32aac0d6e99c98bfaf0bf930eba8c0fbe355ed68304a7bd50fe7ac93edbc6d",
+ "duration": 356.016,
+ "scale": 1.0,
+ "kinds": {
+  "pop": 8,
+  "whoosh": 28,
+  "slide": 7
+ },
+ "per_act": {
+  "1": 43
+ },
+ "room_tone": [],
+ "from_cue_sheet": 0,
+ "cues": [
+  {
+   "type": "pop",
+   "t": 0.95,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 12.833,
+   "gain": 0.53,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "slide",
+   "t": 13.444,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 19.867,
+   "gain": 0.64,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 26.467,
+   "gain": 0.54,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 39.167,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "pop",
+   "t": 40.442,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 45.9,
+   "gain": 0.59,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 54.567,
+   "gain": 0.65,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 61.8,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "slide",
+   "t": 62.495,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 99.067,
+   "gain": 0.67,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 104.7,
+   "gain": 0.56,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "pop",
+   "t": 105.29,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 115.567,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 139.1,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "slide",
+   "t": 140.398,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 149.033,
+   "gain": 0.56,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "pop",
+   "t": 149.588,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 156.9,
+   "gain": 0.47,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "pop",
+   "t": 157.652,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 172.133,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 197.567,
+   "gain": 0.7,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "slide",
+   "t": 199.728,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 209.867,
+   "gain": 0.52,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "pop",
+   "t": 210.386,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 220.7,
+   "gain": 0.66,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 230.1,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 238.833,
+   "gain": 0.52,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 243.167,
+   "gain": 0.68,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "slide",
+   "t": 244.339,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 277.833,
+   "gain": 0.63,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 287.633,
+   "gain": 0.65,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 296.8,
+   "gain": 0.73,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "slide",
+   "t": 298.037,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 301.7,
+   "gain": 0.62,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 324.033,
+   "gain": 0.57,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "slide",
+   "t": 325.99,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 331.2,
+   "gain": 0.58,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "pop",
+   "t": 331.778,
+   "gain": 0.6,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 339.0,
+   "gain": 0.53,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "pop",
+   "t": 339.582,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  },
+  {
+   "type": "whoosh",
+   "t": 352.767,
+   "gain": 0.8,
+   "act": 1,
+   "source": "scene"
+  }
+ ]
+}
