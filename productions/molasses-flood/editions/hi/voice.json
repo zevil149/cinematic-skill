@@ -1,0 +1,12 @@
+{
+ "lang": "hi",
+ "locale": "hi-IN",
+ "provider": "espeak",
+ "voice": "hi",
+ "model": "",
+ "settings": {
+  "wpm": 135
+ },
+ "mode": "auto",
+ "note": "scratch voice; the final voice is chosen by audition (voice.py audition)"
+}
