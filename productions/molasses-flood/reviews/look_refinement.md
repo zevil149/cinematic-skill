@@ -51,3 +51,26 @@ Stills regenerated with the stage's own command (`review.py`): **57 stills, 9 st
 review.py: 57 stills, 9 strips, 0 flags. rights.py check: ok, 12 images used, 0 not usable.
 Tests: test_review, test_gates, test_scenegen, test_rights, test_editions, test_title_cards,
 test_composition, test_engine_visual, test_lang_hi: all OK.
+
+## Motion check (after the producer's approval of the visual direction)
+
+Probed in motion (frames between the stills) and adjusted timing and the closing frame only; no
+redesign, no other edits. Before → after:
+
+| Check | Before | After |
+|---|---|---|
+| L37 "11" | ~2 s of empty board (221.3–223.2 s) before 11 landed on its word | 11 lands as the line begins, its caption with it |
+| L39 11 → 21 | the arc pointed at nothing for ~2.4 s; the counter started 0.6 s before "इक्कीस" and the still caught it at "20" | the counter is there from the line's start at 11 and rolls to land on 21 just before "इक्कीस" (233.9 s; word at 234.2 s) |
+| L46 "1925" | ~3 s of empty board (278.4–281.3 s); the year still fading on its word | the auditor card is there as the line begins; 1925 fully landed before it is spoken |
+| L49 "35" | half faded on its word | fully landed before "पैंतीस" |
+| Closing | complete board, about 60 % of the frame width, off-centre | complete board, centred, about 90 % of the width (86 % height); the narration and captions are over by then |
+
+The L55 still is taken during the pull-back (edges in motion); `probe_close` is the settled frame.
+`reviews/look/motion_check.jpg` shows the five moments.
+
+Then, through the gate workflow: `docpipe.py run --lang hi --only review` (runs only when every gate
+before it is approved; nothing upstream re-run, so the approved audio is untouched).
+review@hi: **awaiting approval [gate], 0 errors, 0 warnings**; 57 stills, 9 strips, 0 flags.
+rights.py check: ok, 12 images, 0 not usable.
+
+Tests after the motion check: test_review, test_gates, test_scenegen, test_rights, test_composition: all OK.

@@ -748,10 +748,11 @@ def build_film(doc):
     pano2 = photo(vis(35)["need"], O[0] - 6400, O[1] + 600, 3800, 35, rot=-1.0, move=None)
     pb = item_box(doc, pano2)
     TX, TY = O[0] - 6400, O[1] + 5600
-    t11 = put(BigText(BY_LINE[37]["typed"], TX - 1200, TY, 520, W(37, "ग्यारह") - 0.15, rgb=TYPE), 37)
-    put(Tag("मौतें · पोस्ट की पहली गिनती", TX - 1200, TY + 300, W(37, "ग्यारह") + 0.2), 37)
-    put(Counter(TX + 1500, TY, 520, 21, W(39, "इक्कीस") - 0.6, dur=1.0, start=11, rgb=TYPE), 39, (TX + 900, TY - 450, TX + 2100, TY + 120))
-    put(Tag("मौतें · सिटी ऑफ़ बोस्टन के अनुसार", TX + 1500, TY + 300, W(39, "इक्कीस") + 0.2), 39)
+    t11 = put(BigText(BY_LINE[37]["typed"], TX - 1200, TY, 520, L(37) + 0.1, rgb=TYPE), 37)
+    put(Tag("मौतें · पोस्ट की पहली गिनती", TX - 1200, TY + 300, L(37) + 0.5), 37)
+    put(Counter(TX + 1500, TY, 520, 21, L(39) + 0.2, dur=max(1.0, W(39, "इक्कीस") - 0.2 - (L(39) + 0.2)), start=11, rgb=TYPE), 39,
+        (TX + 900, TY - 450, TX + 2100, TY + 120))
+    put(Tag("मौतें · सिटी ऑफ़ बोस्टन के अनुसार", TX + 1500, TY + 300, L(39) + 0.6), 39)
     put(Route((TX - 400, TY - 250), (TX + 700, TY - 250), L(38) + 0.3, dur=0.8, bend=-0.3), 38, (TX - 400, TY - 500, TX + 700, TY - 250))
 
     # ---------------- SEC07: explosion or negligence ----------------
@@ -772,9 +773,9 @@ def build_film(doc):
     put(Tag("चित्रण · पैमाने पर नहीं · 'दीवारें बहुत पतली' (शहर का विवरण)", WX, WY + 1460, W(44, "दीवारें")), 44)
     put(PenMark("strike", WX - 156, WY - 200, 600, 900, t_in=W(45, "दरार") - 0.2, width=14, rot=78), 45,
         (WX - 600, WY - 700, WX + 300, WY + 300))
-    typed(46, WX + 7000, WY - 1500, W(46, "पच्चीस") - 0.15, 300)
-    c1925 = card(WX + 7000, WY - 100, 3000, 1500, 46, "अदालत द्वारा नियुक्त ऑडिटर", ["मालिकों की लापरवाही"], t=W(46, "पच्चीस") + 0.1, size=150)
-    put(Tag("चित्रण · शहर के विवरण के अनुसार", WX + 7000, WY + 900, W(46, "पच्चीस") + 0.3), 46)
+    typed(46, WX + 7000, WY - 1500, W(46, "पच्चीस") - 0.6, 300)
+    c1925 = card(WX + 7000, WY - 100, 3000, 1500, 46, "अदालत द्वारा नियुक्त ऑडिटर", ["मालिकों की लापरवाही"], t=L(46) + 0.1, size=150)
+    put(Tag("चित्रण · शहर के विवरण के अनुसार", WX + 7000, WY + 900, L(46) + 0.5), 46)
     typed(47, WX + 7000, WY + 1700, W(47, "लापरवाही") - 0.15, 260)
     put(StringLine((O[0], O[1] - 2000), (WX + 7000, WY - 850), W(47, "लापरवाही") - 0.6, dur=0.9, persist=True), 47)
 
@@ -783,7 +784,7 @@ def build_film(doc):
     q6 = post(vis(48)["need"], O[0], O[1], 4200, 48)
     q6_states = region(q6, doc, 0.012, 0.298, 0.262, 0.428)
     q6_head = region(q6, doc, 0.02, 0.075, 0.99, 0.215)
-    typed(49, q6_states[0] - 900, q6_states[1] + 300, W(49, "पैंतीस") - 0.15, 330)
+    typed(49, q6_states[0] - 900, q6_states[1] + 300, W(49, "पैंतीस") - 0.6, 330)
     put(PenMark("ellipse", (q6_states[0] + q6_states[2]) / 2, (q6_states[1] + q6_states[3]) / 2, (q6_states[2] - q6_states[0]) * 1.08,
                 (q6_states[3] - q6_states[1]) * 1.06, t_in=W(50, "शराबबंदी") - 0.2, width=14), 50, q6_states)
     put(PenMark("ellipse", (q6_head[0] + q6_head[2]) / 2, (q6_head[1] + q6_head[3]) / 2, (q6_head[2] - q6_head[0]) * 1.04,
@@ -867,8 +868,8 @@ def build_film(doc):
 
     # the close: the whole board, every item inside the safe area
     allb = union([b for it, b, j in reg if b])
-    z_all = fit_zoom(allb, 1.0) * TIGHTEST * 0.96
-    cx, cy = centre(allb, z_all / TIGHTEST * TIGHTEST)
+    z_all = min(3840 * 0.90 / (allb[2] - allb[0]), 2160 * 0.86 / (allb[3] - allb[1]))
+    cx, cy = (allb[0] + allb[2]) / 2, (allb[1] + allb[3]) / 2
     last = aims[54]
     film.shot(L(55) + 0.3, last[0], last[1], last[2])
     film.shot(L(55) + (E(55) - L(55)) * 0.45, (last[0] + cx) / 2, (last[1] + cy) / 2, max(z_all * 1.8, 0.15), radius=20000, strength=0.15)
