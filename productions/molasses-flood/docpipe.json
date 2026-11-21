@@ -107,6 +107,24 @@
    "notes": [
     "55 scenes, 5:39.1 (estimated), 0 images (0 still to find)"
    ]
+  },
+  "visuals": {
+   "status": "awaiting approval",
+   "inputs": "a95e55bf9191e55e",
+   "at": "2026-11-21T08:50:39",
+   "errors": [],
+   "warnings": [
+    "I003 (The North End molasses tank before the disaster): fallback card, chosen in selection.json",
+    "I007 (Wreckage under the elevated tracks, 1919): fallback card, chosen in selection.json",
+    "I009 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 09:05:37; the next run retries it",
+    "I011 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 09:05:37; the next run retries it",
+    "I012 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 09:05:37; the next run retries it",
+    "I013 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 09:05:37; the next run retries it",
+    "I014 (The North End molasses tank before the disaster): fallback card, chosen in selection.json"
+   ],
+   "notes": [
+    "visuals: 4 deferred, 3 fallback, 8 ok"
+   ]
   }
  }
 }

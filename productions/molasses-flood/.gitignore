@@ -1,0 +1,4 @@
+# transient archive state (search cache, rate-limit cooldowns)
+05_visuals/cache/
+05_visuals/http_state.json
+*.part
