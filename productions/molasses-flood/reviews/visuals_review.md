@@ -42,6 +42,11 @@ Repeated needs are consistent: every Post need names the same Commons file, and 
 need the same file. The pipeline still downloads one copy per need (7 + 3 copies); the copies made
 so far are byte-identical.
 
+**Downloads still owed:** I011, I012, I013 (the Post page again). upload.wikimedia.org rate-limited
+us; after three polite retries (each after its cooldown) they are deferred, and the next
+`docpipe.py run` retries them. Until then those three show as designed cards. Nothing about their
+selection is open: they name the same file as the other four Post needs.
+
 ## Rejected candidates
 
 | Candidate | Offered for | Why rejected |

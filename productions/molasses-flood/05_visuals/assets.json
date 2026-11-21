@@ -209,12 +209,7 @@
    "file": "I009.jpg",
    "auto": false,
    "cleared": null,
-   "status": "deferred",
-   "fallback": {
-    "type": "card",
-    "title": "Boston Post front page, January 16, 1919",
-    "reason": "upload.wikimedia.org is rate-limiting us; cooling down until 09:20:44"
-   }
+   "status": "ok"
   },
   "I010": {
    "need": "I010",
@@ -270,7 +265,7 @@
    "fallback": {
     "type": "card",
     "title": "Boston Post front page, January 16, 1919",
-    "reason": "upload.wikimedia.org is rate-limiting us; cooling down until 09:20:44"
+    "reason": "upload.wikimedia.org is rate-limiting us; cooling down until 09:40:14"
    }
   },
   "I012": {
@@ -301,7 +296,7 @@
    "fallback": {
     "type": "card",
     "title": "Boston Post front page, January 16, 1919",
-    "reason": "upload.wikimedia.org is rate-limiting us; cooling down until 09:20:44"
+    "reason": "upload.wikimedia.org is rate-limiting us; cooling down until 09:40:14"
    }
   },
   "I013": {
@@ -332,7 +327,7 @@
    "fallback": {
     "type": "card",
     "title": "Boston Post front page, January 16, 1919",
-    "reason": "upload.wikimedia.org is rate-limiting us; cooling down until 09:20:44"
+    "reason": "upload.wikimedia.org is rate-limiting us; cooling down until 09:40:14"
    }
   },
   "I014": {
