@@ -59,7 +59,8 @@
      ],
      "visual": "the Post headline '11 DEAD, 50 HURT' underlined",
      "hero": "the Post headline",
-     "typed": "11 मृत"
+     "typed": "11 मृत",
+     "gap_after": 1.6
     }
    ]
   },
@@ -75,11 +76,12 @@
      "visual": "title card on the evidence wall",
      "hero": "the title card",
      "typed": "",
-     "kind": "framing"
+     "kind": "framing",
+     "gap_after": 1.0
     },
     {
      "id": 6,
-     "text": "जवाब उसी समय के एक अख़बार में है, और लगभग एक सदी बाद लिखे शहर के विवरण में।",
+     "text": "जवाब उसी समय के एक अख़बार में है, और एक सदी बाद लिखे शहर के विवरण में।",
      "claims": [],
      "visual": "two labelled cards pin to the wall: the Post (1919) and the City of Boston (retrospective)",
      "hero": "the two source cards",
@@ -122,7 +124,7 @@
     },
     {
      "id": 9,
-     "text": "शहर के मुताबिक़, यह 50 फ़ुट ऊँचा था और इसमें लगभग तेईस लाख गैलन शीरा भरा जा सकता था।",
+     "text": "शहर के मुताबिक़, यह 50 फ़ुट ऊँचा था, और इसमें लगभग तेईस लाख गैलन शीरा था।",
      "claims": [
       "C25",
       "C1"
@@ -150,7 +152,7 @@
     },
     {
      "id": 11,
-     "text": "यानी उस समय का अख़बार और शहर का बाद का विवरण, इस आँकड़े पर एकमत हैं।",
+     "text": "यानी इस आँकड़े पर उस समय का अख़बार और शहर का बाद का विवरण, दोनों एक हैं।",
      "claims": [
       "C1",
       "C25"
@@ -180,7 +182,7 @@
     },
     {
      "id": 14,
-     "text": "ये शुरुआती संकेत थे कि कुछ ठीक नहीं था।",
+     "text": "यह एक चेतावनी जैसा संकेत था।",
      "claims": [
       "C26"
      ],
@@ -197,14 +199,15 @@
    "lines": [
     {
      "id": 15,
-     "text": "15 जनवरी 1919 को, दोपहर में, यह टैंक टूट गया।",
+     "text": "15 जनवरी 1919, दोपहर बाद। टैंक टूट गया।",
      "claims": [
       "C1",
       "C28"
      ],
      "visual": "the tank photo cracks to black",
      "hero": "the tank",
-     "typed": ""
+     "typed": "",
+     "gap_after": 1.2
     },
     {
      "id": 16,
@@ -255,7 +258,7 @@
     },
     {
      "id": 20,
-     "text": "शहर के विवरण के अनुसार, लहर लगभग 35 मील प्रति घंटे की रफ़्तार से चली।",
+     "text": "शहर के विवरण के अनुसार, लहर लगभग 35 मील प्रति घंटे की रफ़्तार से आगे बढ़ी।",
      "claims": [
       "C8"
      ],
@@ -275,7 +278,7 @@
     },
     {
      "id": 22,
-     "text": "पोस्ट ने 50 फ़ुट लिखा, जो लगभग उतना ही है जितना ऊँचा टैंक बताया गया था।",
+     "text": "पोस्ट ने 50 फ़ुट लिखा, यानी लगभग उतना, जितनी ऊँचाई शहर के विवरण में टैंक की है।",
      "claims": [
       "C7",
       "C25"
@@ -303,7 +306,7 @@
    "lines": [
     {
      "id": 24,
-     "text": "पोस्ट के शब्दों में, इस चिपचिपी बाढ़ ने 100 से ज़्यादा पुरुषों, महिलाओं और बच्चों को चपेट में लिया।",
+     "text": "पोस्ट के शब्दों में, इस चिपचिपी बाढ़ ने 100 से ज़्यादा पुरुषों, महिलाओं और बच्चों को अपनी चपेट में ले लिया।",
      "claims": [
       "C3"
      ],
@@ -320,7 +323,7 @@
     },
     {
      "id": 25,
-     "text": "इमारतें, घोड़ागाड़ियाँ, मोटरगाड़ियाँ और ट्रामें, रास्ते में जो भी आया, कुचल गया।",
+     "text": "इमारतें, घोड़ागाड़ियाँ, मोटरगाड़ियाँ और ट्रामें। रास्ते में जो भी आया, कुचला गया।",
      "claims": [
       "C3"
      ],
@@ -333,11 +336,12 @@
        "kind": "photo",
        "query": "Great Molasses Flood wreckage under the elevated tracks"
       }
-     ]
+     ],
+     "gap_after": 0.9
     },
     {
      "id": 26,
-     "text": "ऊपर से गुज़रने वाली एलिवेटेड रेल का ढाँचा भी टूटकर गिर गया।",
+     "text": "ऊपर से गुज़रने वाली एलिवेटेड रेल का ढाँचा भी नहीं बचा।",
      "claims": [
       "C9"
      ],
@@ -354,7 +358,7 @@
     },
     {
      "id": 27,
-     "text": "अख़बार ने लिखा कि काला, बदबूदार ढेर कॉप्स हिल की ओर की इमारतों से टकराया।",
+     "text": "अख़बार ने लिखा कि काला, बदबूदार सैलाब कॉप्स हिल के सामने की इमारतों से टकराया।",
      "claims": [
       "C4"
      ],
@@ -394,7 +398,7 @@
     },
     {
      "id": 31,
-     "text": "मृतकों में एक लड़की भी थी, लगभग 14 साल की, जिसकी पहचान तब तक नहीं हो पाई थी।",
+     "text": "मृतकों में एक लड़की भी थी, लगभग 14 साल की, जिसकी पहचान अख़बार छपने तक नहीं हो पाई थी।",
      "claims": [
       "C11"
      ],
@@ -410,7 +414,8 @@
      ],
      "visual": "the words 'Revere Rubber Company' highlighted; hold",
      "hero": "the paragraph",
-     "typed": ""
+     "typed": "",
+     "gap_after": 2.0
     }
    ]
   },
@@ -475,7 +480,7 @@
     },
     {
      "id": 37,
-     "text": "आधी रात तक पोस्ट ने 11 मौतें गिनीं: एक महिला, एक लड़की और नौ पुरुष।",
+     "text": "पोस्ट की पहली गिनती में 11 मौतें थीं: एक महिला, एक लड़की और नौ पुरुष।",
      "claims": [
       "C5"
      ],
@@ -485,14 +490,15 @@
     },
     {
      "id": 38,
-     "text": "लेकिन यह पहली गिनती थी।",
+     "text": "लेकिन संख्या यहीं नहीं रुकी।",
      "claims": [
       "C5",
       "C6"
      ],
      "visual": "the tally holds, then a second card slides in",
      "hero": "the tally",
-     "typed": ""
+     "typed": "",
+     "gap_after": 0.9
     },
     {
      "id": 39,
@@ -518,7 +524,8 @@
      "visual": "the evidence wall; a red thread from the tank to two cards",
      "hero": "the evidence wall",
      "typed": "",
-     "kind": "framing"
+     "kind": "framing",
+     "gap_after": 1.0
     },
     {
      "id": 41,
@@ -549,13 +556,14 @@
     },
     {
      "id": 43,
-     "text": "यह उस समय का शुरुआती अनुमान था, जो बाद में टिक नहीं पाया।",
+     "text": "यह उस समय का शुरुआती सिद्धांत था। बाद के निष्कर्ष दूसरी दिशा में गए।",
      "claims": [
       "C14"
      ],
      "visual": "a stamp 'शुरुआती सिद्धांत' over the column",
      "hero": "the stamp",
-     "typed": ""
+     "typed": "",
+     "gap_after": 0.9
     },
     {
      "id": 44,
@@ -579,7 +587,7 @@
     },
     {
      "id": 46,
-     "text": "1925 में, अदालत द्वारा नियुक्त एक ऑडिटर ने इस आपदा के लिए टैंक के मालिकों की लापरवाही को ज़िम्मेदार ठहराया।",
+     "text": "शहर के विवरण के मुताबिक़, 1925 में अदालत द्वारा नियुक्त एक ऑडिटर ने मालिकों की लापरवाही को ज़िम्मेदार माना।",
      "claims": [
       "C29"
      ],
@@ -589,9 +597,10 @@
     },
     {
      "id": 47,
-     "text": "धमाका नहीं, बल्कि लापरवाही। कम से कम, अदालत के ऑडिटर का निष्कर्ष यही था।",
+     "text": "यानी पहले दिन की धमाके वाली बात से अलग, बाद के निष्कर्ष टैंक की बनावट और लापरवाही की ओर इशारा करते हैं।",
      "claims": [
       "C29",
+      "C27",
       "C14"
      ],
      "visual": "the explosion card fades; the negligence card stays lit",
@@ -649,7 +658,8 @@
      "visual": "hold on the full page; slow fade of the highlights",
      "hero": "the front page",
      "typed": "",
-     "kind": "framing"
+     "kind": "framing",
+     "gap_after": 1.6
     }
    ]
   },
@@ -660,11 +670,29 @@
    "lines": [
     {
      "id": 52,
-     "text": "एक टैंक, जिसकी दीवारें बहुत पतली थीं।",
+     "text": "पहले दिन, पोस्ट ने लिखा था कि शीरा किसी अनजाने तरीक़े से निकला।",
      "claims": [
-      "C27"
+      "C1"
      ],
-     "visual": "the tank photo returns, small in the frame",
+     "visual": "the Post column 'released in some manner yet unexplained' highlighted",
+     "hero": "the Post column",
+     "typed": "",
+     "images": [
+      {
+       "what": "Boston Post front page, January 16, 1919",
+       "kind": "paper",
+       "query": "Boston post January 16, 1919"
+      }
+     ]
+    },
+    {
+     "id": 53,
+     "text": "बाद में वजहें दर्ज हुईं: पतली दीवारें, और ऑडिटर के अनुसार, मालिकों की लापरवाही।",
+     "claims": [
+      "C27",
+      "C29"
+     ],
+     "visual": "the thin-wall diagram and the 1925 card return beside the tank photo",
      "hero": "the tank",
      "typed": "",
      "images": [
@@ -676,26 +704,26 @@
      ]
     },
     {
-     "id": 53,
-     "text": "21 लोगों की जान गई, और 1925 में फ़ैसला आया: लापरवाही।",
+     "id": 54,
+     "text": "उस दोपहर की कीमत: 21 ज़िंदगियाँ।",
      "claims": [
-      "C6",
-      "C29"
+      "C6"
      ],
-     "visual": "the panorama; the tally 21 and the 1925 card",
+     "visual": "the panorama; the tally 21 holds in silence",
      "hero": "the panorama",
-     "typed": "",
+     "typed": "21",
      "images": [
       {
        "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
        "kind": "photo",
        "query": "Boston Molasses Disaster panorama 1919"
       }
-     ]
+     ],
+     "gap_after": 2.0
     },
     {
-     "id": 54,
-     "text": "यह कहानी याद दिलाती है कि जिस ढाँचे पर शहर भरोसा करता है, उसकी जाँच कितनी ज़रूरी है।",
+     "id": 55,
+     "text": "शीरे की यह लहर याद दिलाती है कि जिस ढाँचे पर शहर भरोसा करता है, उसकी जाँच कितनी ज़रूरी है।",
      "claims": [],
      "visual": "slow pull-back to the whole evidence wall; fade to black",
      "hero": "the evidence wall",

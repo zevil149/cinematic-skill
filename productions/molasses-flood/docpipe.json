@@ -54,12 +54,12 @@
   },
   "script@hi": {
    "status": "awaiting approval",
-   "inputs": "16ba85271f566638",
-   "at": "2026-11-21T06:12:15",
+   "inputs": "1cd67b72089e86a5",
+   "at": "2026-11-21T06:18:55",
    "errors": [],
    "warnings": [
     "line 3: C7 is disputed; hedge it ('about', 'reported', 'according to')",
-    "SEC02: 29 words against a budget of 20",
+    "SEC02: 28 words against a budget of 20",
     "line 8: rests on C25, which is single-source",
     "line 9: rests on C25, which is single-source",
     "line 11: rests on C25, which is single-source",
@@ -78,12 +78,12 @@
     "line 47: rests on C29, which is single-source",
     "line 47: C14 is disputed; hedge it ('about', 'reported', 'according to')",
     "SEC08: 59 words against a budget of 90",
-    "line 53: rests on C6, which is single-source",
-    "line 53: rests on C29, which is single-source"
+    "line 53: rests on C29, which is single-source",
+    "line 54: rests on C6, which is single-source"
    ],
    "notes": [
-    "54 lines, 711 words, about 5:23.3 at the scratch-voice pace",
-    "exported 54 lines in 9 takes -> productions/molasses-flood/editions/hi/script.json"
+    "55 lines, 732 words, about 5:40.1 at the scratch-voice pace",
+    "exported 55 lines in 9 takes -> productions/molasses-flood/editions/hi/script.json"
    ]
   }
  }
