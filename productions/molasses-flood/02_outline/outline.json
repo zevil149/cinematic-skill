@@ -8,13 +8,13 @@
    "id": "SEC01",
    "kind": "cold_open",
    "act": 0,
-   "title": "A wave nobody could outrun",
-   "purpose": "Hook in 15 s: a sticky wave crushes a city street at noon; the Post's headline and the absurdity of molasses as a killer",
+   "title": "दोपहर की काली लहर",
+   "purpose": "Hook in 15 s: a brown wave crushes a Boston street; the next day's Post headline in its own words",
    "period": "1919",
    "beats": [
-    "Boston, a mild January noon",
-    "a brown wave as high as a building (as reported)",
-    "'11 dead, 50 hurt' by midnight"
+    "Commercial Street, a January afternoon",
+    "'50 feet high', as the Post reported it (Boston Post, 16 Jan 1919 (S1, scan read); height disputed)",
+    "'11 dead, 50 hurt' by midnight (Boston Post, 16 Jan 1919 (S1, scan read))"
    ],
    "claims": [
     "C1",
@@ -24,18 +24,19 @@
    "target_seconds": 18.0,
    "target_words": 45,
    "target_lines": 4,
-   "guide": "Cold open"
+   "guide": "Cold open",
+   "title_en": "The Black Wave at Noon"
   },
   {
    "id": "SEC02",
    "kind": "bridge",
    "act": 1,
-   "title": "Why molasses?",
-   "purpose": "Bridge from the shock to the question: how could something sweet kill",
+   "title": "शीरा कैसे मार सकता है?",
+   "purpose": "Bridge: the question the film answers, and how it knows (a 1919 newspaper and a city account)",
    "period": "1919",
    "beats": [
-    "question: how",
-    "the answer lies in a steel tank"
+    "the question",
+    "the evidence: a newspaper of the next day, a city's account a century later"
    ],
    "claims": [
     "C1"
@@ -43,51 +44,47 @@
    "target_seconds": 8.0,
    "target_words": 20,
    "target_lines": 2,
-   "guide": "Bridge"
+   "guide": "Bridge",
+   "title_en": "How Can Molasses Kill?"
   },
   {
    "id": "SEC03",
    "kind": "chapter",
    "act": 1,
-   "title": "The tank on Commercial Street",
-   "purpose": "Who built the tank and how: Purity Distilling, 1915, 50 ft, earlier leaks, walls too thin (S6, supplied); the USIA link, water test, paint and Jell remain leads",
+   "title": "कमर्शियल स्ट्रीट का टैंक",
+   "purpose": "The tank as the city describes it: built 1915 by Purity Distilling, 50 ft, about 2.3 million gallons, reported earlier leaks; attributed to the City of Boston",
    "period": "1915",
    "beats": [
-    "built 1915 by Purity Distilling, 50 ft, about 2.3 million gallons (S6)",
-    "it had reportedly leaked (S6)",
-    "walls too thin, material prone to cracking (S6)",
-    "USIA parent, no water test, brown paint, Arthur Jell (leads)"
+    "built 1915 by Purity Distilling, 50 ft (City of Boston, 2019 (S6, supplied excerpt); one source: attribute it)",
+    "about 2.3 million gallons (City of Boston, 2019 (S6, supplied excerpt); the Post: 2,300,000)",
+    "it had reportedly leaked (City of Boston, 2019 (S6, supplied excerpt))"
    ],
    "claims": [
     "C25",
-    "C26",
-    "C27",
-    "C16",
-    "C17",
-    "C18"
+    "C1",
+    "C26"
    ],
    "target_seconds": 56.0,
    "target_words": 140,
    "target_lines": 12,
-   "guide": "Chapter 1"
+   "guide": "Chapter 1",
+   "title_en": "The Tank on Commercial Street"
   },
   {
    "id": "SEC04",
    "kind": "chapter",
    "act": 1,
-   "title": "January 15, 1919",
-   "purpose": "The day: warmer weather after a freeze (lead); 2.3 million gallons released; the path of the wave",
+   "title": "15 जनवरी, 1919",
+   "purpose": "The rupture and the path of the wave: causes as the city gives them, the route as the Post gives it, speed as an estimate",
    "period": "1919",
    "beats": [
-    "temperature changes and a large shipment (S6); 40 F figure (lead)",
-    "the tank gives way",
-    "Charter Street to North End Park (Post)",
-    "about 35 mph (S6, estimate)"
+    "poor construction, temperature changes, a large shipment (City of Boston, 2019 (S6, supplied excerpt))",
+    "Charter Street to North End Park (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "about 35 mph, an estimate (City of Boston, 2019 (S6, supplied excerpt))",
+    "the height: reports differ (hedge)"
    ],
    "claims": [
     "C28",
-    "C19",
-    "C1",
     "C2",
     "C8",
     "C7"
@@ -95,123 +92,127 @@
    "target_seconds": 56.0,
    "target_words": 140,
    "target_lines": 12,
-   "guide": "Chapter 2"
+   "guide": "Chapter 2",
+   "title_en": "January 15, 1919"
   },
   {
    "id": "SEC05",
    "kind": "chapter",
    "act": 1,
-   "title": "The black wave",
-   "purpose": "What the wave did: people, horses, buildings, the elevated railway, Engine 31; the victims named by the Post",
+   "title": "जो लहर के रास्ते में आया",
+   "purpose": "What the wave did, in the Post's words: people caught, buildings and the L crushed, the mass thrown back from Copp's Hill; the dead the Post named",
    "period": "1919",
    "beats": [
-    "more than 100 people caught",
-    "the L structure crushed",
-    "Copp's Hill and back to the harbour",
-    "George Lahey of Engine 31",
-    "a girl of about 14, unidentified"
+    "more than 100 people caught (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "the L structure crushed (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "against Copp's Hill and back to the harbour (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "George Lahey of Engine 31 (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "an unidentified girl of about 14 (Boston Post, 16 Jan 1919 (S1, scan read))"
    ],
    "claims": [
     "C3",
-    "C4",
     "C9",
+    "C4",
     "C10",
-    "C11",
-    "C12"
+    "C11"
    ],
    "target_seconds": 56.0,
    "target_words": 140,
    "target_lines": 12,
-   "guide": "Chapter 3"
+   "guide": "Chapter 3",
+   "title_en": "What Stood in Its Path"
   },
   {
    "id": "SEC06",
    "kind": "chapter",
    "act": 1,
-   "title": "Rescue in the syrup",
-   "purpose": "Rescue and its difficulty: ambulances, the playground, the molasses thickening in the cold (lead); final toll (lead); cleanup (lead)",
+   "title": "चिपचिपे मलबे में बचाव",
+   "purpose": "Rescue and the count: ambulances, the playground, the animals; 11 known dead at first, 21 dead and about 150 injured in the city's later figure",
    "period": "1919",
    "beats": [
-    "ambulances from all over the city (Post)",
-    "molasses thickens as it cools (lead)",
-    "21 dead, about 150 injured (S6; needs a second source)",
-    "weeks of cleanup; a brown harbour (lead)"
+    "ambulances from all over the city (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "horses carted away; the freight terminal in ruins (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "first count: 11 dead (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "final count: 21 dead, about 150 injured (City of Boston, 2019 (S6, supplied excerpt); attribute it)"
    ],
    "claims": [
     "C13",
-    "C20",
-    "C6",
-    "C23"
+    "C12",
+    "C5",
+    "C6"
    ],
    "target_seconds": 56.0,
    "target_words": 140,
    "target_lines": 12,
-   "guide": "Chapter 4"
+   "guide": "Chapter 4",
+   "title_en": "Rescue in the Wreckage"
   },
   {
    "id": "SEC07",
    "kind": "chapter",
    "act": 1,
-   "title": "Explosion or failure?",
-   "purpose": "The first theory (Wedger's explosion, the Post) against the engineering and the 1925 auditor's finding of negligence (S6); the auditor's name, the anarchist claim and the damages remain leads or disputed",
-   "period": "1925",
+   "title": "धमाका या लापरवाही?",
+   "purpose": "The first explanation (a state chemist's 'internal explosion', Post) against the later findings: walls too thin, and a 1925 auditor's finding of negligence (city)",
+   "period": "1919-1925",
    "beats": [
-    "the state chemist says explosion (Post)",
-    "engineers: walls too thin (S6)",
-    "1925 auditor: negligence by the owners (S6)",
-    "Ogden, the anarchist claim (leads)",
-    "the damages: figures differ"
+    "the next day: 'internal explosion' (W. L. Wedger, Boston Post, 16 Jan 1919 (S1, scan read)): an early theory, presented as such",
+    "engineers: walls too thin, material prone to cracking (City of Boston, 2019 (S6, supplied excerpt))",
+    "1925: a court-appointed auditor finds the owners negligent (City of Boston, 2019 (S6, supplied excerpt))"
    ],
    "claims": [
     "C14",
     "C27",
-    "C29",
-    "C21",
-    "C22"
+    "C29"
    ],
    "target_seconds": 56.0,
    "target_words": 140,
    "target_lines": 12,
-   "guide": "Chapter 5"
+   "guide": "Chapter 5",
+   "title_en": "Explosion or Negligence?"
   },
   {
    "id": "SEC08",
    "kind": "turn",
    "act": 1,
-   "title": "The day after",
-   "purpose": "Context: the Prohibition amendment one state short the same day; the irony of an alcohol company's tank",
+   "title": "उसी अख़बार का दूसरा शीर्षक",
+   "purpose": "Context from the same front page: the Prohibition amendment one state short; the Post placed the two stories side by side (no claim of a link)",
    "period": "1919",
    "beats": [
-    "35 states ratified, one needed (Post)",
-    "the tank held molasses for industrial alcohol (lead)"
+    "'35 states on dry law list', 'one more needed' (Boston Post, 16 Jan 1919 (S1, scan read))",
+    "the same front page, two stories"
    ],
    "claims": [
-    "C15",
-    "C16"
+    "C15"
    ],
    "target_seconds": 36.0,
    "target_words": 90,
    "target_lines": 8,
-   "guide": "The turn"
+   "guide": "The turn",
+   "title_en": "The Other Headline"
   },
   {
    "id": "SEC09",
    "kind": "close",
    "act": 1,
-   "title": "What the wave left",
-   "purpose": "Close: stricter building rules (lead); a marker and a memory; the lesson of untested engineering",
-   "period": "1919",
+   "title": "लहर के बाद",
+   "purpose": "Close on what the evidence shows: a structure too weak for its load, and a finding of negligence; the 21 who died",
+   "period": "1925",
    "beats": [
-    "stricter rules for engineers (lead)",
-    "the North End today"
+    "walls too thin for what they held (City of Boston, 2019 (S6, supplied excerpt))",
+    "negligence, as the 1925 auditor found (City of Boston, 2019 (S6, supplied excerpt))",
+    "21 dead (City of Boston, 2019 (S6, supplied excerpt))"
    ],
    "claims": [
-    "C24"
+    "C27",
+    "C29",
+    "C6"
    ],
    "target_seconds": 18.0,
    "target_words": 45,
    "target_lines": 4,
-   "guide": "Close"
+   "guide": "Close",
+   "title_en": "After the Wave"
   }
- ]
+ ],
+ "evidence_policy": "Narrative uses only claims backed by the Boston Post scan (S1, primary, quoted verbatim) or the City of Boston excerpt (S6, supplied by the producer, paraphrase, tier 2). S6-only numbers are attributed in the narration ('according to the City of Boston'). Disputed: the wave's height is given only as the Post's report with other estimates noted; the explosion theory only as an early, rejected explanation. Excluded as leads only: C16-C24."
 }
