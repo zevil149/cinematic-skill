@@ -18,17 +18,17 @@
 * **Not yet available at this stage:** `audio/timing.json` and `narration.m4a` (narration stage),
   so the storyboard is not re-timed yet and `rights.py check` cannot run ("timing.json" missing).
 
-## Pronunciation (espeak phonemes checked for names and loanwords)
+## Pronunciation (espeak phonemes, `espeak-ng -v hi -q -x`, for names and loanwords)
 
 | Word | espeak | Note |
 |---|---|---|
 | कॉप्स (Copp's) | k'Ops | fine |
 | डब्ल्यू (W.) | d.'Vblju: | fine |
 | वेजर (Wedger) | v'e:J@3r | close |
-| रेवियर (Revere) | r'e:vIj@3r | the script's spelling; English "Revere" is closer to "रिवियर" |
+| रेवियर (Revere) | r'e:vIj,@3r | the script's spelling; English "Revere" is closer to "रिवियर" |
 | लेही (Lahey) | l'e:Hi | follows the Post's spelling; usually said "लेही"/"ले-ही" |
-| प्यूरिटी (Purity) | pj'u:rIt.i | fine |
-| ऑडिटर, ख़तरा, ज़िंदगियाँ | 'Od.It.@r, x'Vtra:, z'i~dgIja~ | nukta sounds kept |
+| प्यूरिटी (Purity) | p:j'u:*It.,i | fine |
+| ऑडिटर, ख़तरा, ज़िंदगियाँ | 'Od.It.,@r, x'Vtr,a:, z'i~dg,Ija~ | nukta sounds kept |
 
 espeak's Hindi is intelligible but flat, with English-name stress and number reading that a native
 speaker should check. The native-speaker review (`voice.py review --by ...`) is required before any
