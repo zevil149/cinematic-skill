@@ -1,0 +1,672 @@
+{
+ "title": "The Great Molasses Flood — जब बोस्टन की सड़कों पर शीरे की लहर दौड़ी",
+ "lang": "hi",
+ "generated_by": "narration.py",
+ "takes": [
+  {
+   "take": "T01_section",
+   "section": "SEC01",
+   "lines": [
+    {
+     "id": 1,
+     "text": "15 जनवरी 1919 की दोपहर। बोस्टन का नॉर्थ एंड, कमर्शियल स्ट्रीट।",
+     "spoken": "पंद्रह जनवरी उन्नीस सौ उन्नीस की दोपहर। बोस्टन का नॉर्थ एंड, कमर्शियल स्ट्रीट।",
+     "hero": "the panorama of the site",
+     "typed": "15 जनवरी 1919",
+     "claims": [
+      "C1"
+     ],
+     "visual": "slow push across the BPL panorama of the site; date types on"
+    },
+    {
+     "id": 2,
+     "text": "एक विशाल टैंक से तेईस लाख गैलन शीरा सड़कों पर बह निकला।",
+     "spoken": "एक विशाल टैंक से तेईस लाख गैलन शीरा सड़कों पर बह निकला।",
+     "hero": "the street in the panorama",
+     "typed": "",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the panorama darkens; a brown wash spreads along the street line"
+    },
+    {
+     "id": 3,
+     "text": "अगले दिन के बोस्टन पोस्ट ने लिखा कि लहर 50 फ़ुट ऊँची थी; यह आँकड़ा विवादित है।",
+     "spoken": "अगले दिन के बोस्टन पोस्ट ने लिखा कि लहर पचास फ़ुट ऊँची थी; यह आँकड़ा विवादित है।",
+     "hero": "the Post headline",
+     "typed": "50 फ़ुट?",
+     "claims": [
+      "C7"
+     ],
+     "visual": "cut to the Post masthead and deck; highlight '50 Feet High'; a stamp 'विवादित'"
+    },
+    {
+     "id": 4,
+     "text": "आधी रात तक अख़बार ने 11 मृत और 50 से ज़्यादा घायल गिने।",
+     "spoken": "आधी रात तक अख़बार ने ग्यारह मृत और पचास से ज़्यादा घायल गिने।",
+     "hero": "the Post headline",
+     "typed": "11 मृत",
+     "claims": [
+      "C5"
+     ],
+     "visual": "the Post headline '11 DEAD, 50 HURT' underlined"
+    }
+   ]
+  },
+  {
+   "take": "T02_section",
+   "section": "SEC02",
+   "lines": [
+    {
+     "id": 5,
+     "text": "मीठा, गाढ़ा शीरा। वह किसी की जान कैसे ले सकता है?",
+     "spoken": "मीठा, गाढ़ा शीरा। वह किसी की जान कैसे ले सकता है?",
+     "hero": "the title card",
+     "typed": "",
+     "claims": [],
+     "visual": "title card on the evidence wall"
+    },
+    {
+     "id": 6,
+     "text": "जवाब उसी समय के एक अख़बार में है, और लगभग एक सदी बाद लिखे शहर के विवरण में।",
+     "spoken": "जवाब उसी समय के एक अख़बार में है, और लगभग एक सदी बाद लिखे शहर के विवरण में।",
+     "hero": "the two source cards",
+     "typed": "",
+     "claims": [],
+     "visual": "two labelled cards pin to the wall: the Post (1919) and the City of Boston (retrospective)"
+    }
+   ]
+  },
+  {
+   "take": "T03_section",
+   "section": "SEC03",
+   "lines": [
+    {
+     "id": 7,
+     "text": "कहानी शुरू होती है कमर्शियल स्ट्रीट के किनारे खड़े एक विशाल टैंक से।",
+     "spoken": "कहानी शुरू होती है कमर्शियल स्ट्रीट के किनारे खड़े एक विशाल टैंक से।",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the tank photo, slow push-in"
+    },
+    {
+     "id": 8,
+     "text": "सिटी ऑफ़ बोस्टन के विवरण के अनुसार, यह टैंक 1915 में प्यूरिटी डिस्टिलिंग कंपनी ने बनवाया था।",
+     "spoken": "सिटी ऑफ़ बोस्टन के विवरण के अनुसार, यह टैंक उन्नीस सौ पंद्रह में प्यूरिटी डिस्टिलिंग कंपनी ने बनवाया था।",
+     "hero": "the tank",
+     "typed": "1915",
+     "claims": [
+      "C25"
+     ],
+     "visual": "City of Boston source card; year types on"
+    },
+    {
+     "id": 9,
+     "text": "शहर के मुताबिक़, यह 50 फ़ुट ऊँचा था और इसमें लगभग तेईस लाख गैलन शीरा भरा जा सकता था।",
+     "spoken": "शहर के मुताबिक़, यह पचास फ़ुट ऊँचा था और इसमें लगभग तेईस लाख गैलन शीरा भरा जा सकता था।",
+     "hero": "the scale bar",
+     "typed": "50 फ़ुट",
+     "claims": [
+      "C25",
+      "C1"
+     ],
+     "visual": "a scale bar rises beside the tank to 50 ft"
+    },
+    {
+     "id": 10,
+     "text": "बोस्टन पोस्ट ने भी अपनी रिपोर्ट में यही मात्रा छापी थी: तेईस लाख गैलन।",
+     "spoken": "बोस्टन पोस्ट ने भी अपनी रिपोर्ट में यही मात्रा छापी थी: तेईस लाख गैलन।",
+     "hero": "the Post deck",
+     "typed": "23,00,000 गैलन",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the Post deck, '2,300,000 Gallons' highlighted"
+    },
+    {
+     "id": 11,
+     "text": "यानी उस समय का अख़बार और शहर का बाद का विवरण, इस आँकड़े पर एकमत हैं।",
+     "spoken": "यानी उस समय का अख़बार और शहर का बाद का विवरण, इस आँकड़े पर एकमत हैं।",
+     "hero": "the two source cards",
+     "typed": "",
+     "claims": [
+      "C1",
+      "C25"
+     ],
+     "visual": "the two source cards drawn together by a thread"
+    },
+    {
+     "id": 12,
+     "text": "शहर के विवरण में एक और बात दर्ज है।",
+     "spoken": "शहर के विवरण में एक और बात दर्ज है।",
+     "hero": "the City of Boston card",
+     "typed": "",
+     "claims": [],
+     "visual": "City of Boston card brought forward"
+    },
+    {
+     "id": 13,
+     "text": "बताया जाता है कि यह टैंक इस हादसे से पहले भी रिसता रहा था।",
+     "spoken": "बताया जाता है कि यह टैंक इस हादसे से पहले भी रिसता रहा था।",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C26"
+     ],
+     "visual": "the tank photo; slow drips drawn down its side, labelled 'बताया गया'"
+    },
+    {
+     "id": 14,
+     "text": "ये शुरुआती संकेत थे कि कुछ ठीक नहीं था।",
+     "spoken": "ये शुरुआती संकेत थे कि कुछ ठीक नहीं था।",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C26"
+     ],
+     "visual": "hold on the tank; the light dims"
+    }
+   ]
+  },
+  {
+   "take": "T04_15_1919",
+   "section": "SEC04",
+   "lines": [
+    {
+     "id": 15,
+     "text": "15 जनवरी 1919 को, दोपहर में, यह टैंक टूट गया।",
+     "spoken": "पंद्रह जनवरी उन्नीस सौ उन्नीस को, दोपहर में, यह टैंक टूट गया।",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C1",
+      "C28"
+     ],
+     "visual": "the tank photo cracks to black"
+    },
+    {
+     "id": 16,
+     "text": "सिटी ऑफ़ बोस्टन के अनुसार, इसके पीछे कई कारण एक साथ थे।",
+     "spoken": "सिटी ऑफ़ बोस्टन के अनुसार, इसके पीछे कई कारण एक साथ थे।",
+     "hero": "the three slots",
+     "typed": "",
+     "claims": [
+      "C28"
+     ],
+     "visual": "City of Boston card; three empty slots appear"
+    },
+    {
+     "id": 17,
+     "text": "कमज़ोर निर्माण, तापमान में बदलाव, और शीरे की एक बड़ी खेप।",
+     "spoken": "कमज़ोर निर्माण, तापमान में बदलाव, और शीरे की एक बड़ी खेप।",
+     "hero": "the three slots",
+     "typed": "कमज़ोर निर्माण · तापमान · बड़ी खेप",
+     "claims": [
+      "C28"
+     ],
+     "visual": "the three slots fill one by one"
+    },
+    {
+     "id": 18,
+     "text": "बोस्टन पोस्ट के अनुसार, शीरा कमर्शियल स्ट्रीट और उसके तट पर फैल गया।",
+     "spoken": "बोस्टन पोस्ट के अनुसार, शीरा कमर्शियल स्ट्रीट और उसके तट पर फैल गया।",
+     "hero": "the map",
+     "typed": "",
+     "claims": [
+      "C2"
+     ],
+     "visual": "the area map; the flooded zone fills along Commercial Street"
+    },
+    {
+     "id": 19,
+     "text": "चार्टर स्ट्रीट से लेकर नॉर्थ एंड पार्क के दक्षिणी छोर तक।",
+     "spoken": "चार्टर स्ट्रीट से लेकर नॉर्थ एंड पार्क के दक्षिणी छोर तक।",
+     "hero": "the route line",
+     "typed": "",
+     "claims": [
+      "C2"
+     ],
+     "visual": "a route line runs from Charter Street to North End Park"
+    },
+    {
+     "id": 20,
+     "text": "शहर के विवरण के अनुसार, लहर लगभग 35 मील प्रति घंटे की रफ़्तार से चली।",
+     "spoken": "शहर के विवरण के अनुसार, लहर लगभग पैंतीस मील प्रति घंटे की रफ़्तार से चली।",
+     "hero": "the speed figure",
+     "typed": "~35 मील/घंटा",
+     "claims": [
+      "C8"
+     ],
+     "visual": "a speed figure counts up on the map; labelled as an estimate"
+    },
+    {
+     "id": 21,
+     "text": "लहर कितनी ऊँची थी, इस पर स्रोत एकमत नहीं हैं।",
+     "spoken": "लहर कितनी ऊँची थी, इस पर स्रोत एकमत नहीं हैं।",
+     "hero": "the Post deck",
+     "typed": "",
+     "claims": [
+      "C7"
+     ],
+     "visual": "the Post's '50 Feet High' beside a question mark"
+    },
+    {
+     "id": 22,
+     "text": "पोस्ट ने 50 फ़ुट लिखा, जो लगभग उतना ही है जितना ऊँचा टैंक बताया गया था।",
+     "spoken": "पोस्ट ने पचास फ़ुट लिखा, जो लगभग उतना ही है जितना ऊँचा टैंक बताया गया था।",
+     "hero": "the scale bar",
+     "typed": "",
+     "claims": [
+      "C7",
+      "C25"
+     ],
+     "visual": "the 50 ft scale bar from the tank slides beside the headline"
+    },
+    {
+     "id": 23,
+     "text": "बाद के कई विवरण इससे काफ़ी कम ऊँचाई बताते हैं।",
+     "spoken": "बाद के कई विवरण इससे काफ़ी कम ऊँचाई बताते हैं।",
+     "hero": "the scale bar",
+     "typed": "",
+     "claims": [
+      "C7"
+     ],
+     "visual": "the bar lowers and blurs; label 'बाद के अनुमान'"
+    }
+   ]
+  },
+  {
+   "take": "T05_section",
+   "section": "SEC05",
+   "lines": [
+    {
+     "id": 24,
+     "text": "पोस्ट के शब्दों में, इस चिपचिपी बाढ़ ने 100 से ज़्यादा पुरुषों, महिलाओं और बच्चों को चपेट में लिया।",
+     "spoken": "पोस्ट के शब्दों में, इस चिपचिपी बाढ़ ने एक सौ से ज़्यादा पुरुषों, महिलाओं और बच्चों को चपेट में लिया।",
+     "hero": "the Post column",
+     "typed": "100+",
+     "claims": [
+      "C3"
+     ],
+     "visual": "the Post column, the passage highlighted"
+    },
+    {
+     "id": 25,
+     "text": "इमारतें, घोड़ागाड़ियाँ, मोटरगाड़ियाँ और ट्रामें, रास्ते में जो भी आया, कुचल गया।",
+     "spoken": "इमारतें, घोड़ागाड़ियाँ, मोटरगाड़ियाँ और ट्रामें, रास्ते में जो भी आया, कुचल गया।",
+     "hero": "the wreckage",
+     "typed": "",
+     "claims": [
+      "C3"
+     ],
+     "visual": "pan across the wreckage photo"
+    },
+    {
+     "id": 26,
+     "text": "ऊपर से गुज़रने वाली एलिवेटेड रेल का ढाँचा भी टूटकर गिर गया।",
+     "spoken": "ऊपर से गुज़रने वाली एलिवेटेड रेल का ढाँचा भी टूटकर गिर गया।",
+     "hero": "the elevated structure",
+     "typed": "",
+     "claims": [
+      "C9"
+     ],
+     "visual": "the elevated-railway photo; slow tilt up the bent structure"
+    },
+    {
+     "id": 27,
+     "text": "अख़बार ने लिखा कि काला, बदबूदार ढेर कॉप्स हिल की ओर की इमारतों से टकराया।",
+     "spoken": "अख़बार ने लिखा कि काला, बदबूदार ढेर कॉप्स हिल की ओर की इमारतों से टकराया।",
+     "hero": "the map arrow",
+     "typed": "",
+     "claims": [
+      "C4"
+     ],
+     "visual": "the map; an arrow drives towards Copp's Hill"
+    },
+    {
+     "id": 28,
+     "text": "और फिर वापस बंदरगाह की ओर लौट गया।",
+     "spoken": "और फिर वापस बंदरगाह की ओर लौट गया।",
+     "hero": "the map arrow",
+     "typed": "",
+     "claims": [
+      "C4"
+     ],
+     "visual": "the arrow swings back to the harbour"
+    },
+    {
+     "id": 29,
+     "text": "मरने वालों में बोस्टन फ़ायर डिपार्टमेंट के इंजन 31 के इंजीनियर थे।",
+     "spoken": "मरने वालों में बोस्टन फ़ायर डिपार्टमेंट के इंजन इकतीस के इंजीनियर थे।",
+     "hero": "the list of the dead",
+     "typed": "इंजन 31",
+     "claims": [
+      "C10"
+     ],
+     "visual": "the Post's list of the known dead; one name highlighted"
+    },
+    {
+     "id": 30,
+     "text": "पोस्ट ने उनका नाम जॉर्ज लेही लिखा।",
+     "spoken": "पोस्ट ने उनका नाम जॉर्ज लेही लिखा।",
+     "hero": "the name",
+     "typed": "",
+     "claims": [
+      "C10"
+     ],
+     "visual": "the name 'GEORGE LAHEY' lit in the list"
+    },
+    {
+     "id": 31,
+     "text": "मृतकों में एक लड़की भी थी, लगभग 14 साल की, जिसकी पहचान तब तक नहीं हो पाई थी।",
+     "spoken": "मृतकों में एक लड़की भी थी, लगभग चौदह साल की, जिसकी पहचान तब तक नहीं हो पाई थी।",
+     "hero": "the paragraph",
+     "typed": "",
+     "claims": [
+      "C11"
+     ],
+     "visual": "the Post's 'unidentified dead' paragraph"
+    },
+    {
+     "id": 32,
+     "text": "उसने स्लेटी जैकेट पहनी थी, और उसके थैले पर रेवियर रबर कंपनी का रोज़गार टैग लगा था।",
+     "spoken": "उसने स्लेटी जैकेट पहनी थी, और उसके थैले पर रेवियर रबर कंपनी का रोज़गार टैग लगा था।",
+     "hero": "the paragraph",
+     "typed": "",
+     "claims": [
+      "C11"
+     ],
+     "visual": "the words 'Revere Rubber Company' highlighted; hold"
+    }
+   ]
+  },
+  {
+   "take": "T06_section",
+   "section": "SEC06",
+   "lines": [
+    {
+     "id": 33,
+     "text": "शहर के हर हिस्से से एम्बुलेंस घटनास्थल की ओर दौड़ाई गईं।",
+     "spoken": "शहर के हर हिस्से से एम्बुलेंस घटनास्थल की ओर दौड़ाई गईं।",
+     "hero": "the bird's-eye photo",
+     "typed": "",
+     "claims": [
+      "C13"
+     ],
+     "visual": "the Post's bird's-eye photo; its caption highlighted"
+    },
+    {
+     "id": 34,
+     "text": "नॉर्थ एंड पार्क के खेल के मैदान पर बचाव का काम चल रहा था।",
+     "spoken": "नॉर्थ एंड पार्क के खेल के मैदान पर बचाव का काम चल रहा था।",
+     "hero": "the playground",
+     "typed": "",
+     "claims": [
+      "C13"
+     ],
+     "visual": "push into the playground area of the photo"
+    },
+    {
+     "id": 35,
+     "text": "मरे हुए घोड़े, बिल्लियाँ और कुत्ते गाड़ियों में भर-भरकर हटाए गए।",
+     "spoken": "मरे हुए घोड़े, बिल्लियाँ और कुत्ते गाड़ियों में भर-भरकर हटाए गए।",
+     "hero": "the wreckage",
+     "typed": "",
+     "claims": [
+      "C12"
+     ],
+     "visual": "the panorama, slow drift across the wreckage"
+    },
+    {
+     "id": 36,
+     "text": "बोस्टन का इकलौता ट्रॉली मालवाहक टर्मिनल खंडहर बन चुका था।",
+     "spoken": "बोस्टन का इकलौता ट्रॉली मालवाहक टर्मिनल खंडहर बन चुका था।",
+     "hero": "the ruins",
+     "typed": "",
+     "claims": [
+      "C12"
+     ],
+     "visual": "hold on the ruined buildings"
+    },
+    {
+     "id": 37,
+     "text": "आधी रात तक पोस्ट ने 11 मौतें गिनीं: एक महिला, एक लड़की और नौ पुरुष।",
+     "spoken": "आधी रात तक पोस्ट ने ग्यारह मौतें गिनीं: एक महिला, एक लड़की और नौ पुरुष।",
+     "hero": "the tally",
+     "typed": "11",
+     "claims": [
+      "C5"
+     ],
+     "visual": "a tally types on: 11"
+    },
+    {
+     "id": 38,
+     "text": "लेकिन यह पहली गिनती थी।",
+     "spoken": "लेकिन यह पहली गिनती थी।",
+     "hero": "the tally",
+     "typed": "",
+     "claims": [
+      "C5",
+      "C6"
+     ],
+     "visual": "the tally holds, then a second card slides in"
+    },
+    {
+     "id": 39,
+     "text": "सिटी ऑफ़ बोस्टन के अनुसार, आख़िरकार 21 लोगों की जान गई, और लगभग 150 घायल हुए।",
+     "spoken": "सिटी ऑफ़ बोस्टन के अनुसार, आख़िरकार इक्कीस लोगों की जान गई, और लगभग एक सौ पचास घायल हुए।",
+     "hero": "the tally",
+     "typed": "21",
+     "claims": [
+      "C6"
+     ],
+     "visual": "the tally rolls from 11 to 21; City of Boston card"
+    }
+   ]
+  },
+  {
+   "take": "T07_section",
+   "section": "SEC07",
+   "lines": [
+    {
+     "id": 40,
+     "text": "अब सबसे बड़ा सवाल: यह हुआ कैसे?",
+     "spoken": "अब सबसे बड़ा सवाल: यह हुआ कैसे?",
+     "hero": "the evidence wall",
+     "typed": "",
+     "claims": [],
+     "visual": "the evidence wall; a red thread from the tank to two cards"
+    },
+    {
+     "id": 41,
+     "text": "अगले दिन बोस्टन पोस्ट ने छापा कि राज्य पुलिस के रसायनज्ञ डब्ल्यू. एल. वेजर एक पक्के निष्कर्ष पर पहुँचे थे।",
+     "spoken": "अगले दिन बोस्टन पोस्ट ने छापा कि राज्य पुलिस के रसायनज्ञ डब्ल्यू. एल. वेजर एक पक्के निष्कर्ष पर पहुँचे थे।",
+     "hero": "the Post column",
+     "typed": "",
+     "claims": [
+      "C14"
+     ],
+     "visual": "the Post's 'INTERNAL EXPLOSION WAS CAUSE, SAYS STATE CHEMIST' column"
+    },
+    {
+     "id": 42,
+     "text": "उनके अनुसार टैंक ढहा नहीं था, बल्कि उसके भीतर धमाका हुआ था।",
+     "spoken": "उनके अनुसार टैंक ढहा नहीं था, बल्कि उसके भीतर धमाका हुआ था।",
+     "hero": "the Post column",
+     "typed": "",
+     "claims": [
+      "C14"
+     ],
+     "visual": "the words 'internal explosion' highlighted"
+    },
+    {
+     "id": 43,
+     "text": "यह उस समय का शुरुआती अनुमान था, जो बाद में टिक नहीं पाया।",
+     "spoken": "यह उस समय का शुरुआती अनुमान था, जो बाद में टिक नहीं पाया।",
+     "hero": "the stamp",
+     "typed": "",
+     "claims": [
+      "C14"
+     ],
+     "visual": "a stamp 'शुरुआती सिद्धांत' over the column"
+    },
+    {
+     "id": 44,
+     "text": "शहर के विवरण के अनुसार, बाद में स्ट्रक्चरल इंजीनियरों ने पाया कि टैंक की दीवारें बहुत पतली थीं।",
+     "spoken": "शहर के विवरण के अनुसार, बाद में स्ट्रक्चरल इंजीनियरों ने पाया कि टैंक की दीवारें बहुत पतली थीं।",
+     "hero": "the wall diagram",
+     "typed": "",
+     "claims": [
+      "C27"
+     ],
+     "visual": "City of Boston card; a cross-section of a wall drawn thin"
+    },
+    {
+     "id": 45,
+     "text": "और उसकी सामग्री में दरार पड़ने का ख़तरा था।",
+     "spoken": "और उसकी सामग्री में दरार पड़ने का ख़तरा था।",
+     "hero": "the wall diagram",
+     "typed": "",
+     "claims": [
+      "C27"
+     ],
+     "visual": "a crack runs through the diagram"
+    },
+    {
+     "id": 46,
+     "text": "1925 में, अदालत द्वारा नियुक्त एक ऑडिटर ने इस आपदा के लिए टैंक के मालिकों की लापरवाही को ज़िम्मेदार ठहराया।",
+     "spoken": "उन्नीस सौ पच्चीस में, अदालत द्वारा नियुक्त एक ऑडिटर ने इस आपदा के लिए टैंक के मालिकों की लापरवाही को ज़िम्मेदार ठहराया।",
+     "hero": "the 1925 card",
+     "typed": "1925",
+     "claims": [
+      "C29"
+     ],
+     "visual": "a dated card '1925' pins over the thread's end"
+    },
+    {
+     "id": 47,
+     "text": "धमाका नहीं, बल्कि लापरवाही। कम से कम, अदालत के ऑडिटर का निष्कर्ष यही था।",
+     "spoken": "धमाका नहीं, बल्कि लापरवाही। कम से कम, अदालत के ऑडिटर का निष्कर्ष यही था।",
+     "hero": "the 1925 card",
+     "typed": "लापरवाही",
+     "claims": [
+      "C29",
+      "C14"
+     ],
+     "visual": "the explosion card fades; the negligence card stays lit"
+    }
+   ]
+  },
+  {
+   "take": "T08_section",
+   "section": "SEC08",
+   "lines": [
+    {
+     "id": 48,
+     "text": "उसी अख़बार के पहले पन्ने पर एक और ख़बर थी।",
+     "spoken": "उसी अख़बार के पहले पन्ने पर एक और ख़बर थी।",
+     "hero": "the front page",
+     "typed": "",
+     "claims": [
+      "C15"
+     ],
+     "visual": "pull back to the whole Post front page"
+    },
+    {
+     "id": 49,
+     "text": "शराबबंदी का संशोधन 35 राज्यों में पारित हो चुका था, और बस एक राज्य और चाहिए था।",
+     "spoken": "शराबबंदी का संशोधन पैंतीस राज्यों में पारित हो चुका था, और बस एक राज्य और चाहिए था।",
+     "hero": "the Prohibition column",
+     "typed": "35",
+     "claims": [
+      "C15"
+     ],
+     "visual": "'35 STATES ON DRY LAW LIST' highlighted"
+    },
+    {
+     "id": 50,
+     "text": "शीरे की लहर और शराबबंदी, दोनों ख़बरें एक ही पन्ने पर साथ छपीं।",
+     "spoken": "शीरे की लहर और शराबबंदी, दोनों ख़बरें एक ही पन्ने पर साथ छपीं।",
+     "hero": "the front page",
+     "typed": "",
+     "claims": [
+      "C15"
+     ],
+     "visual": "the two columns lit side by side"
+    },
+    {
+     "id": 51,
+     "text": "यह फ़िल्म दोनों के बीच कोई संबंध होने का दावा नहीं करती; बस, एक ही दिन, एक ही पन्ना।",
+     "spoken": "यह फ़िल्म दोनों के बीच कोई संबंध होने का दावा नहीं करती; बस, एक ही दिन, एक ही पन्ना।",
+     "hero": "the front page",
+     "typed": "",
+     "claims": [],
+     "visual": "hold on the full page; slow fade of the highlights"
+    }
+   ]
+  },
+  {
+   "take": "T09_section",
+   "section": "SEC09",
+   "lines": [
+    {
+     "id": 52,
+     "text": "एक टैंक, जिसकी दीवारें बहुत पतली थीं।",
+     "spoken": "एक टैंक, जिसकी दीवारें बहुत पतली थीं।",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C27"
+     ],
+     "visual": "the tank photo returns, small in the frame"
+    },
+    {
+     "id": 53,
+     "text": "21 लोगों की जान गई, और 1925 में फ़ैसला आया: लापरवाही।",
+     "spoken": "इक्कीस लोगों की जान गई, और उन्नीस सौ पच्चीस में फ़ैसला आया: लापरवाही।",
+     "hero": "the panorama",
+     "typed": "",
+     "claims": [
+      "C6",
+      "C29"
+     ],
+     "visual": "the panorama; the tally 21 and the 1925 card"
+    },
+    {
+     "id": 54,
+     "text": "यह कहानी याद दिलाती है कि जिस ढाँचे पर शहर भरोसा करता है, उसकी जाँच कितनी ज़रूरी है।",
+     "spoken": "यह कहानी याद दिलाती है कि जिस ढाँचे पर शहर भरोसा करता है, उसकी जाँच कितनी ज़रूरी है।",
+     "hero": "the evidence wall",
+     "typed": "",
+     "claims": [],
+     "visual": "slow pull-back to the whole evidence wall; fade to black"
+    }
+   ]
+  }
+ ],
+ "fact_notes": [
+  "C1: On the afternoon of January 15, 1919, a giant tank released 2,300,000 gallons of molasses over Commercial Street in Boston's North End. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C2: The wave swept Commercial Street and its waterfront from Charter Street to the southern end of North End Park. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C3: The flood caught more than 100 men, women and children, and crushed buildings, horse teams, automobiles and street cars. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C4: The mass struck the buildings facing Copp's Hill and then swept back towards the harbour. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C5: By midnight the next day's paper counted eleven known dead, a woman, a girl and nine men, and more than 50 injured. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C6: The final toll was 21 dead and about 150 injured. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end; S2: https://en.wikipedia.org/wiki/Great_Molasses_Flood; S4: https://www.npr.org/2019/01/13/684894921/after-100-years-a-look-back-at-bostons-great-molasses-flood-of-1919; S3: https://www.britannica.com/topic/Great-Molasses-Flood]",
+  "C7: How high the wave was is disputed: the Boston Post reported 50 feet; later accounts give figures from about 15 to 40 feet, most often 25 feet. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg; S2: https://en.wikipedia.org/wiki/Great_Molasses_Flood; S4: https://www.npr.org/2019/01/13/684894921/after-100-years-a-look-back-at-bostons-great-molasses-flood-of-1919; S3: https://www.britannica.com/topic/Great-Molasses-Flood]",
+  "C8: The wave is estimated to have moved at about 35 miles an hour. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end; S2: https://en.wikipedia.org/wiki/Great_Molasses_Flood; S11: https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg]",
+  "C9: The elevated railway structure on Commercial Street was crushed. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C10: Among the dead was George Lahey (as the Post spells it), an engineer of Engine 31 of the Boston Fire Department. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C11: Among the unidentified dead was a girl of about 14 with an employment tag from the Revere Rubber Company. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C12: Dead horses, cats and dogs were carted away, and Boston's only trolley freight terminal was in ruins. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C13: Ambulances were rushed from all over the city, and rescuers worked on the North End Park playground. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C14: The day after, a state police chemist, W. L. Wedger, concluded that an internal explosion, not a collapse, had caused the disaster; this first explanation did not stand. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C15: On January 15, 1919, 35 states had ratified the Prohibition amendment and one more was needed. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C25: The tank, 50 feet tall and holding about 2.3 million gallons, was built in 1915 by the Purity Distilling Company. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end]",
+  "C26: The tank had reportedly leaked before the disaster. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end]",
+  "C27: Structural engineers later found the tank's walls too thin and its material vulnerable to cracking. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end]",
+  "C28: Poor construction, changes in temperature and a large shipment of molasses together contributed to the rupture. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end]",
+  "C29: In 1925 a court-appointed auditor attributed the disaster to negligence by the tank's owners. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end; S5: https://www.history.com/news/the-great-molasses-flood-of-1919; S7: https://www.sec.state.ma.us/divisions/state-house-tours/did-you-know/Molasses-Flood.htm]"
+ ]
+}

@@ -1,0 +1,708 @@
+{
+ "title": "The Great Molasses Flood — जब बोस्टन की सड़कों पर शीरे की लहर दौड़ी",
+ "lang": "hi",
+ "sections": [
+  {
+   "id": "SEC01",
+   "take": "T01_section",
+   "target_words": 45,
+   "lines": [
+    {
+     "id": 1,
+     "text": "15 जनवरी 1919 की दोपहर। बोस्टन का नॉर्थ एंड, कमर्शियल स्ट्रीट।",
+     "claims": [
+      "C1"
+     ],
+     "visual": "slow push across the BPL panorama of the site; date types on",
+     "hero": "the panorama of the site",
+     "typed": "15 जनवरी 1919",
+     "images": [
+      {
+       "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+       "kind": "photo",
+       "query": "Boston Molasses Disaster panorama 1919"
+      }
+     ]
+    },
+    {
+     "id": 2,
+     "text": "एक विशाल टैंक से तेईस लाख गैलन शीरा सड़कों पर बह निकला।",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the panorama darkens; a brown wash spreads along the street line",
+     "hero": "the street in the panorama",
+     "typed": ""
+    },
+    {
+     "id": 3,
+     "text": "अगले दिन के बोस्टन पोस्ट ने लिखा कि लहर 50 फ़ुट ऊँची थी; यह आँकड़ा विवादित है।",
+     "claims": [
+      "C7"
+     ],
+     "visual": "cut to the Post masthead and deck; highlight '50 Feet High'; a stamp 'विवादित'",
+     "hero": "the Post headline",
+     "typed": "50 फ़ुट?",
+     "images": [
+      {
+       "what": "Boston Post front page, January 16, 1919",
+       "kind": "paper",
+       "query": "Boston post January 16, 1919"
+      }
+     ]
+    },
+    {
+     "id": 4,
+     "text": "आधी रात तक अख़बार ने 11 मृत और 50 से ज़्यादा घायल गिने।",
+     "claims": [
+      "C5"
+     ],
+     "visual": "the Post headline '11 DEAD, 50 HURT' underlined",
+     "hero": "the Post headline",
+     "typed": "11 मृत"
+    }
+   ]
+  },
+  {
+   "id": "SEC02",
+   "take": "T02_section",
+   "target_words": 20,
+   "lines": [
+    {
+     "id": 5,
+     "text": "मीठा, गाढ़ा शीरा। वह किसी की जान कैसे ले सकता है?",
+     "claims": [],
+     "visual": "title card on the evidence wall",
+     "hero": "the title card",
+     "typed": "",
+     "kind": "framing"
+    },
+    {
+     "id": 6,
+     "text": "जवाब उसी समय के एक अख़बार में है, और लगभग एक सदी बाद लिखे शहर के विवरण में।",
+     "claims": [],
+     "visual": "two labelled cards pin to the wall: the Post (1919) and the City of Boston (retrospective)",
+     "hero": "the two source cards",
+     "typed": "",
+     "kind": "framing"
+    }
+   ]
+  },
+  {
+   "id": "SEC03",
+   "take": "T03_section",
+   "target_words": 140,
+   "lines": [
+    {
+     "id": 7,
+     "text": "कहानी शुरू होती है कमर्शियल स्ट्रीट के किनारे खड़े एक विशाल टैंक से।",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the tank photo, slow push-in",
+     "hero": "the tank",
+     "typed": "",
+     "images": [
+      {
+       "what": "The North End molasses tank before the disaster",
+       "kind": "photo",
+       "query": "North End molasses tank"
+      }
+     ]
+    },
+    {
+     "id": 8,
+     "text": "सिटी ऑफ़ बोस्टन के विवरण के अनुसार, यह टैंक 1915 में प्यूरिटी डिस्टिलिंग कंपनी ने बनवाया था।",
+     "claims": [
+      "C25"
+     ],
+     "visual": "City of Boston source card; year types on",
+     "hero": "the tank",
+     "typed": "1915"
+    },
+    {
+     "id": 9,
+     "text": "शहर के मुताबिक़, यह 50 फ़ुट ऊँचा था और इसमें लगभग तेईस लाख गैलन शीरा भरा जा सकता था।",
+     "claims": [
+      "C25",
+      "C1"
+     ],
+     "visual": "a scale bar rises beside the tank to 50 ft",
+     "hero": "the scale bar",
+     "typed": "50 फ़ुट"
+    },
+    {
+     "id": 10,
+     "text": "बोस्टन पोस्ट ने भी अपनी रिपोर्ट में यही मात्रा छापी थी: तेईस लाख गैलन।",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the Post deck, '2,300,000 Gallons' highlighted",
+     "hero": "the Post deck",
+     "typed": "23,00,000 गैलन",
+     "images": [
+      {
+       "what": "Boston Post front page, January 16, 1919",
+       "kind": "paper",
+       "query": "Boston post January 16, 1919"
+      }
+     ]
+    },
+    {
+     "id": 11,
+     "text": "यानी उस समय का अख़बार और शहर का बाद का विवरण, इस आँकड़े पर एकमत हैं।",
+     "claims": [
+      "C1",
+      "C25"
+     ],
+     "visual": "the two source cards drawn together by a thread",
+     "hero": "the two source cards",
+     "typed": ""
+    },
+    {
+     "id": 12,
+     "text": "शहर के विवरण में एक और बात दर्ज है।",
+     "claims": [],
+     "visual": "City of Boston card brought forward",
+     "hero": "the City of Boston card",
+     "typed": "",
+     "kind": "framing"
+    },
+    {
+     "id": 13,
+     "text": "बताया जाता है कि यह टैंक इस हादसे से पहले भी रिसता रहा था।",
+     "claims": [
+      "C26"
+     ],
+     "visual": "the tank photo; slow drips drawn down its side, labelled 'बताया गया'",
+     "hero": "the tank",
+     "typed": ""
+    },
+    {
+     "id": 14,
+     "text": "ये शुरुआती संकेत थे कि कुछ ठीक नहीं था।",
+     "claims": [
+      "C26"
+     ],
+     "visual": "hold on the tank; the light dims",
+     "hero": "the tank",
+     "typed": ""
+    }
+   ]
+  },
+  {
+   "id": "SEC04",
+   "take": "T04_15_1919",
+   "target_words": 140,
+   "lines": [
+    {
+     "id": 15,
+     "text": "15 जनवरी 1919 को, दोपहर में, यह टैंक टूट गया।",
+     "claims": [
+      "C1",
+      "C28"
+     ],
+     "visual": "the tank photo cracks to black",
+     "hero": "the tank",
+     "typed": ""
+    },
+    {
+     "id": 16,
+     "text": "सिटी ऑफ़ बोस्टन के अनुसार, इसके पीछे कई कारण एक साथ थे।",
+     "claims": [
+      "C28"
+     ],
+     "visual": "City of Boston card; three empty slots appear",
+     "hero": "the three slots",
+     "typed": ""
+    },
+    {
+     "id": 17,
+     "text": "कमज़ोर निर्माण, तापमान में बदलाव, और शीरे की एक बड़ी खेप।",
+     "claims": [
+      "C28"
+     ],
+     "visual": "the three slots fill one by one",
+     "hero": "the three slots",
+     "typed": "कमज़ोर निर्माण · तापमान · बड़ी खेप"
+    },
+    {
+     "id": 18,
+     "text": "बोस्टन पोस्ट के अनुसार, शीरा कमर्शियल स्ट्रीट और उसके तट पर फैल गया।",
+     "claims": [
+      "C2"
+     ],
+     "visual": "the area map; the flooded zone fills along Commercial Street",
+     "hero": "the map",
+     "typed": "",
+     "images": [
+      {
+       "what": "Map of the molasses flood area, North End",
+       "kind": "map",
+       "query": "Boston molasses area map"
+      }
+     ]
+    },
+    {
+     "id": 19,
+     "text": "चार्टर स्ट्रीट से लेकर नॉर्थ एंड पार्क के दक्षिणी छोर तक।",
+     "claims": [
+      "C2"
+     ],
+     "visual": "a route line runs from Charter Street to North End Park",
+     "hero": "the route line",
+     "typed": ""
+    },
+    {
+     "id": 20,
+     "text": "शहर के विवरण के अनुसार, लहर लगभग 35 मील प्रति घंटे की रफ़्तार से चली।",
+     "claims": [
+      "C8"
+     ],
+     "visual": "a speed figure counts up on the map; labelled as an estimate",
+     "hero": "the speed figure",
+     "typed": "~35 मील/घंटा"
+    },
+    {
+     "id": 21,
+     "text": "लहर कितनी ऊँची थी, इस पर स्रोत एकमत नहीं हैं।",
+     "claims": [
+      "C7"
+     ],
+     "visual": "the Post's '50 Feet High' beside a question mark",
+     "hero": "the Post deck",
+     "typed": ""
+    },
+    {
+     "id": 22,
+     "text": "पोस्ट ने 50 फ़ुट लिखा, जो लगभग उतना ही है जितना ऊँचा टैंक बताया गया था।",
+     "claims": [
+      "C7",
+      "C25"
+     ],
+     "visual": "the 50 ft scale bar from the tank slides beside the headline",
+     "hero": "the scale bar",
+     "typed": ""
+    },
+    {
+     "id": 23,
+     "text": "बाद के कई विवरण इससे काफ़ी कम ऊँचाई बताते हैं।",
+     "claims": [
+      "C7"
+     ],
+     "visual": "the bar lowers and blurs; label 'बाद के अनुमान'",
+     "hero": "the scale bar",
+     "typed": ""
+    }
+   ]
+  },
+  {
+   "id": "SEC05",
+   "take": "T05_section",
+   "target_words": 140,
+   "lines": [
+    {
+     "id": 24,
+     "text": "पोस्ट के शब्दों में, इस चिपचिपी बाढ़ ने 100 से ज़्यादा पुरुषों, महिलाओं और बच्चों को चपेट में लिया।",
+     "claims": [
+      "C3"
+     ],
+     "visual": "the Post column, the passage highlighted",
+     "hero": "the Post column",
+     "typed": "100+",
+     "images": [
+      {
+       "what": "Boston Post front page, January 16, 1919",
+       "kind": "paper",
+       "query": "Boston post January 16, 1919"
+      }
+     ]
+    },
+    {
+     "id": 25,
+     "text": "इमारतें, घोड़ागाड़ियाँ, मोटरगाड़ियाँ और ट्रामें, रास्ते में जो भी आया, कुचल गया।",
+     "claims": [
+      "C3"
+     ],
+     "visual": "pan across the wreckage photo",
+     "hero": "the wreckage",
+     "typed": "",
+     "images": [
+      {
+       "what": "Wreckage under the elevated tracks, 1919",
+       "kind": "photo",
+       "query": "Great Molasses Flood wreckage under the elevated tracks"
+      }
+     ]
+    },
+    {
+     "id": 26,
+     "text": "ऊपर से गुज़रने वाली एलिवेटेड रेल का ढाँचा भी टूटकर गिर गया।",
+     "claims": [
+      "C9"
+     ],
+     "visual": "the elevated-railway photo; slow tilt up the bent structure",
+     "hero": "the elevated structure",
+     "typed": "",
+     "images": [
+      {
+       "what": "Boston Elevated Railway structure after the molasses flood, January 1919",
+       "kind": "photo",
+       "query": "Boston Elevated Railway after the Molasses Flood January 1919"
+      }
+     ]
+    },
+    {
+     "id": 27,
+     "text": "अख़बार ने लिखा कि काला, बदबूदार ढेर कॉप्स हिल की ओर की इमारतों से टकराया।",
+     "claims": [
+      "C4"
+     ],
+     "visual": "the map; an arrow drives towards Copp's Hill",
+     "hero": "the map arrow",
+     "typed": ""
+    },
+    {
+     "id": 28,
+     "text": "और फिर वापस बंदरगाह की ओर लौट गया।",
+     "claims": [
+      "C4"
+     ],
+     "visual": "the arrow swings back to the harbour",
+     "hero": "the map arrow",
+     "typed": ""
+    },
+    {
+     "id": 29,
+     "text": "मरने वालों में बोस्टन फ़ायर डिपार्टमेंट के इंजन 31 के इंजीनियर थे।",
+     "claims": [
+      "C10"
+     ],
+     "visual": "the Post's list of the known dead; one name highlighted",
+     "hero": "the list of the dead",
+     "typed": "इंजन 31"
+    },
+    {
+     "id": 30,
+     "text": "पोस्ट ने उनका नाम जॉर्ज लेही लिखा।",
+     "claims": [
+      "C10"
+     ],
+     "visual": "the name 'GEORGE LAHEY' lit in the list",
+     "hero": "the name",
+     "typed": ""
+    },
+    {
+     "id": 31,
+     "text": "मृतकों में एक लड़की भी थी, लगभग 14 साल की, जिसकी पहचान तब तक नहीं हो पाई थी।",
+     "claims": [
+      "C11"
+     ],
+     "visual": "the Post's 'unidentified dead' paragraph",
+     "hero": "the paragraph",
+     "typed": ""
+    },
+    {
+     "id": 32,
+     "text": "उसने स्लेटी जैकेट पहनी थी, और उसके थैले पर रेवियर रबर कंपनी का रोज़गार टैग लगा था।",
+     "claims": [
+      "C11"
+     ],
+     "visual": "the words 'Revere Rubber Company' highlighted; hold",
+     "hero": "the paragraph",
+     "typed": ""
+    }
+   ]
+  },
+  {
+   "id": "SEC06",
+   "take": "T06_section",
+   "target_words": 140,
+   "lines": [
+    {
+     "id": 33,
+     "text": "शहर के हर हिस्से से एम्बुलेंस घटनास्थल की ओर दौड़ाई गईं।",
+     "claims": [
+      "C13"
+     ],
+     "visual": "the Post's bird's-eye photo; its caption highlighted",
+     "hero": "the bird's-eye photo",
+     "typed": "",
+     "images": [
+      {
+       "what": "Boston Post front page, January 16, 1919",
+       "kind": "paper",
+       "query": "Boston post January 16, 1919"
+      }
+     ]
+    },
+    {
+     "id": 34,
+     "text": "नॉर्थ एंड पार्क के खेल के मैदान पर बचाव का काम चल रहा था।",
+     "claims": [
+      "C13"
+     ],
+     "visual": "push into the playground area of the photo",
+     "hero": "the playground",
+     "typed": ""
+    },
+    {
+     "id": 35,
+     "text": "मरे हुए घोड़े, बिल्लियाँ और कुत्ते गाड़ियों में भर-भरकर हटाए गए।",
+     "claims": [
+      "C12"
+     ],
+     "visual": "the panorama, slow drift across the wreckage",
+     "hero": "the wreckage",
+     "typed": "",
+     "images": [
+      {
+       "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+       "kind": "photo",
+       "query": "Boston Molasses Disaster panorama 1919"
+      }
+     ]
+    },
+    {
+     "id": 36,
+     "text": "बोस्टन का इकलौता ट्रॉली मालवाहक टर्मिनल खंडहर बन चुका था।",
+     "claims": [
+      "C12"
+     ],
+     "visual": "hold on the ruined buildings",
+     "hero": "the ruins",
+     "typed": ""
+    },
+    {
+     "id": 37,
+     "text": "आधी रात तक पोस्ट ने 11 मौतें गिनीं: एक महिला, एक लड़की और नौ पुरुष।",
+     "claims": [
+      "C5"
+     ],
+     "visual": "a tally types on: 11",
+     "hero": "the tally",
+     "typed": "11"
+    },
+    {
+     "id": 38,
+     "text": "लेकिन यह पहली गिनती थी।",
+     "claims": [
+      "C5",
+      "C6"
+     ],
+     "visual": "the tally holds, then a second card slides in",
+     "hero": "the tally",
+     "typed": ""
+    },
+    {
+     "id": 39,
+     "text": "सिटी ऑफ़ बोस्टन के अनुसार, आख़िरकार 21 लोगों की जान गई, और लगभग 150 घायल हुए।",
+     "claims": [
+      "C6"
+     ],
+     "visual": "the tally rolls from 11 to 21; City of Boston card",
+     "hero": "the tally",
+     "typed": "21"
+    }
+   ]
+  },
+  {
+   "id": "SEC07",
+   "take": "T07_section",
+   "target_words": 140,
+   "lines": [
+    {
+     "id": 40,
+     "text": "अब सबसे बड़ा सवाल: यह हुआ कैसे?",
+     "claims": [],
+     "visual": "the evidence wall; a red thread from the tank to two cards",
+     "hero": "the evidence wall",
+     "typed": "",
+     "kind": "framing"
+    },
+    {
+     "id": 41,
+     "text": "अगले दिन बोस्टन पोस्ट ने छापा कि राज्य पुलिस के रसायनज्ञ डब्ल्यू. एल. वेजर एक पक्के निष्कर्ष पर पहुँचे थे।",
+     "claims": [
+      "C14"
+     ],
+     "visual": "the Post's 'INTERNAL EXPLOSION WAS CAUSE, SAYS STATE CHEMIST' column",
+     "hero": "the Post column",
+     "typed": "",
+     "images": [
+      {
+       "what": "Boston Post front page, January 16, 1919",
+       "kind": "paper",
+       "query": "Boston post January 16, 1919"
+      }
+     ]
+    },
+    {
+     "id": 42,
+     "text": "उनके अनुसार टैंक ढहा नहीं था, बल्कि उसके भीतर धमाका हुआ था।",
+     "claims": [
+      "C14"
+     ],
+     "visual": "the words 'internal explosion' highlighted",
+     "hero": "the Post column",
+     "typed": ""
+    },
+    {
+     "id": 43,
+     "text": "यह उस समय का शुरुआती अनुमान था, जो बाद में टिक नहीं पाया।",
+     "claims": [
+      "C14"
+     ],
+     "visual": "a stamp 'शुरुआती सिद्धांत' over the column",
+     "hero": "the stamp",
+     "typed": ""
+    },
+    {
+     "id": 44,
+     "text": "शहर के विवरण के अनुसार, बाद में स्ट्रक्चरल इंजीनियरों ने पाया कि टैंक की दीवारें बहुत पतली थीं।",
+     "claims": [
+      "C27"
+     ],
+     "visual": "City of Boston card; a cross-section of a wall drawn thin",
+     "hero": "the wall diagram",
+     "typed": ""
+    },
+    {
+     "id": 45,
+     "text": "और उसकी सामग्री में दरार पड़ने का ख़तरा था।",
+     "claims": [
+      "C27"
+     ],
+     "visual": "a crack runs through the diagram",
+     "hero": "the wall diagram",
+     "typed": ""
+    },
+    {
+     "id": 46,
+     "text": "1925 में, अदालत द्वारा नियुक्त एक ऑडिटर ने इस आपदा के लिए टैंक के मालिकों की लापरवाही को ज़िम्मेदार ठहराया।",
+     "claims": [
+      "C29"
+     ],
+     "visual": "a dated card '1925' pins over the thread's end",
+     "hero": "the 1925 card",
+     "typed": "1925"
+    },
+    {
+     "id": 47,
+     "text": "धमाका नहीं, बल्कि लापरवाही। कम से कम, अदालत के ऑडिटर का निष्कर्ष यही था।",
+     "claims": [
+      "C29",
+      "C14"
+     ],
+     "visual": "the explosion card fades; the negligence card stays lit",
+     "hero": "the 1925 card",
+     "typed": "लापरवाही"
+    }
+   ]
+  },
+  {
+   "id": "SEC08",
+   "take": "T08_section",
+   "target_words": 90,
+   "lines": [
+    {
+     "id": 48,
+     "text": "उसी अख़बार के पहले पन्ने पर एक और ख़बर थी।",
+     "claims": [
+      "C15"
+     ],
+     "visual": "pull back to the whole Post front page",
+     "hero": "the front page",
+     "typed": "",
+     "images": [
+      {
+       "what": "Boston Post front page, January 16, 1919",
+       "kind": "paper",
+       "query": "Boston post January 16, 1919"
+      }
+     ]
+    },
+    {
+     "id": 49,
+     "text": "शराबबंदी का संशोधन 35 राज्यों में पारित हो चुका था, और बस एक राज्य और चाहिए था।",
+     "claims": [
+      "C15"
+     ],
+     "visual": "'35 STATES ON DRY LAW LIST' highlighted",
+     "hero": "the Prohibition column",
+     "typed": "35"
+    },
+    {
+     "id": 50,
+     "text": "शीरे की लहर और शराबबंदी, दोनों ख़बरें एक ही पन्ने पर साथ छपीं।",
+     "claims": [
+      "C15"
+     ],
+     "visual": "the two columns lit side by side",
+     "hero": "the front page",
+     "typed": ""
+    },
+    {
+     "id": 51,
+     "text": "यह फ़िल्म दोनों के बीच कोई संबंध होने का दावा नहीं करती; बस, एक ही दिन, एक ही पन्ना।",
+     "claims": [],
+     "visual": "hold on the full page; slow fade of the highlights",
+     "hero": "the front page",
+     "typed": "",
+     "kind": "framing"
+    }
+   ]
+  },
+  {
+   "id": "SEC09",
+   "take": "T09_section",
+   "target_words": 45,
+   "lines": [
+    {
+     "id": 52,
+     "text": "एक टैंक, जिसकी दीवारें बहुत पतली थीं।",
+     "claims": [
+      "C27"
+     ],
+     "visual": "the tank photo returns, small in the frame",
+     "hero": "the tank",
+     "typed": "",
+     "images": [
+      {
+       "what": "The North End molasses tank before the disaster",
+       "kind": "photo",
+       "query": "North End molasses tank"
+      }
+     ]
+    },
+    {
+     "id": 53,
+     "text": "21 लोगों की जान गई, और 1925 में फ़ैसला आया: लापरवाही।",
+     "claims": [
+      "C6",
+      "C29"
+     ],
+     "visual": "the panorama; the tally 21 and the 1925 card",
+     "hero": "the panorama",
+     "typed": "",
+     "images": [
+      {
+       "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+       "kind": "photo",
+       "query": "Boston Molasses Disaster panorama 1919"
+      }
+     ]
+    },
+    {
+     "id": 54,
+     "text": "यह कहानी याद दिलाती है कि जिस ढाँचे पर शहर भरोसा करता है, उसकी जाँच कितनी ज़रूरी है।",
+     "claims": [],
+     "visual": "slow pull-back to the whole evidence wall; fade to black",
+     "hero": "the evidence wall",
+     "typed": "",
+     "kind": "framing"
+    }
+   ]
+  }
+ ]
+}
