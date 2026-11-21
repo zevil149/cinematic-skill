@@ -19,7 +19,7 @@ with your own engine calls (references/film.md); scenekit.build_act shows how it
 #  * designed graphics labelled in 04_scenes/direction.json (scale bars, map overlays, the wall
 #    cross-section, tallies, stamps) are not drawn by this starter; when they are added, each must
 #    carry its label from direction.json.
-from scenekit import build_act
+from scenekit import build_act  # noqa: F401  (the generated starter's builder; replaced below)
 
 LOOK = 'wall'
 LINES = [{'line': 1,
@@ -458,5 +458,420 @@ LINES = [{'line': 1,
   'visuals': []}]
 
 
+
+# ----------------------------------------------------------------------------------------------
+# Phase 7 look refinement (2026-11-21): a hand-built act in place of build_act, after the look
+# review. Same lines, same images, same typed words and landing words as LINES above; what is new
+# is designed graphics (each labelled as an illustration, as 04_scenes/direction.json asks), safe
+# framing, camera moves that always carry content, and close-ups of the Boston Post columns the
+# narration quotes. Every word drawn is the script's own or a label from direction.json; no new
+# fact, no reconstructed newspaper text, no stand-in photograph.
+# ----------------------------------------------------------------------------------------------
+import math  # noqa: E402
+
+import skia  # noqa: E402
+from engine import (BigText, Card, Counter, Item, PenMark, Print, Route, Stamp, StringLine, draw_text,  # noqa: E402
+                    ease_out_cubic, paint, ramp, text_width, Film)
+from scenekit import SAFE, frame_on, item_box, palette, word_time  # noqa: E402
+
+PAL = palette(LOOK)
+TYPE = PAL["type"]
+TAG = (214, 204, 188)
+RED = (176, 30, 26)
+BROWN = (92, 58, 30)
+L_, T_, R_, B_ = SAFE
+TIGHTEST = 1.08                                          # the push and hold never go past this
+BY_LINE = {ln["line"]: ln for ln in LINES}
+
+
+def vis(line, k=0):
+    return BY_LINE[line]["visuals"][k]
+
+
+class Tag(BigText):
+    """A small label under a graphic: what kind of thing it is (an illustration, an estimate...)."""
+
+    def __init__(self, text, x, y, t_in, size=78):
+        super().__init__(text, x, y, size, t_in, rgb=TAG, grunge=False, shadow=True, track=0.02)
+
+
+class ScaleBar(Item):
+    """An illustrative vertical scale: a bar rising from its base to `height` world units, ticks at
+    fifths, a caption above. Not a measurement; the caption under it says so."""
+    z = 30
+
+    def __init__(self, x, base, height, t_in, caption="", rgb=(236, 226, 206), faded=False, t_out=None):
+        super().__init__(t_in, t_out)
+        self.x, self.base, self.h, self.caption, self.rgb, self.faded = x, base, height, caption, rgb, faded
+        self.box = (x - 260, base - height - 260, x + 260, base + 40)
+
+    def bounds(self, res):
+        return skia.Rect.MakeLTRB(self.x - 900, self.base - self.h - 500, self.x + 900, self.base + 200)
+
+    def cues(self):
+        return [("whoosh", self.t_in, 0.3, {})]
+
+    def draw(self, c, res, t):
+        u = ease_out_cubic(ramp(t, self.t_in, 0.9)); a = self.fade(t) * (0.45 if self.faded else 1.0)
+        if u <= 0 or a <= 0:
+            return
+        top = self.base - self.h * u
+        c.drawRect(skia.Rect.MakeLTRB(self.x - 46, top, self.x + 46, self.base), paint(self.rgb, 0.85 * a, blur=10 if self.faded else None))
+        for k in range(6):
+            y = self.base - self.h * k / 5
+            if y >= top:
+                c.drawLine(self.x - 110, y, self.x + 110, y, paint(self.rgb, 0.8 * a, stroke=10))
+        if self.caption and u > 0.95:
+            draw_text(c, res, self.caption, self.x, top - 80, 150, "cond", self.rgb, a, 0.03, "center")
+
+
+class Drips(Item):
+    """Three drawn drips under a card: an illustration of 'it had reportedly leaked'."""
+    z = 30
+
+    def __init__(self, x, y, w, t_in):
+        super().__init__(t_in)
+        self.x, self.y, self.w = x, y, w
+        self.box = (x - w / 2, y, x + w / 2, y + 520)
+
+    def bounds(self, res):
+        return skia.Rect.MakeLTRB(self.x - self.w, self.y - 100, self.x + self.w, self.y + 900)
+
+    def draw(self, c, res, t):
+        a = self.fade(t)
+        for k, dx in enumerate((-0.3, 0.05, 0.32)):
+            u = ease_out_cubic(ramp(t, self.t_in + 0.25 * k, 1.2))
+            if u <= 0:
+                continue
+            x = self.x + dx * self.w; L = (330 + 120 * k % 2) * u
+            c.drawLine(x, self.y, x, self.y + L, paint(BROWN, 0.9 * a, stroke=26))
+            c.drawCircle(x, self.y + L + 18, 30, paint(BROWN, 0.9 * a))
+
+
+class WallSection(Item):
+    """A schematic of the finding 'walls too thin': molasses on one side, a thin hatched wall, the
+    street on the other. No dimensions (none are known to this film); its tag says so."""
+    z = 14
+
+    def __init__(self, x, y, w, h, t_in):
+        super().__init__(t_in)
+        self.x, self.y, self.w, self.h = x, y, w, h
+        self.box = (x - w / 2, y - h / 2, x + w / 2, y + h / 2)
+
+    def bounds(self, res):
+        return skia.Rect.MakeLTRB(self.x - self.w, self.y - self.h, self.x + self.w, self.y + self.h)
+
+    def draw(self, c, res, t):
+        u = ease_out_cubic(ramp(t, self.t_in, 0.6)); a = u * self.fade(t)
+        if a <= 0:
+            return
+        x0, y0, x1, y1 = self.box
+        wall = self.x - self.w * 0.06
+        c.drawRect(skia.Rect.MakeLTRB(x0, y0, x1, y1), paint((238, 232, 220), 0.95 * a))
+        c.drawRect(skia.Rect.MakeLTRB(x0, y0, wall - 22, y1), paint((120, 78, 40), 0.9 * a))
+        c.drawRect(skia.Rect.MakeLTRB(wall - 22, y0, wall + 22, y1), paint((60, 60, 64), a))
+        for k in range(int((y1 - y0) / 60)):
+            yy = y0 + 30 + k * 60
+            c.drawLine(wall - 22, yy, wall + 22, yy - 40, paint((200, 200, 205), 0.8 * a, stroke=6))
+        c.drawRect(skia.Rect.MakeLTRB(x0, y0, x1, y1), paint((60, 50, 40), a, stroke=12))
+        draw_text(c, res, "शीरा", (x0 + wall) / 2, self.y + 50, 150, "cond", (250, 240, 225), a, 0.02, "center")
+        draw_text(c, res, "दीवार", wall, y0 - 60, 110, "cond", (238, 232, 220), a, 0.02, "center")
+
+
+def pbox(pr, doc):
+    """The drawn box of a print, world units (no rotation used for the prints below)."""
+    w, h = pr.size_from(doc.meta)
+    return pr.x - w / 2, pr.y - h / 2, pr.x + w / 2, pr.y + h / 2
+
+
+def region(pr, doc, fx0, fy0, fx1, fy1):
+    """A part of a print (fractions of its image) as a world box: for close-ups and marks."""
+    x0, y0, x1, y1 = pbox(pr, doc)
+    w, h = x1 - x0, y1 - y0
+    return x0 + fx0 * w, y0 + fy0 * h, x0 + fx1 * w, y0 + fy1 * h
+
+
+def union(boxes):
+    boxes = [b for b in boxes if b]
+    return min(b[0] for b in boxes), min(b[1] for b in boxes), max(b[2] for b in boxes), max(b[3] for b in boxes)
+
+
+def fit_zoom(box, zmax=1.5):
+    x0, y0, x1, y1 = box
+    return min(zmax, 3840 * (1 - L_ - R_) / max(x1 - x0, 1.0) / TIGHTEST, 2160 * (1 - T_ - B_) / max(y1 - y0, 1.0) / TIGHTEST)
+
+
+def centre(box, z):
+    """Camera centre that puts box in the middle of the safe area at zoom z (and its push)."""
+    x0, y0, x1, y1 = box
+    fw, fh = 3840 / (z * TIGHTEST), 2160 / (z * TIGHTEST)
+    return (x0 + x1) / 2 - (L_ - R_) / 2 * fw, (y0 + y1) / 2 - (T_ - B_) / 2 * fh
+
+
 def build_film(doc):
-    return build_act(doc, LINES, look=LOOK)
+    film = Film(doc.duration, fps=30, look=LOOK)
+    lines = [ln["line"] for ln in LINES if ln["line"] in doc.seg]
+    if len(lines) != len(LINES):                              # an older voice: fall back to the generated act
+        return build_act(doc, LINES, look=LOOK)
+    L, E = doc.L, doc.E
+    W = lambda i, w: word_time(doc, i, w)                      # noqa: E731
+    reg = []                                                  # (item, box, line it belongs to)
+
+    def put(item, line, box=None):
+        film.add(item)
+        reg.append((item, box or getattr(item, "box", None) or item_box(doc, item), line))
+        return item
+
+    def typed(i, x, y, t, size=300):
+        return put(BigText(BY_LINE[i]["typed"], x, y, size, t, rgb=TYPE, grunge=True, shadow=True), i)
+
+    def post(need, x, y, w, i):
+        return put(Print(need, x, y, w, rot=0.0, t_in=L(i) - 1.4, paper=True), i)
+
+    def photo(need, x, y, w, i, rot=0.0, label=None, move=None):
+        return put(Print(need, x, y, w, rot=rot, t_in=L(i) - 1.4, label=label, move=move), i)
+
+    def card(x, y, w, h, i, title, lines=(), t=None, accent=True, size=None):
+        return put(Card(x, y, w, h, L(i) if t is None else t, title=title, lines=list(lines), rgb=PAL["card"],
+                        text_rgb=PAL["card_text"], accent=PAL["accent"] if accent else None, title_size=size), i)
+
+    # ---------------- SEC01: the hook ----------------
+    O = (0, 0)
+    pano1 = photo(vis(1)["need"], O[0], O[1], 3600, 1)
+    typed(1, O[0], O[1] - 1432 - 330, L(1) + 0.1, 260)
+    q1 = post(vis(3)["need"], O[0] + 5200, O[1] + 300, 3600, 3)
+    q1_deck = region(q1, doc, 0.02, 0.205, 0.99, 0.29)
+    q1_head = region(q1, doc, 0.02, 0.075, 0.99, 0.215)
+    q1_dead = region(q1, doc, 0.53, 0.15, 0.99, 0.195)
+    typed(3, q1_deck[2] + 700, q1_deck[1] + 150, W(3, BY_LINE[3]["key_word"]) - 0.15, 230)
+    put(Stamp("विवादित", q1_deck[2] + 700, q1_deck[3] + 260, size=120, rot=-7, t_in=W(3, "विवादित") - 0.1), 3,
+        (q1_deck[2] + 300, q1_deck[3] + 120, q1_deck[2] + 1100, q1_deck[3] + 420))
+    put(Tag("संपादकीय चिह्न", q1_deck[2] + 700, q1_deck[3] + 560, W(3, "विवादित") + 0.2), 3)
+    put(PenMark("underline", (q1_dead[0] + q1_dead[2]) / 2, q1_dead[3] - 10, q1_dead[2] - q1_dead[0], 30, t_in=W(4, "ग्यारह") - 0.1, width=16), 4,
+        q1_dead)
+    typed(4, q1_head[2] + 700, q1_head[1] + 420, W(4, "ग्यारह") - 0.15, 260)
+
+    # ---------------- SEC02: the question and the two sources ----------------
+    O = (14500, 0)
+    put(BigText("शीरा कैसे मार सकता है?", O[0], O[1] - 900, 300, L(5) - 1.6, rgb=TYPE, rules=True), 5)
+    put(Tag("शीर्षक · चित्रण", O[0], O[1] - 650, L(5) + 0.3), 5)
+    s_post = card(O[0] - 1550, O[1] + 700, 2600, 1500, 6, "बोस्टन पोस्ट", ["16 जनवरी 1919", "उसी समय की रिपोर्ट"], t=W(6, "अख़बार") - 0.1)
+    s_city = card(O[0] + 1550, O[1] + 700, 2600, 1500, 6, "सिटी ऑफ़ बोस्टन", ["एक सदी बाद का विवरण"], t=W(6, "विवरण") - 0.3)
+    put(Tag("स्रोत कार्ड · चित्रण", O[0], O[1] + 1680, W(6, "विवरण")), 6)
+
+    # ---------------- SEC03: the tank ----------------
+    O = (29000, 0)
+    tank = card(O[0], O[1], 2700, 1650, 7, vis(7)["what"], t=L(7) - 1.6, size=170)
+    put(Tag("प्लेसहोल्डर · कोई सत्यापित तस्वीर नहीं", O[0], O[1] + 1000, L(7) + 0.4), 7)
+    typed(8, O[0], O[1] - 1180, W(8, BY_LINE[8]["key_word"]) - 0.15, 300)
+    put(Tag("सिटी ऑफ़ बोस्टन के विवरण के अनुसार", O[0], O[1] - 960, W(8, BY_LINE[8]["key_word"]) + 0.2), 8)
+    bar_t = put(ScaleBar(O[0] + 2100, O[1] + 825, 2100, W(9, "पचास") - 0.4, caption=BY_LINE[9]["typed"]), 9)
+    put(Tag("चित्रण · अनुमानित पैमाना", O[0] + 2100, O[1] + 1050, W(9, "पचास")), 9)
+    q2 = post(vis(10)["need"], O[0] + 8600, O[1] + 200, 3600, 10)
+    q2_gal = region(q2, doc, 0.02, 0.222, 0.55, 0.248)
+    put(PenMark("underline", (q2_gal[0] + q2_gal[2]) / 2, q2_gal[3] + 5, q2_gal[2] - q2_gal[0], 30, t_in=W(10, "गैलन") - 0.2, width=16), 10, q2_gal)
+    q2b = pbox(q2, doc)
+    typed(10, q2b[0] - 1250, (q2_gal[1] + q2_gal[3]) / 2 + 80, W(10, "गैलन") - 0.15, 210)
+    s_city2 = card(O[0] + 4300, O[1] + 3300, 2400, 1200, 11, "सिटी ऑफ़ बोस्टन", ["बाद का विवरण"], t=L(11) - 0.6, size=150)
+    put(StringLine((O[0] + 4300, O[1] + 2700), (q2_gal[0] + 150, q2_gal[3]), W(11, "आँकड़े") - 0.2, dur=0.9, persist=True), 11,
+        (O[0] + 4300, q2_gal[3], q2_gal[0] + 150, O[1] + 2700))
+    put(Tag("चित्रण", O[0] + 4300, O[1] + 4050, L(11) + 0.2), 11)
+    put(Drips(O[0] - 200, O[1] + 825, 1600, W(13, "रिसता") - 0.3), 13)
+    put(Tag("चित्रण · 'बताया जाता है'", O[0] - 200, O[1] + 1520, W(13, "रिसता")), 13)
+
+    # ---------------- SEC04: 15 January 1919 ----------------
+    O = (29000, 13000)
+    put(BigText("15 जनवरी 1919 · दोपहर बाद", O[0], O[1] - 1600, 260, L(15) - 1.6, rgb=TYPE), 15)
+    put(Tag("सिटी ऑफ़ बोस्टन के अनुसार: कारण", O[0], O[1] - 900, L(16) + 0.2, size=110), 16)
+    causes = BY_LINE[17]["typed"].split(" · ")
+    words = ("निर्माण", "बदलाव", "खेप")
+    for k, (txt, w) in enumerate(zip(causes, words)):
+        x = O[0] + (k - 1) * 2900
+        put(Card(x, O[1] + 300, 2600, 1100, W(17, w) - 0.25, title="", lines=[], rgb=(70, 62, 54), accent=PAL["accent"]),
+            17, (x - 1300, O[1] - 250, x + 1300, O[1] + 850))
+        put(BigText(txt, x, O[1] + 370, 190, W(17, w) - 0.15, rgb=TYPE, grunge=False), 17)
+    put(Tag("चित्रण", O[0], O[1] + 1100, W(17, "खेप")), 17)
+    MX, MY = O[0] + 9400, O[1]
+    mp = photo(vis(18)["need"], MX, MY, 3600, 18, label=vis(18).get("label"))
+    mb = pbox(mp, doc)
+    def mtag(fx, fy, text, t, i):
+        x, y = mb[0] + fx * (mb[2] - mb[0]), mb[1] + fy * (mb[3] - mb[1])
+        return put(BigText(text, x, y, 140, t, rgb=(255, 252, 240), grunge=False, bar=RED, bar_h=0.95, shadow=False), i)
+    mtag(0.84, 0.60, "कमर्शियल स्ट्रीट", W(18, "स्ट्रीट") - 0.2, 18)
+    mtag(0.13, 0.555, "चार्टर स्ट्रीट", W(19, "चार्टर") - 0.1, 19)
+    mtag(0.66, 0.24, "नॉर्थ एंड बीच (खेल का मैदान)", W(19, "पार्क") - 0.2, 19)
+    put(Tag("नक्शे के अपने नामों का हिंदी रूप", MX, mb[3] + 520, W(19, "पार्क")), 19)
+    typed(20, mb[2] + 1500, MY - 500, W(20, BY_LINE[20]["key_word"]) - 0.4, 230)
+    put(Tag("अनुमान · सिटी ऑफ़ बोस्टन", mb[2] + 1500, MY - 250, W(20, BY_LINE[20]["key_word"])), 20)
+    CX, CY = O[0] + 9400, O[1] + 6500
+    put(BigText("लहर की ऊँचाई?", CX, CY - 2500, 260, L(21) - 1.2, rgb=TYPE), 21)
+    put(ScaleBar(CX - 1600, CY + 900, 2400, L(21) + 0.4, caption="पोस्ट: 50 फ़ुट"), 21)
+    put(ScaleBar(CX + 300, CY + 900, 2400, W(22, "टैंक") - 0.3, caption="टैंक (शहर का विवरण): 50 फ़ुट"), 22)
+    put(ScaleBar(CX + 2200, CY + 900, 1300, W(23, "कम") - 0.3, caption="बाद के अनुमान: कम", faded=True), 23)
+    put(Tag("चित्रण · अनुमानित पैमाना · माप नहीं", CX, CY + 1180, W(22, "टैंक")), 22)
+
+    # ---------------- SEC05: what stood in its path ----------------
+    O = (14500, 13000)
+    q3 = post(vis(24)["need"], O[0], O[1], 4200, 24)
+    q3_men = region(q3, doc, 0.06, 0.25, 0.96, 0.274)
+    q3_dead = region(q3, doc, 0.495, 0.538, 0.745, 0.658)
+    q3_lahey = region(q3, doc, 0.495, 0.566, 0.745, 0.588)
+    q3_unid = region(q3, doc, 0.495, 0.655, 0.745, 0.695)
+    q3_tag = region(q3, doc, 0.495, 0.677, 0.62, 0.69)
+    put(PenMark("underline", (q3_men[0] + q3_men[2]) / 2, q3_men[3] - 5, q3_men[2] - q3_men[0], 30, t_in=W(24, "सौ") - 0.1, width=16), 24, q3_men)
+    q3b = pbox(q3, doc)
+    typed(24, q3b[2] + 650, (q3_men[1] + q3_men[3]) / 2 + 80, W(24, "सौ") - 0.15, 230)
+    wreck = card(O[0] - 5800, O[1] - 1400, 2700, 1650, 25, vis(25)["what"], t=L(25) + 0.05, size=170)
+    put(Tag("प्लेसहोल्डर · कोई सत्यापित तस्वीर नहीं", O[0] - 5800, O[1] - 400, L(25) + 0.4), 25)
+    el = photo(vis(26)["need"], O[0] - 5800, O[1] + 2100, 3200, 26)
+    DX, DY = O[0] - 5800, O[1] + 6600
+    put(Card(DX - 1700, DY, 2400, 1000, W(27, "कॉप्स") - 0.6, title="कॉप्स हिल की ओर की इमारतें", rgb=PAL["card"], text_rgb=PAL["card_text"],
+             accent=PAL["accent"], title_size=130), 27, (DX - 2900, DY - 500, DX - 500, DY + 500))
+    put(Card(DX + 1700, DY, 2400, 1000, W(28, "बंदरगाह") - 0.6, title="बंदरगाह", rgb=PAL["card"], text_rgb=PAL["card_text"],
+             accent=PAL["accent"], title_size=150), 28, (DX + 500, DY - 500, DX + 2900, DY + 500))
+    put(Route((DX + 300, DY - 1500), (DX - 1700, DY - 560), W(27, "टकराया") - 0.6, dur=0.9), 27, (DX - 1700, DY - 1500, DX + 300, DY - 560))
+    put(Route((DX - 1300, DY - 560), (DX + 1700, DY - 560), W(28, "बंदरगाह") - 0.6, dur=0.9, bend=-0.25), 28, (DX - 1300, DY - 1100, DX + 1700, DY - 560))
+    put(Tag("चित्रण · अनुमानित दिशा", DX, DY + 760, W(27, "टकराया")), 27)
+    put(PenMark("ellipse", (q3_lahey[0] + q3_lahey[2]) / 2, (q3_lahey[1] + q3_lahey[3]) / 2, (q3_lahey[2] - q3_lahey[0]) * 1.06, 120,
+                t_in=W(30, "लेही") - 0.2, width=12), 30, q3_lahey)
+    put(BigText(BY_LINE[29]["typed"], (q3_dead[0] + q3_dead[2]) / 2, q3_dead[1] - 40, 150, W(29, "इकतीस") - 0.15, rgb=(255, 252, 240), grunge=False,
+                bar=RED, bar_h=0.95, shadow=False), 29)
+    put(PenMark("underline", (q3_tag[0] + q3_tag[2]) / 2, q3_tag[3] + 4, q3_tag[2] - q3_tag[0], 24, t_in=W(32, "रेवियर") - 0.2, width=12), 32, q3_tag)
+
+    # ---------------- SEC06: rescue ----------------
+    O = (0, 13000)
+    q4 = post(vis(33)["need"], O[0], O[1], 4200, 33)
+    q4_photo = region(q4, doc, 0.255, 0.29, 0.745, 0.525)
+    q4_play = region(q4, doc, 0.445, 0.468, 0.565, 0.495)
+    put(PenMark("ellipse", (q4_play[0] + q4_play[2]) / 2, (q4_play[1] + q4_play[3]) / 2, (q4_play[2] - q4_play[0]) * 1.1, 200,
+                t_in=W(34, "मैदान") - 0.2, width=12), 34, q4_play)
+    pano2 = photo(vis(35)["need"], O[0] - 6400, O[1] + 600, 3800, 35, rot=-1.0, move=None)
+    pb = item_box(doc, pano2)
+    TX, TY = O[0] - 6400, O[1] + 5600
+    t11 = put(BigText(BY_LINE[37]["typed"], TX - 1200, TY, 520, W(37, "ग्यारह") - 0.15, rgb=TYPE), 37)
+    put(Tag("मौतें · पोस्ट की पहली गिनती", TX - 1200, TY + 300, W(37, "ग्यारह") + 0.2), 37)
+    put(Counter(TX + 1500, TY, 520, 21, W(39, "इक्कीस") - 0.6, dur=1.0, start=11, rgb=TYPE), 39, (TX + 900, TY - 450, TX + 2100, TY + 120))
+    put(Tag("मौतें · सिटी ऑफ़ बोस्टन के अनुसार", TX + 1500, TY + 300, W(39, "इक्कीस") + 0.2), 39)
+    put(Route((TX - 400, TY - 250), (TX + 700, TY - 250), L(38) + 0.3, dur=0.8, bend=-0.3), 38, (TX - 400, TY - 500, TX + 700, TY - 250))
+
+    # ---------------- SEC07: explosion or negligence ----------------
+    O = (0, 26000)
+    put(BigText("यह हुआ कैसे?", O[0], O[1] - 2300, 300, L(40) - 1.6, rgb=TYPE, rules=True), 40)
+    q5 = post(vis(41)["need"], O[0] - 3000, O[1] + 600, 4200, 41)
+    q5_col = region(q5, doc, 0.745, 0.458, 0.995, 0.625)
+    q5_head = region(q5, doc, 0.745, 0.458, 0.99, 0.483)
+    put(StringLine((O[0], O[1] - 2000), (q5_head[0] + 300, q5_head[1]), L(41) + 0.2, dur=0.9, persist=True), 41)
+    put(PenMark("ellipse", (q5_head[0] + q5_head[2]) / 2, (q5_head[1] + q5_head[3]) / 2, (q5_head[2] - q5_head[0]) * 1.08, 190,
+                t_in=W(42, "धमाका") - 0.2, width=12), 42, q5_head)
+    q5b = pbox(q5, doc)
+    put(Stamp("शुरुआती सिद्धांत", q5b[2] + 900, (q5_col[1] + q5_col[3]) / 2, size=120, rot=-6,
+              t_in=W(43, "सिद्धांत") - 0.1), 43, (q5b[2] + 250, (q5_col[1] + q5_col[3]) / 2 - 200, q5b[2] + 1550, (q5_col[1] + q5_col[3]) / 2 + 200))
+    put(Tag("संपादकीय चिह्न", q5b[2] + 900, (q5_col[1] + q5_col[3]) / 2 + 330, W(43, "सिद्धांत") + 0.2), 43)
+    WX, WY = O[0] + 4600, O[1] + 600
+    put(WallSection(WX, WY, 2600, 2400, L(44) - 0.2), 44)
+    put(Tag("चित्रण · पैमाने पर नहीं · 'दीवारें बहुत पतली' (शहर का विवरण)", WX, WY + 1460, W(44, "दीवारें")), 44)
+    put(PenMark("strike", WX - 156, WY - 200, 600, 900, t_in=W(45, "दरार") - 0.2, width=14, rot=78), 45,
+        (WX - 600, WY - 700, WX + 300, WY + 300))
+    typed(46, WX + 7000, WY - 1500, W(46, "पच्चीस") - 0.15, 300)
+    c1925 = card(WX + 7000, WY - 100, 3000, 1500, 46, "अदालत द्वारा नियुक्त ऑडिटर", ["मालिकों की लापरवाही"], t=W(46, "पच्चीस") + 0.1, size=150)
+    put(Tag("चित्रण · शहर के विवरण के अनुसार", WX + 7000, WY + 900, W(46, "पच्चीस") + 0.3), 46)
+    typed(47, WX + 7000, WY + 1700, W(47, "लापरवाही") - 0.15, 260)
+    put(StringLine((O[0], O[1] - 2000), (WX + 7000, WY - 850), W(47, "लापरवाही") - 0.6, dur=0.9, persist=True), 47)
+
+    # ---------------- SEC08: the other headline ----------------
+    O = (20500, 26000)
+    q6 = post(vis(48)["need"], O[0], O[1], 4200, 48)
+    q6_states = region(q6, doc, 0.012, 0.298, 0.262, 0.428)
+    q6_head = region(q6, doc, 0.02, 0.075, 0.99, 0.215)
+    typed(49, q6_states[0] - 900, q6_states[1] + 300, W(49, "पैंतीस") - 0.15, 330)
+    put(PenMark("ellipse", (q6_states[0] + q6_states[2]) / 2, (q6_states[1] + q6_states[3]) / 2, (q6_states[2] - q6_states[0]) * 1.08,
+                (q6_states[3] - q6_states[1]) * 1.06, t_in=W(50, "शराबबंदी") - 0.2, width=14), 50, q6_states)
+    put(PenMark("ellipse", (q6_head[0] + q6_head[2]) / 2, (q6_head[1] + q6_head[3]) / 2, (q6_head[2] - q6_head[0]) * 1.04,
+                (q6_head[3] - q6_head[1]) * 1.15, t_in=W(50, "लहर") - 0.2, width=14), 50, q6_head)
+
+    # ---------------- SEC09: after the wave ----------------
+    O = (36000, 26000)
+    q7 = post(vis(52)["need"], O[0] - 3200, O[1], 4200, 52)
+    q7_lead = region(q7, doc, 0.745, 0.628, 0.995, 0.652)
+    put(PenMark("underline", (q7_lead[0] + q7_lead[2]) / 2, q7_lead[3] + 4, q7_lead[2] - q7_lead[0], 24, t_in=W(52, "अनजाने") - 0.2, width=12), 52, q7_lead)
+    tank2 = card(O[0] + 2400, O[1] - 1200, 2700, 1650, 53, vis(53)["what"], t=L(53) - 0.1, size=170)
+    put(Tag("प्लेसहोल्डर · कोई सत्यापित तस्वीर नहीं", O[0] + 2400, O[1] - 230, L(53) + 0.2), 53)
+    put(BigText("पतली दीवारें · लापरवाही (ऑडिटर के अनुसार)", O[0] + 2400, O[1] + 300, 130, W(53, "लापरवाही") - 0.3, rgb=TYPE, grunge=False), 53)
+    pano3 = photo(vis(54)["need"], O[0] + 2400, O[1] + 2900, 3200, 54, rot=0.8)
+    pb3 = item_box(doc, pano3)
+    typed(54, pb3[2] + 800, (pb3[1] + pb3[3]) / 2, W(54, "इक्कीस") - 0.15, 420)
+
+    # ---------------- the camera ----------------
+    # hero boxes per line: what the line shows. A close-up line shows a part of a print.
+    hero = {i: [] for i in lines}
+    parents_of = {3: q1, 4: q1, 10: q2, 24: q3, 29: q3, 30: q3, 31: q3, 32: q3, 33: q4, 34: q4, 41: q5, 42: q5, 43: q5, 49: q6, 50: q6, 52: q7}
+    for it, bx, i in reg:
+        if bx and it is not parents_of.get(i):
+            hero[i].append(bx)
+    close = {3: [q1_deck], 4: [q1_head], 10: [q2_gal], 24: [q3_men], 29: [q3_dead], 30: [q3_dead], 31: [q3_unid], 32: [q3_unid],
+             33: [q4_photo], 34: [q4_photo], 41: [q5_col], 42: [q5_col], 43: [q5_col], 49: [q6_states], 50: [q6_head, q6_states],
+             52: [q7_lead]}
+    show = {2: [pbox(pano1, doc)], 12: [item_box(doc, s_city2)], 14: [item_box(doc, tank)] + hero[13] + hero[9], 15: hero[15],
+            36: [pb], 38: hero[37] + hero[39] + hero[38], 47: hero[46] + hero[47], 48: [pbox(q6, doc)], 51: [pbox(q6, doc)],
+            55: None, 11: [item_box(doc, s_city2), q2_gal] + hero[11], 13: [item_box(doc, tank)] + hero[13],
+            26: [pbox(el, doc)], 7: [item_box(doc, tank)] + hero[7], 53: [item_box(doc, tank2)] + hero[53],
+            8: [item_box(doc, tank)] + hero[8], 9: [item_box(doc, tank)] + hero[9], 20: [pbox(mp, doc)] + hero[20],
+            22: hero[21] + hero[22], 23: hero[21] + hero[22] + hero[23], 21: hero[21] + hero[22] + hero[23],
+            27: hero[27] + hero[28], 28: hero[27] + hero[28], 39: hero[37] + hero[39] + hero[38], 16: hero[15] + hero[16], 17: hero[15] + hero[16] + hero[17], 44: hero[44] + hero[45], 45: hero[44] + hero[45]}
+    parents = {3: q1, 4: q1, 10: q2, 24: q3, 29: q3, 30: q3, 31: q3, 32: q3, 33: q4, 34: q4, 41: q5, 42: q5, 43: q5, 49: q6, 50: q6, 52: q7}
+    aims = {}
+    for i in lines:
+        if i == 55:
+            continue
+        boxes = show.get(i) or ([] if i in close else []) or hero[i]
+        if i in close:
+            boxes = close[i] + [b for b in hero[i] if b not in close[i]]
+            core = union(close[i] + [b for it, b, j in reg if j == i and isinstance(it, BigText) and b])
+            z = fit_zoom(union([core] + boxes), 1.6)
+            boxes = [union([core] + boxes)]
+        else:
+            if not boxes:
+                boxes = [aims_prev_box] if aims else []
+            z = fit_zoom(union(boxes), 1.0)
+        bx = union(boxes)
+        par = parents.get(i)
+        avoid = [b for it, b, j in reg if b and it is not par and it.t_in <= E(i) and b not in boxes
+                 and not (b[0] >= bx[0] - 1 and b[1] >= bx[1] - 1 and b[2] <= bx[2] + 1 and b[3] <= bx[3] + 1)]
+        aim = frame_on([bx], zoom=z, avoid=avoid)
+        aims[i] = aim
+        aims_prev_box = bx
+
+    prev_sec, prev_aim = None, None
+    for n, i in enumerate(lines):
+        ln = BY_LINE[i]
+        t = L(i)
+        if i == 55:
+            break
+        x, y, z = aims[i]
+        if n == 0:
+            film.shot(0.0, x, y, z * 0.92)
+        elif ln["section"] != prev_sec and prev_aim:
+            # between sections: a wide move that keeps both the last and the next hero in frame
+            px, py, pz = prev_aim
+            span = (min(px, x) - 1920 / pz, min(py, y) - 1080 / pz, max(px, x) + 1920 / pz, max(py, y) + 1080 / pz)
+            zm = max(0.11, min(pz, z, 3840 / (span[2] - span[0]), 2160 / (span[3] - span[1])) * 0.95)
+            film.shot(max(prev_t_end, t - 1.3), px, py, pz)
+            film.shot(t - 0.45, (px + x) / 2, (py + y) / 2, zm)
+        film.shot(t + 0.3, x, y, z, rot=(-0.4, 0.3, 0.15)[n % 3])
+        kw = word_time(doc, i, ln.get("key_word"))
+        t_push = max(t + 0.7, kw)
+        film.shot(t_push, x + 30, y, z * 1.05)
+        if E(i) - 0.15 > t_push + 0.3:
+            film.shot(E(i) - 0.15, x + 50, y, z * TIGHTEST)
+        prev_sec, prev_aim, prev_t_end = ln["section"], (x + 50, y, z * TIGHTEST), E(i)
+
+    # the close: the whole board, every item inside the safe area
+    allb = union([b for it, b, j in reg if b])
+    z_all = fit_zoom(allb, 1.0) * TIGHTEST * 0.96
+    cx, cy = centre(allb, z_all / TIGHTEST * TIGHTEST)
+    last = aims[54]
+    film.shot(L(55) + 0.3, last[0], last[1], last[2])
+    film.shot(L(55) + (E(55) - L(55)) * 0.45, (last[0] + cx) / 2, (last[1] + cy) / 2, max(z_all * 1.8, 0.15), radius=20000, strength=0.15)
+    film.shot(E(55) - 0.6, cx, cy, z_all, radius=40000, strength=0.08)
+    film.shot(doc.duration, cx, cy, z_all * 0.97, radius=40000, strength=0.08)
+    return film

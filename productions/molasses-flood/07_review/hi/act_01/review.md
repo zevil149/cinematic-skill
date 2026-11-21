@@ -81,10 +81,10 @@ Automated flags point at stills worth a second look; they do not pass or fail an
 | Strip | From | To | Flags |
 |---|---|---|---|
 | [strip_01](strip_01.jpg) | 24.9s | 27.7s | - |
-| [strip_02](strip_02.jpg) | 39.09s | 41.29s | near-uniform |
+| [strip_02](strip_02.jpg) | 39.09s | 41.29s | - |
 | [strip_03](strip_03.jpg) | 86.57s | 88.77s | - |
 | [strip_04](strip_04.jpg) | 139.05s | 141.25s | - |
-| [strip_05](strip_05.jpg) | 197.38s | 200.58s | near-uniform |
+| [strip_05](strip_05.jpg) | 197.38s | 200.58s | - |
 | [strip_06](strip_06.jpg) | 238.63s | 240.83s | - |
 | [strip_07](strip_07.jpg) | 296.69s | 298.89s | - |
 | [strip_08](strip_08.jpg) | 324.04s | 326.84s | - |
