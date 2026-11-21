@@ -1,0 +1,169 @@
+{
+ "note": "Hand-written storyboard direction for the Hindi edition (storyboard.py reads it). key_words: each line's landing word, a word of its spoken text (numbers as spoken). graphics: the on-screen label for every designed graphic, so it cannot be mistaken for a historical photograph or a verified technical diagram. Written 2026-11-21; the approved script is unchanged.",
+ "key_words": {
+  "1": "जनवरी",
+  "2": "शीरा",
+  "3": "पचास",
+  "4": "ग्यारह",
+  "5": "जान",
+  "8": "पंद्रह",
+  "9": "पचास",
+  "11": "आँकड़े",
+  "12": "विवरण",
+  "14": "चेतावनी",
+  "15": "टैंक",
+  "17": "निर्माण",
+  "18": "स्ट्रीट",
+  "19": "पार्क",
+  "20": "पैंतीस",
+  "21": "ऊँची",
+  "22": "पचास",
+  "23": "ऊँचाई",
+  "24": "सौ",
+  "25": "ट्रामें",
+  "26": "रेल",
+  "27": "कॉप्स",
+  "28": "बंदरगाह",
+  "29": "इकतीस",
+  "30": "लेही",
+  "31": "लड़की",
+  "32": "रेवियर",
+  "33": "एम्बुलेंस",
+  "34": "मैदान",
+  "35": "घोड़े",
+  "36": "टर्मिनल",
+  "37": "ग्यारह",
+  "38": "संख्या",
+  "39": "इक्कीस",
+  "40": "सवाल",
+  "41": "वेजर",
+  "43": "सिद्धांत",
+  "44": "दीवारें",
+  "45": "दरार",
+  "46": "पच्चीस",
+  "47": "लापरवाही",
+  "49": "पैंतीस",
+  "50": "पन्ने",
+  "52": "अनजाने",
+  "54": "इक्कीस",
+  "55": "जाँच"
+ },
+ "graphics": {
+  "3": {
+   "label": "संपादकीय चिह्न",
+   "note": "The 'विवादित' stamp is an editorial annotation by the film, not part of the 1919 page"
+  },
+  "6": {
+   "label": "चित्रण",
+   "note": "Designed source cards (film graphics), not archival documents"
+  },
+  "9": {
+   "label": "चित्रण · अनुमानित पैमाना",
+   "note": "Scale bar drawn from the City of Boston's 50 ft figure; not a measured drawing"
+  },
+  "11": {
+   "label": "चित्रण",
+   "note": "Designed cards and thread joining the two sources"
+  },
+  "13": {
+   "label": "चित्रण · फ़ोटो पर बनाया गया",
+   "note": "Drips are drawn over the archival photo; the photo itself shows no leak. Keep them visibly graphic (outline style), never photoreal"
+  },
+  "14": {
+   "label": "चित्रण",
+   "note": "Dimmed light is a grade on the archival photo"
+  },
+  "15": {
+   "label": "चित्रण",
+   "note": "The crack-to-black is a transition effect; it must not look like the photo shows the rupture"
+  },
+  "16": {
+   "label": "चित्रण",
+   "note": "Designed slots for the City of Boston's three causes"
+  },
+  "17": {
+   "label": "चित्रण",
+   "note": "Designed slots for the City of Boston's three causes"
+  },
+  "18": {
+   "label": "चित्रण · अनुमानित क्षेत्र",
+   "note": "Flooded zone is an approximate overlay from the Post's description; the base map may be a modern reconstruction (check its Commons record at the visuals stage)"
+  },
+  "19": {
+   "label": "चित्रण · अनुमानित मार्ग",
+   "note": "Route line from the Post's 'Charter street to the southerly end of North End Park'; approximate"
+  },
+  "20": {
+   "label": "अनुमान",
+   "note": "Speed figure is the City of Boston's estimate, shown as approximate"
+  },
+  "21": {
+   "label": "चित्रण",
+   "note": "Question mark graphic beside the Post's printed figure"
+  },
+  "22": {
+   "label": "चित्रण · अनुमानित पैमाना",
+   "note": "The 50 ft bar beside the headline compares two stated figures; not a measurement of the wave"
+  },
+  "23": {
+   "label": "चित्रण · बाद के अनुमान",
+   "note": "The lowered, blurred bar stands for later lower estimates, which this film does not quantify"
+  },
+  "27": {
+   "label": "चित्रण · अनुमानित दिशा",
+   "note": "Arrow towards Copp's Hill drawn from the Post's text; approximate"
+  },
+  "28": {
+   "label": "चित्रण · अनुमानित दिशा",
+   "note": "Arrow back to the harbour drawn from the Post's text; approximate"
+  },
+  "37": {
+   "label": "चित्रण",
+   "note": "Tally counter is a film graphic for the Post's first count"
+  },
+  "38": {
+   "label": "चित्रण",
+   "note": "Second card slides in: film graphic"
+  },
+  "39": {
+   "label": "चित्रण",
+   "note": "Tally from 11 to 21: film graphic; the 21 is the City of Boston's figure"
+  },
+  "40": {
+   "label": "चित्रण",
+   "note": "Evidence wall and red thread: film graphics"
+  },
+  "43": {
+   "label": "संपादकीय चिह्न",
+   "note": "The 'शुरुआती सिद्धांत' stamp is the film's annotation, not part of the 1919 page"
+  },
+  "44": {
+   "label": "चित्रण · पैमाने पर नहीं",
+   "note": "Wall cross-section is a schematic of the finding 'walls too thin'; no dimensions are known to this film; not an engineering drawing"
+  },
+  "45": {
+   "label": "चित्रण · पैमाने पर नहीं",
+   "note": "Crack through the schematic illustrates 'material vulnerable to cracking'; not an engineering drawing"
+  },
+  "46": {
+   "label": "चित्रण",
+   "note": "The '1925' card is a film graphic, not a court document"
+  },
+  "47": {
+   "label": "चित्रण",
+   "note": "Cards fading and lit: film graphics"
+  },
+  "53": {
+   "label": "चित्रण · पैमाने पर नहीं",
+   "note": "The wall schematic and 1925 card return: film graphics"
+  },
+  "54": {
+   "label": "चित्रण",
+   "note": "Tally '21' over the archival panorama: film graphic"
+  },
+  "55": {
+   "label": "चित्रण",
+   "note": "Evidence wall pull-back: film graphics"
+  }
+ }
+}

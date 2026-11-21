@@ -102,6 +102,7 @@ def paths(proj):
         "narration": d["script"] / "narration.json", "script_md": d["script"] / "script.md",
         "script_json": proj / "script.json",
         "storyboard": d["scenes"] / "storyboard.json", "storyboard_md": d["scenes"] / "storyboard.md",
+        "direction": d["scenes"] / "direction.json",   # optional, by hand: key-word overrides, graphic labels
         # the images visuals.py fetches: per storyboard in a legacy project, per beat once a production has editions
         "image_needs": (beats_dir / "image_needs.json") if multi else d["scenes"] / "image_needs.json",
         "beats_dir": beats_dir, "beats": beats_dir / "beats.json", "beats_md": beats_dir / "beats.md",

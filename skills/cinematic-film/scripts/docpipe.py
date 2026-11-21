@@ -309,7 +309,7 @@ STAGES = [
     ("research", stage_research, ("sources", "claims"), False),
     ("outline", stage_outline, ("topic", "outline", "claims", "sources"), True),
     ("script", stage_script, ("narration", "outline", "claims", "sources"), True),
-    ("scenes", stage_scenes, ("narration", "timing"), False),
+    ("scenes", stage_scenes, ("narration", "timing", "direction"), False),
     ("visuals", stage_visuals, ("image_needs", "selection", "topic"), True),
     ("assets", stage_assets, ("prepared:",), False),
     ("scenegen", stage_scenegen, ("storyboard", "assets", "outline"), False),
@@ -413,7 +413,8 @@ def edition_steps(root, langs):
         if code != src:
             steps.append((f"script@{code}", "script", script(code), (lambda c=code: script_inputs(c)), True))
         steps.append((f"scenes@{code}", "scenes", (lambda c=code: storyboard.build(E(c))),
-                      (lambda c=code: [L.paths(E(c))["narration"], L.paths(E(c))["timing"], P["image_needs"]]), False))
+                      (lambda c=code: [L.paths(E(c))["narration"], L.paths(E(c))["timing"], P["image_needs"],
+                                       L.paths(E(c))["direction"]]), False))
     steps.append(("visuals", "visuals", lambda: visuals.run(root, offline=OPTS["offline"]),
                   lambda: _inputs(P, "image_needs", "selection", "topic"), True))
     steps.append(("assets", "assets", lambda: stage_assets(root), lambda: Fingerprint(prepare.fingerprint(root)), False))

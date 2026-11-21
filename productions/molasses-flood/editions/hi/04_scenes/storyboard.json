@@ -16,7 +16,7 @@
    "visual": "slow push across the BPL panorama of the site; date types on",
    "hero": "the panorama of the site",
    "typed": "15 जनवरी 1919",
-   "key_word": "स्ट्रीट",
+   "key_word": "जनवरी",
    "camera": "establishing: start close on the hero, ease back to reveal its place",
    "transition": "",
    "claims": [
@@ -39,7 +39,7 @@
    "visual": "the panorama darkens; a brown wash spreads along the street line",
    "hero": "the street in the panorama",
    "typed": "",
-   "key_word": "निकला",
+   "key_word": "शीरा",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -60,7 +60,7 @@
    "visual": "cut to the Post masthead and deck; highlight '50 Feet High'; a stamp 'विवादित'",
    "hero": "the Post headline",
    "typed": "50 फ़ुट?",
-   "key_word": "विवादित",
+   "key_word": "पचास",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
@@ -69,6 +69,10 @@
    "images": [
     "I002"
    ],
+   "graphic": {
+    "label": "संपादकीय चिह्न",
+    "note": "The 'विवादित' stamp is an editorial annotation by the film, not part of the 1919 page"
+   },
    "beat": "B003"
   },
   {
@@ -83,7 +87,7 @@
    "visual": "the Post headline '11 DEAD, 50 HURT' underlined",
    "hero": "the Post headline",
    "typed": "11 मृत",
-   "key_word": "गिने",
+   "key_word": "ग्यारह",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
@@ -104,7 +108,7 @@
    "visual": "title card on the evidence wall",
    "hero": "the title card",
    "typed": "",
-   "key_word": "कैसे",
+   "key_word": "जान",
    "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
    "transition": "section change",
    "claims": [],
@@ -128,6 +132,10 @@
    "transition": "",
    "claims": [],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Designed source cards (film graphics), not archival documents"
+   },
    "beat": "B006"
   },
   {
@@ -165,7 +173,7 @@
    "visual": "City of Boston source card; year types on",
    "hero": "the tank",
    "typed": "1915",
-   "key_word": "बनवाया",
+   "key_word": "पंद्रह",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
@@ -186,7 +194,7 @@
    "visual": "a scale bar rises beside the tank to 50 ft",
    "hero": "the scale bar",
    "typed": "50 फ़ुट",
-   "key_word": "शीरा",
+   "key_word": "पचास",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
@@ -194,6 +202,10 @@
     "C1"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · अनुमानित पैमाना",
+    "note": "Scale bar drawn from the City of Boston's 50 ft figure; not a measured drawing"
+   },
    "beat": "B009"
   },
   {
@@ -231,7 +243,7 @@
    "visual": "the two source cards drawn together by a thread",
    "hero": "the two source cards",
    "typed": "",
-   "key_word": "दोनों",
+   "key_word": "आँकड़े",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -239,6 +251,10 @@
     "C25"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Designed cards and thread joining the two sources"
+   },
    "beat": "B011"
   },
   {
@@ -253,7 +269,7 @@
    "visual": "City of Boston card brought forward",
    "hero": "the City of Boston card",
    "typed": "",
-   "key_word": "दर्ज",
+   "key_word": "विवरण",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [],
@@ -279,6 +295,10 @@
     "C26"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · फ़ोटो पर बनाया गया",
+    "note": "Drips are drawn over the archival photo; the photo itself shows no leak. Keep them visibly graphic (outline style), never photoreal"
+   },
    "beat": "B013"
   },
   {
@@ -293,13 +313,17 @@
    "visual": "hold on the tank; the light dims",
    "hero": "the tank",
    "typed": "",
-   "key_word": "संकेत",
+   "key_word": "चेतावनी",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C26"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Dimmed light is a grade on the archival photo"
+   },
    "beat": "B014"
   },
   {
@@ -314,7 +338,7 @@
    "visual": "the tank photo cracks to black",
    "hero": "the tank",
    "typed": "",
-   "key_word": "टूट",
+   "key_word": "टैंक",
    "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
    "transition": "section change",
    "claims": [
@@ -322,6 +346,10 @@
     "C28"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "The crack-to-black is a transition effect; it must not look like the photo shows the rupture"
+   },
    "beat": "B015"
   },
   {
@@ -343,6 +371,10 @@
     "C28"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Designed slots for the City of Boston's three causes"
+   },
    "beat": "B016"
   },
   {
@@ -357,13 +389,17 @@
    "visual": "the three slots fill one by one",
    "hero": "the three slots",
    "typed": "कमज़ोर निर्माण · तापमान · बड़ी खेप",
-   "key_word": "खेप",
+   "key_word": "निर्माण",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C28"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Designed slots for the City of Boston's three causes"
+   },
    "beat": "B017"
   },
   {
@@ -378,7 +414,7 @@
    "visual": "the area map; the flooded zone fills along Commercial Street",
    "hero": "the map",
    "typed": "",
-   "key_word": "फैल",
+   "key_word": "स्ट्रीट",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -387,6 +423,10 @@
    "images": [
     "I005"
    ],
+   "graphic": {
+    "label": "चित्रण · अनुमानित क्षेत्र",
+    "note": "Flooded zone is an approximate overlay from the Post's description; the base map may be a modern reconstruction (check its Commons record at the visuals stage)"
+   },
    "beat": "B018"
   },
   {
@@ -401,13 +441,17 @@
    "visual": "a route line runs from Charter Street to North End Park",
    "hero": "the route line",
    "typed": "",
-   "key_word": "छोर",
+   "key_word": "पार्क",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C2"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · अनुमानित मार्ग",
+    "note": "Route line from the Post's 'Charter street to the southerly end of North End Park'; approximate"
+   },
    "beat": "B019"
   },
   {
@@ -422,13 +466,17 @@
    "visual": "a speed figure counts up on the map; labelled as an estimate",
    "hero": "the speed figure",
    "typed": "~35 मील/घंटा",
-   "key_word": "बढ़ी",
+   "key_word": "पैंतीस",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
     "C8"
    ],
    "images": [],
+   "graphic": {
+    "label": "अनुमान",
+    "note": "Speed figure is the City of Boston's estimate, shown as approximate"
+   },
    "beat": "B020"
   },
   {
@@ -443,13 +491,17 @@
    "visual": "the Post's '50 Feet High' beside a question mark",
    "hero": "the Post deck",
    "typed": "",
-   "key_word": "एकमत",
+   "key_word": "ऊँची",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C7"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Question mark graphic beside the Post's printed figure"
+   },
    "beat": "B021"
   },
   {
@@ -464,7 +516,7 @@
    "visual": "the 50 ft scale bar from the tank slides beside the headline",
    "hero": "the scale bar",
    "typed": "",
-   "key_word": "टैंक",
+   "key_word": "पचास",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -472,6 +524,10 @@
     "C25"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · अनुमानित पैमाना",
+    "note": "The 50 ft bar beside the headline compares two stated figures; not a measurement of the wave"
+   },
    "beat": "B022"
   },
   {
@@ -486,13 +542,17 @@
    "visual": "the bar lowers and blurs; label 'बाद के अनुमान'",
    "hero": "the scale bar",
    "typed": "",
-   "key_word": "बताते",
+   "key_word": "ऊँचाई",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C7"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · बाद के अनुमान",
+    "note": "The lowered, blurred bar stands for later lower estimates, which this film does not quantify"
+   },
    "beat": "B023"
   },
   {
@@ -507,7 +567,7 @@
    "visual": "the Post column, the passage highlighted",
    "hero": "the Post column",
    "typed": "100+",
-   "key_word": "चपेट",
+   "key_word": "सौ",
    "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
    "transition": "section change",
    "claims": [
@@ -530,7 +590,7 @@
    "visual": "pan across the wreckage photo",
    "hero": "the wreckage",
    "typed": "",
-   "key_word": "कुचला",
+   "key_word": "ट्रामें",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -553,7 +613,7 @@
    "visual": "the elevated-railway photo; slow tilt up the bent structure",
    "hero": "the elevated structure",
    "typed": "",
-   "key_word": "बचा",
+   "key_word": "रेल",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -576,13 +636,17 @@
    "visual": "the map; an arrow drives towards Copp's Hill",
    "hero": "the map arrow",
    "typed": "",
-   "key_word": "टकराया",
+   "key_word": "कॉप्स",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C4"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · अनुमानित दिशा",
+    "note": "Arrow towards Copp's Hill drawn from the Post's text; approximate"
+   },
    "beat": "B027"
   },
   {
@@ -597,13 +661,17 @@
    "visual": "the arrow swings back to the harbour",
    "hero": "the map arrow",
    "typed": "",
-   "key_word": "लौट",
+   "key_word": "बंदरगाह",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C4"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · अनुमानित दिशा",
+    "note": "Arrow back to the harbour drawn from the Post's text; approximate"
+   },
    "beat": "B028"
   },
   {
@@ -618,7 +686,7 @@
    "visual": "the Post's list of the known dead; one name highlighted",
    "hero": "the list of the dead",
    "typed": "इंजन 31",
-   "key_word": "इंजीनियर",
+   "key_word": "इकतीस",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
@@ -639,7 +707,7 @@
    "visual": "the name 'GEORGE LAHEY' lit in the list",
    "hero": "the name",
    "typed": "",
-   "key_word": "लिखा",
+   "key_word": "लेही",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -660,7 +728,7 @@
    "visual": "the Post's 'unidentified dead' paragraph",
    "hero": "the paragraph",
    "typed": "",
-   "key_word": "पाई",
+   "key_word": "लड़की",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -681,7 +749,7 @@
    "visual": "the words 'Revere Rubber Company' highlighted; hold",
    "hero": "the paragraph",
    "typed": "",
-   "key_word": "लगा",
+   "key_word": "रेवियर",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -702,7 +770,7 @@
    "visual": "the Post's bird's-eye photo; its caption highlighted",
    "hero": "the bird's-eye photo",
    "typed": "",
-   "key_word": "गईं",
+   "key_word": "एम्बुलेंस",
    "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
    "transition": "section change",
    "claims": [
@@ -725,7 +793,7 @@
    "visual": "push into the playground area of the photo",
    "hero": "the playground",
    "typed": "",
-   "key_word": "चल",
+   "key_word": "मैदान",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -746,7 +814,7 @@
    "visual": "the panorama, slow drift across the wreckage",
    "hero": "the wreckage",
    "typed": "",
-   "key_word": "हटाए",
+   "key_word": "घोड़े",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -769,7 +837,7 @@
    "visual": "hold on the ruined buildings",
    "hero": "the ruins",
    "typed": "",
-   "key_word": "चुका",
+   "key_word": "टर्मिनल",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -790,13 +858,17 @@
    "visual": "a tally types on: 11",
    "hero": "the tally",
    "typed": "11",
-   "key_word": "पुरुष",
+   "key_word": "ग्यारह",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
     "C5"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Tally counter is a film graphic for the Post's first count"
+   },
    "beat": "B037"
   },
   {
@@ -811,7 +883,7 @@
    "visual": "the tally holds, then a second card slides in",
    "hero": "the tally",
    "typed": "",
-   "key_word": "रुकी",
+   "key_word": "संख्या",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -819,6 +891,10 @@
     "C6"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Second card slides in: film graphic"
+   },
    "beat": "B038"
   },
   {
@@ -833,13 +909,17 @@
    "visual": "the tally rolls from 11 to 21; City of Boston card",
    "hero": "the tally",
    "typed": "21",
-   "key_word": "घायल",
+   "key_word": "इक्कीस",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
     "C6"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Tally from 11 to 21: film graphic; the 21 is the City of Boston's figure"
+   },
    "beat": "B039"
   },
   {
@@ -854,11 +934,15 @@
    "visual": "the evidence wall; a red thread from the tank to two cards",
    "hero": "the evidence wall",
    "typed": "",
-   "key_word": "कैसे",
+   "key_word": "सवाल",
    "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
    "transition": "section change",
    "claims": [],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Evidence wall and red thread: film graphics"
+   },
    "beat": "B040"
   },
   {
@@ -873,7 +957,7 @@
    "visual": "the Post's 'INTERNAL EXPLOSION WAS CAUSE, SAYS STATE CHEMIST' column",
    "hero": "the Post column",
    "typed": "",
-   "key_word": "पहुँचे",
+   "key_word": "वेजर",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -917,13 +1001,17 @@
    "visual": "a stamp 'शुरुआती सिद्धांत' over the column",
    "hero": "the stamp",
    "typed": "",
-   "key_word": "दिशा",
+   "key_word": "सिद्धांत",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C14"
    ],
    "images": [],
+   "graphic": {
+    "label": "संपादकीय चिह्न",
+    "note": "The 'शुरुआती सिद्धांत' stamp is the film's annotation, not part of the 1919 page"
+   },
    "beat": "B043"
   },
   {
@@ -938,13 +1026,17 @@
    "visual": "City of Boston card; a cross-section of a wall drawn thin",
    "hero": "the wall diagram",
    "typed": "",
-   "key_word": "पतली",
+   "key_word": "दीवारें",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C27"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · पैमाने पर नहीं",
+    "note": "Wall cross-section is a schematic of the finding 'walls too thin'; no dimensions are known to this film; not an engineering drawing"
+   },
    "beat": "B044"
   },
   {
@@ -959,13 +1051,17 @@
    "visual": "a crack runs through the diagram",
    "hero": "the wall diagram",
    "typed": "",
-   "key_word": "ख़तरा",
+   "key_word": "दरार",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
     "C27"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण · पैमाने पर नहीं",
+    "note": "Crack through the schematic illustrates 'material vulnerable to cracking'; not an engineering drawing"
+   },
    "beat": "B045"
   },
   {
@@ -980,13 +1076,17 @@
    "visual": "a dated card '1925' pins over the thread's end",
    "hero": "the 1925 card",
    "typed": "1925",
-   "key_word": "माना",
+   "key_word": "पच्चीस",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
     "C29"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "The '1925' card is a film graphic, not a court document"
+   },
    "beat": "B046"
   },
   {
@@ -1001,7 +1101,7 @@
    "visual": "the explosion card fades; the negligence card stays lit",
    "hero": "the 1925 card",
    "typed": "लापरवाही",
-   "key_word": "करते",
+   "key_word": "लापरवाही",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -1010,6 +1110,10 @@
     "C14"
    ],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Cards fading and lit: film graphics"
+   },
    "beat": "B047"
   },
   {
@@ -1047,7 +1151,7 @@
    "visual": "'35 STATES ON DRY LAW LIST' highlighted",
    "hero": "the Prohibition column",
    "typed": "35",
-   "key_word": "चाहिए",
+   "key_word": "पैंतीस",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
@@ -1068,7 +1172,7 @@
    "visual": "the two columns lit side by side",
    "hero": "the front page",
    "typed": "",
-   "key_word": "छपीं",
+   "key_word": "पन्ने",
    "camera": "drift, then push in to land on the key word",
    "transition": "",
    "claims": [
@@ -1108,7 +1212,7 @@
    "visual": "the Post column 'released in some manner yet unexplained' highlighted",
    "hero": "the Post column",
    "typed": "",
-   "key_word": "निकला",
+   "key_word": "अनजाने",
    "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
    "transition": "section change",
    "claims": [
@@ -1141,6 +1245,10 @@
    "images": [
     "I014"
    ],
+   "graphic": {
+    "label": "चित्रण · पैमाने पर नहीं",
+    "note": "The wall schematic and 1925 card return: film graphics"
+   },
    "beat": "B053"
   },
   {
@@ -1155,7 +1263,7 @@
    "visual": "the panorama; the tally 21 holds in silence",
    "hero": "the panorama",
    "typed": "21",
-   "key_word": "ज़िंदगियाँ",
+   "key_word": "इक्कीस",
    "camera": "push in on the number as it rolls up",
    "transition": "",
    "claims": [
@@ -1164,6 +1272,10 @@
    "images": [
     "I015"
    ],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Tally '21' over the archival panorama: film graphic"
+   },
    "beat": "B054"
   },
   {
@@ -1178,11 +1290,15 @@
    "visual": "slow pull-back to the whole evidence wall; fade to black",
    "hero": "the evidence wall",
    "typed": "",
-   "key_word": "ज़रूरी",
+   "key_word": "जाँच",
    "camera": "final pull-back over the whole board (zoom 0.13 to 0.3)",
    "transition": "",
    "claims": [],
    "images": [],
+   "graphic": {
+    "label": "चित्रण",
+    "note": "Evidence wall pull-back: film graphics"
+   },
    "beat": "B055"
   }
  ]

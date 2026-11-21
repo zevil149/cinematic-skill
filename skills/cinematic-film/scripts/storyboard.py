@@ -8,6 +8,14 @@ film needs.
 Reads   03_script/narration.json (or script.json), audio/timing.json when a voice exists
 Writes  04_scenes/storyboard.json, 04_scenes/storyboard.md, 04_scenes/image_needs.json
 
+Optional, written by hand, never by this script: 04_scenes/direction.json
+  {"key_words": {"12": "Kitty"},           a line's landing word, one word of its spoken text
+   "graphics": {"9": {"label": "...", "note": "..."}}}
+                                            an on-screen label (in the edition's language) for a
+                                            designed graphic, so it reads as an illustration
+It survives every rebuild (a new voice re-times the storyboard); an override that is not a word of
+the spoken line is ignored with a warning.
+
 Times are estimates at the scratch-voice pace until audio/timing.json exists; then they are the
 real ones. Run it again after every new voice. The camera suggestions follow references/film.md:
 a whip or pull-back to open a section, a push-in landing on the line's key word (the last
@@ -78,6 +86,10 @@ def build(proj, write=True):
         r.error("the script has no lines"); return r
     per_section = {sid: len(lines) for sid, _, lines in sections}
     act_open = L.act_starts(L.load(p["outline"], {}) if p["outline"].exists() else {}, [(l["id"], sid) for sid, _, _, l in flat])
+    direction = L.load(p["direction"], {}) if p["direction"].exists() else {}
+    kw_over = {str(k): v for k, v in (direction.get("key_words") or {}).items()}
+    graphics = {str(k): v for k, v in (direction.get("graphics") or {}).items()}
+    allow = set(L.load(p["lexicon"], {}).get("allow", [])) if p["lang"] else set()
     scenes, needs, cursor = [], [], L.LEAD
     for n, (sid, take, k, l) in enumerate(flat):
         spoken = l.get("spoken") or lg.spoken_text(l.get("text", ""))
@@ -97,6 +109,20 @@ def build(proj, write=True):
               "camera": camera_for(first_sec, n == 0, n == len(flat) - 1, l),
               "transition": "section change" if first_sec and n else "",
               "claims": l.get("claims", []), "images": []}
+        want = kw_over.pop(str(l["id"]), None)
+        if want is not None:
+            import lang as _lang
+            if want in _lang.TOKEN.findall(spoken):
+                sc["key_word"] = want
+            else:
+                r.warn(f"line {l['id']}: key word {want!r} (direction.json) is not a word of the spoken line; kept {sc['key_word']!r}")
+        g = graphics.pop(str(l["id"]), None)
+        if g:
+            if not g.get("label"):
+                r.warn(f"line {l['id']}: graphic in direction.json has no label")
+            for prob in lg.check_script(g.get("label", ""), allow):
+                r.warn(f"line {l['id']}: graphic label {g.get('label')!r}: {prob}")
+            sc["graphic"] = {"label": g.get("label", ""), "note": g.get("note", "")}
         if beat_needs is not None:
             bid = l.get("beat") or f"B{int(l['id']):03d}"
             sc["beat"] = bid
@@ -119,6 +145,8 @@ def build(proj, write=True):
         if not sc["images"] and not sc["typed"] and not sc["hero"]:
             r.warn(f"line {l['id']}: nothing to show (no hero, image or typed text)")
         scenes.append(sc)
+    for k in list(kw_over) + list(graphics):
+        r.warn(f"direction.json: line {k} is not in the script; ignored")
     link_scenes(p, scenes, beat_needs is not None, r)
     place_scenes(p, scenes, beat_needs is not None, lg, r)
     total = scenes[-1]["end"] + L.TAIL
@@ -217,6 +245,8 @@ def render_md(meta, scenes, needs):
         vis = "; ".join(x for x in (s["hero"], s["visual"]) if x)
         if s["typed"]:
             vis += f" (typed: {s['typed']})"
+        if s.get("graphic"):
+            vis += f" [illustrative, labelled on screen: {s['graphic']['label']}]"
         out.append(f"| {s['scene']} | {L.mmss(s['start'])} to {L.mmss(s['end'])} | {s['narration']} | {vis} | "
                    f"{s['camera']}; key word *{s['key_word']}* | {', '.join(s['images'])} |")
     if needs:
