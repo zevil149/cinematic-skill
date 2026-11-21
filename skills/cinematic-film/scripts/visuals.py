@@ -345,8 +345,18 @@ def check(proj):
     r.note("visuals: " + (", ".join(f"{v} {k}" for k, v in sorted(counts.items())) or "no needs"))
     r.partial = bool(counts.get("deferred"))
     L.write_text(p["visuals_md"], render_md(man))
-    L.write_text(p["credits_md"], render_credits(man))
+    L.write_text(p["credits_md"], render_credits(man, user_entries(p)))
     return r
+
+
+def user_entries(p):
+    """The photos.json / footage.json entries written by hand (not by this tool), by id: where one
+    shadows a download, it is what the film uses and credits (rights.py), so credits.md says the same."""
+    out = {}
+    for key, sub in (("photos_json", "photos"), ("footage_json", "footage")):
+        if p[key].exists():
+            out.update({e["id"]: e for e in L.load(p[key], {}).get(sub, []) if e.get("id") and e.get("generated_by") != GEN})
+    return out
 
 
 def render_md(man):
@@ -360,10 +370,18 @@ def render_md(man):
     return "\n".join(out) + "\n"
 
 
-def render_credits(man):
+def render_credits(man, theirs=None):
+    theirs = theirs or {}
     used = [a for a in man.values() if a["status"] in ("ok", "own")]
     out = ["# Image and footage credits", ""]
-    out += [f"- {a['need']}: {a['attribution']}" for a in used] or ["- none yet"]
+
+    def line(a):
+        e = theirs.get(a["need"]) if a.get("shadowed") else None
+        if e:                                          # the entry written in photos.json is what the film credits
+            text = e.get("attribution") or " · ".join(x for x in (e.get("what"), e.get("credit"), e.get("license")) if x)
+            return f"- {a['need']}: {text} (as written in photos.json)"
+        return f"- {a['need']}: {a['attribution']}"
+    out += [line(a) for a in used] or ["- none yet"]
     fb = [a for a in man.values() if a["status"] in ("fallback", "deferred")]
     if fb:
         out += ["", "## Shown as designed cards (no image used)", ""] + [f"- {a['need']}: {a['what']}" for a in fb]
