@@ -69,8 +69,11 @@
    "date": "",
    "type": "government",
    "accessed": "2026-11-21",
-   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed",
-   "tier": 3
+   "notes": "UNVERIFIED LEAD, externally supplied: first found as a web-search result summary on 2026-11-21; the content.boston.gov URL of the same article was supplied by the producer on 2026-11-21. Reading it from this session failed (web fetch: getaddrinfo ENOTFOUND content.boston.gov); the host is not on the environment's allowlist and no new permission was requested. Not personally verified: kept at tier 3 (a government page would be tier 1 once read).",
+   "tier": 3,
+   "alt_urls": [
+    "https://content.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end"
+   ]
   },
   {
    "id": "S7",

@@ -14,8 +14,8 @@
   },
   "research": {
    "status": "done",
-   "inputs": "9f88ac831969e7df",
-   "at": "2026-11-21T04:41:59",
+   "inputs": "3d55355197f5351b",
+   "at": "2026-11-21T05:41:36",
    "errors": [],
    "warnings": [
     "C6: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
@@ -39,8 +39,8 @@
   },
   "outline": {
    "status": "awaiting approval",
-   "inputs": "42d03503fa8c73ec",
-   "at": "2026-11-21T04:42:16",
+   "inputs": "ebd307d87662e3a9",
+   "at": "2026-11-21T05:41:36",
    "errors": [],
    "warnings": [],
    "notes": [
