@@ -16,20 +16,20 @@
 - claims: C1
 
 ### SEC03 The tank on Commercial Street  (0:26.0, 56.0 s, about 140 words)
-*chapter, 1915*: Who owned the tank, how it was built and tested, the leaks and the brown paint (leads, hedged)
-- Purity Distilling / USIA (lead)
-- built about 1915, not properly tested (lead)
-- leaks hidden with brown paint (lead)
-- Arthur Jell, no engineer (lead)
-- claims: C16, C17, C18
+*chapter, 1915*: Who built the tank and how: Purity Distilling, 1915, 50 ft, earlier leaks, walls too thin (S6, supplied); the USIA link, water test, paint and Jell remain leads
+- built 1915 by Purity Distilling, 50 ft, about 2.3 million gallons (S6)
+- it had reportedly leaked (S6)
+- walls too thin, material prone to cracking (S6)
+- USIA parent, no water test, brown paint, Arthur Jell (leads)
+- claims: C25, C26, C27, C16, C17, C18
 
 ### SEC04 January 15, 1919  (1:22.0, 56.0 s, about 140 words)
 *chapter, 1919*: The day: warmer weather after a freeze (lead); 2.3 million gallons released; the path of the wave
-- freezing days, then a warm noon (lead)
+- temperature changes and a large shipment (S6); 40 F figure (lead)
 - the tank gives way
-- Charter Street to North End Park
-- about 35 mph (lead)
-- claims: C19, C1, C2, C8, C7
+- Charter Street to North End Park (Post)
+- about 35 mph (S6, estimate)
+- claims: C28, C19, C1, C2, C8, C7
 
 ### SEC05 The black wave  (2:18.0, 56.0 s, about 140 words)
 *chapter, 1919*: What the wave did: people, horses, buildings, the elevated railway, Engine 31; the victims named by the Post
@@ -42,19 +42,20 @@
 
 ### SEC06 Rescue in the syrup  (3:14.0, 56.0 s, about 140 words)
 *chapter, 1919*: Rescue and its difficulty: ambulances, the playground, the molasses thickening in the cold (lead); final toll (lead); cleanup (lead)
-- ambulances from all over the city
+- ambulances from all over the city (Post)
 - molasses thickens as it cools (lead)
-- 21 dead, about 150 injured (lead)
+- 21 dead, about 150 injured (S6; needs a second source)
 - weeks of cleanup; a brown harbour (lead)
 - claims: C13, C20, C6, C23
 
 ### SEC07 Explosion or failure?  (4:10.0, 56.0 s, about 140 words)
-*chapter, 1925*: The first theory (Wedger's internal explosion, the company's anarchist claim) against the court's finding (lead); damages disputed
+*chapter, 1925*: The first theory (Wedger's explosion, the Post) against the engineering and the 1925 auditor's finding of negligence (S6); the auditor's name, the anarchist claim and the damages remain leads or disputed
 - the state chemist says explosion (Post)
-- the company blames anarchists (lead)
-- Ogden's 1925 ruling: liable (lead)
+- engineers: walls too thin (S6)
+- 1925 auditor: negligence by the owners (S6)
+- Ogden, the anarchist claim (leads)
 - the damages: figures differ
-- claims: C14, C21, C22
+- claims: C14, C27, C29, C21, C22
 
 ### SEC08 The day after  (5:06.0, 36.0 s, about 90 words)
 *turn, 1919*: Context: the Prohibition amendment one state short the same day; the irony of an alcohol company's tank

@@ -14,13 +14,14 @@
   },
   "research": {
    "status": "done",
-   "inputs": "3d55355197f5351b",
-   "at": "2026-11-21T05:41:36",
+   "inputs": "a91937f24ea24119",
+   "at": "2026-11-21T05:56:01",
    "errors": [],
    "warnings": [
-    "C6: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "S6: no accessed date",
+    "C6: single-source number or date; confirm it in a second independent source",
     "C7: disputed; any line stating it must hedge ('about', 'reported', 'according to')",
-    "C8: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C8: single-source number or date; confirm it in a second independent source",
     "C14: disputed; any line stating it must hedge ('about', 'reported', 'according to')",
     "C16: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
     "C17: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
@@ -30,17 +31,19 @@
     "C21: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
     "C22: disputed; any line stating it must hedge ('about', 'reported', 'according to')",
     "C23: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
-    "C24: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)"
+    "C24: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C25: single-source number or date; confirm it in a second independent source",
+    "C29: single-source number or date; confirm it in a second independent source"
    ],
    "notes": [
     "S10: not cited by any claim",
-    "claims: 11 supported, 0 single-source, 10 weak, 3 disputed, 0 unsupported"
+    "claims: 14 supported, 4 single-source, 8 weak, 3 disputed, 0 unsupported"
    ]
   },
   "outline": {
    "status": "awaiting approval",
-   "inputs": "ebd307d87662e3a9",
-   "at": "2026-11-21T05:41:36",
+   "inputs": "8c95681daec98340",
+   "at": "2026-11-21T05:56:01",
    "errors": [],
    "warnings": [],
    "notes": [

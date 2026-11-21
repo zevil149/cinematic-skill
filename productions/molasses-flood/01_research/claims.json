@@ -54,13 +54,14 @@
    "id": "C6",
    "text": "The final toll was 21 dead and about 150 injured.",
    "sources": [
+    "S6",
     "S2",
     "S4",
     "S3"
    ],
    "quote": "",
    "disputed": false,
-   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+   "notes": "S6 (supplied excerpt, paraphrase; tier 2) supports it; other sources still unread leads. One secondary source for a number: a second independent one is needed"
   },
   {
    "id": "C7",
@@ -79,12 +80,13 @@
    "id": "C8",
    "text": "The wave is estimated to have moved at about 35 miles an hour.",
    "sources": [
+    "S6",
     "S2",
     "S11"
    ],
    "quote": "",
    "disputed": false,
-   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing; also stated in the Commons description of the BPL panorama"
+   "notes": "S6 (supplied excerpt, paraphrase; tier 2) supports it; also in the Commons description (S11). A modern estimate, not a measurement: say 'about'"
   },
   {
    "id": "C9",
@@ -144,7 +146,7 @@
    ],
    "quote": "W. L. Wedger, State police chemist in charge of explosives, had reached the positive conclusion that the disaster instead of being due to a collapse of the great tank was caused by an internal explosion",
    "disputed": true,
-   "notes": "Contemporary theory; the later court finding (UNVERIFIED leads) was structural failure"
+   "notes": "Contemporary theory only. Against it: S6 (supplied excerpt) gives structural causes (C27, C28) and a 1925 finding of negligence (C29). The script must present the explosion theory as an early, later rejected explanation"
   },
   {
    "id": "C15",
@@ -165,7 +167,7 @@
    ],
    "quote": "",
    "disputed": false,
-   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing. S6 supports Purity Distilling as the builder (see C25), not the USIA link"
   },
   {
    "id": "C17",
@@ -177,7 +179,7 @@
    ],
    "quote": "",
    "disputed": false,
-   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing; sources differ on the build date (1915 or 1917) and the test"
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing; sources differ on the build date (1915 or 1917) and the test. S6 supports the 1915 date, the 50 ft height and earlier leaks (C25, C26), not the water test or the brown paint, which stay leads"
   },
   {
    "id": "C18",
@@ -193,12 +195,11 @@
    "id": "C19",
    "text": "After a freezing spell, the temperature rose above 40 degrees Fahrenheit on the day of the disaster.",
    "sources": [
-    "S2",
-    "S6"
+    "S2"
    ],
    "quote": "",
    "disputed": false,
-   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing. S6 names 'temperature changes' as a factor (C28) but gives no figure; the 40 F figure stays a lead. S6 removed on 2026-11-21: a search summary had linked it to this claim, but the excerpt the producer supplied does not state it"
   },
   {
    "id": "C20",
@@ -248,12 +249,63 @@
    "id": "C24",
    "text": "The disaster led to stricter rules for engineers and construction.",
    "sources": [
-    "S7",
+    "S7"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing. S6 removed on 2026-11-21: a search summary had linked it to this claim, but the excerpt the producer supplied does not state it"
+  },
+  {
+   "id": "C25",
+   "text": "The tank, 50 feet tall and holding about 2.3 million gallons, was built in 1915 by the Purity Distilling Company.",
+   "sources": [
     "S6"
    ],
    "quote": "",
    "disputed": false,
-   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+   "notes": "S6 (supplied excerpt, paraphrase; tier 2) supports it; no verbatim quote available"
+  },
+  {
+   "id": "C26",
+   "text": "The tank had reportedly leaked before the disaster.",
+   "sources": [
+    "S6"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "S6 (supplied excerpt, paraphrase; tier 2) supports it; no verbatim quote available"
+  },
+  {
+   "id": "C27",
+   "text": "Structural engineers later found the tank's walls too thin and its material vulnerable to cracking.",
+   "sources": [
+    "S6"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "S6 (supplied excerpt, paraphrase; tier 2) supports it; no verbatim quote available"
+  },
+  {
+   "id": "C28",
+   "text": "Poor construction, changes in temperature and a large shipment of molasses together contributed to the rupture.",
+   "sources": [
+    "S6"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "S6 (supplied excerpt, paraphrase; tier 2) supports it; no verbatim quote available"
+  },
+  {
+   "id": "C29",
+   "text": "In 1925 a court-appointed auditor attributed the disaster to negligence by the tank's owners.",
+   "sources": [
+    "S6",
+    "S5",
+    "S7"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "S6 (supplied excerpt, paraphrase; tier 2) supports it; no verbatim quote available"
   }
  ]
 }

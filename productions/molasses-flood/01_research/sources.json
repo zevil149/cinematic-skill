@@ -68,11 +68,24 @@
    "author": "",
    "date": "",
    "type": "government",
-   "accessed": "2026-11-21",
-   "notes": "UNVERIFIED LEAD, externally supplied: first found as a web-search result summary on 2026-11-21; the content.boston.gov URL of the same article was supplied by the producer on 2026-11-21. Reading it from this session failed (web fetch: getaddrinfo ENOTFOUND content.boston.gov); the host is not on the environment's allowlist and no new permission was requested. Not personally verified: kept at tier 3 (a government page would be tier 1 once read).",
-   "tier": 3,
+   "accessed": "",
+   "notes": "EXTERNALLY SUPPLIED EXCERPT, NOT FETCHED BY THIS SESSION: the producer read the page and supplied the points in 'excerpt' on 2026-11-21. They are the producer's summary of what the article states, not verbatim quotations, so no claim quotes them. This session could not open the page (web fetch: getaddrinfo ENOTFOUND content.boston.gov). An official City of Boston news article written for the centenary (2019): a retrospective secondary account, not a 1919 record, and its own sources are not given in the excerpt. Tier set to 2 (secondary) by hand, not the tier 1 its type would give. Same article also at content.boston.gov (alt_urls).",
+   "tier": 2,
    "alt_urls": [
     "https://content.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end"
+   ],
+   "provenance": "externally supplied excerpt",
+   "supplied": "2026-11-21, by the producer, who read the page outside this session",
+   "excerpt": [
+    "The tank was built in 1915 by Purity Distilling Company.",
+    "It was 50 feet tall.",
+    "It held approximately 2.3 million gallons.",
+    "The tank had reportedly leaked previously.",
+    "Structural engineers later found its walls too thin and its material vulnerable to cracking.",
+    "A combination of poor construction, temperature changes and a large shipment contributed to the rupture.",
+    "The wave moved at approximately 35 mph.",
+    "21 people died and 150 were injured.",
+    "A 1925 court-appointed auditor attributed the disaster to negligence by the tank owners."
    ]
   },
   {
