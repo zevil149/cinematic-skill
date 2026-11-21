@@ -109,7 +109,7 @@
    ]
   },
   "visuals": {
-   "status": "awaiting approval",
+   "status": "done",
    "inputs": "a95e55bf9191e55e",
    "at": "2026-11-21T16:21:26",
    "errors": [],
@@ -131,7 +131,9 @@
    ],
    "notes": [
     "visuals: 3 fallback, 12 ok"
-   ]
+   ],
+   "approved": "a95e55bf9191e55e",
+   "approved_at": "2026-11-21T16:32:27"
   }
  }
 }
