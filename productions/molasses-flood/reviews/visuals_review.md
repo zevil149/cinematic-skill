@@ -87,8 +87,10 @@ credit lines below are what `rights.py` and `credits.py` produce from them (veri
 | I008 | Boston Elevated Railway structure after the molasses flood, January 1919 · Boston Elevated Railway Company; City of Boston Archives · Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified) |
 | I005 | Map of the molasses flood area, North End · 2005 reconstruction by Wikimedia Commons user IMeowbot, after 1895 and 1915 City of Boston maps · Public domain (released by its author) |
 
-`05_visuals/credits.md` is the visuals stage's own list, generated from the archive records; it
-still shows the uncorrected Commons wording and is not what the film credits.
+`05_visuals/credits.md` now says the same: for a download shadowed by a hand-written entry, the
+visuals stage writes that entry's attribution (marked "as written in photos.json"), including the
+provisional wording for the panorama and the elevated-railway photo. (visuals.py change, with a
+test, 2026-11-21; before it, credits.md kept the uncorrected Commons wording.)
 
 The visuals stage warns once for each corrected entry ("an entry I0xx you wrote; yours is used and
 the download is not"). That is expected: each entry points at the same downloaded file and only
@@ -105,11 +107,13 @@ replaces its credit and licence wording.
 
 ## Unresolved risks and blockers
 
-1. **I011, I012, I013 not downloaded.** upload.wikimedia.org rate-limited every retry (latest:
-   cooling down until 12:32 UTC). Per your instruction, retrying stopped. Until a later
+1. **I011, I012, I013 not downloaded.** upload.wikimedia.org rate-limited every retry, including
+   the single retry at 12:33 UTC after the 12:32 cooldown (now cooling down until 12:48 UTC).
+   Per your instruction, retrying stopped. Until a later
    `docpipe.py run` fetches them, those three scenes show designed cards. When they arrive, they
    need the same hand-written credit entry as I002 in `photos.json` (otherwise they carry the
-   Commons wording "not specified").
+   Commons wording "not specified"). They are not pre-entered now: an entry naming a file that
+   does not exist yet would break the later assets stage.
 2. **Copyright of the panorama and the elevated-railway photo is provisional.** Public domain in
    the US depends on publication before 1931, not verified at BPL or the City of Boston Archives.
    If either was unpublished until recently, its US term could run to 2039. Confirm before
