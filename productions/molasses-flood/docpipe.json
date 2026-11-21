@@ -134,6 +134,16 @@
    ],
    "approved": "a95e55bf9191e55e",
    "approved_at": "2026-11-21T16:32:27"
+  },
+  "assets": {
+   "status": "done",
+   "inputs": "5031e5a2108281b5",
+   "at": "2026-11-21T16:33:31",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "photos: 12 ready (bw); 12 graded now"
+   ]
   }
  }
 }

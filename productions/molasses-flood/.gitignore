@@ -2,3 +2,5 @@
 05_visuals/cache/
 05_visuals/http_state.json
 *.part
+# derived by the assets stage (prepare.py) from committed sources; rebuilt when missing
+assets/prep/

@@ -143,3 +143,16 @@ when you are satisfied: `docpipe.py approve --project productions/molasses-flood
 * `05_visuals/credits.md`: 12 credits, all from the hand-written entries; 3 designed cards listed.
 * Tests: test_visuals_credits, test_visuals, test_rights, test_storyboard_direction, test_report,
   test_editions, test_docpipe — all OK.
+
+## Assets stage (run after the visuals approval)
+
+* `docpipe.py run --until assets`: **0 errors, 0 warnings**. 12 photos prepared and graded for the
+  "wall" look (black and white) into `assets/prep/photos/`, plus the board textures. The three
+  placeholders (I003, I007, I014) are not prepared: they remain designed cards.
+* Sources, `photos.json`, credits, script, storyboard and beats were not changed by the stage.
+* The prepared files are derived and are not committed (`assets/prep/` is ignored); the stage
+  rebuilds them from the committed downloads when they are missing.
+* New observation: the map (I005) shows numbered markers 1–8 whose legend is only on its Commons
+  page, not in the image, and English labels ("Charles River", "Commercial St.", ...). In the film
+  it should be framed so the unexplained numbers do not read as evidence, or the legend given on
+  screen in Hindi, at the scene and look review.
