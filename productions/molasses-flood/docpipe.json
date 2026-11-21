@@ -144,6 +144,18 @@
    "notes": [
     "photos: 12 ready (bw); 12 graded now"
    ]
+  },
+  "scenegen@hi": {
+   "status": "done",
+   "inputs": "34fd7c2f61a799e9",
+   "at": "2026-11-21T16:40:04",
+   "errors": [],
+   "warnings": [
+    "3 of 15 visuals are designed cards until their images arrive"
+   ],
+   "notes": [
+    "1 act(s): act 1 55 lines 0:00.9-5:39.1"
+   ]
   }
  }
 }
