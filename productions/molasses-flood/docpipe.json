@@ -216,6 +216,19 @@
    "notes": [
     "hi subtitles: 74 cues -> out/subtitles.hi.srt, out/subtitles.hi.vtt; 74 cue(s) on estimated word times"
    ]
+  },
+  "review@hi": {
+   "status": "awaiting approval",
+   "inputs": "34168b126901f78a",
+   "at": "2026-11-21T21:05:55",
+   "errors": [],
+   "warnings": [
+    "act 1 strip_02: near-uniform (look at it)",
+    "act 1 strip_05: near-uniform (look at it)"
+   ],
+   "notes": [
+    "act 1: 57 stills, 9 strips in 07_review/hi/act_01/"
+   ]
   }
  }
 }

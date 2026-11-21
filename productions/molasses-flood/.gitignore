@@ -7,3 +7,5 @@ assets/prep/
 # generated audio (voice segments, mixes): rebuilt by the pipeline from the script; records kept
 editions/*/audio/**/*.wav
 editions/*/audio/**/*.m4a
+# look-review stills (PNG, 37 MB) are rebuilt by review.py; sheet, strips and review.md/json are kept
+07_review/*/act_*/*.png
