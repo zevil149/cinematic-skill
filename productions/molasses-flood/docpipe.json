@@ -195,6 +195,17 @@
    "notes": [
     "audio/sfx.wav for hi: 43 cues from 1 act(s)"
    ]
+  },
+  "sound@hi": {
+   "status": "done",
+   "inputs": "7f21c621b451188e",
+   "at": "2026-11-21T17:59:03",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "hi cue sheet: 1 music cue(s), 0 library sound(s), 0 gap(s), synthesised effects, 5:56.0",
+    "audio/mix.m4a for hi: -15.0 LUFS, -1.5 dBTP, no clipping"
+   ]
   }
  }
 }
