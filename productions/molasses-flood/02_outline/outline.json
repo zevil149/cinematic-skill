@@ -1,0 +1,210 @@
+{
+ "title": "The Great Molasses Flood — जब बोस्टन की सड़कों पर शीरे की लहर दौड़ी",
+ "minutes": 6.0,
+ "acts": 1,
+ "shape": "documentary",
+ "sections": [
+  {
+   "id": "SEC01",
+   "kind": "cold_open",
+   "act": 0,
+   "title": "A wave nobody could outrun",
+   "purpose": "Hook in 15 s: a sticky wave crushes a city street at noon; the Post's headline and the absurdity of molasses as a killer",
+   "period": "1919",
+   "beats": [
+    "Boston, a mild January noon",
+    "a brown wave as high as a building (as reported)",
+    "'11 dead, 50 hurt' by midnight"
+   ],
+   "claims": [
+    "C1",
+    "C7",
+    "C5"
+   ],
+   "target_seconds": 18.0,
+   "target_words": 45,
+   "target_lines": 4,
+   "guide": "Cold open"
+  },
+  {
+   "id": "SEC02",
+   "kind": "bridge",
+   "act": 1,
+   "title": "Why molasses?",
+   "purpose": "Bridge from the shock to the question: how could something sweet kill",
+   "period": "1919",
+   "beats": [
+    "question: how",
+    "the answer lies in a steel tank"
+   ],
+   "claims": [
+    "C1"
+   ],
+   "target_seconds": 8.0,
+   "target_words": 20,
+   "target_lines": 2,
+   "guide": "Bridge"
+  },
+  {
+   "id": "SEC03",
+   "kind": "chapter",
+   "act": 1,
+   "title": "The tank on Commercial Street",
+   "purpose": "Who owned the tank, how it was built and tested, the leaks and the brown paint (leads, hedged)",
+   "period": "1915",
+   "beats": [
+    "Purity Distilling / USIA (lead)",
+    "built about 1915, not properly tested (lead)",
+    "leaks hidden with brown paint (lead)",
+    "Arthur Jell, no engineer (lead)"
+   ],
+   "claims": [
+    "C16",
+    "C17",
+    "C18"
+   ],
+   "target_seconds": 56.0,
+   "target_words": 140,
+   "target_lines": 12,
+   "guide": "Chapter 1"
+  },
+  {
+   "id": "SEC04",
+   "kind": "chapter",
+   "act": 1,
+   "title": "January 15, 1919",
+   "purpose": "The day: warmer weather after a freeze (lead); 2.3 million gallons released; the path of the wave",
+   "period": "1919",
+   "beats": [
+    "freezing days, then a warm noon (lead)",
+    "the tank gives way",
+    "Charter Street to North End Park",
+    "about 35 mph (lead)"
+   ],
+   "claims": [
+    "C19",
+    "C1",
+    "C2",
+    "C8",
+    "C7"
+   ],
+   "target_seconds": 56.0,
+   "target_words": 140,
+   "target_lines": 12,
+   "guide": "Chapter 2"
+  },
+  {
+   "id": "SEC05",
+   "kind": "chapter",
+   "act": 1,
+   "title": "The black wave",
+   "purpose": "What the wave did: people, horses, buildings, the elevated railway, Engine 31; the victims named by the Post",
+   "period": "1919",
+   "beats": [
+    "more than 100 people caught",
+    "the L structure crushed",
+    "Copp's Hill and back to the harbour",
+    "George Lahey of Engine 31",
+    "a girl of about 14, unidentified"
+   ],
+   "claims": [
+    "C3",
+    "C4",
+    "C9",
+    "C10",
+    "C11",
+    "C12"
+   ],
+   "target_seconds": 56.0,
+   "target_words": 140,
+   "target_lines": 12,
+   "guide": "Chapter 3"
+  },
+  {
+   "id": "SEC06",
+   "kind": "chapter",
+   "act": 1,
+   "title": "Rescue in the syrup",
+   "purpose": "Rescue and its difficulty: ambulances, the playground, the molasses thickening in the cold (lead); final toll (lead); cleanup (lead)",
+   "period": "1919",
+   "beats": [
+    "ambulances from all over the city",
+    "molasses thickens as it cools (lead)",
+    "21 dead, about 150 injured (lead)",
+    "weeks of cleanup; a brown harbour (lead)"
+   ],
+   "claims": [
+    "C13",
+    "C20",
+    "C6",
+    "C23"
+   ],
+   "target_seconds": 56.0,
+   "target_words": 140,
+   "target_lines": 12,
+   "guide": "Chapter 4"
+  },
+  {
+   "id": "SEC07",
+   "kind": "chapter",
+   "act": 1,
+   "title": "Explosion or failure?",
+   "purpose": "The first theory (Wedger's internal explosion, the company's anarchist claim) against the court's finding (lead); damages disputed",
+   "period": "1925",
+   "beats": [
+    "the state chemist says explosion (Post)",
+    "the company blames anarchists (lead)",
+    "Ogden's 1925 ruling: liable (lead)",
+    "the damages: figures differ"
+   ],
+   "claims": [
+    "C14",
+    "C21",
+    "C22"
+   ],
+   "target_seconds": 56.0,
+   "target_words": 140,
+   "target_lines": 12,
+   "guide": "Chapter 5"
+  },
+  {
+   "id": "SEC08",
+   "kind": "turn",
+   "act": 1,
+   "title": "The day after",
+   "purpose": "Context: the Prohibition amendment one state short the same day; the irony of an alcohol company's tank",
+   "period": "1919",
+   "beats": [
+    "35 states ratified, one needed (Post)",
+    "the tank held molasses for industrial alcohol (lead)"
+   ],
+   "claims": [
+    "C15",
+    "C16"
+   ],
+   "target_seconds": 36.0,
+   "target_words": 90,
+   "target_lines": 8,
+   "guide": "The turn"
+  },
+  {
+   "id": "SEC09",
+   "kind": "close",
+   "act": 1,
+   "title": "What the wave left",
+   "purpose": "Close: stricter building rules (lead); a marker and a memory; the lesson of untested engineering",
+   "period": "1919",
+   "beats": [
+    "stricter rules for engineers (lead)",
+    "the North End today"
+   ],
+   "claims": [
+    "C24"
+   ],
+   "target_seconds": 18.0,
+   "target_words": 45,
+   "target_lines": 4,
+   "guide": "Close"
+  }
+ ]
+}

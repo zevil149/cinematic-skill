@@ -1,3 +1,136 @@
 {
- "sources": []
+ "sources": [
+  {
+   "id": "S1",
+   "url": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+   "title": "The Boston Post, Thursday, January 16, 1919 (EXTRA), front page",
+   "publisher": "The Boston Post",
+   "author": "",
+   "date": "1919-01-16",
+   "type": "primary",
+   "accessed": "2026-11-21",
+   "notes": "Read directly from the scan on Wikimedia Commons (public domain). First-day reporting: its figures (11 dead, a 50-foot wave) were later revised, and it reports an explosion theory later rejected.",
+   "tier": 1
+  },
+  {
+   "id": "S2",
+   "url": "https://en.wikipedia.org/wiki/Great_Molasses_Flood",
+   "title": "Great Molasses Flood",
+   "publisher": "Wikipedia",
+   "author": "",
+   "date": "",
+   "type": "wiki",
+   "accessed": "2026-11-21",
+   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed",
+   "tier": 3
+  },
+  {
+   "id": "S3",
+   "url": "https://www.britannica.com/topic/Great-Molasses-Flood",
+   "title": "Great Molasses Flood",
+   "publisher": "Encyclopaedia Britannica",
+   "author": "",
+   "date": "",
+   "type": "reference",
+   "accessed": "2026-11-21",
+   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed",
+   "tier": 3
+  },
+  {
+   "id": "S4",
+   "url": "https://www.npr.org/2019/01/13/684894921/after-100-years-a-look-back-at-bostons-great-molasses-flood-of-1919",
+   "title": "After 100 Years, A Look Back At Boston's Great Molasses Flood Of 1919",
+   "publisher": "NPR",
+   "author": "",
+   "date": "2019-01-13",
+   "type": "news",
+   "accessed": "2026-11-21",
+   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed",
+   "tier": 3
+  },
+  {
+   "id": "S5",
+   "url": "https://www.history.com/news/the-great-molasses-flood-of-1919",
+   "title": "The Great Molasses Flood of 1919",
+   "publisher": "History.com",
+   "author": "Evan Andrews",
+   "date": "",
+   "type": "news",
+   "accessed": "2026-11-21",
+   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed",
+   "tier": 3
+  },
+  {
+   "id": "S6",
+   "url": "https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end",
+   "title": "100 years ago today: Molasses crashes through Boston's North End",
+   "publisher": "City of Boston",
+   "author": "",
+   "date": "",
+   "type": "government",
+   "accessed": "2026-11-21",
+   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed",
+   "tier": 3
+  },
+  {
+   "id": "S7",
+   "url": "https://www.sec.state.ma.us/divisions/state-house-tours/did-you-know/Molasses-Flood.htm",
+   "title": "Molasses Flood (State House tours: did you know)",
+   "publisher": "Secretary of the Commonwealth of Massachusetts",
+   "author": "",
+   "date": "",
+   "type": "government",
+   "accessed": "2026-11-21",
+   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed",
+   "tier": 3
+  },
+  {
+   "id": "S8",
+   "url": "https://www.smithsonianmag.com/smart-news/why-boston-molasses-disaster-was-so-deadly-180961209/",
+   "title": "Why the Boston Molasses Disaster Was So Deadly",
+   "publisher": "Smithsonian Magazine",
+   "author": "",
+   "date": "",
+   "type": "news",
+   "accessed": "2026-11-21",
+   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed",
+   "tier": 3
+  },
+  {
+   "id": "S9",
+   "url": "",
+   "title": "In a sea of sticky molasses: The physics of the Boston Molasses Flood (APS DFD 2016, abstract L27.00008)",
+   "publisher": "Bulletin of the American Physical Society",
+   "author": "Nicole Sharp, Jordan Kennedy, Shmuel Rubinstein",
+   "date": "2016",
+   "type": "academic",
+   "accessed": "",
+   "notes": "UNVERIFIED: known only from a web-search result summary on 2026-11-21; the page itself could not be read from this session, so it is recorded as a lead (tier 3) until confirmed (cited through APS News and Smithsonian summaries)",
+   "tier": 3
+  },
+  {
+   "id": "S10",
+   "url": "",
+   "title": "Dark Tide: The Great Boston Molasses Flood of 1919",
+   "publisher": "Beacon Press",
+   "author": "Stephen Puleo",
+   "date": "2003",
+   "type": "book",
+   "accessed": "",
+   "notes": "The standard book on the flood, named in search results; not read here. Recommended for confirmation.",
+   "tier": 3
+  },
+  {
+   "id": "S11",
+   "url": "https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
+   "title": "Panorama of the Molasses Disaster site (file description)",
+   "publisher": "Boston Public Library via Wikimedia Commons",
+   "author": "",
+   "date": "",
+   "type": "archive",
+   "accessed": "2026-11-21",
+   "notes": "Commons file description (read). A description written for the upload, not a primary account.",
+   "tier": 3
+  }
+ ]
 }

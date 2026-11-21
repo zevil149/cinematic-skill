@@ -1,3 +1,259 @@
 {
- "claims": []
+ "claims": [
+  {
+   "id": "C1",
+   "text": "On the afternoon of January 15, 1919, a giant tank released 2,300,000 gallons of molasses over Commercial Street in Boston's North End.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "A 50-foot wave of molasses—2,300,000 gallons of it—released in some manner yet unexplained, from a giant tank, swept over Commercial street and its waterfront from Charter street to the southerly end of North End Park yesterday afternoon.",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C2",
+   "text": "The wave swept Commercial Street and its waterfront from Charter Street to the southern end of North End Park.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "swept over Commercial street and its waterfront from Charter street to the southerly end of North End Park yesterday afternoon",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C3",
+   "text": "The flood caught more than 100 men, women and children, and crushed buildings, horse teams, automobiles and street cars.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "Ensnaring in its sticky flood more than 100 men, women and children, crushing buildings, teams, automobiles and street cars—everything in its path",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C4",
+   "text": "The mass struck the buildings facing Copp's Hill and then swept back towards the harbour.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "the black, reeking mass slapped against the side of the buildings fronting Copp's Hill and then swished back towards the harbor",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C5",
+   "text": "By midnight the next day's paper counted eleven known dead, a woman, a girl and nine men, and more than 50 injured.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "Eleven persons—a woman, a girl and nine men—were the known dead at midnight. More than 50 injured were in hospitals and at their homes.",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C6",
+   "text": "The final toll was 21 dead and about 150 injured.",
+   "sources": [
+    "S2",
+    "S4",
+    "S3"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+  },
+  {
+   "id": "C7",
+   "text": "How high the wave was is disputed: the Boston Post reported 50 feet; later accounts give figures from about 15 to 40 feet, most often 25 feet.",
+   "sources": [
+    "S1",
+    "S2",
+    "S4",
+    "S3"
+   ],
+   "quote": "Giant Wave of 2,300,000 Gallons of Molasses, 50 Feet High",
+   "disputed": true,
+   "notes": "The 50-foot figure equals the tank's reported height; modern figures UNVERIFIED (search summaries)"
+  },
+  {
+   "id": "C8",
+   "text": "The wave is estimated to have moved at about 35 miles an hour.",
+   "sources": [
+    "S2",
+    "S11"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing; also stated in the Commons description of the BPL panorama"
+  },
+  {
+   "id": "C9",
+   "text": "The elevated railway structure on Commercial Street was crushed.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "Buildings, Vehicles and L Structure Crushed",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C10",
+   "text": "Among the dead was George Lahey (as the Post spells it), an engineer of Engine 31 of the Boston Fire Department.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "ENGINEER GEORGE LAHEY, Engine 31, B. F. D., 401 Saratoga street, East Boston",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C11",
+   "text": "Among the unidentified dead was a girl of about 14 with an employment tag from the Revere Rubber Company.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "Girl about 14 years of age. She wore a gray jacket over a woolen middy blouse and carried a bag with an employment tag of the Revere Rubber Company.",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C12",
+   "text": "Dead horses, cats and dogs were carted away, and Boston's only trolley freight terminal was in ruins.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "Dead horses, cats and dogs had been carted away in team after team. Boston's only trolley freight terminal was in ruins.",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C13",
+   "text": "Ambulances were rushed from all over the city, and rescuers worked on the North End Park playground.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "Ambulances from all sections of the city were rushed to the scene",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C14",
+   "text": "The day after, a state police chemist, W. L. Wedger, concluded that an internal explosion, not a collapse, had caused the disaster; this first explanation did not stand.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "W. L. Wedger, State police chemist in charge of explosives, had reached the positive conclusion that the disaster instead of being due to a collapse of the great tank was caused by an internal explosion",
+   "disputed": true,
+   "notes": "Contemporary theory; the later court finding (UNVERIFIED leads) was structural failure"
+  },
+  {
+   "id": "C15",
+   "text": "On January 15, 1919, 35 states had ratified the Prohibition amendment and one more was needed.",
+   "sources": [
+    "S1"
+   ],
+   "quote": "Amendment Ratified by Five Yesterday—One More Needed—Predict Nation Dry July 1",
+   "disputed": false,
+   "notes": ""
+  },
+  {
+   "id": "C16",
+   "text": "The tank belonged to the Purity Distilling Company, a subsidiary of United States Industrial Alcohol.",
+   "sources": [
+    "S2",
+    "S5"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+  },
+  {
+   "id": "C17",
+   "text": "The tank, about 50 feet tall, was built in 1915, was never properly tested with water, leaked from the start and was painted brown to hide the leaks.",
+   "sources": [
+    "S2",
+    "S5",
+    "S7"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing; sources differ on the build date (1915 or 1917) and the test"
+  },
+  {
+   "id": "C18",
+   "text": "Arthur Jell, the company official who oversaw the tank's construction, had no engineering training.",
+   "sources": [
+    "S2"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+  },
+  {
+   "id": "C19",
+   "text": "After a freezing spell, the temperature rose above 40 degrees Fahrenheit on the day of the disaster.",
+   "sources": [
+    "S2",
+    "S6"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+  },
+  {
+   "id": "C20",
+   "text": "A 2016 Harvard study found that the molasses thickened as it cooled in the January air, which trapped victims and hampered rescue.",
+   "sources": [
+    "S9",
+    "S8"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+  },
+  {
+   "id": "C21",
+   "text": "A court-appointed auditor, Hugh Ogden, ruled in 1925 that the company was liable, rejecting its claim that anarchists had blown up the tank.",
+   "sources": [
+    "S5",
+    "S7",
+    "S2"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+  },
+  {
+   "id": "C22",
+   "text": "Reported figures for the damages paid differ: about $628,000 in some accounts, larger settlement totals in others.",
+   "sources": [
+    "S5",
+    "S7"
+   ],
+   "quote": "",
+   "disputed": true,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing; the figure is disputed among the summaries"
+  },
+  {
+   "id": "C23",
+   "text": "The cleanup of the immediate area took weeks, and the harbour stayed brown with molasses until summer.",
+   "sources": [
+    "S2"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+  },
+  {
+   "id": "C24",
+   "text": "The disaster led to stricter rules for engineers and construction.",
+   "sources": [
+    "S7",
+    "S6"
+   ],
+   "quote": "",
+   "disputed": false,
+   "notes": "UNVERIFIED: from web-search summaries only; confirm before publishing"
+  }
+ ]
 }

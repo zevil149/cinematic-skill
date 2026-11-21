@@ -1,5 +1,51 @@
 {
  "version": 1,
  "created": "2026-11-21",
- "stages": {}
+ "stages": {
+  "topic": {
+   "status": "done",
+   "inputs": "3b5e55eab2712bdf",
+   "at": "2026-11-21T04:41:59",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "6 minutes: about 900 words, 5 chapters, 1 act(s)"
+   ]
+  },
+  "research": {
+   "status": "done",
+   "inputs": "9f88ac831969e7df",
+   "at": "2026-11-21T04:41:59",
+   "errors": [],
+   "warnings": [
+    "C6: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C7: disputed; any line stating it must hedge ('about', 'reported', 'according to')",
+    "C8: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C14: disputed; any line stating it must hedge ('about', 'reported', 'according to')",
+    "C16: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C17: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C18: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C19: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C20: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C21: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C22: disputed; any line stating it must hedge ('about', 'reported', 'according to')",
+    "C23: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)",
+    "C24: weak, only tier 3 sources (Wikipedia and the like are leads, not proof)"
+   ],
+   "notes": [
+    "S10: not cited by any claim",
+    "claims: 11 supported, 0 single-source, 10 weak, 3 disputed, 0 unsupported"
+   ]
+  },
+  "outline": {
+   "status": "awaiting approval",
+   "inputs": "42d03503fa8c73ec",
+   "at": "2026-11-21T04:42:16",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "9 sections, 6:00.0, about 900 words"
+   ]
+  }
+ }
 }
