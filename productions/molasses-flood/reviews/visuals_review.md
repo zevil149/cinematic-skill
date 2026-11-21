@@ -62,20 +62,66 @@ selection is open: they name the same file as the other four Post needs.
 
 No AI-generated, paid or restricted media was considered.
 
-## Credits that need a hand correction
+## Producer decisions (2026-11-21)
 
-`05_visuals/credits.md` is generated from Commons. Two lines read badly:
-* the Post: "by not specified" — should credit **The Boston Post, 16 January 1919**;
-* the map: credit is "User:IMeowbot" — suitable, but say it is a 2005 reconstruction.
+| # | Decision | Done |
+|---|---|---|
+| 1 | Tank (I003, I014): keep the designed placeholder cards; the 417 px student-site photo is not used | `selection.json`: `fallback` |
+| 2 | Wreckage (I007): keep the placeholder; the script gate is not reopened | `selection.json`: `fallback` |
+| 3 | BPL panorama (I001, I010, I015) and City Archives elevated-railway photo (I008): **provisional** | kept, with the publication-date doubt written into their licence line and attribution (below) |
+| 4 | 2005 map (I005): keep, as an illustrative reconstruction | kept; credit corrected; on-screen label "चित्रण · अनुमानित क्षेत्र" (direction.json, line 18) |
+| 5 | Boston Post: one image across all seven needs | all seven name `Boston_post-January_16,_1919,.jpg`; the four downloaded copies are byte-identical |
+| 6 | Credits: the Post as "The Boston Post, 16 January 1919"; the map as a 2005 reconstruction | done (below) |
 
-## Decisions for you
+## Credits as the film will show them
 
-1. **The tank photo (I003, I014):** keep the designed card, or accept the weakly sourced,
-   low-resolution photo with its caveats.
-2. **Wreckage (I007):** keep the card, or let the script's image need be changed later (a script
-   change re-opens the script gate) so City of Boston Archives -031 can be used.
-3. **Publication basis of the BPL panorama and the City of Boston Archives photo:** accept
-   Commons' PD-US-expired, or confirm with the institutions first.
-4. **The map:** accept a labelled 2005 reconstruction with English labels, or use a designed map.
-5. **Credits:** correct the two lines above before the credits are made.
-6. Then, if you agree: `docpipe.py approve --project productions/molasses-flood visuals`.
+Corrected through the pipeline's own mechanism: an entry written by hand in the production's
+`photos.json` (no `generated_by`) wins over the downloaded record, and the rights stage judges it
+by the licence it states. Each corrected entry carries `written_by` and a `provenance` note. The
+credit lines below are what `rights.py` and `credits.py` produce from them (verified):
+
+| Need | Credit line |
+|---|---|
+| I002, I004, I006, I009 | Boston Post front page, January 16, 1919 · The Boston Post, 16 January 1919 · Public domain in the US (published 1919) |
+| I001, I010, I015 | Panorama of the molasses disaster site, January 15, 1919 (BPL) · Boston Public Library · Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified) |
+| I008 | Boston Elevated Railway structure after the molasses flood, January 1919 · Boston Elevated Railway Company; City of Boston Archives · Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified) |
+| I005 | Map of the molasses flood area, North End · 2005 reconstruction by Wikimedia Commons user IMeowbot, after 1895 and 1915 City of Boston maps · Public domain (released by its author) |
+
+`05_visuals/credits.md` is the visuals stage's own list, generated from the archive records; it
+still shows the uncorrected Commons wording and is not what the film credits.
+
+The visuals stage warns once for each corrected entry ("an entry I0xx you wrote; yours is used and
+the download is not"). That is expected: each entry points at the same downloaded file and only
+replaces its credit and licence wording.
+
+## Verification (2026-11-21)
+
+* Files at full Commons size (the Post page, the map) match their Commons SHA-1 checksums; the
+  Post copies also match the scan read for the research (S1).
+* Files over 1920 px (panorama, elevated railway) are Commons' own 1920 px renders, by the
+  pipeline's design (all a 1080p film can show), so their checksums differ from the originals.
+  The three panorama copies are byte-identical.
+* Each download has a source record naming its Commons candidate and licence.
+
+## Unresolved risks and blockers
+
+1. **I011, I012, I013 not downloaded.** upload.wikimedia.org rate-limited every retry (latest:
+   cooling down until 12:32 UTC). Per your instruction, retrying stopped. Until a later
+   `docpipe.py run` fetches them, those three scenes show designed cards. When they arrive, they
+   need the same hand-written credit entry as I002 in `photos.json` (otherwise they carry the
+   Commons wording "not specified").
+2. **Copyright of the panorama and the elevated-railway photo is provisional.** Public domain in
+   the US depends on publication before 1931, not verified at BPL or the City of Boston Archives.
+   If either was unpublished until recently, its US term could run to 2039. Confirm before
+   public release, or replace with designed cards.
+3. **Outside the US**, public-domain status of all four images is not assessed.
+4. **The map** is a modern reconstruction with English labels in a Hindi film; its placements are
+   the mapmaker's, unverified.
+5. **Resolution.** The Post scan (1127 × 1435) is soft for full-frame close-ups of small type.
+6. **Three placeholders by choice** (tank × 2, wreckage) mean SEC03 has no photograph of the tank.
+
+## What approval would mean
+
+Approving the visuals gate accepts the selections above, including the provisional two, and the
+fallback cards. The next stages (assets, scene starters, then voice) would follow. To approve,
+when you are satisfied: `docpipe.py approve --project productions/molasses-flood visuals`.

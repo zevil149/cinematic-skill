@@ -111,15 +111,24 @@
   "visuals": {
    "status": "awaiting approval",
    "inputs": "a95e55bf9191e55e",
-   "at": "2026-11-21T09:25:14",
+   "at": "2026-11-21T12:18:15",
    "errors": [],
    "warnings": [
+    "I001: photos.json or footage.json already has an entry I001 you wrote; yours is used and the download (I001.jpg) is not. Rename one of them if both should appear",
+    "I002: photos.json or footage.json already has an entry I002 you wrote; yours is used and the download (I002.jpg) is not. Rename one of them if both should appear",
     "I003 (The North End molasses tank before the disaster): fallback card, chosen in selection.json",
+    "I004: photos.json or footage.json already has an entry I004 you wrote; yours is used and the download (I004.jpg) is not. Rename one of them if both should appear",
+    "I005: photos.json or footage.json already has an entry I005 you wrote; yours is used and the download (I005.png) is not. Rename one of them if both should appear",
+    "I006: photos.json or footage.json already has an entry I006 you wrote; yours is used and the download (I006.jpg) is not. Rename one of them if both should appear",
     "I007 (Wreckage under the elevated tracks, 1919): fallback card, chosen in selection.json",
-    "I011 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 09:40:14; the next run retries it",
-    "I012 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 09:40:14; the next run retries it",
-    "I013 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 09:40:14; the next run retries it",
-    "I014 (The North End molasses tank before the disaster): fallback card, chosen in selection.json"
+    "I008: photos.json or footage.json already has an entry I008 you wrote; yours is used and the download (I008.jpg) is not. Rename one of them if both should appear",
+    "I009: photos.json or footage.json already has an entry I009 you wrote; yours is used and the download (I009.jpg) is not. Rename one of them if both should appear",
+    "I010: photos.json or footage.json already has an entry I010 you wrote; yours is used and the download (I010.jpg) is not. Rename one of them if both should appear",
+    "I011 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 12:32:44; the next run retries it",
+    "I012 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 12:32:44; the next run retries it",
+    "I013 (Boston Post front page, January 16, 1919): deferred, upload.wikimedia.org is rate-limiting us; cooling down until 12:32:44; the next run retries it",
+    "I014 (The North End molasses tank before the disaster): fallback card, chosen in selection.json",
+    "I015: photos.json or footage.json already has an entry I015 you wrote; yours is used and the download (I015.jpg) is not. Rename one of them if both should appear"
    ],
    "notes": [
     "visuals: 3 deferred, 3 fallback, 9 ok"
