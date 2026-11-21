@@ -50,4 +50,4 @@ Stills regenerated with the stage's own command (`review.py`): **57 stills, 9 st
 
 review.py: 57 stills, 9 strips, 0 flags. rights.py check: ok, 12 images used, 0 not usable.
 Tests: test_review, test_gates, test_scenegen, test_rights, test_editions, test_title_cards,
-test_composition, test_engine_visual, test_lang_hi (results in the commit message).
+test_composition, test_engine_visual, test_lang_hi: all OK.
