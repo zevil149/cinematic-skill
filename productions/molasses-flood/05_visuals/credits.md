@@ -10,11 +10,11 @@
 - I010: Panorama of the Molasses Disaster site, 15 January 1919, Boston Public Library (Flickr 4901555337), via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg. Tagged PD-US-expired on Commons; its publication before 1931 has not been independently verified. (as written in photos.json)
 - I011: Front page of The Boston Post, 16 January 1919. Public domain in the US (published 1919). Scan via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg (as written in photos.json)
 - I012: Front page of The Boston Post, 16 January 1919. Public domain in the US (published 1919). Scan via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg (as written in photos.json)
+- I013: Front page of The Boston Post, 16 January 1919. Public domain in the US (published 1919). Scan via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg (as written in photos.json)
 - I015: Panorama of the Molasses Disaster site, 15 January 1919, Boston Public Library (Flickr 4901555337), via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg. Tagged PD-US-expired on Commons; its publication before 1931 has not been independently verified. (as written in photos.json)
 
 ## Shown as designed cards (no image used)
 
 - I003: The North End molasses tank before the disaster
 - I007: Wreckage under the elevated tracks, 1919
-- I013: Boston Post front page, January 16, 1919
 - I014: The North End molasses tank before the disaster

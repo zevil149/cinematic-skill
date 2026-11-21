@@ -39,13 +39,12 @@ a record at its origin.
 | I007 | wreckage (SEC05) | **fallback card** | — | — | **Not selected.** See below. |
 
 Repeated needs are consistent: every Post need names the same Commons file, and every panorama
-need the same file. The pipeline still downloads one copy per need (7 + 3 copies); the copies made
-so far are byte-identical.
+need the same file. The pipeline downloads one copy per need (7 + 3 copies); all are downloaded,
+and the copies of each are byte-identical.
 
-**Downloads still owed:** I011, I012, I013 (the Post page again). upload.wikimedia.org rate-limited
-us; after three polite retries (each after its cooldown) they are deferred, and the next
-`docpipe.py run` retries them. Until then those three show as designed cards. Nothing about their
-selection is open: they name the same file as the other four Post needs.
+**Download history.** upload.wikimedia.org rate-limited the Post downloads repeatedly. Each retry
+was a single normal pipeline run after the reported cooldown: 09:25 UTC (I009), 12:33 (none),
+16:00 (I011, I012), 16:21 (I013, the last). No file was downloaded twice.
 
 ## Rejected candidates
 
@@ -82,7 +81,7 @@ credit lines below are what `rights.py` and `credits.py` produce from them (veri
 
 | Need | Credit line |
 |---|---|
-| I002, I004, I006, I009, I011, I012 | Boston Post front page, January 16, 1919 · The Boston Post, 16 January 1919 · Public domain in the US (published 1919) |
+| I002, I004, I006, I009, I011, I012, I013 | Boston Post front page, January 16, 1919 · The Boston Post, 16 January 1919 · Public domain in the US (published 1919) |
 | I001, I010, I015 | Panorama of the molasses disaster site, January 15, 1919 (BPL) · Boston Public Library · Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified) |
 | I008 | Boston Elevated Railway structure after the molasses flood, January 1919 · Boston Elevated Railway Company; City of Boston Archives · Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified) |
 | I005 | Map of the molasses flood area, North End · 2005 reconstruction by Wikimedia Commons user IMeowbot, after 1895 and 1915 City of Boston maps · Public domain (released by its author) |
@@ -104,17 +103,15 @@ replaces its credit and licence wording.
   pipeline's design (all a 1080p film can show), so their checksums differ from the originals.
   The three panorama copies are byte-identical.
 * Each download has a source record naming its Commons candidate and licence.
+* All seven Post copies (I002, I004, I006, I009, I011, I012, I013) have the Commons SHA-1, the same
+  source record and selection, and identical hand-written credit entries in `photos.json`.
 
 ## Unresolved risks and blockers
 
-1. **I013 not downloaded.** At the single retry at 16:00 UTC (after the 12:48 cooldown), I011 and
-   I012 downloaded; their SHA-1 matches the Commons file and the other Post copies, their source
-   records name the same Commons file, and they now have the same corrected credit entry as I002
-   in `photos.json`. I013 was rate-limited again (cooling down until 16:15 UTC); per your
-   instruction, retrying stopped. Until a later run fetches it, its scene (SEC09, the close) shows
-   a designed card; when it arrives it needs the same credit entry. It is not pre-entered: an entry
-   naming a file that does not exist yet would break the later assets stage.
-2. **Copyright of the panorama and the elevated-railway photo is provisional.** Public domain in
+1. **No downloads are outstanding.** I013 arrived at the single retry at 16:21 UTC (after the
+   16:15 cooldown); its checksum, source record and credit entry match the other six Post copies.
+2. **Copyright of the panorama (I001, I010, I015) and the elevated-railway photo (I008) is
+   provisional — unresolved.** Public domain in
    the US depends on publication before 1931, not verified at BPL or the City of Boston Archives.
    If either was unpublished until recently, its US term could run to 2039. Confirm before
    public release, or replace with designed cards.
@@ -130,9 +127,19 @@ Approving the visuals gate accepts the selections above, including the provision
 fallback cards. The next stages (assets, scene starters, then voice) would follow. To approve,
 when you are satisfied: `docpipe.py approve --project productions/molasses-flood visuals`.
 
-## Checks run (16:00 UTC)
+## Checks run (16:21 UTC, final)
 
-* visuals: 0 errors, 13 warnings (1 deferred: I013; 3 fallbacks by choice; 9 hand-written credit entries in use).
-* rights, per asset: all 11 downloaded needs usable, with the corrected credit lines; I013 not usable until downloaded.
-* `rights.py check` for the edition cannot run yet: it reads what the built scenes use, which needs the voice timing
-  (a later stage). It runs again before rendering, where it blocks any unusable asset.
+* visuals (`visuals.py run`, which reused every file in place): **0 errors, 15 warnings, 12 ok, 3 fallback**.
+  * 12 "photos.json already has an entry … you wrote; yours is used and the download is not": the
+    hand-written credit entries (I001, I002, I004–I006, I008–I013, I015). Expected: each entry
+    points at the same downloaded file and replaces only the credit and licence wording.
+  * 3 fallback cards, chosen by you: I003, I014 (tank), I007 (wreckage).
+  * `docpipe.py status` still shows 14 warnings: its record is from the 16:21 run, made before
+    I013's credit entry existed (the stage's inputs did not change, so it is not rerun).
+* rights, per asset: all 12 downloaded needs usable; four distinct credit lines, shown above, with
+  the provisional wording on the panorama and the elevated-railway photo.
+* `rights.py check` for the edition cannot run yet: it reads what the built scenes use, which needs
+  the voice timing (a later stage). It runs again before rendering, where it blocks any unusable asset.
+* `05_visuals/credits.md`: 12 credits, all from the hand-written entries; 3 designed cards listed.
+* Tests: test_visuals_credits, test_visuals, test_rights, test_storyboard_direction, test_report,
+  test_editions, test_docpipe — all OK.

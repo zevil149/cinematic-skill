@@ -269,7 +269,8 @@
    "file": "I011.jpg",
    "auto": false,
    "cleared": null,
-   "status": "ok"
+   "status": "ok",
+   "shadowed": true
   },
   "I012": {
    "need": "I012",
@@ -295,7 +296,8 @@
    "file": "I012.jpg",
    "auto": false,
    "cleared": null,
-   "status": "ok"
+   "status": "ok",
+   "shadowed": true
   },
   "I013": {
    "need": "I013",
@@ -321,12 +323,8 @@
    "file": "I013.jpg",
    "auto": false,
    "cleared": null,
-   "status": "deferred",
-   "fallback": {
-    "type": "card",
-    "title": "Boston Post front page, January 16, 1919",
-    "reason": "upload.wikimedia.org is rate-limiting us; cooling down until 16:15:42"
-   }
+   "status": "ok",
+   "shadowed": true
   },
   "I014": {
    "need": "I014",
