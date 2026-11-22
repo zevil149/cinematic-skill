@@ -4,8 +4,8 @@
  "stages": {
   "topic": {
    "status": "done",
-   "inputs": "3b5e55eab2712bdf",
-   "at": "2026-11-21T04:41:59",
+   "inputs": "d8e27813bee3a05d",
+   "at": "2026-11-22T12:04:05",
    "errors": [],
    "warnings": [],
    "notes": [
@@ -41,9 +41,9 @@
    ]
   },
   "outline": {
-   "status": "done",
-   "inputs": "db091660db05b677",
-   "at": "2026-11-21T06:07:25",
+   "status": "awaiting approval",
+   "inputs": "98ee961bf09b027d",
+   "at": "2026-11-22T12:04:05",
    "errors": [],
    "warnings": [],
    "notes": [
