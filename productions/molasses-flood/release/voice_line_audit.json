@@ -1,0 +1,754 @@
+[
+ {
+  "line": 1,
+  "section": "SEC01",
+  "chars": 62,
+  "words": 11,
+  "timed_s": 6.7,
+  "espeak_s": 7.15,
+  "numbers": [
+   "15",
+   "1919"
+  ],
+  "names_loanwords": [
+   "एंड",
+   "कमर्शियल",
+   "नॉर्थ",
+   "बोस्टन",
+   "स्ट्रीट"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 2,
+  "section": "SEC01",
+  "chars": 55,
+  "words": 12,
+  "timed_s": 4.9,
+  "espeak_s": 5.31,
+  "numbers": [],
+  "names_loanwords": [
+   "गैलन"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 3,
+  "section": "SEC01",
+  "chars": 78,
+  "words": 17,
+  "timed_s": 6.58,
+  "espeak_s": 7.04,
+  "numbers": [
+   "50"
+  ],
+  "names_loanwords": [
+   "पोस्ट",
+   "फ़ुट",
+   "बोस्टन"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 4,
+  "section": "SEC01",
+  "chars": 55,
+  "words": 13,
+  "timed_s": 4.77,
+  "espeak_s": 5.18,
+  "numbers": [
+   "11",
+   "50"
+  ],
+  "names_loanwords": [],
+  "gap_after": 1.6
+ },
+ {
+  "line": 5,
+  "section": "SEC02",
+  "chars": 49,
+  "words": 11,
+  "timed_s": 5.15,
+  "espeak_s": 5.57,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": 1.0
+ },
+ {
+  "line": 6,
+  "section": "SEC02",
+  "chars": 70,
+  "words": 17,
+  "timed_s": 6.45,
+  "espeak_s": 6.87,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 7,
+  "section": "SEC03",
+  "chars": 68,
+  "words": 13,
+  "timed_s": 5.62,
+  "espeak_s": 6.04,
+  "numbers": [],
+  "names_loanwords": [
+   "कमर्शियल",
+   "स्ट्रीट"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 8,
+  "section": "SEC03",
+  "chars": 92,
+  "words": 17,
+  "timed_s": 8.26,
+  "espeak_s": 8.69,
+  "numbers": [
+   "1915"
+  ],
+  "names_loanwords": [
+   "ऑफ़",
+   "कंपनी",
+   "डिस्टिलिंग",
+   "प्यूरिटी",
+   "बोस्टन",
+   "सिटी"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 9,
+  "section": "SEC03",
+  "chars": 73,
+  "words": 16,
+  "timed_s": 6.83,
+  "espeak_s": 7.24,
+  "numbers": [
+   "50"
+  ],
+  "names_loanwords": [
+   "गैलन",
+   "फ़ुट"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 10,
+  "section": "SEC03",
+  "chars": 70,
+  "words": 14,
+  "timed_s": 5.87,
+  "espeak_s": 6.29,
+  "numbers": [],
+  "names_loanwords": [
+   "गैलन",
+   "पोस्ट",
+   "बोस्टन",
+   "रिपोर्ट"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 11,
+  "section": "SEC03",
+  "chars": 72,
+  "words": 17,
+  "timed_s": 6.23,
+  "espeak_s": 6.69,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 12,
+  "section": "SEC03",
+  "chars": 35,
+  "words": 9,
+  "timed_s": 2.94,
+  "espeak_s": 3.36,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 13,
+  "section": "SEC03",
+  "chars": 58,
+  "words": 14,
+  "timed_s": 4.83,
+  "espeak_s": 5.25,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 14,
+  "section": "SEC03",
+  "chars": 28,
+  "words": 6,
+  "timed_s": 2.76,
+  "espeak_s": 3.19,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 15,
+  "section": "SEC04",
+  "chars": 39,
+  "words": 8,
+  "timed_s": 5.26,
+  "espeak_s": 5.71,
+  "numbers": [
+   "15",
+   "1919,"
+  ],
+  "names_loanwords": [],
+  "gap_after": 1.2
+ },
+ {
+  "line": 16,
+  "section": "SEC04",
+  "chars": 55,
+  "words": 12,
+  "timed_s": 4.86,
+  "espeak_s": 5.28,
+  "numbers": [],
+  "names_loanwords": [
+   "ऑफ़",
+   "बोस्टन",
+   "सिटी"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 17,
+  "section": "SEC04",
+  "chars": 57,
+  "words": 11,
+  "timed_s": 5.15,
+  "espeak_s": 5.58,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 18,
+  "section": "SEC04",
+  "chars": 68,
+  "words": 13,
+  "timed_s": 5.72,
+  "espeak_s": 6.14,
+  "numbers": [],
+  "names_loanwords": [
+   "कमर्शियल",
+   "पोस्ट",
+   "बोस्टन",
+   "स्ट्रीट"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 19,
+  "section": "SEC04",
+  "chars": 57,
+  "words": 11,
+  "timed_s": 4.25,
+  "espeak_s": 4.73,
+  "numbers": [],
+  "names_loanwords": [
+   "एंड",
+   "चार्टर",
+   "नॉर्थ",
+   "पार्क",
+   "स्ट्रीट"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 20,
+  "section": "SEC04",
+  "chars": 74,
+  "words": 16,
+  "timed_s": 6.86,
+  "espeak_s": 7.27,
+  "numbers": [
+   "35"
+  ],
+  "names_loanwords": [
+   "घंटे",
+   "मील"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 21,
+  "section": "SEC04",
+  "chars": 45,
+  "words": 10,
+  "timed_s": 3.83,
+  "espeak_s": 4.25,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 22,
+  "section": "SEC04",
+  "chars": 79,
+  "words": 17,
+  "timed_s": 7.14,
+  "espeak_s": 7.59,
+  "numbers": [
+   "50"
+  ],
+  "names_loanwords": [
+   "पोस्ट",
+   "फ़ुट"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 23,
+  "section": "SEC04",
+  "chars": 46,
+  "words": 10,
+  "timed_s": 4.06,
+  "espeak_s": 4.48,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 24,
+  "section": "SEC05",
+  "chars": 107,
+  "words": 21,
+  "timed_s": 8.74,
+  "espeak_s": 9.19,
+  "numbers": [
+   "100"
+  ],
+  "names_loanwords": [
+   "पोस्ट",
+   "हिल"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 25,
+  "section": "SEC05",
+  "chars": 81,
+  "words": 12,
+  "timed_s": 7.16,
+  "espeak_s": 7.58,
+  "numbers": [],
+  "names_loanwords": [
+   "ट्रामें",
+   "मोटरगाड़ियाँ"
+  ],
+  "gap_after": 0.9
+ },
+ {
+  "line": 26,
+  "section": "SEC05",
+  "chars": 54,
+  "words": 11,
+  "timed_s": 4.53,
+  "espeak_s": 4.95,
+  "numbers": [],
+  "names_loanwords": [
+   "एल",
+   "एलिवेटेड"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 27,
+  "section": "SEC05",
+  "chars": 78,
+  "words": 15,
+  "timed_s": 6.43,
+  "espeak_s": 6.85,
+  "numbers": [],
+  "names_loanwords": [
+   "कॉप्स",
+   "हिल"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 28,
+  "section": "SEC05",
+  "chars": 34,
+  "words": 8,
+  "timed_s": 2.87,
+  "espeak_s": 3.29,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 29,
+  "section": "SEC05",
+  "chars": 66,
+  "words": 12,
+  "timed_s": 5.43,
+  "espeak_s": 5.85,
+  "numbers": [
+   "31"
+  ],
+  "names_loanwords": [
+   "इंजन",
+   "इंजीनियर",
+   "डिपार्टमेंट",
+   "फ़ायर",
+   "बोस्टन"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 30,
+  "section": "SEC05",
+  "chars": 34,
+  "words": 7,
+  "timed_s": 2.56,
+  "espeak_s": 3.02,
+  "numbers": [],
+  "names_loanwords": [
+   "जॉर्ज",
+   "पोस्ट",
+   "लेही"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 31,
+  "section": "SEC05",
+  "chars": 85,
+  "words": 19,
+  "timed_s": 8.08,
+  "espeak_s": 8.5,
+  "numbers": [
+   "14"
+  ],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 32,
+  "section": "SEC05",
+  "chars": 82,
+  "words": 17,
+  "timed_s": 7.47,
+  "espeak_s": 7.89,
+  "numbers": [],
+  "names_loanwords": [
+   "कंपनी",
+   "जैकेट",
+   "टैग",
+   "रबर",
+   "रेवियर"
+  ],
+  "gap_after": 2.0
+ },
+ {
+  "line": 33,
+  "section": "SEC06",
+  "chars": 56,
+  "words": 11,
+  "timed_s": 4.71,
+  "espeak_s": 5.12,
+  "numbers": [],
+  "names_loanwords": [
+   "एम्बुलेंस"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 34,
+  "section": "SEC06",
+  "chars": 57,
+  "words": 14,
+  "timed_s": 5.05,
+  "espeak_s": 5.47,
+  "numbers": [],
+  "names_loanwords": [
+   "एंड",
+   "नॉर्थ",
+   "पार्क"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 35,
+  "section": "SEC06",
+  "chars": 64,
+  "words": 11,
+  "timed_s": 5.34,
+  "espeak_s": 5.76,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 36,
+  "section": "SEC06",
+  "chars": 57,
+  "words": 10,
+  "timed_s": 4.71,
+  "espeak_s": 5.13,
+  "numbers": [],
+  "names_loanwords": [
+   "टर्मिनल",
+   "ट्रॉली",
+   "बोस्टन"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 37,
+  "section": "SEC06",
+  "chars": 69,
+  "words": 15,
+  "timed_s": 6.28,
+  "espeak_s": 6.74,
+  "numbers": [
+   "11"
+  ],
+  "names_loanwords": [
+   "पोस्ट",
+   "हिल"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 38,
+  "section": "SEC06",
+  "chars": 28,
+  "words": 5,
+  "timed_s": 2.27,
+  "espeak_s": 2.69,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": 0.9
+ },
+ {
+  "line": 39,
+  "section": "SEC06",
+  "chars": 77,
+  "words": 16,
+  "timed_s": 7.74,
+  "espeak_s": 8.16,
+  "numbers": [
+   "21",
+   "150"
+  ],
+  "names_loanwords": [
+   "ऑफ़",
+   "बोस्टन",
+   "सिटी"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 40,
+  "section": "SEC07",
+  "chars": 31,
+  "words": 7,
+  "timed_s": 3.36,
+  "espeak_s": 3.79,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": 1.0
+ },
+ {
+  "line": 41,
+  "section": "SEC07",
+  "chars": 106,
+  "words": 20,
+  "timed_s": 9.38,
+  "espeak_s": 9.8,
+  "numbers": [],
+  "names_loanwords": [
+   "एल",
+   "डब्ल्यू",
+   "पोस्ट",
+   "बोस्टन",
+   "वेजर"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 42,
+  "section": "SEC07",
+  "chars": 59,
+  "words": 12,
+  "timed_s": 5.0,
+  "espeak_s": 5.42,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 43,
+  "section": "SEC07",
+  "chars": 68,
+  "words": 14,
+  "timed_s": 5.94,
+  "espeak_s": 6.36,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": 0.9
+ },
+ {
+  "line": 44,
+  "section": "SEC07",
+  "chars": 95,
+  "words": 18,
+  "timed_s": 7.65,
+  "espeak_s": 8.07,
+  "numbers": [],
+  "names_loanwords": [
+   "इंजीनियर",
+   "स्ट्रक्चरल"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 45,
+  "section": "SEC07",
+  "chars": 43,
+  "words": 9,
+  "timed_s": 3.43,
+  "espeak_s": 3.85,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 46,
+  "section": "SEC07",
+  "chars": 107,
+  "words": 19,
+  "timed_s": 9.39,
+  "espeak_s": 9.81,
+  "numbers": [
+   "1925"
+  ],
+  "names_loanwords": [
+   "ऑडिटर"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 47,
+  "section": "SEC07",
+  "chars": 103,
+  "words": 22,
+  "timed_s": 8.76,
+  "espeak_s": 9.18,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 48,
+  "section": "SEC08",
+  "chars": 42,
+  "words": 10,
+  "timed_s": 3.81,
+  "espeak_s": 4.23,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 49,
+  "section": "SEC08",
+  "chars": 79,
+  "words": 17,
+  "timed_s": 7.26,
+  "espeak_s": 7.69,
+  "numbers": [
+   "35"
+  ],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 50,
+  "section": "SEC08",
+  "chars": 62,
+  "words": 13,
+  "timed_s": 5.98,
+  "espeak_s": 6.39,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ },
+ {
+  "line": 51,
+  "section": "SEC08",
+  "chars": 84,
+  "words": 19,
+  "timed_s": 7.95,
+  "espeak_s": 8.37,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": 1.6
+ },
+ {
+  "line": 52,
+  "section": "SEC09",
+  "chars": 63,
+  "words": 13,
+  "timed_s": 5.34,
+  "espeak_s": 5.79,
+  "numbers": [],
+  "names_loanwords": [
+   "पोस्ट"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 53,
+  "section": "SEC09",
+  "chars": 79,
+  "words": 14,
+  "timed_s": 7.35,
+  "espeak_s": 7.77,
+  "numbers": [],
+  "names_loanwords": [
+   "ऑडिटर"
+  ],
+  "gap_after": null
+ },
+ {
+  "line": 54,
+  "section": "SEC09",
+  "chars": 32,
+  "words": 6,
+  "timed_s": 3.27,
+  "espeak_s": 3.75,
+  "numbers": [
+   "21"
+  ],
+  "names_loanwords": [],
+  "gap_after": 2.0
+ },
+ {
+  "line": 55,
+  "section": "SEC09",
+  "chars": 90,
+  "words": 20,
+  "timed_s": 8.21,
+  "espeak_s": 8.68,
+  "numbers": [],
+  "names_loanwords": [],
+  "gap_after": null
+ }
+]

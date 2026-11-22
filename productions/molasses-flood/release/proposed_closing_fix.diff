@@ -1,0 +1,21 @@
+--- a/productions/molasses-flood/editions/hi/06_film/act_01/scene.py
++++ b/productions/molasses-flood/editions/hi/06_film/act_01/scene.py
+@@ -868,11 +868,15 @@
+ 
+     # the close: the whole board, every item inside the safe area
+     allb = union([b for it, b, j in reg if b])
+-    z_all = min(3840 * 0.90 / (allb[2] - allb[0]), 2160 * 0.86 / (allb[3] - allb[1]))
+-    cx, cy = (allb[0] + allb[2]) / 2, (allb[1] + allb[3]) / 2
++    # the whole board above the caption band (bottom 20 %) while the last captions are on screen
++    z_all = min(3840 * 0.90 / (allb[2] - allb[0]), 2160 * (1 - T_ - B_) / (allb[3] - allb[1]))
++    cx = (allb[0] + allb[2]) / 2
++    cy = (allb[1] + allb[3]) / 2 + (B_ - T_) / 2 * 2160 / z_all
+     last = aims[54]
+     film.shot(L(55) + 0.3, last[0], last[1], last[2])
+-    film.shot(L(55) + (E(55) - L(55)) * 0.45, (last[0] + cx) / 2, (last[1] + cy) / 2, max(z_all * 1.8, 0.15), radius=20000, strength=0.15)
++    z_mid = max(z_all * 1.8, 0.15)
++    film.shot(L(55) + (E(55) - L(55)) * 0.45, (last[0] + cx) / 2, (last[1] + cy) / 2 + (B_ - T_) / 2 * 2160 / z_mid, z_mid,
++              radius=20000, strength=0.15)
+     film.shot(E(55) - 0.6, cx, cy, z_all, radius=40000, strength=0.08)
+     film.shot(doc.duration, cx, cy, z_all * 0.97, radius=40000, strength=0.08)
+     return film
