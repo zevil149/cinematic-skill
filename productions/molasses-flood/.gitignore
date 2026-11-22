@@ -13,3 +13,5 @@ editions/*/audio/**/*.m4a
 editions/*/out/**/*.mp4
 editions/*/out/acts/
 editions/*/out/burn/
+# narrator recordings (personal voice data) stay out of git
+release/narration_samples/incoming/*.wav

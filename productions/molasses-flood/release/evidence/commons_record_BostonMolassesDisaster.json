@@ -1,0 +1,84 @@
+{
+ "pageid": 236987,
+ "ns": 6,
+ "title": "File:BostonMolassesDisaster.jpg",
+ "revisions": [
+  {
+   "user": "Auntof6",
+   "timestamp": "2025-02-07T03:45:00Z",
+   "slots": {
+    "main": {
+     "contentmodel": "wikitext",
+     "contentformat": "text/x-wiki",
+     "*": "== {{int:filedesc}} ==\n{{Information\n|Description='''File name: '''77103\n\n'''Title: '''Panorama of the Molasses Disaster site\n\n'''Creator/Contributor: '''Globe Newspaper Co. (creator)\n\n'''Date created: '''1919-01-15\n\n'''Description: '''\n{{en|Twenty one people were killed on Commercial Street in the North End when a tank of molasses ruptured and exploded.  An eight foot wave of the syrupy brown liquid moved down Commercial Street at a speed of 35mph. Wreckage of the collapsed tank visible in background, center, next to light colored warehouse.  Elevated railway structure visible at far left and the North End Park bathing beach to the far right. A \"before\" view of the disaster can be seen in [[:File:North End molasses tank.jpg|this image]].}}\n{{fr|Vingt-et-une personnes furent tuées dans la rue ''Commercial Street'' du quartier ''North End'' suite à la rupture d'un réservoir industriel de mélasse. Après l'explosion du réservoir, une vague de liquide sirupeux brun, haute de huit pieds (2,5m), déferla vers le bas de ''Commercial Street'' à une vitesse de 35 mph (56 km/h). Les décombres du réservoir effondré sont visibles à l'arrière-plan, au centre, à côté de l'entrepôt de couleur claire. L'infrastructure du chemin de fer est visible à l'extrême gauche de la photo et la ''plage'' de North End Park à l'extrême droite.}}\n\n'''Genre: '''Photographic prints; Aerial views\n\n'''Subjects: '''Accidents; Floods; Molasses Disaster, Boston, Mass., 1919\n\n'''Notes: '''Verso of print stamped Boston Globe.  \n\n'''Location: '''Boston Public Library, Print Department\n\n'''Rights: '''No known restrictions\n\n|Source=https://www.flickr.com/photos/boston_public_library/4901555337/ Panorama of the Molasses Disaster site\n|Date={{taken on|1919-01-15}}\n|Author=[https://www.flickr.com/photos/24029425@N06 BPL]\n|Permission=\n|other_versions=\n}}\n\n== {{int:license-header}} ==\n{{PD-US-expired|country=US}}\n\n[[Category:Boston Elevated Railway after the Molasses Flood]]"
+    }
+   },
+   "comment": "removed [[Category:Boston Molasses Disaster]]"
+  }
+ ],
+ "imagerepository": "local",
+ "imageinfo": [
+  {
+   "timestamp": "2017-12-15T04:10:12Z",
+   "user": "Nesnad",
+   "size": 4189385,
+   "width": 3000,
+   "height": 2388,
+   "comment": "even more detailed view"
+  },
+  {
+   "timestamp": "2017-12-15T04:06:01Z",
+   "user": "Nesnad",
+   "size": 2145223,
+   "width": 3515,
+   "height": 2879,
+   "comment": "quite larger and clearer img for posterity"
+  },
+  {
+   "timestamp": "2014-10-20T15:51:17Z",
+   "user": "Ke4roh",
+   "size": 421858,
+   "width": 1500,
+   "height": 1186,
+   "comment": "desaturate, adjust contrast"
+  },
+  {
+   "timestamp": "2010-09-18T11:31:44Z",
+   "user": "M2545",
+   "size": 501363,
+   "width": 1500,
+   "height": 1186,
+   "comment": "larger image"
+  },
+  {
+   "timestamp": "2007-09-09T05:25:04Z",
+   "user": "Jeeny~commonswiki",
+   "size": 158233,
+   "width": 908,
+   "height": 722,
+   "comment": "larger image, although still low resolution"
+  },
+  {
+   "timestamp": "2005-07-23T21:30:56Z",
+   "user": "Matanya (usurped)",
+   "size": 29754,
+   "width": 300,
+   "height": 246,
+   "comment": "from en wikipedia.\n\n/tmp/BostonMolassesDisaster.jpeg\n\nSince the event occurred in 1919, I believe that the image should be in the public domain in the US, although I can locate no web source.  The photographer seems to be [[Leslie Jones]], a Boston Herald"
+  }
+ ],
+ "categories": [
+  {
+   "ns": 14,
+   "title": "Category:Boston Elevated Railway after the Molasses Flood"
+  },
+  {
+   "ns": 14,
+   "title": "Category:PD US expired"
+  },
+  {
+   "ns": 14,
+   "title": "Category:Photographs taken on 1919-01-15"
+  }
+ ]
+}

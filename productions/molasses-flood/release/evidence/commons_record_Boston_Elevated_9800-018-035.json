@@ -1,0 +1,48 @@
+{
+ "pageid": 145775433,
+ "ns": 6,
+ "title": "File:Boston Elevated Railway after the Molasses Flood, January 1919, from the City of Boston Archives - 9800-018-035.jpg",
+ "revisions": [
+  {
+   "user": "SchlurcherBot",
+   "timestamp": "2025-09-29T10:00:46Z",
+   "slots": {
+    "main": {
+     "contentmodel": "wikitext",
+     "contentformat": "text/x-wiki",
+     "*": "=={{int:filedesc}}==\n{{Information\n|description={{en|1=Boston Elevated Railway after the Molasses Flood, January 1919, from the City of Boston Archives.}}\n|date=1919-01\n|source=City of Boston Archives:  https://cityofboston.access.preservica.com/uncategorized/deliverableUnit_ca51521c-1763-4194-bd92-16a44c6a46f5/\n|author=Boston Elevated Railway Company\n|permission=\n|other versions=\n}}\n\n=={{int:license-header}}==\n{{PD-US-expired}}\n\n[[Category:Boston Elevated Railway after the Molasses Flood]]"
+    }
+   },
+   "comment": "/* wbeditentity-update:0| */ automatically adding [[Commons:Structured data|structured data]] based on file information"
+  }
+ ],
+ "imagerepository": "local",
+ "imageinfo": [
+  {
+   "timestamp": "2025-08-20T10:36:32Z",
+   "user": "Mykhal",
+   "size": 4505952,
+   "width": 4112,
+   "height": 2908,
+   "comment": "removed distracting black areas around ~photo-paper - Cropped 3 % vertically, 3 % areawise using [[Commons:CropTool|CropTool]] with lossless mode."
+  },
+  {
+   "timestamp": "2024-02-24T16:13:29Z",
+   "user": "Daderot",
+   "size": 4623903,
+   "width": 4112,
+   "height": 3001,
+   "comment": "Uploaded a work by Boston Elevated Railway Company from City of Boston Archives:  https://cityofboston.access.preservica.com/uncategorized/deliverableUnit_ca51521c-1763-4194-bd92-16a44c6a46f5/ with UploadWizard"
+  }
+ ],
+ "categories": [
+  {
+   "ns": 14,
+   "title": "Category:Boston Elevated Railway after the Molasses Flood"
+  },
+  {
+   "ns": 14,
+   "title": "Category:PD US expired"
+  }
+ ]
+}

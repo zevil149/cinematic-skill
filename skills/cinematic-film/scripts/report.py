@@ -240,9 +240,10 @@ def credits_md(per):
         for title, key in (("Photographs and documents", "images"), ("Film footage", "footage"), ("Music and sound", "audio")):
             items = [a for a in rep.get(key, []) if a.get("usable")]
             if items:
-                out += [f"### {title}", ""] + [f"- {a.get('what') or a['id']}: {a.get('attribution') or a.get('credit') or ''} "
-                                               f"({a.get('license') or 'licence not stated'}){' ' + a['source'] if a.get('source') else ''}"
-                                               + (f"; {a['basis']}" if a.get('cleared') else "") for a in items] + [""]
+                rows = [f"- {a.get('what') or a['id']}: {a.get('attribution') or a.get('credit') or ''} "
+                        f"({a.get('license') or 'licence not stated'}){' ' + a['source'] if a.get('source') else ''}"
+                        + (f"; {a['basis']}" if a.get('cleared') else "") for a in items]
+                out += [f"### {title}", ""] + list(dict.fromkeys(rows)) + [""]      # each distinct asset once
         if rep.get("maps"):
             out += ["### Map data", ""] + [f"- {m['id']}: {m.get('source')} ({m.get('license') or 'licence not recorded'})" for m in rep["maps"]] + [""]
         if rep.get("narration"):

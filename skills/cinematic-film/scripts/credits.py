@@ -49,7 +49,11 @@ def lines_for(report, code):
     for kind, items in groups:
         if items:
             out.append(("head", h[kind]))
-            out += [("line", entry_text(a)) for a in items]
+            seen = set()                                   # one line per distinct asset, not one per use:
+            for a in items:                                # the same file shown in several scenes is credited once
+                txt = entry_text(a)
+                if txt not in seen:
+                    seen.add(txt); out.append(("line", txt))
     nar = report.get("narration")
     if nar and nar.get("text"):
         out += [("head", h["voice"]), ("line", nar["text"])]
