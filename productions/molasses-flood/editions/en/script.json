@@ -1,0 +1,749 @@
+{
+ "title": "The Great Molasses Flood — जब बोस्टन की सड़कों पर शीरे की लहर दौड़ी",
+ "lang": "en",
+ "generated_by": "narration.py",
+ "takes": [
+  {
+   "take": "T01_sec01",
+   "section": "SEC01",
+   "lines": [
+    {
+     "id": 1,
+     "text": "The afternoon of 15 January 1919. Boston's North End, Commercial Street.",
+     "spoken": "The afternoon of fifteen January nineteen nineteen. Boston's North End, Commercial Street.",
+     "hero": "the panorama of the site",
+     "typed": "15 January 1919",
+     "claims": [
+      "C1"
+     ],
+     "visual": "slow push across the BPL panorama of the site; date types on",
+     "beat": "B001"
+    },
+    {
+     "id": 2,
+     "text": "From a giant tank, 2,300,000 gallons of molasses poured into the streets.",
+     "spoken": "From a giant tank, two million three hundred thousand gallons of molasses poured into the streets.",
+     "hero": "the street in the panorama",
+     "typed": "",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the panorama darkens; a brown wash spreads along the street line",
+     "beat": "B002"
+    },
+    {
+     "id": 3,
+     "text": "The next day's Boston Post reported the wave as 50 feet high; that figure is disputed.",
+     "spoken": "The next day's Boston Post reported the wave as fifty feet high; that figure is disputed.",
+     "hero": "the Post headline",
+     "typed": "50 feet?",
+     "claims": [
+      "C7"
+     ],
+     "visual": "cut to the Post masthead and deck; highlight '50 Feet High'; a stamp 'विवादित'",
+     "beat": "B003"
+    },
+    {
+     "id": 4,
+     "text": "By midnight, the paper counted 11 dead and more than 50 injured.",
+     "spoken": "By midnight, the paper counted eleven dead and more than fifty injured.",
+     "hero": "the Post headline",
+     "typed": "11 dead",
+     "claims": [
+      "C5"
+     ],
+     "visual": "the Post headline '11 DEAD, 50 HURT' underlined",
+     "gap_after": 1.6,
+     "beat": "B004"
+    }
+   ]
+  },
+  {
+   "take": "T02_sec02",
+   "section": "SEC02",
+   "lines": [
+    {
+     "id": 5,
+     "text": "Sweet, thick molasses. How could it kill anyone?",
+     "spoken": "Sweet, thick molasses. How could it kill anyone?",
+     "hero": "the title card",
+     "typed": "",
+     "claims": [],
+     "visual": "title card on the evidence wall",
+     "gap_after": 1.0,
+     "beat": "B005"
+    },
+    {
+     "id": 6,
+     "text": "The answer lies in a newspaper of that time, and in the city's account written a century later.",
+     "spoken": "The answer lies in a newspaper of that time, and in the city's account written a century later.",
+     "hero": "the two source cards",
+     "typed": "",
+     "claims": [],
+     "visual": "two labelled cards pin to the wall: the Post (1919) and the City of Boston (retrospective)",
+     "beat": "B006"
+    }
+   ]
+  },
+  {
+   "take": "T03_sec03",
+   "section": "SEC03",
+   "lines": [
+    {
+     "id": 7,
+     "text": "The story begins with a giant tank standing on Commercial Street.",
+     "spoken": "The story begins with a giant tank standing on Commercial Street.",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the tank photo, slow push-in",
+     "beat": "B007"
+    },
+    {
+     "id": 8,
+     "text": "According to the City of Boston's account, the tank was built in 1915 by the Purity Distilling Company.",
+     "spoken": "According to the City of Boston's account, the tank was built in nineteen fifteen by the Purity Distilling Company.",
+     "hero": "the tank",
+     "typed": "1915",
+     "claims": [
+      "C25"
+     ],
+     "visual": "City of Boston source card; year types on",
+     "beat": "B008"
+    },
+    {
+     "id": 9,
+     "text": "According to the city, it was 50 feet tall and held about 2.3 million gallons of molasses.",
+     "spoken": "According to the city, it was fifty feet tall and held about two point three million gallons of molasses.",
+     "hero": "the scale bar",
+     "typed": "50 feet",
+     "claims": [
+      "C25",
+      "C1"
+     ],
+     "visual": "a scale bar rises beside the tank to 50 ft",
+     "beat": "B009"
+    },
+    {
+     "id": 10,
+     "text": "The Boston Post printed the same quantity in its report: 2,300,000 gallons.",
+     "spoken": "The Boston Post printed the same quantity in its report: two million three hundred thousand gallons.",
+     "hero": "the Post deck",
+     "typed": "2,300,000 gallons",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the Post deck, '2,300,000 Gallons' highlighted",
+     "beat": "B010"
+    },
+    {
+     "id": 11,
+     "text": "So on this figure, the newspaper of the time and the city's later account agree.",
+     "spoken": "So on this figure, the newspaper of the time and the city's later account agree.",
+     "hero": "the two source cards",
+     "typed": "",
+     "claims": [
+      "C1",
+      "C25"
+     ],
+     "visual": "the two source cards drawn together by a thread",
+     "beat": "B011"
+    },
+    {
+     "id": 12,
+     "text": "The city's account records one more thing.",
+     "spoken": "The city's account records one more thing.",
+     "hero": "the City of Boston card",
+     "typed": "",
+     "claims": [],
+     "visual": "City of Boston card brought forward",
+     "beat": "B012"
+    },
+    {
+     "id": 13,
+     "text": "The tank, it is reported, had been leaking before the disaster.",
+     "spoken": "The tank, it is reported, had been leaking before the disaster.",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C26"
+     ],
+     "visual": "the tank photo; slow drips drawn down its side, labelled 'बताया गया'",
+     "beat": "B013"
+    },
+    {
+     "id": 14,
+     "text": "It was something like a warning sign.",
+     "spoken": "It was something like a warning sign.",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C26"
+     ],
+     "visual": "hold on the tank; the light dims",
+     "beat": "B014"
+    }
+   ]
+  },
+  {
+   "take": "T04_sec04",
+   "section": "SEC04",
+   "lines": [
+    {
+     "id": 15,
+     "text": "15 January 1919, after midday. The tank gave way.",
+     "spoken": "fifteen January nineteen nineteen, after midday. The tank gave way.",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C1",
+      "C28"
+     ],
+     "visual": "the tank photo cracks to black",
+     "gap_after": 1.2,
+     "beat": "B015"
+    },
+    {
+     "id": 16,
+     "text": "According to the City of Boston, several causes came together.",
+     "spoken": "According to the City of Boston, several causes came together.",
+     "hero": "the three slots",
+     "typed": "",
+     "claims": [
+      "C28"
+     ],
+     "visual": "City of Boston card; three empty slots appear",
+     "beat": "B016"
+    },
+    {
+     "id": 17,
+     "text": "Weak construction, changes in temperature, and a large shipment of molasses.",
+     "spoken": "Weak construction, changes in temperature, and a large shipment of molasses.",
+     "hero": "the three slots",
+     "typed": "weak construction · temperature · large shipment",
+     "claims": [
+      "C28"
+     ],
+     "visual": "the three slots fill one by one",
+     "beat": "B017"
+    },
+    {
+     "id": 18,
+     "text": "According to the Boston Post, the molasses spread over Commercial Street and its waterfront.",
+     "spoken": "According to the Boston Post, the molasses spread over Commercial Street and its waterfront.",
+     "hero": "the map",
+     "typed": "",
+     "claims": [
+      "C2"
+     ],
+     "visual": "the area map; the flooded zone fills along Commercial Street",
+     "beat": "B018"
+    },
+    {
+     "id": 19,
+     "text": "From Charter Street to the southern end of North End Park.",
+     "spoken": "From Charter Street to the southern end of North End Park.",
+     "hero": "the route line",
+     "typed": "",
+     "claims": [
+      "C2"
+     ],
+     "visual": "a route line runs from Charter Street to North End Park",
+     "beat": "B019"
+    },
+    {
+     "id": 20,
+     "text": "According to the city's account, the wave moved at about 35 miles an hour.",
+     "spoken": "According to the city's account, the wave moved at about thirty-five miles an hour.",
+     "hero": "the speed figure",
+     "typed": "~35 mph",
+     "claims": [
+      "C8"
+     ],
+     "visual": "a speed figure counts up on the map; labelled as an estimate",
+     "beat": "B020"
+    },
+    {
+     "id": 21,
+     "text": "How high the wave was is disputed: the sources do not agree.",
+     "spoken": "How high the wave was is disputed: the sources do not agree.",
+     "hero": "the Post deck",
+     "typed": "",
+     "claims": [
+      "C7"
+     ],
+     "visual": "the Post's '50 Feet High' beside a question mark",
+     "beat": "B021"
+    },
+    {
+     "id": 22,
+     "text": "The Post wrote 50 feet, about as tall as the tank is in the city's account.",
+     "spoken": "The Post wrote fifty feet, about as tall as the tank is in the city's account.",
+     "hero": "the scale bar",
+     "typed": "",
+     "claims": [
+      "C7",
+      "C25"
+     ],
+     "visual": "the 50 ft scale bar from the tank slides beside the headline",
+     "beat": "B022"
+    },
+    {
+     "id": 23,
+     "text": "According to many later accounts, it was much lower.",
+     "spoken": "According to many later accounts, it was much lower.",
+     "hero": "the scale bar",
+     "typed": "",
+     "claims": [
+      "C7"
+     ],
+     "visual": "the bar lowers and blurs; label 'बाद के अनुमान'",
+     "beat": "B023"
+    }
+   ]
+  },
+  {
+   "take": "T05_sec05",
+   "section": "SEC05",
+   "lines": [
+    {
+     "id": 24,
+     "text": "In the Post's words, the sticky flood caught more than 100 men, women and children.",
+     "spoken": "In the Post's words, the sticky flood caught more than one hundred men, women and children.",
+     "hero": "the Post column",
+     "typed": "100+",
+     "claims": [
+      "C3"
+     ],
+     "visual": "the Post column, the passage highlighted",
+     "beat": "B024"
+    },
+    {
+     "id": 25,
+     "text": "Buildings, horse teams, motor cars and streetcars. Whatever stood in its path was crushed.",
+     "spoken": "Buildings, horse teams, motor cars and streetcars. Whatever stood in its path was crushed.",
+     "hero": "the wreckage",
+     "typed": "",
+     "claims": [
+      "C3"
+     ],
+     "visual": "pan across the wreckage photo",
+     "gap_after": 0.9,
+     "beat": "B025"
+    },
+    {
+     "id": 26,
+     "text": "The elevated railway structure overhead did not survive either.",
+     "spoken": "The elevated railway structure overhead did not survive either.",
+     "hero": "the elevated structure",
+     "typed": "",
+     "claims": [
+      "C9"
+     ],
+     "visual": "the elevated-railway photo; slow tilt up the bent structure",
+     "beat": "B026"
+    },
+    {
+     "id": 27,
+     "text": "The paper wrote that the black, reeking mass struck the buildings facing Copp's Hill.",
+     "spoken": "The paper wrote that the black, reeking mass struck the buildings facing Copp's Hill.",
+     "hero": "the map arrow",
+     "typed": "",
+     "claims": [
+      "C4"
+     ],
+     "visual": "the map; an arrow drives towards Copp's Hill",
+     "beat": "B027"
+    },
+    {
+     "id": 28,
+     "text": "And then swept back towards the harbour.",
+     "spoken": "And then swept back towards the harbour.",
+     "hero": "the map arrow",
+     "typed": "",
+     "claims": [
+      "C4"
+     ],
+     "visual": "the arrow swings back to the harbour",
+     "beat": "B028"
+    },
+    {
+     "id": 29,
+     "text": "Among the dead was an engineer of Engine 31 of the Boston Fire Department.",
+     "spoken": "Among the dead was an engineer of Engine thirty-one of the Boston Fire Department.",
+     "hero": "the list of the dead",
+     "typed": "Engine 31",
+     "claims": [
+      "C10"
+     ],
+     "visual": "the Post's list of the known dead; one name highlighted",
+     "beat": "B029"
+    },
+    {
+     "id": 30,
+     "text": "The Post printed his name as George Lahey.",
+     "spoken": "The Post printed his name as George Lahey.",
+     "hero": "the name",
+     "typed": "",
+     "claims": [
+      "C10"
+     ],
+     "visual": "the name 'GEORGE LAHEY' lit in the list",
+     "beat": "B030"
+    },
+    {
+     "id": 31,
+     "text": "Among the dead was also a girl of about 14, still unidentified when the paper went to press.",
+     "spoken": "Among the dead was also a girl of about fourteen, still unidentified when the paper went to press.",
+     "hero": "the paragraph",
+     "typed": "",
+     "claims": [
+      "C11"
+     ],
+     "visual": "the Post's 'unidentified dead' paragraph",
+     "beat": "B031"
+    },
+    {
+     "id": 32,
+     "text": "She wore a grey jacket, and her bag carried an employment tag of the Revere Rubber Company.",
+     "spoken": "She wore a grey jacket, and her bag carried an employment tag of the Revere Rubber Company.",
+     "hero": "the paragraph",
+     "typed": "",
+     "claims": [
+      "C11"
+     ],
+     "visual": "the words 'Revere Rubber Company' highlighted; hold",
+     "gap_after": 2.0,
+     "beat": "B032"
+    }
+   ]
+  },
+  {
+   "take": "T06_sec06",
+   "section": "SEC06",
+   "lines": [
+    {
+     "id": 33,
+     "text": "Ambulances were rushed to the scene from every part of the city.",
+     "spoken": "Ambulances were rushed to the scene from every part of the city.",
+     "hero": "the bird's-eye photo",
+     "typed": "",
+     "claims": [
+      "C13"
+     ],
+     "visual": "the Post's bird's-eye photo; its caption highlighted",
+     "beat": "B033"
+    },
+    {
+     "id": 34,
+     "text": "Rescue work went on at the North End Park playground.",
+     "spoken": "Rescue work went on at the North End Park playground.",
+     "hero": "the playground",
+     "typed": "",
+     "claims": [
+      "C13"
+     ],
+     "visual": "push into the playground area of the photo",
+     "beat": "B034"
+    },
+    {
+     "id": 35,
+     "text": "Dead horses, cats and dogs were carted away, load after load.",
+     "spoken": "Dead horses, cats and dogs were carted away, load after load.",
+     "hero": "the wreckage",
+     "typed": "",
+     "claims": [
+      "C12"
+     ],
+     "visual": "the panorama, slow drift across the wreckage",
+     "beat": "B035"
+    },
+    {
+     "id": 36,
+     "text": "Boston's only trolley freight terminal lay in ruins.",
+     "spoken": "Boston's only trolley freight terminal lay in ruins.",
+     "hero": "the ruins",
+     "typed": "",
+     "claims": [
+      "C12"
+     ],
+     "visual": "hold on the ruined buildings",
+     "beat": "B036"
+    },
+    {
+     "id": 37,
+     "text": "The Post's first count was 11 dead: a woman, a girl and nine men.",
+     "spoken": "The Post's first count was eleven dead: a woman, a girl and nine men.",
+     "hero": "the tally",
+     "typed": "11",
+     "claims": [
+      "C5"
+     ],
+     "visual": "a tally types on: 11",
+     "beat": "B037"
+    },
+    {
+     "id": 38,
+     "text": "But the number did not stop there.",
+     "spoken": "But the number did not stop there.",
+     "hero": "the tally",
+     "typed": "",
+     "claims": [
+      "C5",
+      "C6"
+     ],
+     "visual": "the tally holds, then a second card slides in",
+     "gap_after": 0.9,
+     "beat": "B038"
+    },
+    {
+     "id": 39,
+     "text": "According to the City of Boston, 21 people died in the end, and about 150 were injured.",
+     "spoken": "According to the City of Boston, twenty-one people died in the end, and about one hundred and fifty were injured.",
+     "hero": "the tally",
+     "typed": "21",
+     "claims": [
+      "C6"
+     ],
+     "visual": "the tally rolls from 11 to 21; City of Boston card",
+     "beat": "B039"
+    }
+   ]
+  },
+  {
+   "take": "T07_sec07",
+   "section": "SEC07",
+   "lines": [
+    {
+     "id": 40,
+     "text": "Now the biggest question: how did it happen?",
+     "spoken": "Now the biggest question: how did it happen?",
+     "hero": "the evidence wall",
+     "typed": "",
+     "claims": [],
+     "visual": "the evidence wall; a red thread from the tank to two cards",
+     "gap_after": 1.0,
+     "beat": "B040"
+    },
+    {
+     "id": 41,
+     "text": "The next day, the Boston Post reported that the state police chemist, W. L. Wedger, had reached a positive conclusion.",
+     "spoken": "The next day, the Boston Post reported that the state police chemist, W. L. Wedger, had reached a positive conclusion.",
+     "hero": "the Post column",
+     "typed": "",
+     "claims": [
+      "C14"
+     ],
+     "visual": "the Post's 'INTERNAL EXPLOSION WAS CAUSE, SAYS STATE CHEMIST' column",
+     "beat": "B041"
+    },
+    {
+     "id": 42,
+     "text": "According to him, the tank had not collapsed; there had been an explosion inside it.",
+     "spoken": "According to him, the tank had not collapsed; there had been an explosion inside it.",
+     "hero": "the Post column",
+     "typed": "",
+     "claims": [
+      "C14"
+     ],
+     "visual": "the words 'internal explosion' highlighted",
+     "beat": "B042"
+    },
+    {
+     "id": 43,
+     "text": "That was the early, disputed theory of the time. Later findings pointed another way.",
+     "spoken": "That was the early, disputed theory of the time. Later findings pointed another way.",
+     "hero": "the stamp",
+     "typed": "",
+     "claims": [
+      "C14"
+     ],
+     "visual": "a stamp 'शुरुआती सिद्धांत' over the column",
+     "gap_after": 0.9,
+     "beat": "B043"
+    },
+    {
+     "id": 44,
+     "text": "According to the city's account, structural engineers later found that the tank's walls were too thin.",
+     "spoken": "According to the city's account, structural engineers later found that the tank's walls were too thin.",
+     "hero": "the wall diagram",
+     "typed": "",
+     "claims": [
+      "C27"
+     ],
+     "visual": "City of Boston card; a cross-section of a wall drawn thin",
+     "beat": "B044"
+    },
+    {
+     "id": 45,
+     "text": "And that its material was prone to cracking.",
+     "spoken": "And that its material was prone to cracking.",
+     "hero": "the wall diagram",
+     "typed": "",
+     "claims": [
+      "C27"
+     ],
+     "visual": "a crack runs through the diagram",
+     "beat": "B045"
+    },
+    {
+     "id": 46,
+     "text": "According to the city's account, in 1925 a court-appointed auditor held the owners' negligence responsible.",
+     "spoken": "According to the city's account, in nineteen twenty-five a court-appointed auditor held the owners' negligence responsible.",
+     "hero": "the 1925 card",
+     "typed": "1925",
+     "claims": [
+      "C29"
+     ],
+     "visual": "a dated card '1925' pins over the thread's end",
+     "beat": "B046"
+    },
+    {
+     "id": 47,
+     "text": "So, unlike the explosion claimed on the first day, the later findings point to the tank's construction and to negligence.",
+     "spoken": "So, unlike the explosion claimed on the first day, the later findings point to the tank's construction and to negligence.",
+     "hero": "the 1925 card",
+     "typed": "negligence",
+     "claims": [
+      "C29",
+      "C27",
+      "C14"
+     ],
+     "visual": "the explosion card fades; the negligence card stays lit",
+     "beat": "B047"
+    }
+   ]
+  },
+  {
+   "take": "T08_sec08",
+   "section": "SEC08",
+   "lines": [
+    {
+     "id": 48,
+     "text": "The front page of the same newspaper carried another story.",
+     "spoken": "The front page of the same newspaper carried another story.",
+     "hero": "the front page",
+     "typed": "",
+     "claims": [
+      "C15"
+     ],
+     "visual": "pull back to the whole Post front page",
+     "beat": "B048"
+    },
+    {
+     "id": 49,
+     "text": "The Prohibition amendment had been ratified by 35 states, and just one more was needed.",
+     "spoken": "The Prohibition amendment had been ratified by thirty-five states, and just one more was needed.",
+     "hero": "the Prohibition column",
+     "typed": "35",
+     "claims": [
+      "C15"
+     ],
+     "visual": "'35 STATES ON DRY LAW LIST' highlighted",
+     "beat": "B049"
+    },
+    {
+     "id": 50,
+     "text": "The molasses wave and Prohibition: both stories ran side by side on one page.",
+     "spoken": "The molasses wave and Prohibition: both stories ran side by side on one page.",
+     "hero": "the front page",
+     "typed": "",
+     "claims": [
+      "C15"
+     ],
+     "visual": "the two columns lit side by side",
+     "beat": "B050"
+    },
+    {
+     "id": 51,
+     "text": "This film claims no link between them; just the same day, the same page.",
+     "spoken": "This film claims no link between them; just the same day, the same page.",
+     "hero": "the front page",
+     "typed": "",
+     "claims": [],
+     "visual": "hold on the full page; slow fade of the highlights",
+     "gap_after": 1.6,
+     "beat": "B051"
+    }
+   ]
+  },
+  {
+   "take": "T09_sec09",
+   "section": "SEC09",
+   "lines": [
+    {
+     "id": 52,
+     "text": "On the first day, the Post wrote that the molasses had been released in some manner yet unexplained.",
+     "spoken": "On the first day, the Post wrote that the molasses had been released in some manner yet unexplained.",
+     "hero": "the Post column",
+     "typed": "",
+     "claims": [
+      "C1"
+     ],
+     "visual": "the Post column 'released in some manner yet unexplained' highlighted",
+     "beat": "B052"
+    },
+    {
+     "id": 53,
+     "text": "Later, the causes were recorded: walls too thin and, according to the auditor, the owners' negligence.",
+     "spoken": "Later, the causes were recorded: walls too thin and, according to the auditor, the owners' negligence.",
+     "hero": "the tank",
+     "typed": "",
+     "claims": [
+      "C27",
+      "C29"
+     ],
+     "visual": "the thin-wall diagram and the 1925 card return beside the tank photo",
+     "beat": "B053"
+    },
+    {
+     "id": 54,
+     "text": "The cost of that afternoon: 21 lives.",
+     "spoken": "The cost of that afternoon: twenty-one lives.",
+     "hero": "the panorama",
+     "typed": "21",
+     "claims": [
+      "C6"
+     ],
+     "visual": "the panorama; the tally 21 holds in silence",
+     "gap_after": 2.0,
+     "beat": "B054"
+    },
+    {
+     "id": 55,
+     "text": "This wave of molasses is a reminder of how much it matters to inspect the structures a city trusts.",
+     "spoken": "This wave of molasses is a reminder of how much it matters to inspect the structures a city trusts.",
+     "hero": "the evidence wall",
+     "typed": "",
+     "claims": [],
+     "visual": "slow pull-back to the whole evidence wall; fade to black",
+     "beat": "B055"
+    }
+   ]
+  }
+ ],
+ "fact_notes": [
+  "C1: On the afternoon of January 15, 1919, a giant tank released 2,300,000 gallons of molasses over Commercial Street in Boston's North End. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C2: The wave swept Commercial Street and its waterfront from Charter Street to the southern end of North End Park. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C3: The flood caught more than 100 men, women and children, and crushed buildings, horse teams, automobiles and street cars. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C4: The mass struck the buildings facing Copp's Hill and then swept back towards the harbour. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C5: By midnight the next day's paper counted eleven known dead, a woman, a girl and nine men, and more than 50 injured. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C6: The final toll was 21 dead and about 150 injured. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end; S2: https://en.wikipedia.org/wiki/Great_Molasses_Flood; S4: https://www.npr.org/2019/01/13/684894921/after-100-years-a-look-back-at-bostons-great-molasses-flood-of-1919; S3: https://www.britannica.com/topic/Great-Molasses-Flood]",
+  "C7: How high the wave was is disputed: the Boston Post reported 50 feet; later accounts give figures from about 15 to 40 feet, most often 25 feet. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg; S2: https://en.wikipedia.org/wiki/Great_Molasses_Flood; S4: https://www.npr.org/2019/01/13/684894921/after-100-years-a-look-back-at-bostons-great-molasses-flood-of-1919; S3: https://www.britannica.com/topic/Great-Molasses-Flood]",
+  "C8: The wave is estimated to have moved at about 35 miles an hour. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end; S2: https://en.wikipedia.org/wiki/Great_Molasses_Flood; S11: https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg]",
+  "C9: The elevated railway structure on Commercial Street was crushed. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C10: Among the dead was George Lahey (as the Post spells it), an engineer of Engine 31 of the Boston Fire Department. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C11: Among the unidentified dead was a girl of about 14 with an employment tag from the Revere Rubber Company. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C12: Dead horses, cats and dogs were carted away, and Boston's only trolley freight terminal was in ruins. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C13: Ambulances were rushed from all over the city, and rescuers worked on the North End Park playground. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C14: The day after, a state police chemist, W. L. Wedger, concluded that an internal explosion, not a collapse, had caused the disaster; this first explanation did not stand. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C15: On January 15, 1919, 35 states had ratified the Prohibition amendment and one more was needed. [S1: https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg]",
+  "C25: The tank, 50 feet tall and holding about 2.3 million gallons, was built in 1915 by the Purity Distilling Company. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end]",
+  "C26: The tank had reportedly leaked before the disaster. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end]",
+  "C27: Structural engineers later found the tank's walls too thin and its material vulnerable to cracking. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end]",
+  "C28: Poor construction, changes in temperature and a large shipment of molasses together contributed to the rupture. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end]",
+  "C29: In 1925 a court-appointed auditor attributed the disaster to negligence by the tank's owners. [S6: https://www.boston.gov/news/100-years-ago-today-molasses-crashes-through-bostons-north-end; S5: https://www.history.com/news/the-great-molasses-flood-of-1919; S7: https://www.sec.state.ma.us/divisions/state-house-tours/did-you-know/Molasses-Flood.htm]"
+ ]
+}

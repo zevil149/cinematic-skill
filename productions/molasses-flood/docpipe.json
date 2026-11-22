@@ -41,7 +41,7 @@
    ]
   },
   "outline": {
-   "status": "awaiting approval",
+   "status": "done",
    "inputs": "98ee961bf09b027d",
    "at": "2026-11-22T12:04:05",
    "errors": [],
@@ -49,8 +49,8 @@
    "notes": [
     "9 sections, 6:00.0, about 900 words"
    ],
-   "approved": "db091660db05b677",
-   "approved_at": "2026-11-21T06:09:28"
+   "approved": "98ee961bf09b027d",
+   "approved_at": "2026-11-22T12:04:55"
   },
   "script@hi": {
    "status": "done",
@@ -303,6 +303,31 @@
    ],
    "notes": [
     "reports/final_report.md: complete; reports/credits.md"
+   ]
+  },
+  "script@en": {
+   "status": "awaiting approval",
+   "inputs": "6821d6414f05179d",
+   "at": "2026-11-22T12:04:56",
+   "errors": [],
+   "warnings": [
+    "line 8: rests on C25, which is single-source",
+    "line 9: rests on C25, which is single-source",
+    "line 11: rests on C25, which is single-source",
+    "line 20: rests on C8, which is single-source",
+    "line 22: rests on C25, which is single-source",
+    "line 38: rests on C6, which is single-source",
+    "line 39: rests on C6, which is single-source",
+    "line 46: rests on C29, which is single-source",
+    "line 47: rests on C29, which is single-source",
+    "line 53: rests on C29, which is single-source",
+    "line 54: rests on C6, which is single-source",
+    "estimated length 4:36.0 against 6:00.0"
+   ],
+   "notes": [
+    "55 lines, 705 words, about 4:36.0 at the scratch-voice pace",
+    "exported 55 lines in 9 takes -> /home/user/cinematic-skill/productions/molasses-flood/editions/en/script.json",
+    "edition en: 55 of 55 beats covered"
    ]
   }
  }
