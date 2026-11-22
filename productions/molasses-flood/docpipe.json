@@ -109,7 +109,7 @@
    ]
   },
   "visuals": {
-   "status": "awaiting approval",
+   "status": "done",
    "inputs": "d23b34606f69875f",
    "at": "2026-11-22T08:50:02",
    "errors": [],
@@ -133,27 +133,27 @@
    "notes": [
     "visuals: 7 fallback, 8 ok"
    ],
-   "approved": "a95e55bf9191e55e",
-   "approved_at": "2026-11-21T16:32:27"
+   "approved": "d23b34606f69875f",
+   "approved_at": "2026-11-22T08:54:30"
   },
   "assets": {
    "status": "done",
-   "inputs": "55359553a2f01ea0",
-   "at": "2026-11-22T05:41:30",
+   "inputs": "96e104bd576c0e5a",
+   "at": "2026-11-22T08:54:33",
    "errors": [],
    "warnings": [],
    "notes": [
-    "photos: 12 ready (bw); 0 graded now"
+    "photos: 8 ready (bw); 0 graded now"
    ]
   },
   "scenegen@hi": {
    "status": "done",
-   "inputs": "e46831c3bcaa1eb3",
-   "at": "2026-11-21T17:40:26",
+   "inputs": "426db553508892ca",
+   "at": "2026-11-22T08:54:33",
    "errors": [],
    "warnings": [
     "act 1: 06_film/act_01/scene.py has your edits; left as it is (--force regenerates it and keeps yours as scene.py.bak)",
-    "3 of 15 visuals are designed cards until their images arrive"
+    "7 of 15 visuals are designed cards until their images arrive"
    ],
    "notes": [
     "1 act(s): act 1 55 lines 0:00.9-5:56.0"
@@ -189,24 +189,24 @@
   },
   "effects@hi": {
    "status": "done",
-   "inputs": "100eb477078903b907f7fd8321f96423eace",
-   "at": "2026-11-22T04:38:15",
+   "inputs": "4698dc64387b16a55b6f2dc600319d8bb062",
+   "at": "2026-11-22T08:58:39",
    "errors": [],
    "warnings": [],
    "notes": [
-    "audio/sfx.wav for hi: 82 cues from 1 act(s)"
+    "audio/sfx.wav for hi: 84 cues from 1 act(s)"
    ]
   },
   "sound@hi": {
    "status": "done",
-   "inputs": "0661d21b5d6ecb40",
-   "at": "2026-11-22T04:39:18",
+   "inputs": "c968fed5c211216a",
+   "at": "2026-11-22T08:59:41",
    "errors": [],
    "warnings": [],
    "notes": [
     "audio/cues.json exists; left as it is",
     "hi cue sheet: 1 music cue(s), 0 library sound(s), 0 gap(s), synthesised effects, 5:56.0",
-    "audio/mix.m4a for hi: -15.0 LUFS, -1.5 dBTP, no clipping"
+    "audio/mix.m4a for hi: -15.0 LUFS, -1.4 dBTP, no clipping"
    ]
   },
   "subtitles@hi": {
@@ -220,9 +220,9 @@
    ]
   },
   "review@hi": {
-   "status": "done",
-   "inputs": "af6c6e71fcab469b",
-   "at": "2026-11-21T22:28:03",
+   "status": "awaiting approval",
+   "inputs": "78e74051ea19184c",
+   "at": "2026-11-22T09:00:10",
    "errors": [],
    "warnings": [],
    "notes": [

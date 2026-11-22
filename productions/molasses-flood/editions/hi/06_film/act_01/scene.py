@@ -644,6 +644,9 @@ def build_film(doc):
     q1b = pbox(q1, doc)
     typed(1, q1b[0] - 1500, (q1_photo[1] + q1_photo[3]) / 2, L(1) + 0.1, 240)
     put(Tag("बोस्टन पोस्ट, 16 जनवरी 1919 में छपी तस्वीर", q1b[0] - 1500, (q1_photo[1] + q1_photo[3]) / 2 + 260, L(1) + 0.6), 1)
+    q1_tank = region(q1, doc, 0.383, 0.324, 0.426, 0.340)          # the photo's own printed label "WHERE TANK STOOD"
+    put(PenMark("ellipse", (q1_tank[0] + q1_tank[2]) / 2, (q1_tank[1] + q1_tank[3]) / 2, (q1_tank[2] - q1_tank[0]) * 1.25,
+                (q1_tank[3] - q1_tank[1]) * 1.6, t_in=W(2, "टैंक") - 0.2, width=10), 2, q1_tank)
     q1_deck = region(q1, doc, 0.02, 0.205, 0.99, 0.29)
     q1_head = region(q1, doc, 0.02, 0.075, 0.99, 0.215)
     q1_dead = region(q1, doc, 0.53, 0.15, 0.99, 0.195)
@@ -751,12 +754,12 @@ def build_film(doc):
     put(PenMark("ellipse", (q4_play[0] + q4_play[2]) / 2, (q4_play[1] + q4_play[3]) / 2, (q4_play[2] - q4_play[0]) * 1.1, 200,
                 t_in=W(34, "मैदान") - 0.2, width=12), 34, q4_play)
     q4_horses = region(q4, doc, 0.745, 0.722, 0.995, 0.758)
-    q4_dead_animals = region(q4, doc, 0.745, 0.728, 0.995, 0.742)
-    q4_terminal = region(q4, doc, 0.745, 0.744, 0.995, 0.756)
+    q4_dead_animals = region(q4, doc, 0.745, 0.728, 0.995, 0.7405)
+    q4_terminal = region(q4, doc, 0.745, 0.739, 0.995, 0.7487)
     put(PenMark("underline", (q4_dead_animals[0] + q4_dead_animals[2]) / 2, q4_dead_animals[3], q4_dead_animals[2] - q4_dead_animals[0], 20,
-                t_in=W(35, "घोड़े") - 0.2, width=12), 35, q4_dead_animals)
+                t_in=W(35, "घोड़े") - 0.2, width=7), 35, q4_dead_animals)
     put(PenMark("underline", (q4_terminal[0] + q4_terminal[2]) / 2, q4_terminal[3], q4_terminal[2] - q4_terminal[0], 20,
-                t_in=W(36, "टर्मिनल") - 0.2, width=12), 36, q4_terminal)
+                t_in=W(36, "टर्मिनल") - 0.2, width=7), 36, q4_terminal)
     TX, TY = O[0] - 6400, O[1] + 5600
     t11 = put(BigText(BY_LINE[37]["typed"], TX - 1200, TY, 520, L(37) + 0.1, rgb=TYPE), 37)
     put(Tag("मौतें · पोस्ट की पहली गिनती", TX - 1200, TY + 300, L(37) + 0.5), 37)

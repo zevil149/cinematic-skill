@@ -1,4 +1,4 @@
-# Phase 10 — status: stopped at the visuals gate (human approval needed)
+# Phase 10 — status: stopped at the look gate (human approval needed)
 
 ## Done
 
@@ -33,3 +33,23 @@ session's safety check, correctly. **Nothing after the visuals gate has been run
 2. Then the agent can run assets → scenegen → effects → sound → subtitles → look review, and stop again
    at the **look gate** for your approval (also a human decision), then render → join → captions →
    QC → report.
+
+## Update (after the producer's visuals approval)
+
+* `[visuals] approved` by the producer's command. Then `docpipe.py run --until review` (absolute path):
+  assets (8 photos), scenegen (edited scene kept), effects (84 cues), sound (−15.0 LUFS, −1.4 dBTP,
+  narration 17.8 dB over music; within the pipeline's true-peak tolerance), subtitles unchanged, review:
+  57 stills, 9 strips, 0 flags. **review@hi awaits the look approval.**
+* Scene corrections found while checking the stills: the line-36 underline moved up one printed line
+  and both line-35/36 underlines thinned to sit between the scan's lines; a ring on the Post photo's
+  own printed label "WHERE TANK STOOD" on line 2 (so the close-up frame is not reported as empty).
+* Composition (QC geometry): caption collisions 1 ("21" at 349.5 s, 48 %, during the closing move);
+  text overflow 0; empty holds 0.
+* Rights (`rights.py check`): **8 images used, 0 not usable** — the Boston Post page (×7) and the 2005
+  map; credits would read: Boston Post · map · narration (espeak). Panorama and railway photo: not used.
+* Look sheet of the changed scenes: `reviews/look/phase10_changes.jpg`; full sheet
+  `07_review/hi/act_01/sheet.jpg`.
+
+To continue: approve the look —
+`python3 skills/cinematic-film/scripts/docpipe.py approve --project /home/user/cinematic-skill/productions/molasses-flood look --lang hi`
+— then the agent runs render → join → captions → QC → report.
