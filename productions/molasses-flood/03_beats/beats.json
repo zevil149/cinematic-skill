@@ -15,10 +15,10 @@
      "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
      "kind": "photo",
      "query": "Boston Molasses Disaster panorama 1919",
-     "id": "I001",
      "labels": {
       "en": "The disaster site, 15 January 1919 (no photograph)"
-     }
+     },
+     "id": "I001"
     }
    ],
    "typed": {
@@ -59,10 +59,10 @@
      "what": "Boston Post front page, January 16, 1919",
      "kind": "paper",
      "query": "Boston post January 16, 1919",
-     "id": "I002",
      "labels": {
       "en": "Boston Post front page, 16 January 1919"
-     }
+     },
+     "id": "I002"
     }
    ],
    "typed": {
@@ -133,10 +133,10 @@
      "what": "The North End molasses tank before the disaster",
      "kind": "photo",
      "query": "North End molasses tank",
-     "id": "I003",
      "labels": {
       "en": "The molasses tank, North End (no photograph)"
-     }
+     },
+     "id": "I003"
     }
    ],
    "typed": {},
@@ -196,10 +196,10 @@
      "what": "Boston Post front page, January 16, 1919",
      "kind": "paper",
      "query": "Boston post January 16, 1919",
-     "id": "I004",
      "labels": {
       "en": "Boston Post front page, 16 January 1919"
-     }
+     },
+     "id": "I004"
     }
    ],
    "typed": {
@@ -339,10 +339,10 @@
      "what": "Map of the molasses flood area, North End",
      "kind": "map",
      "query": "Boston molasses area map",
-     "id": "I005",
      "labels": {
       "en": "Map of the flood area (2005 reconstruction)"
-     }
+     },
+     "id": "I005"
     }
    ],
    "typed": {},
@@ -448,10 +448,10 @@
      "what": "Boston Post front page, January 16, 1919",
      "kind": "paper",
      "query": "Boston post January 16, 1919",
-     "id": "I006",
      "labels": {
       "en": "Boston Post front page, 16 January 1919"
-     }
+     },
+     "id": "I006"
     }
    ],
    "typed": {
@@ -477,10 +477,10 @@
      "what": "Wreckage under the elevated tracks, 1919",
      "kind": "photo",
      "query": "Great Molasses Flood wreckage under the elevated tracks",
-     "id": "I007",
      "labels": {
       "en": "Wreckage under the elevated railway, 1919"
-     }
+     },
+     "id": "I007"
     }
    ],
    "typed": {},
@@ -503,10 +503,10 @@
      "what": "Boston Elevated Railway structure after the molasses flood, January 1919",
      "kind": "photo",
      "query": "Boston Elevated Railway after the Molasses Flood January 1919",
-     "id": "I008",
      "labels": {
       "en": "Elevated railway structure (no photograph)"
-     }
+     },
+     "id": "I008"
     }
    ],
    "typed": {},
@@ -627,10 +627,10 @@
      "what": "Boston Post front page, January 16, 1919",
      "kind": "paper",
      "query": "Boston post January 16, 1919",
-     "id": "I009",
      "labels": {
       "en": "Boston Post front page, 16 January 1919"
-     }
+     },
+     "id": "I009"
     }
    ],
    "typed": {},
@@ -670,10 +670,10 @@
      "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
      "kind": "photo",
      "query": "Boston Molasses Disaster panorama 1919",
-     "id": "I010",
      "labels": {
       "en": "The disaster site, 15 January 1919 (no photograph)"
-     }
+     },
+     "id": "I010"
     }
    ],
    "typed": {},
@@ -780,10 +780,10 @@
      "what": "Boston Post front page, January 16, 1919",
      "kind": "paper",
      "query": "Boston post January 16, 1919",
-     "id": "I011",
      "labels": {
       "en": "Boston Post front page, 16 January 1919"
-     }
+     },
+     "id": "I011"
     }
    ],
    "typed": {},
@@ -909,10 +909,10 @@
      "what": "Boston Post front page, January 16, 1919",
      "kind": "paper",
      "query": "Boston post January 16, 1919",
-     "id": "I012",
      "labels": {
       "en": "Boston Post front page, 16 January 1919"
-     }
+     },
+     "id": "I012"
     }
    ],
    "typed": {},
@@ -984,10 +984,10 @@
      "what": "Boston Post front page, January 16, 1919",
      "kind": "paper",
      "query": "Boston post January 16, 1919",
-     "id": "I013",
      "labels": {
       "en": "Boston Post front page, 16 January 1919"
-     }
+     },
+     "id": "I013"
     }
    ],
    "typed": {},
@@ -1012,10 +1012,10 @@
      "what": "The North End molasses tank before the disaster",
      "kind": "photo",
      "query": "North End molasses tank",
-     "id": "I014",
      "labels": {
       "en": "The molasses tank, North End (no photograph)"
-     }
+     },
+     "id": "I014"
     }
    ],
    "typed": {},
@@ -1039,10 +1039,10 @@
      "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
      "kind": "photo",
      "query": "Boston Molasses Disaster panorama 1919",
-     "id": "I015",
      "labels": {
       "en": "The disaster site, 15 January 1919 (no photograph)"
-     }
+     },
+     "id": "I015"
     }
    ],
    "typed": {

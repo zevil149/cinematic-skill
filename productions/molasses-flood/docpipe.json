@@ -90,8 +90,8 @@
   },
   "beats": {
    "status": "done",
-   "inputs": "c2e9c36c5f1f2f6d",
-   "at": "2026-11-21T06:28:27",
+   "inputs": "80dadf31896e3c14",
+   "at": "2026-11-22T12:06:32",
    "errors": [],
    "warnings": [],
    "notes": [
@@ -307,8 +307,8 @@
   },
   "script@en": {
    "status": "awaiting approval",
-   "inputs": "6821d6414f05179d",
-   "at": "2026-11-22T12:04:56",
+   "inputs": "df16d44cb8e22a96",
+   "at": "2026-11-22T12:06:47",
    "errors": [],
    "warnings": [
     "line 8: rests on C25, which is single-source",
@@ -328,7 +328,9 @@
     "55 lines, 705 words, about 4:36.0 at the scratch-voice pace",
     "exported 55 lines in 9 takes -> /home/user/cinematic-skill/productions/molasses-flood/editions/en/script.json",
     "edition en: 55 of 55 beats covered"
-   ]
+   ],
+   "approved": "6821d6414f05179d",
+   "approved_at": "2026-11-22T12:06:32"
   }
  }
 }
