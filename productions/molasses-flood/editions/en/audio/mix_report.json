@@ -1,0 +1,36 @@
+{
+ "lang": "en",
+ "built_by": "cuesheet.py",
+ "input_hash": "0a6c7995f7486ca5fc7d",
+ "mix_sha256": "967a537f23addcfe7bb9aa5b7f0137c84491d64191617e92275bc80b11cc4463",
+ "at": "2026-11-22T12:16:49",
+ "duration": 287.701,
+ "lufs": -15.0,
+ "true_peak_dbtp": -1.8,
+ "sample_peak": 0.8115,
+ "clipped_samples": 0,
+ "target_lufs": -15.0,
+ "ceiling_dbtp": -1.5,
+ "voice_over_music_db": 19.5,
+ "duck_db": -12.0,
+ "music": [
+  {
+   "id": "M1",
+   "asset": "synth:bed",
+   "t0": 0.0,
+   "t1": 287.694,
+   "offset": 0.0,
+   "loop": false,
+   "gain_db": -8.0,
+   "fade_in": 2.0,
+   "fade_out": 3.0,
+   "duck": true,
+   "sha": "synth",
+   "seed": 7
+  }
+ ],
+ "sfx": [],
+ "gaps": [],
+ "synth_sfx": true,
+ "assets": []
+}

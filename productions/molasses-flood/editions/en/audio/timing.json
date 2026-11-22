@@ -1,0 +1,4458 @@
+{
+ "lang": "en",
+ "built_by": "narrate.py",
+ "source": "voice",
+ "build_hash": "c4822b79bb0d17ddbcd6",
+ "narration_sha256": "8055e90c9cd72802415d6a4e02bef9bc2e4e3a66087d5220203beee269633cd1",
+ "total_duration": 287.694,
+ "lead_in": 0.9,
+ "tail_out": 3.0,
+ "tempo": 1.0,
+ "segments": [
+  {
+   "id": 1,
+   "scene": "T01_sec01",
+   "caption": "The afternoon of 15 January 1919. Boston's North End, Commercial Street.",
+   "vo": "The afternoon of fifteen January nineteen nineteen. Boston's North End, Commercial Street.",
+   "start": 0.9,
+   "end": 6.718,
+   "duration": 5.818,
+   "words": [
+    {
+     "w": "The",
+     "start": 0.9,
+     "end": 1.112
+    },
+    {
+     "w": "afternoon",
+     "start": 1.13,
+     "end": 1.767
+    },
+    {
+     "w": "of",
+     "start": 1.822,
+     "end": 1.963
+    },
+    {
+     "w": "fifteen",
+     "start": 1.975,
+     "end": 2.47
+    },
+    {
+     "w": "January",
+     "start": 2.513,
+     "end": 3.008
+    },
+    {
+     "w": "nineteen",
+     "start": 3.051,
+     "end": 3.616
+    },
+    {
+     "w": "nineteen",
+     "start": 3.666,
+     "end": 4.231
+    },
+    {
+     "w": "Boston",
+     "start": 4.28,
+     "end": 4.704
+    },
+    {
+     "w": "s",
+     "start": 4.741,
+     "end": 4.864
+    },
+    {
+     "w": "North",
+     "start": 4.875,
+     "end": 5.228
+    },
+    {
+     "w": "End",
+     "start": 5.259,
+     "end": 5.471
+    },
+    {
+     "w": "Commercial",
+     "start": 5.489,
+     "end": 6.196
+    },
+    {
+     "w": "Street",
+     "start": 6.257,
+     "end": 6.681
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 2,
+   "scene": "T01_sec01",
+   "caption": "From a giant tank, 2,300,000 gallons of molasses poured into the streets.",
+   "vo": "From a giant tank, two million three hundred thousand gallons of molasses poured into the streets.",
+   "start": 7.168,
+   "end": 12.307,
+   "duration": 5.138,
+   "words": [
+    {
+     "w": "From",
+     "start": 7.168,
+     "end": 7.4
+    },
+    {
+     "w": "a",
+     "start": 7.42,
+     "end": 7.52
+    },
+    {
+     "w": "giant",
+     "start": 7.529,
+     "end": 7.818
+    },
+    {
+     "w": "tank",
+     "start": 7.843,
+     "end": 8.075
+    },
+    {
+     "w": "two",
+     "start": 8.095,
+     "end": 8.268
+    },
+    {
+     "w": "million",
+     "start": 8.284,
+     "end": 8.688
+    },
+    {
+     "w": "three",
+     "start": 8.724,
+     "end": 9.013
+    },
+    {
+     "w": "hundred",
+     "start": 9.038,
+     "end": 9.443
+    },
+    {
+     "w": "thousand",
+     "start": 9.478,
+     "end": 9.941
+    },
+    {
+     "w": "gallons",
+     "start": 9.981,
+     "end": 10.386
+    },
+    {
+     "w": "of",
+     "start": 10.421,
+     "end": 10.537
+    },
+    {
+     "w": "molasses",
+     "start": 10.547,
+     "end": 11.009
+    },
+    {
+     "w": "poured",
+     "start": 11.049,
+     "end": 11.396
+    },
+    {
+     "w": "into",
+     "start": 11.427,
+     "end": 11.658
+    },
+    {
+     "w": "the",
+     "start": 11.678,
+     "end": 11.852
+    },
+    {
+     "w": "streets",
+     "start": 11.867,
+     "end": 12.272
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 3,
+   "scene": "T01_sec01",
+   "caption": "The next day's Boston Post reported the wave as 50 feet high; that figure is disputed.",
+   "vo": "The next day's Boston Post reported the wave as fifty feet high; that figure is disputed.",
+   "start": 12.757,
+   "end": 17.935,
+   "duration": 5.178,
+   "words": [
+    {
+     "w": "The",
+     "start": 12.757,
+     "end": 12.956
+    },
+    {
+     "w": "next",
+     "start": 12.973,
+     "end": 13.239
+    },
+    {
+     "w": "day",
+     "start": 13.262,
+     "end": 13.461
+    },
+    {
+     "w": "s",
+     "start": 13.479,
+     "end": 13.594
+    },
+    {
+     "w": "Boston",
+     "start": 13.604,
+     "end": 14.003
+    },
+    {
+     "w": "Post",
+     "start": 14.037,
+     "end": 14.303
+    },
+    {
+     "w": "reported",
+     "start": 14.326,
+     "end": 14.857
+    },
+    {
+     "w": "the",
+     "start": 14.903,
+     "end": 15.103
+    },
+    {
+     "w": "wave",
+     "start": 15.12,
+     "end": 15.386
+    },
+    {
+     "w": "as",
+     "start": 15.409,
+     "end": 15.542
+    },
+    {
+     "w": "fifty",
+     "start": 15.553,
+     "end": 15.885
+    },
+    {
+     "w": "feet",
+     "start": 15.914,
+     "end": 16.18
+    },
+    {
+     "w": "high",
+     "start": 16.203,
+     "end": 16.468
+    },
+    {
+     "w": "that",
+     "start": 16.491,
+     "end": 16.757
+    },
+    {
+     "w": "figure",
+     "start": 16.78,
+     "end": 17.179
+    },
+    {
+     "w": "is",
+     "start": 17.213,
+     "end": 17.346
+    },
+    {
+     "w": "disputed",
+     "start": 17.358,
+     "end": 17.889
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 4,
+   "scene": "T01_sec01",
+   "caption": "By midnight, the paper counted 11 dead and more than 50 injured.",
+   "vo": "By midnight, the paper counted eleven dead and more than fifty injured.",
+   "start": 18.385,
+   "end": 22.536,
+   "duration": 4.151,
+   "words": [
+    {
+     "w": "By",
+     "start": 18.385,
+     "end": 18.517
+    },
+    {
+     "w": "midnight",
+     "start": 18.528,
+     "end": 19.055
+    },
+    {
+     "w": "the",
+     "start": 19.101,
+     "end": 19.298
+    },
+    {
+     "w": "paper",
+     "start": 19.315,
+     "end": 19.645
+    },
+    {
+     "w": "counted",
+     "start": 19.673,
+     "end": 20.134
+    },
+    {
+     "w": "eleven",
+     "start": 20.174,
+     "end": 20.569
+    },
+    {
+     "w": "dead",
+     "start": 20.604,
+     "end": 20.867
+    },
+    {
+     "w": "and",
+     "start": 20.89,
+     "end": 21.087
+    },
+    {
+     "w": "more",
+     "start": 21.105,
+     "end": 21.368
+    },
+    {
+     "w": "than",
+     "start": 21.391,
+     "end": 21.654
+    },
+    {
+     "w": "fifty",
+     "start": 21.677,
+     "end": 22.006
+    },
+    {
+     "w": "injured",
+     "start": 22.035,
+     "end": 22.496
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 5,
+   "scene": "T02_sec02",
+   "caption": "Sweet, thick molasses. How could it kill anyone?",
+   "vo": "Sweet, thick molasses. How could it kill anyone?",
+   "start": 24.136,
+   "end": 27.139,
+   "duration": 3.003,
+   "words": [
+    {
+     "w": "Sweet",
+     "start": 24.136,
+     "end": 24.499
+    },
+    {
+     "w": "thick",
+     "start": 24.531,
+     "end": 24.895
+    },
+    {
+     "w": "molasses",
+     "start": 24.926,
+     "end": 25.508
+    },
+    {
+     "w": "How",
+     "start": 25.558,
+     "end": 25.777
+    },
+    {
+     "w": "could",
+     "start": 25.795,
+     "end": 26.159
+    },
+    {
+     "w": "it",
+     "start": 26.191,
+     "end": 26.336
+    },
+    {
+     "w": "kill",
+     "start": 26.349,
+     "end": 26.64
+    },
+    {
+     "w": "anyone",
+     "start": 26.665,
+     "end": 27.101
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 6,
+   "scene": "T02_sec02",
+   "caption": "The answer lies in a newspaper of that time, and in the city's account written a century later.",
+   "vo": "The answer lies in a newspaper of that time, and in the city's account written a century later.",
+   "start": 28.139,
+   "end": 33.537,
+   "duration": 5.398,
+   "words": [
+    {
+     "w": "The",
+     "start": 28.139,
+     "end": 28.332
+    },
+    {
+     "w": "answer",
+     "start": 28.349,
+     "end": 28.735
+    },
+    {
+     "w": "lies",
+     "start": 28.768,
+     "end": 29.025
+    },
+    {
+     "w": "in",
+     "start": 29.048,
+     "end": 29.176
+    },
+    {
+     "w": "a",
+     "start": 29.188,
+     "end": 29.299
+    },
+    {
+     "w": "newspaper",
+     "start": 29.309,
+     "end": 29.888
+    },
+    {
+     "w": "of",
+     "start": 29.938,
+     "end": 30.067
+    },
+    {
+     "w": "that",
+     "start": 30.078,
+     "end": 30.335
+    },
+    {
+     "w": "time",
+     "start": 30.358,
+     "end": 30.615
+    },
+    {
+     "w": "and",
+     "start": 30.637,
+     "end": 30.83
+    },
+    {
+     "w": "in",
+     "start": 30.847,
+     "end": 30.976
+    },
+    {
+     "w": "the",
+     "start": 30.987,
+     "end": 31.18
+    },
+    {
+     "w": "city",
+     "start": 31.197,
+     "end": 31.454
+    },
+    {
+     "w": "s",
+     "start": 31.476,
+     "end": 31.588
+    },
+    {
+     "w": "account",
+     "start": 31.598,
+     "end": 32.048
+    },
+    {
+     "w": "written",
+     "start": 32.087,
+     "end": 32.537
+    },
+    {
+     "w": "a",
+     "start": 32.576,
+     "end": 32.688
+    },
+    {
+     "w": "century",
+     "start": 32.698,
+     "end": 33.148
+    },
+    {
+     "w": "later",
+     "start": 33.187,
+     "end": 33.509
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 7,
+   "scene": "T03_sec03",
+   "caption": "The story begins with a giant tank standing on Commercial Street.",
+   "vo": "The story begins with a giant tank standing on Commercial Street.",
+   "start": 34.537,
+   "end": 38.199,
+   "duration": 3.662,
+   "words": [
+    {
+     "w": "The",
+     "start": 34.537,
+     "end": 34.722
+    },
+    {
+     "w": "story",
+     "start": 34.738,
+     "end": 35.045
+    },
+    {
+     "w": "begins",
+     "start": 35.072,
+     "end": 35.441
+    },
+    {
+     "w": "with",
+     "start": 35.473,
+     "end": 35.72
+    },
+    {
+     "w": "a",
+     "start": 35.741,
+     "end": 35.848
+    },
+    {
+     "w": "giant",
+     "start": 35.857,
+     "end": 36.165
+    },
+    {
+     "w": "tank",
+     "start": 36.192,
+     "end": 36.438
+    },
+    {
+     "w": "standing",
+     "start": 36.459,
+     "end": 36.952
+    },
+    {
+     "w": "on",
+     "start": 36.995,
+     "end": 37.118
+    },
+    {
+     "w": "Commercial",
+     "start": 37.128,
+     "end": 37.744
+    },
+    {
+     "w": "Street",
+     "start": 37.797,
+     "end": 38.167
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 8,
+   "scene": "T03_sec03",
+   "caption": "According to the City of Boston's account, the tank was built in 1915 by the Purity Distilling Company.",
+   "vo": "According to the City of Boston's account, the tank was built in nineteen fifteen by the Purity Distilling Company.",
+   "start": 38.649,
+   "end": 45.057,
+   "duration": 6.409,
+   "words": [
+    {
+     "w": "According",
+     "start": 38.649,
+     "end": 39.209
+    },
+    {
+     "w": "to",
+     "start": 39.257,
+     "end": 39.382
+    },
+    {
+     "w": "the",
+     "start": 39.393,
+     "end": 39.579
+    },
+    {
+     "w": "City",
+     "start": 39.596,
+     "end": 39.845
+    },
+    {
+     "w": "of",
+     "start": 39.866,
+     "end": 39.991
+    },
+    {
+     "w": "Boston",
+     "start": 40.002,
+     "end": 40.375
+    },
+    {
+     "w": "s",
+     "start": 40.407,
+     "end": 40.516
+    },
+    {
+     "w": "account",
+     "start": 40.525,
+     "end": 40.961
+    },
+    {
+     "w": "the",
+     "start": 40.999,
+     "end": 41.185
+    },
+    {
+     "w": "tank",
+     "start": 41.202,
+     "end": 41.45
+    },
+    {
+     "w": "was",
+     "start": 41.472,
+     "end": 41.659
+    },
+    {
+     "w": "built",
+     "start": 41.675,
+     "end": 41.986
+    },
+    {
+     "w": "in",
+     "start": 42.013,
+     "end": 42.138
+    },
+    {
+     "w": "nineteen",
+     "start": 42.149,
+     "end": 42.646
+    },
+    {
+     "w": "fifteen",
+     "start": 42.69,
+     "end": 43.125
+    },
+    {
+     "w": "by",
+     "start": 43.163,
+     "end": 43.288
+    },
+    {
+     "w": "the",
+     "start": 43.299,
+     "end": 43.485
+    },
+    {
+     "w": "Purity",
+     "start": 43.501,
+     "end": 43.875
+    },
+    {
+     "w": "Distilling",
+     "start": 43.907,
+     "end": 44.53
+    },
+    {
+     "w": "Company",
+     "start": 44.584,
+     "end": 45.019
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 9,
+   "scene": "T03_sec03",
+   "caption": "According to the city, it was 50 feet tall and held about 2.3 million gallons of molasses.",
+   "vo": "According to the city, it was fifty feet tall and held about two point three million gallons of molasses.",
+   "start": 45.507,
+   "end": 51.405,
+   "duration": 5.898,
+   "words": [
+    {
+     "w": "According",
+     "start": 45.507,
+     "end": 46.082
+    },
+    {
+     "w": "to",
+     "start": 46.132,
+     "end": 46.259
+    },
+    {
+     "w": "the",
+     "start": 46.271,
+     "end": 46.462
+    },
+    {
+     "w": "city",
+     "start": 46.479,
+     "end": 46.734
+    },
+    {
+     "w": "it",
+     "start": 46.756,
+     "end": 46.884
+    },
+    {
+     "w": "was",
+     "start": 46.895,
+     "end": 47.087
+    },
+    {
+     "w": "fifty",
+     "start": 47.103,
+     "end": 47.422
+    },
+    {
+     "w": "feet",
+     "start": 47.45,
+     "end": 47.706
+    },
+    {
+     "w": "tall",
+     "start": 47.728,
+     "end": 47.983
+    },
+    {
+     "w": "and",
+     "start": 48.005,
+     "end": 48.197
+    },
+    {
+     "w": "held",
+     "start": 48.213,
+     "end": 48.469
+    },
+    {
+     "w": "about",
+     "start": 48.491,
+     "end": 48.81
+    },
+    {
+     "w": "two",
+     "start": 48.838,
+     "end": 49.029
+    },
+    {
+     "w": "point",
+     "start": 49.046,
+     "end": 49.365
+    },
+    {
+     "w": "three",
+     "start": 49.393,
+     "end": 49.712
+    },
+    {
+     "w": "million",
+     "start": 49.74,
+     "end": 50.187
+    },
+    {
+     "w": "gallons",
+     "start": 50.226,
+     "end": 50.672
+    },
+    {
+     "w": "of",
+     "start": 50.711,
+     "end": 50.839
+    },
+    {
+     "w": "molasses",
+     "start": 50.85,
+     "end": 51.361
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 10,
+   "scene": "T03_sec03",
+   "caption": "The Boston Post printed the same quantity in its report: 2,300,000 gallons.",
+   "vo": "The Boston Post printed the same quantity in its report: two million three hundred thousand gallons.",
+   "start": 51.855,
+   "end": 57.293,
+   "duration": 5.438,
+   "words": [
+    {
+     "w": "The",
+     "start": 51.855,
+     "end": 52.036
+    },
+    {
+     "w": "Boston",
+     "start": 52.052,
+     "end": 52.413
+    },
+    {
+     "w": "Post",
+     "start": 52.445,
+     "end": 52.686
+    },
+    {
+     "w": "printed",
+     "start": 52.707,
+     "end": 53.129
+    },
+    {
+     "w": "the",
+     "start": 53.165,
+     "end": 53.346
+    },
+    {
+     "w": "same",
+     "start": 53.362,
+     "end": 53.603
+    },
+    {
+     "w": "quantity",
+     "start": 53.624,
+     "end": 54.106
+    },
+    {
+     "w": "in",
+     "start": 54.148,
+     "end": 54.269
+    },
+    {
+     "w": "its",
+     "start": 54.279,
+     "end": 54.46
+    },
+    {
+     "w": "report",
+     "start": 54.476,
+     "end": 54.837
+    },
+    {
+     "w": "two",
+     "start": 54.869,
+     "end": 55.05
+    },
+    {
+     "w": "million",
+     "start": 55.065,
+     "end": 55.487
+    },
+    {
+     "w": "three",
+     "start": 55.524,
+     "end": 55.825
+    },
+    {
+     "w": "hundred",
+     "start": 55.852,
+     "end": 56.273
+    },
+    {
+     "w": "thousand",
+     "start": 56.31,
+     "end": 56.792
+    },
+    {
+     "w": "gallons",
+     "start": 56.834,
+     "end": 57.256
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 11,
+   "scene": "T03_sec03",
+   "caption": "So on this figure, the newspaper of the time and the city's later account agree.",
+   "vo": "So on this figure, the newspaper of the time and the city's later account agree.",
+   "start": 57.743,
+   "end": 62.353,
+   "duration": 4.61,
+   "words": [
+    {
+     "w": "So",
+     "start": 57.743,
+     "end": 57.876
+    },
+    {
+     "w": "on",
+     "start": 57.888,
+     "end": 58.021
+    },
+    {
+     "w": "this",
+     "start": 58.032,
+     "end": 58.298
+    },
+    {
+     "w": "figure",
+     "start": 58.321,
+     "end": 58.721
+    },
+    {
+     "w": "the",
+     "start": 58.755,
+     "end": 58.955
+    },
+    {
+     "w": "newspaper",
+     "start": 58.972,
+     "end": 59.571
+    },
+    {
+     "w": "of",
+     "start": 59.623,
+     "end": 59.756
+    },
+    {
+     "w": "the",
+     "start": 59.768,
+     "end": 59.967
+    },
+    {
+     "w": "time",
+     "start": 59.985,
+     "end": 60.251
+    },
+    {
+     "w": "and",
+     "start": 60.274,
+     "end": 60.474
+    },
+    {
+     "w": "the",
+     "start": 60.491,
+     "end": 60.691
+    },
+    {
+     "w": "city",
+     "start": 60.708,
+     "end": 60.974
+    },
+    {
+     "w": "s",
+     "start": 60.997,
+     "end": 61.113
+    },
+    {
+     "w": "later",
+     "start": 61.123,
+     "end": 61.456
+    },
+    {
+     "w": "account",
+     "start": 61.485,
+     "end": 61.951
+    },
+    {
+     "w": "agree",
+     "start": 61.991,
+     "end": 62.324
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 12,
+   "scene": "T03_sec03",
+   "caption": "The city's account records one more thing.",
+   "vo": "The city's account records one more thing.",
+   "start": 62.803,
+   "end": 65.218,
+   "duration": 2.415,
+   "words": [
+    {
+     "w": "The",
+     "start": 62.803,
+     "end": 62.994
+    },
+    {
+     "w": "city",
+     "start": 63.011,
+     "end": 63.267
+    },
+    {
+     "w": "s",
+     "start": 63.289,
+     "end": 63.4
+    },
+    {
+     "w": "account",
+     "start": 63.41,
+     "end": 63.858
+    },
+    {
+     "w": "records",
+     "start": 63.897,
+     "end": 64.344
+    },
+    {
+     "w": "one",
+     "start": 64.383,
+     "end": 64.575
+    },
+    {
+     "w": "more",
+     "start": 64.592,
+     "end": 64.848
+    },
+    {
+     "w": "thing",
+     "start": 64.87,
+     "end": 65.19
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 13,
+   "scene": "T03_sec03",
+   "caption": "The tank, it is reported, had been leaking before the disaster.",
+   "vo": "The tank, it is reported, had been leaking before the disaster.",
+   "start": 65.668,
+   "end": 69.429,
+   "duration": 3.761,
+   "words": [
+    {
+     "w": "The",
+     "start": 65.668,
+     "end": 65.875
+    },
+    {
+     "w": "tank",
+     "start": 65.893,
+     "end": 66.17
+    },
+    {
+     "w": "it",
+     "start": 66.194,
+     "end": 66.333
+    },
+    {
+     "w": "is",
+     "start": 66.345,
+     "end": 66.483
+    },
+    {
+     "w": "reported",
+     "start": 66.495,
+     "end": 67.049
+    },
+    {
+     "w": "had",
+     "start": 67.097,
+     "end": 67.305
+    },
+    {
+     "w": "been",
+     "start": 67.323,
+     "end": 67.599
+    },
+    {
+     "w": "leaking",
+     "start": 67.623,
+     "end": 68.108
+    },
+    {
+     "w": "before",
+     "start": 68.15,
+     "end": 68.565
+    },
+    {
+     "w": "the",
+     "start": 68.601,
+     "end": 68.809
+    },
+    {
+     "w": "disaster",
+     "start": 68.827,
+     "end": 69.381
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 14,
+   "scene": "T03_sec03",
+   "caption": "It was something like a warning sign.",
+   "vo": "It was something like a warning sign.",
+   "start": 69.879,
+   "end": 72.015,
+   "duration": 2.136,
+   "words": [
+    {
+     "w": "It",
+     "start": 69.879,
+     "end": 70.007
+    },
+    {
+     "w": "was",
+     "start": 70.018,
+     "end": 70.21
+    },
+    {
+     "w": "something",
+     "start": 70.226,
+     "end": 70.802
+    },
+    {
+     "w": "like",
+     "start": 70.852,
+     "end": 71.108
+    },
+    {
+     "w": "a",
+     "start": 71.13,
+     "end": 71.241
+    },
+    {
+     "w": "warning",
+     "start": 71.251,
+     "end": 71.698
+    },
+    {
+     "w": "sign",
+     "start": 71.737,
+     "end": 71.993
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 15,
+   "scene": "T04_sec04",
+   "caption": "15 January 1919, after midday. The tank gave way.",
+   "vo": "fifteen January nineteen nineteen, after midday. The tank gave way.",
+   "start": 73.015,
+   "end": 77.81,
+   "duration": 4.795,
+   "words": [
+    {
+     "w": "fifteen",
+     "start": 73.015,
+     "end": 73.577
+    },
+    {
+     "w": "January",
+     "start": 73.625,
+     "end": 74.187
+    },
+    {
+     "w": "nineteen",
+     "start": 74.236,
+     "end": 74.877
+    },
+    {
+     "w": "nineteen",
+     "start": 74.933,
+     "end": 75.575
+    },
+    {
+     "w": "after",
+     "start": 75.631,
+     "end": 76.032
+    },
+    {
+     "w": "midday",
+     "start": 76.067,
+     "end": 76.548
+    },
+    {
+     "w": "The",
+     "start": 76.59,
+     "end": 76.83
+    },
+    {
+     "w": "tank",
+     "start": 76.851,
+     "end": 77.172
+    },
+    {
+     "w": "gave",
+     "start": 77.2,
+     "end": 77.521
+    },
+    {
+     "w": "way",
+     "start": 77.549,
+     "end": 77.789
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 16,
+   "scene": "T04_sec04",
+   "caption": "According to the City of Boston, several causes came together.",
+   "vo": "According to the City of Boston, several causes came together.",
+   "start": 79.01,
+   "end": 82.652,
+   "duration": 3.642,
+   "words": [
+    {
+     "w": "According",
+     "start": 79.01,
+     "end": 79.601
+    },
+    {
+     "w": "to",
+     "start": 79.653,
+     "end": 79.784
+    },
+    {
+     "w": "the",
+     "start": 79.796,
+     "end": 79.993
+    },
+    {
+     "w": "City",
+     "start": 80.01,
+     "end": 80.273
+    },
+    {
+     "w": "of",
+     "start": 80.295,
+     "end": 80.427
+    },
+    {
+     "w": "Boston",
+     "start": 80.438,
+     "end": 80.832
+    },
+    {
+     "w": "several",
+     "start": 80.867,
+     "end": 81.327
+    },
+    {
+     "w": "causes",
+     "start": 81.367,
+     "end": 81.761
+    },
+    {
+     "w": "came",
+     "start": 81.795,
+     "end": 82.058
+    },
+    {
+     "w": "together",
+     "start": 82.081,
+     "end": 82.606
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 17,
+   "scene": "T04_sec04",
+   "caption": "Weak construction, changes in temperature, and a large shipment of molasses.",
+   "vo": "Weak construction, changes in temperature, and a large shipment of molasses.",
+   "start": 83.102,
+   "end": 87.804,
+   "duration": 4.702,
+   "words": [
+    {
+     "w": "Weak",
+     "start": 83.102,
+     "end": 83.373
+    },
+    {
+     "w": "construction",
+     "start": 83.397,
+     "end": 84.211
+    },
+    {
+     "w": "changes",
+     "start": 84.282,
+     "end": 84.757
+    },
+    {
+     "w": "in",
+     "start": 84.799,
+     "end": 84.934
+    },
+    {
+     "w": "temperature",
+     "start": 84.946,
+     "end": 85.693
+    },
+    {
+     "w": "and",
+     "start": 85.758,
+     "end": 85.961
+    },
+    {
+     "w": "a",
+     "start": 85.979,
+     "end": 86.097
+    },
+    {
+     "w": "large",
+     "start": 86.107,
+     "end": 86.447
+    },
+    {
+     "w": "shipment",
+     "start": 86.476,
+     "end": 87.019
+    },
+    {
+     "w": "of",
+     "start": 87.066,
+     "end": 87.202
+    },
+    {
+     "w": "molasses",
+     "start": 87.214,
+     "end": 87.757
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 18,
+   "scene": "T04_sec04",
+   "caption": "According to the Boston Post, the molasses spread over Commercial Street and its waterfront.",
+   "vo": "According to the Boston Post, the molasses spread over Commercial Street and its waterfront.",
+   "start": 88.254,
+   "end": 93.293,
+   "duration": 5.039,
+   "words": [
+    {
+     "w": "According",
+     "start": 88.254,
+     "end": 88.796
+    },
+    {
+     "w": "to",
+     "start": 88.843,
+     "end": 88.963
+    },
+    {
+     "w": "the",
+     "start": 88.974,
+     "end": 89.154
+    },
+    {
+     "w": "Boston",
+     "start": 89.17,
+     "end": 89.531
+    },
+    {
+     "w": "Post",
+     "start": 89.563,
+     "end": 89.804
+    },
+    {
+     "w": "the",
+     "start": 89.824,
+     "end": 90.005
+    },
+    {
+     "w": "molasses",
+     "start": 90.021,
+     "end": 90.502
+    },
+    {
+     "w": "spread",
+     "start": 90.544,
+     "end": 90.906
+    },
+    {
+     "w": "over",
+     "start": 90.937,
+     "end": 91.178
+    },
+    {
+     "w": "Commercial",
+     "start": 91.199,
+     "end": 91.801
+    },
+    {
+     "w": "Street",
+     "start": 91.853,
+     "end": 92.214
+    },
+    {
+     "w": "and",
+     "start": 92.246,
+     "end": 92.426
+    },
+    {
+     "w": "its",
+     "start": 92.442,
+     "end": 92.623
+    },
+    {
+     "w": "waterfront",
+     "start": 92.638,
+     "end": 93.24
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 19,
+   "scene": "T04_sec04",
+   "caption": "From Charter Street to the southern end of North End Park.",
+   "vo": "From Charter Street to the southern end of North End Park.",
+   "start": 93.743,
+   "end": 97.005,
+   "duration": 3.262,
+   "words": [
+    {
+     "w": "From",
+     "start": 93.743,
+     "end": 93.998
+    },
+    {
+     "w": "Charter",
+     "start": 94.02,
+     "end": 94.467
+    },
+    {
+     "w": "Street",
+     "start": 94.506,
+     "end": 94.889
+    },
+    {
+     "w": "to",
+     "start": 94.923,
+     "end": 95.05
+    },
+    {
+     "w": "the",
+     "start": 95.062,
+     "end": 95.253
+    },
+    {
+     "w": "southern",
+     "start": 95.27,
+     "end": 95.781
+    },
+    {
+     "w": "end",
+     "start": 95.825,
+     "end": 96.017
+    },
+    {
+     "w": "of",
+     "start": 96.033,
+     "end": 96.161
+    },
+    {
+     "w": "North",
+     "start": 96.172,
+     "end": 96.491
+    },
+    {
+     "w": "End",
+     "start": 96.519,
+     "end": 96.711
+    },
+    {
+     "w": "Park",
+     "start": 96.727,
+     "end": 96.983
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 20,
+   "scene": "T04_sec04",
+   "caption": "According to the city's account, the wave moved at about 35 miles an hour.",
+   "vo": "According to the city's account, the wave moved at about thirty-five miles an hour.",
+   "start": 97.455,
+   "end": 101.935,
+   "duration": 4.48,
+   "words": [
+    {
+     "w": "According",
+     "start": 97.455,
+     "end": 98.011
+    },
+    {
+     "w": "to",
+     "start": 98.059,
+     "end": 98.183
+    },
+    {
+     "w": "the",
+     "start": 98.193,
+     "end": 98.379
+    },
+    {
+     "w": "city",
+     "start": 98.395,
+     "end": 98.642
+    },
+    {
+     "w": "s",
+     "start": 98.663,
+     "end": 98.771
+    },
+    {
+     "w": "account",
+     "start": 98.78,
+     "end": 99.212
+    },
+    {
+     "w": "the",
+     "start": 99.25,
+     "end": 99.435
+    },
+    {
+     "w": "wave",
+     "start": 99.451,
+     "end": 99.698
+    },
+    {
+     "w": "moved",
+     "start": 99.72,
+     "end": 100.029
+    },
+    {
+     "w": "at",
+     "start": 100.056,
+     "end": 100.179
+    },
+    {
+     "w": "about",
+     "start": 100.19,
+     "end": 100.499
+    },
+    {
+     "w": "thirty",
+     "start": 100.525,
+     "end": 100.896
+    },
+    {
+     "w": "five",
+     "start": 100.928,
+     "end": 101.175
+    },
+    {
+     "w": "miles",
+     "start": 101.197,
+     "end": 101.505
+    },
+    {
+     "w": "an",
+     "start": 101.532,
+     "end": 101.656
+    },
+    {
+     "w": "hour",
+     "start": 101.667,
+     "end": 101.914
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 21,
+   "scene": "T04_sec04",
+   "caption": "How high the wave was is disputed: the sources do not agree.",
+   "vo": "How high the wave was is disputed: the sources do not agree.",
+   "start": 102.385,
+   "end": 105.728,
+   "duration": 3.342,
+   "words": [
+    {
+     "w": "How",
+     "start": 102.385,
+     "end": 102.581
+    },
+    {
+     "w": "high",
+     "start": 102.598,
+     "end": 102.86
+    },
+    {
+     "w": "the",
+     "start": 102.883,
+     "end": 103.079
+    },
+    {
+     "w": "wave",
+     "start": 103.096,
+     "end": 103.358
+    },
+    {
+     "w": "was",
+     "start": 103.381,
+     "end": 103.577
+    },
+    {
+     "w": "is",
+     "start": 103.594,
+     "end": 103.725
+    },
+    {
+     "w": "disputed",
+     "start": 103.736,
+     "end": 104.26
+    },
+    {
+     "w": "the",
+     "start": 104.305,
+     "end": 104.501
+    },
+    {
+     "w": "sources",
+     "start": 104.519,
+     "end": 104.977
+    },
+    {
+     "w": "do",
+     "start": 105.016,
+     "end": 105.147
+    },
+    {
+     "w": "not",
+     "start": 105.159,
+     "end": 105.355
+    },
+    {
+     "w": "agree",
+     "start": 105.372,
+     "end": 105.699
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 22,
+   "scene": "T04_sec04",
+   "caption": "The Post wrote 50 feet, about as tall as the tank is in the city's account.",
+   "vo": "The Post wrote fifty feet, about as tall as the tank is in the city's account.",
+   "start": 106.178,
+   "end": 111.22,
+   "duration": 5.042,
+   "words": [
+    {
+     "w": "The",
+     "start": 106.178,
+     "end": 106.407
+    },
+    {
+     "w": "Post",
+     "start": 106.427,
+     "end": 106.732
+    },
+    {
+     "w": "wrote",
+     "start": 106.759,
+     "end": 107.14
+    },
+    {
+     "w": "fifty",
+     "start": 107.174,
+     "end": 107.555
+    },
+    {
+     "w": "feet",
+     "start": 107.589,
+     "end": 107.894
+    },
+    {
+     "w": "about",
+     "start": 107.921,
+     "end": 108.303
+    },
+    {
+     "w": "as",
+     "start": 108.336,
+     "end": 108.489
+    },
+    {
+     "w": "tall",
+     "start": 108.502,
+     "end": 108.807
+    },
+    {
+     "w": "as",
+     "start": 108.834,
+     "end": 108.987
+    },
+    {
+     "w": "the",
+     "start": 109.0,
+     "end": 109.229
+    },
+    {
+     "w": "tank",
+     "start": 109.249,
+     "end": 109.554
+    },
+    {
+     "w": "is",
+     "start": 109.581,
+     "end": 109.734
+    },
+    {
+     "w": "in",
+     "start": 109.747,
+     "end": 109.9
+    },
+    {
+     "w": "the",
+     "start": 109.913,
+     "end": 110.142
+    },
+    {
+     "w": "city",
+     "start": 110.162,
+     "end": 110.467
+    },
+    {
+     "w": "s",
+     "start": 110.494,
+     "end": 110.627
+    },
+    {
+     "w": "account",
+     "start": 110.638,
+     "end": 111.173
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 23,
+   "scene": "T04_sec04",
+   "caption": "According to many later accounts, it was much lower.",
+   "vo": "According to many later accounts, it was much lower.",
+   "start": 111.67,
+   "end": 115.013,
+   "duration": 3.344,
+   "words": [
+    {
+     "w": "According",
+     "start": 111.67,
+     "end": 112.329
+    },
+    {
+     "w": "to",
+     "start": 112.386,
+     "end": 112.533
+    },
+    {
+     "w": "many",
+     "start": 112.545,
+     "end": 112.838
+    },
+    {
+     "w": "later",
+     "start": 112.864,
+     "end": 113.23
+    },
+    {
+     "w": "accounts",
+     "start": 113.262,
+     "end": 113.848
+    },
+    {
+     "w": "it",
+     "start": 113.899,
+     "end": 114.045
+    },
+    {
+     "w": "was",
+     "start": 114.058,
+     "end": 114.278
+    },
+    {
+     "w": "much",
+     "start": 114.297,
+     "end": 114.59
+    },
+    {
+     "w": "lower",
+     "start": 114.615,
+     "end": 114.981
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 24,
+   "scene": "T05_sec05",
+   "caption": "In the Post's words, the sticky flood caught more than 100 men, women and children.",
+   "vo": "In the Post's words, the sticky flood caught more than one hundred men, women and children.",
+   "start": 116.013,
+   "end": 121.441,
+   "duration": 5.428,
+   "words": [
+    {
+     "w": "In",
+     "start": 116.013,
+     "end": 116.151
+    },
+    {
+     "w": "the",
+     "start": 116.162,
+     "end": 116.368
+    },
+    {
+     "w": "Post",
+     "start": 116.386,
+     "end": 116.661
+    },
+    {
+     "w": "s",
+     "start": 116.685,
+     "end": 116.804
+    },
+    {
+     "w": "words",
+     "start": 116.815,
+     "end": 117.158
+    },
+    {
+     "w": "the",
+     "start": 117.188,
+     "end": 117.394
+    },
+    {
+     "w": "sticky",
+     "start": 117.412,
+     "end": 117.823
+    },
+    {
+     "w": "flood",
+     "start": 117.859,
+     "end": 118.203
+    },
+    {
+     "w": "caught",
+     "start": 118.232,
+     "end": 118.644
+    },
+    {
+     "w": "more",
+     "start": 118.68,
+     "end": 118.955
+    },
+    {
+     "w": "than",
+     "start": 118.979,
+     "end": 119.253
+    },
+    {
+     "w": "one",
+     "start": 119.277,
+     "end": 119.483
+    },
+    {
+     "w": "hundred",
+     "start": 119.501,
+     "end": 119.981
+    },
+    {
+     "w": "men",
+     "start": 120.023,
+     "end": 120.229
+    },
+    {
+     "w": "women",
+     "start": 120.247,
+     "end": 120.59
+    },
+    {
+     "w": "and",
+     "start": 120.62,
+     "end": 120.826
+    },
+    {
+     "w": "children",
+     "start": 120.844,
+     "end": 121.393
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 25,
+   "scene": "T05_sec05",
+   "caption": "Buildings, horse teams, motor cars and streetcars. Whatever stood in its path was crushed.",
+   "vo": "Buildings, horse teams, motor cars and streetcars. Whatever stood in its path was crushed.",
+   "start": 121.891,
+   "end": 127.522,
+   "duration": 5.631,
+   "words": [
+    {
+     "w": "Buildings",
+     "start": 121.891,
+     "end": 122.53
+    },
+    {
+     "w": "horse",
+     "start": 122.585,
+     "end": 122.94
+    },
+    {
+     "w": "teams",
+     "start": 122.971,
+     "end": 123.326
+    },
+    {
+     "w": "motor",
+     "start": 123.357,
+     "end": 123.711
+    },
+    {
+     "w": "cars",
+     "start": 123.742,
+     "end": 124.026
+    },
+    {
+     "w": "and",
+     "start": 124.051,
+     "end": 124.264
+    },
+    {
+     "w": "streetcars",
+     "start": 124.282,
+     "end": 124.992
+    },
+    {
+     "w": "Whatever",
+     "start": 125.053,
+     "end": 125.621
+    },
+    {
+     "w": "stood",
+     "start": 125.671,
+     "end": 126.025
+    },
+    {
+     "w": "in",
+     "start": 126.056,
+     "end": 126.198
+    },
+    {
+     "w": "its",
+     "start": 126.21,
+     "end": 126.423
+    },
+    {
+     "w": "path",
+     "start": 126.442,
+     "end": 126.726
+    },
+    {
+     "w": "was",
+     "start": 126.75,
+     "end": 126.963
+    },
+    {
+     "w": "crushed",
+     "start": 126.982,
+     "end": 127.479
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 26,
+   "scene": "T05_sec05",
+   "caption": "The elevated railway structure overhead did not survive either.",
+   "vo": "The elevated railway structure overhead did not survive either.",
+   "start": 128.422,
+   "end": 132.334,
+   "duration": 3.913,
+   "words": [
+    {
+     "w": "The",
+     "start": 128.422,
+     "end": 128.622
+    },
+    {
+     "w": "elevated",
+     "start": 128.639,
+     "end": 129.172
+    },
+    {
+     "w": "railway",
+     "start": 129.219,
+     "end": 129.685
+    },
+    {
+     "w": "structure",
+     "start": 129.726,
+     "end": 130.326
+    },
+    {
+     "w": "overhead",
+     "start": 130.378,
+     "end": 130.911
+    },
+    {
+     "w": "did",
+     "start": 130.958,
+     "end": 131.158
+    },
+    {
+     "w": "not",
+     "start": 131.175,
+     "end": 131.375
+    },
+    {
+     "w": "survive",
+     "start": 131.392,
+     "end": 131.859
+    },
+    {
+     "w": "either",
+     "start": 131.9,
+     "end": 132.3
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 27,
+   "scene": "T05_sec05",
+   "caption": "The paper wrote that the black, reeking mass struck the buildings facing Copp's Hill.",
+   "vo": "The paper wrote that the black, reeking mass struck the buildings facing Copp's Hill.",
+   "start": 132.784,
+   "end": 137.454,
+   "duration": 4.669,
+   "words": [
+    {
+     "w": "The",
+     "start": 132.784,
+     "end": 132.969
+    },
+    {
+     "w": "paper",
+     "start": 132.985,
+     "end": 133.293
+    },
+    {
+     "w": "wrote",
+     "start": 133.32,
+     "end": 133.628
+    },
+    {
+     "w": "that",
+     "start": 133.655,
+     "end": 133.901
+    },
+    {
+     "w": "the",
+     "start": 133.923,
+     "end": 134.107
+    },
+    {
+     "w": "black",
+     "start": 134.123,
+     "end": 134.431
+    },
+    {
+     "w": "reeking",
+     "start": 134.458,
+     "end": 134.889
+    },
+    {
+     "w": "mass",
+     "start": 134.927,
+     "end": 135.173
+    },
+    {
+     "w": "struck",
+     "start": 135.195,
+     "end": 135.564
+    },
+    {
+     "w": "the",
+     "start": 135.596,
+     "end": 135.781
+    },
+    {
+     "w": "buildings",
+     "start": 135.797,
+     "end": 136.352
+    },
+    {
+     "w": "facing",
+     "start": 136.4,
+     "end": 136.77
+    },
+    {
+     "w": "Copp",
+     "start": 136.802,
+     "end": 137.048
+    },
+    {
+     "w": "s",
+     "start": 137.069,
+     "end": 137.177
+    },
+    {
+     "w": "Hill",
+     "start": 137.186,
+     "end": 137.432
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 28,
+   "scene": "T05_sec05",
+   "caption": "And then swept back towards the harbour.",
+   "vo": "And then swept back towards the harbour.",
+   "start": 137.904,
+   "end": 140.009,
+   "duration": 2.105,
+   "words": [
+    {
+     "w": "And",
+     "start": 137.904,
+     "end": 138.08
+    },
+    {
+     "w": "then",
+     "start": 138.095,
+     "end": 138.33
+    },
+    {
+     "w": "swept",
+     "start": 138.35,
+     "end": 138.644
+    },
+    {
+     "w": "back",
+     "start": 138.669,
+     "end": 138.904
+    },
+    {
+     "w": "towards",
+     "start": 138.925,
+     "end": 139.335
+    },
+    {
+     "w": "the",
+     "start": 139.371,
+     "end": 139.547
+    },
+    {
+     "w": "harbour",
+     "start": 139.563,
+     "end": 139.973
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 29,
+   "scene": "T05_sec05",
+   "caption": "Among the dead was an engineer of Engine 31 of the Boston Fire Department.",
+   "vo": "Among the dead was an engineer of Engine thirty-one of the Boston Fire Department.",
+   "start": 140.459,
+   "end": 144.58,
+   "duration": 4.121,
+   "words": [
+    {
+     "w": "Among",
+     "start": 140.459,
+     "end": 140.742
+    },
+    {
+     "w": "the",
+     "start": 140.767,
+     "end": 140.936
+    },
+    {
+     "w": "dead",
+     "start": 140.951,
+     "end": 141.177
+    },
+    {
+     "w": "was",
+     "start": 141.197,
+     "end": 141.367
+    },
+    {
+     "w": "an",
+     "start": 141.382,
+     "end": 141.495
+    },
+    {
+     "w": "engineer",
+     "start": 141.505,
+     "end": 141.957
+    },
+    {
+     "w": "of",
+     "start": 141.997,
+     "end": 142.11
+    },
+    {
+     "w": "Engine",
+     "start": 142.12,
+     "end": 142.459
+    },
+    {
+     "w": "thirty",
+     "start": 142.489,
+     "end": 142.828
+    },
+    {
+     "w": "one",
+     "start": 142.858,
+     "end": 143.027
+    },
+    {
+     "w": "of",
+     "start": 143.042,
+     "end": 143.155
+    },
+    {
+     "w": "the",
+     "start": 143.165,
+     "end": 143.335
+    },
+    {
+     "w": "Boston",
+     "start": 143.35,
+     "end": 143.689
+    },
+    {
+     "w": "Fire",
+     "start": 143.719,
+     "end": 143.945
+    },
+    {
+     "w": "Department",
+     "start": 143.965,
+     "end": 144.531
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 30,
+   "scene": "T05_sec05",
+   "caption": "The Post printed his name as George Lahey.",
+   "vo": "The Post printed his name as George Lahey.",
+   "start": 145.03,
+   "end": 147.385,
+   "duration": 2.355,
+   "words": [
+    {
+     "w": "The",
+     "start": 145.03,
+     "end": 145.221
+    },
+    {
+     "w": "Post",
+     "start": 145.238,
+     "end": 145.492
+    },
+    {
+     "w": "printed",
+     "start": 145.515,
+     "end": 145.961
+    },
+    {
+     "w": "his",
+     "start": 145.999,
+     "end": 146.191
+    },
+    {
+     "w": "name",
+     "start": 146.207,
+     "end": 146.462
+    },
+    {
+     "w": "as",
+     "start": 146.484,
+     "end": 146.612
+    },
+    {
+     "w": "George",
+     "start": 146.623,
+     "end": 147.005
+    },
+    {
+     "w": "Lahey",
+     "start": 147.038,
+     "end": 147.357
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 31,
+   "scene": "T05_sec05",
+   "caption": "Among the dead was also a girl of about 14, still unidentified when the paper went to press.",
+   "vo": "Among the dead was also a girl of about fourteen, still unidentified when the paper went to press.",
+   "start": 147.835,
+   "end": 153.422,
+   "duration": 5.587,
+   "words": [
+    {
+     "w": "Among",
+     "start": 147.835,
+     "end": 148.157
+    },
+    {
+     "w": "the",
+     "start": 148.185,
+     "end": 148.378
+    },
+    {
+     "w": "dead",
+     "start": 148.395,
+     "end": 148.653
+    },
+    {
+     "w": "was",
+     "start": 148.675,
+     "end": 148.869
+    },
+    {
+     "w": "also",
+     "start": 148.886,
+     "end": 149.143
+    },
+    {
+     "w": "a",
+     "start": 149.166,
+     "end": 149.278
+    },
+    {
+     "w": "girl",
+     "start": 149.288,
+     "end": 149.546
+    },
+    {
+     "w": "of",
+     "start": 149.568,
+     "end": 149.697
+    },
+    {
+     "w": "about",
+     "start": 149.708,
+     "end": 150.031
+    },
+    {
+     "w": "fourteen",
+     "start": 150.059,
+     "end": 150.574
+    },
+    {
+     "w": "still",
+     "start": 150.619,
+     "end": 150.941
+    },
+    {
+     "w": "unidentified",
+     "start": 150.969,
+     "end": 151.743
+    },
+    {
+     "w": "when",
+     "start": 151.81,
+     "end": 152.068
+    },
+    {
+     "w": "the",
+     "start": 152.091,
+     "end": 152.284
+    },
+    {
+     "w": "paper",
+     "start": 152.301,
+     "end": 152.623
+    },
+    {
+     "w": "went",
+     "start": 152.651,
+     "end": 152.909
+    },
+    {
+     "w": "to",
+     "start": 152.931,
+     "end": 153.06
+    },
+    {
+     "w": "press",
+     "start": 153.072,
+     "end": 153.394
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 32,
+   "scene": "T05_sec05",
+   "caption": "She wore a grey jacket, and her bag carried an employment tag of the Revere Rubber Company.",
+   "vo": "She wore a grey jacket, and her bag carried an employment tag of the Revere Rubber Company.",
+   "start": 153.872,
+   "end": 158.725,
+   "duration": 4.853,
+   "words": [
+    {
+     "w": "She",
+     "start": 153.872,
+     "end": 154.054
+    },
+    {
+     "w": "wore",
+     "start": 154.069,
+     "end": 154.312
+    },
+    {
+     "w": "a",
+     "start": 154.333,
+     "end": 154.438
+    },
+    {
+     "w": "grey",
+     "start": 154.447,
+     "end": 154.689
+    },
+    {
+     "w": "jacket",
+     "start": 154.71,
+     "end": 155.074
+    },
+    {
+     "w": "and",
+     "start": 155.105,
+     "end": 155.287
+    },
+    {
+     "w": "her",
+     "start": 155.303,
+     "end": 155.484
+    },
+    {
+     "w": "bag",
+     "start": 155.5,
+     "end": 155.682
+    },
+    {
+     "w": "carried",
+     "start": 155.698,
+     "end": 156.121
+    },
+    {
+     "w": "an",
+     "start": 156.158,
+     "end": 156.279
+    },
+    {
+     "w": "employment",
+     "start": 156.29,
+     "end": 156.895
+    },
+    {
+     "w": "tag",
+     "start": 156.948,
+     "end": 157.13
+    },
+    {
+     "w": "of",
+     "start": 157.145,
+     "end": 157.267
+    },
+    {
+     "w": "the",
+     "start": 157.277,
+     "end": 157.459
+    },
+    {
+     "w": "Revere",
+     "start": 157.474,
+     "end": 157.838
+    },
+    {
+     "w": "Rubber",
+     "start": 157.869,
+     "end": 158.233
+    },
+    {
+     "w": "Company",
+     "start": 158.264,
+     "end": 158.688
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 33,
+   "scene": "T06_sec06",
+   "caption": "Ambulances were rushed to the scene from every part of the city.",
+   "vo": "Ambulances were rushed to the scene from every part of the city.",
+   "start": 160.725,
+   "end": 164.01,
+   "duration": 3.286,
+   "words": [
+    {
+     "w": "Ambulances",
+     "start": 160.725,
+     "end": 161.306
+    },
+    {
+     "w": "were",
+     "start": 161.357,
+     "end": 161.589
+    },
+    {
+     "w": "rushed",
+     "start": 161.609,
+     "end": 161.958
+    },
+    {
+     "w": "to",
+     "start": 161.989,
+     "end": 162.105
+    },
+    {
+     "w": "the",
+     "start": 162.115,
+     "end": 162.289
+    },
+    {
+     "w": "scene",
+     "start": 162.305,
+     "end": 162.595
+    },
+    {
+     "w": "from",
+     "start": 162.62,
+     "end": 162.853
+    },
+    {
+     "w": "every",
+     "start": 162.873,
+     "end": 163.164
+    },
+    {
+     "w": "part",
+     "start": 163.189,
+     "end": 163.422
+    },
+    {
+     "w": "of",
+     "start": 163.442,
+     "end": 163.558
+    },
+    {
+     "w": "the",
+     "start": 163.568,
+     "end": 163.743
+    },
+    {
+     "w": "city",
+     "start": 163.758,
+     "end": 163.99
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 34,
+   "scene": "T06_sec06",
+   "caption": "Rescue work went on at the North End Park playground.",
+   "vo": "Rescue work went on at the North End Park playground.",
+   "start": 164.46,
+   "end": 167.618,
+   "duration": 3.158,
+   "words": [
+    {
+     "w": "Rescue",
+     "start": 164.46,
+     "end": 164.866
+    },
+    {
+     "w": "work",
+     "start": 164.901,
+     "end": 165.171
+    },
+    {
+     "w": "went",
+     "start": 165.195,
+     "end": 165.465
+    },
+    {
+     "w": "on",
+     "start": 165.489,
+     "end": 165.624
+    },
+    {
+     "w": "at",
+     "start": 165.636,
+     "end": 165.771
+    },
+    {
+     "w": "the",
+     "start": 165.782,
+     "end": 165.985
+    },
+    {
+     "w": "North",
+     "start": 166.003,
+     "end": 166.341
+    },
+    {
+     "w": "End",
+     "start": 166.37,
+     "end": 166.573
+    },
+    {
+     "w": "Park",
+     "start": 166.59,
+     "end": 166.86
+    },
+    {
+     "w": "playground",
+     "start": 166.884,
+     "end": 167.56
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 35,
+   "scene": "T06_sec06",
+   "caption": "Dead horses, cats and dogs were carted away, load after load.",
+   "vo": "Dead horses, cats and dogs were carted away, load after load.",
+   "start": 168.068,
+   "end": 172.611,
+   "duration": 4.543,
+   "words": [
+    {
+     "w": "Dead",
+     "start": 168.068,
+     "end": 168.417
+    },
+    {
+     "w": "horses",
+     "start": 168.447,
+     "end": 168.969
+    },
+    {
+     "w": "cats",
+     "start": 169.015,
+     "end": 169.363
+    },
+    {
+     "w": "and",
+     "start": 169.393,
+     "end": 169.655
+    },
+    {
+     "w": "dogs",
+     "start": 169.677,
+     "end": 170.026
+    },
+    {
+     "w": "were",
+     "start": 170.056,
+     "end": 170.404
+    },
+    {
+     "w": "carted",
+     "start": 170.434,
+     "end": 170.957
+    },
+    {
+     "w": "away",
+     "start": 171.002,
+     "end": 171.351
+    },
+    {
+     "w": "load",
+     "start": 171.381,
+     "end": 171.729
+    },
+    {
+     "w": "after",
+     "start": 171.759,
+     "end": 172.195
+    },
+    {
+     "w": "load",
+     "start": 172.233,
+     "end": 172.581
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 36,
+   "scene": "T06_sec06",
+   "caption": "Boston's only trolley freight terminal lay in ruins.",
+   "vo": "Boston's only trolley freight terminal lay in ruins.",
+   "start": 173.061,
+   "end": 176.058,
+   "duration": 2.997,
+   "words": [
+    {
+     "w": "Boston",
+     "start": 173.061,
+     "end": 173.439
+    },
+    {
+     "w": "s",
+     "start": 173.472,
+     "end": 173.582
+    },
+    {
+     "w": "only",
+     "start": 173.592,
+     "end": 173.844
+    },
+    {
+     "w": "trolley",
+     "start": 173.866,
+     "end": 174.307
+    },
+    {
+     "w": "freight",
+     "start": 174.345,
+     "end": 174.787
+    },
+    {
+     "w": "terminal",
+     "start": 174.825,
+     "end": 175.329
+    },
+    {
+     "w": "lay",
+     "start": 175.373,
+     "end": 175.562
+    },
+    {
+     "w": "in",
+     "start": 175.579,
+     "end": 175.705
+    },
+    {
+     "w": "ruins",
+     "start": 175.716,
+     "end": 176.031
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 37,
+   "scene": "T06_sec06",
+   "caption": "The Post's first count was 11 dead: a woman, a girl and nine men.",
+   "vo": "The Post's first count was eleven dead: a woman, a girl and nine men.",
+   "start": 176.508,
+   "end": 181.038,
+   "duration": 4.53,
+   "words": [
+    {
+     "w": "The",
+     "start": 176.508,
+     "end": 176.739
+    },
+    {
+     "w": "Post",
+     "start": 176.759,
+     "end": 177.066
+    },
+    {
+     "w": "s",
+     "start": 177.093,
+     "end": 177.227
+    },
+    {
+     "w": "first",
+     "start": 177.239,
+     "end": 177.623
+    },
+    {
+     "w": "count",
+     "start": 177.656,
+     "end": 178.041
+    },
+    {
+     "w": "was",
+     "start": 178.074,
+     "end": 178.305
+    },
+    {
+     "w": "eleven",
+     "start": 178.325,
+     "end": 178.786
+    },
+    {
+     "w": "dead",
+     "start": 178.826,
+     "end": 179.133
+    },
+    {
+     "w": "a",
+     "start": 179.16,
+     "end": 179.294
+    },
+    {
+     "w": "woman",
+     "start": 179.305,
+     "end": 179.69
+    },
+    {
+     "w": "a",
+     "start": 179.723,
+     "end": 179.857
+    },
+    {
+     "w": "girl",
+     "start": 179.869,
+     "end": 180.176
+    },
+    {
+     "w": "and",
+     "start": 180.203,
+     "end": 180.433
+    },
+    {
+     "w": "nine",
+     "start": 180.453,
+     "end": 180.761
+    },
+    {
+     "w": "men",
+     "start": 180.788,
+     "end": 181.018
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 38,
+   "scene": "T06_sec06",
+   "caption": "But the number did not stop there.",
+   "vo": "But the number did not stop there.",
+   "start": 181.488,
+   "end": 183.427,
+   "duration": 1.939,
+   "words": [
+    {
+     "w": "But",
+     "start": 181.488,
+     "end": 181.686
+    },
+    {
+     "w": "the",
+     "start": 181.704,
+     "end": 181.902
+    },
+    {
+     "w": "number",
+     "start": 181.919,
+     "end": 182.316
+    },
+    {
+     "w": "did",
+     "start": 182.35,
+     "end": 182.548
+    },
+    {
+     "w": "not",
+     "start": 182.565,
+     "end": 182.764
+    },
+    {
+     "w": "stop",
+     "start": 182.781,
+     "end": 183.045
+    },
+    {
+     "w": "there",
+     "start": 183.068,
+     "end": 183.398
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 39,
+   "scene": "T06_sec06",
+   "caption": "According to the City of Boston, 21 people died in the end, and about 150 were injured.",
+   "vo": "According to the City of Boston, twenty-one people died in the end, and about one hundred and fifty were injured.",
+   "start": 184.327,
+   "end": 190.812,
+   "duration": 6.485,
+   "words": [
+    {
+     "w": "According",
+     "start": 184.327,
+     "end": 184.924
+    },
+    {
+     "w": "to",
+     "start": 184.976,
+     "end": 185.108
+    },
+    {
+     "w": "the",
+     "start": 185.12,
+     "end": 185.319
+    },
+    {
+     "w": "City",
+     "start": 185.336,
+     "end": 185.601
+    },
+    {
+     "w": "of",
+     "start": 185.624,
+     "end": 185.757
+    },
+    {
+     "w": "Boston",
+     "start": 185.768,
+     "end": 186.166
+    },
+    {
+     "w": "twenty",
+     "start": 186.201,
+     "end": 186.598
+    },
+    {
+     "w": "one",
+     "start": 186.633,
+     "end": 186.832
+    },
+    {
+     "w": "people",
+     "start": 186.849,
+     "end": 187.247
+    },
+    {
+     "w": "died",
+     "start": 187.282,
+     "end": 187.547
+    },
+    {
+     "w": "in",
+     "start": 187.57,
+     "end": 187.702
+    },
+    {
+     "w": "the",
+     "start": 187.714,
+     "end": 187.913
+    },
+    {
+     "w": "end",
+     "start": 187.93,
+     "end": 188.129
+    },
+    {
+     "w": "and",
+     "start": 188.146,
+     "end": 188.345
+    },
+    {
+     "w": "about",
+     "start": 188.362,
+     "end": 188.694
+    },
+    {
+     "w": "one",
+     "start": 188.723,
+     "end": 188.922
+    },
+    {
+     "w": "hundred",
+     "start": 188.939,
+     "end": 189.403
+    },
+    {
+     "w": "and",
+     "start": 189.443,
+     "end": 189.642
+    },
+    {
+     "w": "fifty",
+     "start": 189.659,
+     "end": 189.991
+    },
+    {
+     "w": "were",
+     "start": 190.02,
+     "end": 190.285
+    },
+    {
+     "w": "injured",
+     "start": 190.308,
+     "end": 190.772
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 40,
+   "scene": "T07_sec07",
+   "caption": "Now the biggest question: how did it happen?",
+   "vo": "Now the biggest question: how did it happen?",
+   "start": 191.812,
+   "end": 193.808,
+   "duration": 1.996,
+   "words": [
+    {
+     "w": "Now",
+     "start": 191.812,
+     "end": 191.97
+    },
+    {
+     "w": "the",
+     "start": 191.983,
+     "end": 192.141
+    },
+    {
+     "w": "biggest",
+     "start": 192.155,
+     "end": 192.522
+    },
+    {
+     "w": "question",
+     "start": 192.554,
+     "end": 192.973
+    },
+    {
+     "w": "how",
+     "start": 193.01,
+     "end": 193.167
+    },
+    {
+     "w": "did",
+     "start": 193.181,
+     "end": 193.338
+    },
+    {
+     "w": "it",
+     "start": 193.352,
+     "end": 193.457
+    },
+    {
+     "w": "happen",
+     "start": 193.466,
+     "end": 193.781
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 41,
+   "scene": "T07_sec07",
+   "caption": "The next day, the Boston Post reported that the state police chemist, W. L. Wedger, had reached a positive conclusion.",
+   "vo": "The next day, the Boston Post reported that the state police chemist, W. L. Wedger, had reached a positive conclusion.",
+   "start": 194.808,
+   "end": 202.959,
+   "duration": 8.152,
+   "words": [
+    {
+     "w": "The",
+     "start": 194.808,
+     "end": 195.044
+    },
+    {
+     "w": "next",
+     "start": 195.065,
+     "end": 195.38
+    },
+    {
+     "w": "day",
+     "start": 195.407,
+     "end": 195.643
+    },
+    {
+     "w": "the",
+     "start": 195.664,
+     "end": 195.9
+    },
+    {
+     "w": "Boston",
+     "start": 195.921,
+     "end": 196.393
+    },
+    {
+     "w": "Post",
+     "start": 196.434,
+     "end": 196.75
+    },
+    {
+     "w": "reported",
+     "start": 196.777,
+     "end": 197.407
+    },
+    {
+     "w": "that",
+     "start": 197.462,
+     "end": 197.777
+    },
+    {
+     "w": "the",
+     "start": 197.804,
+     "end": 198.04
+    },
+    {
+     "w": "state",
+     "start": 198.061,
+     "end": 198.455
+    },
+    {
+     "w": "police",
+     "start": 198.489,
+     "end": 198.962
+    },
+    {
+     "w": "chemist",
+     "start": 199.003,
+     "end": 199.554
+    },
+    {
+     "w": "W",
+     "start": 199.602,
+     "end": 199.739
+    },
+    {
+     "w": "L",
+     "start": 199.751,
+     "end": 199.888
+    },
+    {
+     "w": "Wedger",
+     "start": 199.9,
+     "end": 200.372
+    },
+    {
+     "w": "had",
+     "start": 200.414,
+     "end": 200.65
+    },
+    {
+     "w": "reached",
+     "start": 200.67,
+     "end": 201.222
+    },
+    {
+     "w": "a",
+     "start": 201.27,
+     "end": 201.407
+    },
+    {
+     "w": "positive",
+     "start": 201.419,
+     "end": 202.049
+    },
+    {
+     "w": "conclusion",
+     "start": 202.103,
+     "end": 202.891
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 42,
+   "scene": "T07_sec07",
+   "caption": "According to him, the tank had not collapsed; there had been an explosion inside it.",
+   "vo": "According to him, the tank had not collapsed; there had been an explosion inside it.",
+   "start": 203.409,
+   "end": 208.785,
+   "duration": 5.375,
+   "words": [
+    {
+     "w": "According",
+     "start": 203.409,
+     "end": 204.074
+    },
+    {
+     "w": "to",
+     "start": 204.132,
+     "end": 204.279
+    },
+    {
+     "w": "him",
+     "start": 204.292,
+     "end": 204.513
+    },
+    {
+     "w": "the",
+     "start": 204.533,
+     "end": 204.754
+    },
+    {
+     "w": "tank",
+     "start": 204.773,
+     "end": 205.069
+    },
+    {
+     "w": "had",
+     "start": 205.094,
+     "end": 205.316
+    },
+    {
+     "w": "not",
+     "start": 205.335,
+     "end": 205.556
+    },
+    {
+     "w": "collapsed",
+     "start": 205.576,
+     "end": 206.24
+    },
+    {
+     "w": "there",
+     "start": 206.298,
+     "end": 206.667
+    },
+    {
+     "w": "had",
+     "start": 206.699,
+     "end": 206.92
+    },
+    {
+     "w": "been",
+     "start": 206.94,
+     "end": 207.235
+    },
+    {
+     "w": "an",
+     "start": 207.261,
+     "end": 207.408
+    },
+    {
+     "w": "explosion",
+     "start": 207.421,
+     "end": 208.085
+    },
+    {
+     "w": "inside",
+     "start": 208.143,
+     "end": 208.586
+    },
+    {
+     "w": "it",
+     "start": 208.624,
+     "end": 208.772
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 43,
+   "scene": "T07_sec07",
+   "caption": "That was the early, disputed theory of the time. Later findings pointed another way.",
+   "vo": "That was the early, disputed theory of the time. Later findings pointed another way.",
+   "start": 209.235,
+   "end": 214.25,
+   "duration": 5.016,
+   "words": [
+    {
+     "w": "That",
+     "start": 209.235,
+     "end": 209.506
+    },
+    {
+     "w": "was",
+     "start": 209.53,
+     "end": 209.734
+    },
+    {
+     "w": "the",
+     "start": 209.751,
+     "end": 209.955
+    },
+    {
+     "w": "early",
+     "start": 209.972,
+     "end": 210.312
+    },
+    {
+     "w": "disputed",
+     "start": 210.341,
+     "end": 210.884
+    },
+    {
+     "w": "theory",
+     "start": 210.931,
+     "end": 211.338
+    },
+    {
+     "w": "of",
+     "start": 211.374,
+     "end": 211.51
+    },
+    {
+     "w": "the",
+     "start": 211.521,
+     "end": 211.725
+    },
+    {
+     "w": "time",
+     "start": 211.743,
+     "end": 212.014
+    },
+    {
+     "w": "Later",
+     "start": 212.038,
+     "end": 212.377
+    },
+    {
+     "w": "findings",
+     "start": 212.406,
+     "end": 212.949
+    },
+    {
+     "w": "pointed",
+     "start": 212.997,
+     "end": 213.472
+    },
+    {
+     "w": "another",
+     "start": 213.513,
+     "end": 213.988
+    },
+    {
+     "w": "way",
+     "start": 214.029,
+     "end": 214.233
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 44,
+   "scene": "T07_sec07",
+   "caption": "According to the city's account, structural engineers later found that the tank's walls were too thin.",
+   "vo": "According to the city's account, structural engineers later found that the tank's walls were too thin.",
+   "start": 215.15,
+   "end": 220.668,
+   "duration": 5.518,
+   "words": [
+    {
+     "w": "According",
+     "start": 215.15,
+     "end": 215.691
+    },
+    {
+     "w": "to",
+     "start": 215.738,
+     "end": 215.858
+    },
+    {
+     "w": "the",
+     "start": 215.869,
+     "end": 216.049
+    },
+    {
+     "w": "city",
+     "start": 216.065,
+     "end": 216.305
+    },
+    {
+     "w": "s",
+     "start": 216.326,
+     "end": 216.431
+    },
+    {
+     "w": "account",
+     "start": 216.44,
+     "end": 216.86
+    },
+    {
+     "w": "structural",
+     "start": 216.897,
+     "end": 217.498
+    },
+    {
+     "w": "engineers",
+     "start": 217.55,
+     "end": 218.091
+    },
+    {
+     "w": "later",
+     "start": 218.138,
+     "end": 218.439
+    },
+    {
+     "w": "found",
+     "start": 218.465,
+     "end": 218.765
+    },
+    {
+     "w": "that",
+     "start": 218.791,
+     "end": 219.032
+    },
+    {
+     "w": "the",
+     "start": 219.053,
+     "end": 219.233
+    },
+    {
+     "w": "tank",
+     "start": 219.248,
+     "end": 219.489
+    },
+    {
+     "w": "s",
+     "start": 219.51,
+     "end": 219.614
+    },
+    {
+     "w": "walls",
+     "start": 219.623,
+     "end": 219.924
+    },
+    {
+     "w": "were",
+     "start": 219.95,
+     "end": 220.19
+    },
+    {
+     "w": "too",
+     "start": 220.211,
+     "end": 220.392
+    },
+    {
+     "w": "thin",
+     "start": 220.407,
+     "end": 220.648
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 45,
+   "scene": "T07_sec07",
+   "caption": "And that its material was prone to cracking.",
+   "vo": "And that its material was prone to cracking.",
+   "start": 221.118,
+   "end": 223.533,
+   "duration": 2.415,
+   "words": [
+    {
+     "w": "And",
+     "start": 221.118,
+     "end": 221.304
+    },
+    {
+     "w": "that",
+     "start": 221.32,
+     "end": 221.567
+    },
+    {
+     "w": "its",
+     "start": 221.588,
+     "end": 221.773
+    },
+    {
+     "w": "material",
+     "start": 221.789,
+     "end": 222.283
+    },
+    {
+     "w": "was",
+     "start": 222.326,
+     "end": 222.511
+    },
+    {
+     "w": "prone",
+     "start": 222.527,
+     "end": 222.836
+    },
+    {
+     "w": "to",
+     "start": 222.863,
+     "end": 222.986
+    },
+    {
+     "w": "cracking",
+     "start": 222.997,
+     "end": 223.49
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 46,
+   "scene": "T07_sec07",
+   "caption": "According to the city's account, in 1925 a court-appointed auditor held the owners' negligence responsible.",
+   "vo": "According to the city's account, in nineteen twenty-five a court-appointed auditor held the owners' negligence responsible.",
+   "start": 223.983,
+   "end": 230.07,
+   "duration": 6.086,
+   "words": [
+    {
+     "w": "According",
+     "start": 223.983,
+     "end": 224.47
+    },
+    {
+     "w": "to",
+     "start": 224.513,
+     "end": 224.621
+    },
+    {
+     "w": "the",
+     "start": 224.63,
+     "end": 224.793
+    },
+    {
+     "w": "city",
+     "start": 224.807,
+     "end": 225.023
+    },
+    {
+     "w": "s",
+     "start": 225.042,
+     "end": 225.136
+    },
+    {
+     "w": "account",
+     "start": 225.144,
+     "end": 225.523
+    },
+    {
+     "w": "in",
+     "start": 225.556,
+     "end": 225.664
+    },
+    {
+     "w": "nineteen",
+     "start": 225.674,
+     "end": 226.107
+    },
+    {
+     "w": "twenty",
+     "start": 226.144,
+     "end": 226.469
+    },
+    {
+     "w": "five",
+     "start": 226.497,
+     "end": 226.714
+    },
+    {
+     "w": "a",
+     "start": 226.732,
+     "end": 226.827
+    },
+    {
+     "w": "court",
+     "start": 226.835,
+     "end": 227.105
+    },
+    {
+     "w": "appointed",
+     "start": 227.129,
+     "end": 227.616
+    },
+    {
+     "w": "auditor",
+     "start": 227.658,
+     "end": 228.037
+    },
+    {
+     "w": "held",
+     "start": 228.07,
+     "end": 228.286
+    },
+    {
+     "w": "the",
+     "start": 228.305,
+     "end": 228.467
+    },
+    {
+     "w": "owners",
+     "start": 228.482,
+     "end": 228.806
+    },
+    {
+     "w": "negligence",
+     "start": 228.834,
+     "end": 229.376
+    },
+    {
+     "w": "responsible",
+     "start": 229.423,
+     "end": 230.018
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 47,
+   "scene": "T07_sec07",
+   "caption": "So, unlike the explosion claimed on the first day, the later findings point to the tank's construction and to negligence.",
+   "vo": "So, unlike the explosion claimed on the first day, the later findings point to the tank's construction and to negligence.",
+   "start": 230.52,
+   "end": 238.38,
+   "duration": 7.86,
+   "words": [
+    {
+     "w": "So",
+     "start": 230.52,
+     "end": 230.666
+    },
+    {
+     "w": "unlike",
+     "start": 230.679,
+     "end": 231.118
+    },
+    {
+     "w": "the",
+     "start": 231.156,
+     "end": 231.376
+    },
+    {
+     "w": "explosion",
+     "start": 231.395,
+     "end": 232.054
+    },
+    {
+     "w": "claimed",
+     "start": 232.112,
+     "end": 232.624
+    },
+    {
+     "w": "on",
+     "start": 232.669,
+     "end": 232.815
+    },
+    {
+     "w": "the",
+     "start": 232.828,
+     "end": 233.048
+    },
+    {
+     "w": "first",
+     "start": 233.067,
+     "end": 233.433
+    },
+    {
+     "w": "day",
+     "start": 233.465,
+     "end": 233.685
+    },
+    {
+     "w": "the",
+     "start": 233.704,
+     "end": 233.923
+    },
+    {
+     "w": "later",
+     "start": 233.943,
+     "end": 234.309
+    },
+    {
+     "w": "findings",
+     "start": 234.341,
+     "end": 234.926
+    },
+    {
+     "w": "point",
+     "start": 234.977,
+     "end": 235.344
+    },
+    {
+     "w": "to",
+     "start": 235.375,
+     "end": 235.522
+    },
+    {
+     "w": "the",
+     "start": 235.535,
+     "end": 235.754
+    },
+    {
+     "w": "tank",
+     "start": 235.773,
+     "end": 236.066
+    },
+    {
+     "w": "s",
+     "start": 236.092,
+     "end": 236.219
+    },
+    {
+     "w": "construction",
+     "start": 236.23,
+     "end": 237.109
+    },
+    {
+     "w": "and",
+     "start": 237.186,
+     "end": 237.405
+    },
+    {
+     "w": "to",
+     "start": 237.424,
+     "end": 237.571
+    },
+    {
+     "w": "negligence",
+     "start": 237.584,
+     "end": 238.316
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 48,
+   "scene": "T08_sec08",
+   "caption": "The front page of the same newspaper carried another story.",
+   "vo": "The front page of the same newspaper carried another story.",
+   "start": 239.38,
+   "end": 242.393,
+   "duration": 3.013,
+   "words": [
+    {
+     "w": "The",
+     "start": 239.38,
+     "end": 239.549
+    },
+    {
+     "w": "front",
+     "start": 239.564,
+     "end": 239.847
+    },
+    {
+     "w": "page",
+     "start": 239.872,
+     "end": 240.098
+    },
+    {
+     "w": "of",
+     "start": 240.118,
+     "end": 240.231
+    },
+    {
+     "w": "the",
+     "start": 240.24,
+     "end": 240.41
+    },
+    {
+     "w": "same",
+     "start": 240.425,
+     "end": 240.651
+    },
+    {
+     "w": "newspaper",
+     "start": 240.671,
+     "end": 241.18
+    },
+    {
+     "w": "carried",
+     "start": 241.224,
+     "end": 241.62
+    },
+    {
+     "w": "another",
+     "start": 241.655,
+     "end": 242.051
+    },
+    {
+     "w": "story",
+     "start": 242.085,
+     "end": 242.368
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 49,
+   "scene": "T08_sec08",
+   "caption": "The Prohibition amendment had been ratified by 35 states, and just one more was needed.",
+   "vo": "The Prohibition amendment had been ratified by thirty-five states, and just one more was needed.",
+   "start": 242.843,
+   "end": 248.4,
+   "duration": 5.557,
+   "words": [
+    {
+     "w": "The",
+     "start": 242.843,
+     "end": 243.037
+    },
+    {
+     "w": "Prohibition",
+     "start": 243.054,
+     "end": 243.766
+    },
+    {
+     "w": "amendment",
+     "start": 243.828,
+     "end": 244.41
+    },
+    {
+     "w": "had",
+     "start": 244.461,
+     "end": 244.655
+    },
+    {
+     "w": "been",
+     "start": 244.672,
+     "end": 244.931
+    },
+    {
+     "w": "ratified",
+     "start": 244.953,
+     "end": 245.471
+    },
+    {
+     "w": "by",
+     "start": 245.516,
+     "end": 245.645
+    },
+    {
+     "w": "thirty",
+     "start": 245.657,
+     "end": 246.045
+    },
+    {
+     "w": "five",
+     "start": 246.079,
+     "end": 246.338
+    },
+    {
+     "w": "states",
+     "start": 246.36,
+     "end": 246.748
+    },
+    {
+     "w": "and",
+     "start": 246.782,
+     "end": 246.976
+    },
+    {
+     "w": "just",
+     "start": 246.993,
+     "end": 247.252
+    },
+    {
+     "w": "one",
+     "start": 247.275,
+     "end": 247.469
+    },
+    {
+     "w": "more",
+     "start": 247.486,
+     "end": 247.745
+    },
+    {
+     "w": "was",
+     "start": 247.767,
+     "end": 247.961
+    },
+    {
+     "w": "needed",
+     "start": 247.978,
+     "end": 248.366
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 50,
+   "scene": "T08_sec08",
+   "caption": "The molasses wave and Prohibition: both stories ran side by side on one page.",
+   "vo": "The molasses wave and Prohibition: both stories ran side by side on one page.",
+   "start": 248.85,
+   "end": 253.32,
+   "duration": 4.47,
+   "words": [
+    {
+     "w": "The",
+     "start": 248.85,
+     "end": 249.049
+    },
+    {
+     "w": "molasses",
+     "start": 249.066,
+     "end": 249.597
+    },
+    {
+     "w": "wave",
+     "start": 249.643,
+     "end": 249.909
+    },
+    {
+     "w": "and",
+     "start": 249.932,
+     "end": 250.131
+    },
+    {
+     "w": "Prohibition",
+     "start": 250.148,
+     "end": 250.877
+    },
+    {
+     "w": "both",
+     "start": 250.941,
+     "end": 251.206
+    },
+    {
+     "w": "stories",
+     "start": 251.229,
+     "end": 251.694
+    },
+    {
+     "w": "ran",
+     "start": 251.734,
+     "end": 251.933
+    },
+    {
+     "w": "side",
+     "start": 251.95,
+     "end": 252.216
+    },
+    {
+     "w": "by",
+     "start": 252.239,
+     "end": 252.371
+    },
+    {
+     "w": "side",
+     "start": 252.383,
+     "end": 252.648
+    },
+    {
+     "w": "on",
+     "start": 252.671,
+     "end": 252.804
+    },
+    {
+     "w": "one",
+     "start": 252.815,
+     "end": 253.014
+    },
+    {
+     "w": "page",
+     "start": 253.032,
+     "end": 253.297
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 51,
+   "scene": "T08_sec08",
+   "caption": "This film claims no link between them; just the same day, the same page.",
+   "vo": "This film claims no link between them; just the same day, the same page.",
+   "start": 253.77,
+   "end": 259.122,
+   "duration": 5.352,
+   "words": [
+    {
+     "w": "This",
+     "start": 253.77,
+     "end": 254.122
+    },
+    {
+     "w": "film",
+     "start": 254.152,
+     "end": 254.504
+    },
+    {
+     "w": "claims",
+     "start": 254.535,
+     "end": 255.062
+    },
+    {
+     "w": "no",
+     "start": 255.108,
+     "end": 255.284
+    },
+    {
+     "w": "link",
+     "start": 255.299,
+     "end": 255.651
+    },
+    {
+     "w": "between",
+     "start": 255.682,
+     "end": 256.297
+    },
+    {
+     "w": "them",
+     "start": 256.351,
+     "end": 256.702
+    },
+    {
+     "w": "just",
+     "start": 256.733,
+     "end": 257.085
+    },
+    {
+     "w": "the",
+     "start": 257.115,
+     "end": 257.379
+    },
+    {
+     "w": "same",
+     "start": 257.402,
+     "end": 257.754
+    },
+    {
+     "w": "day",
+     "start": 257.784,
+     "end": 258.048
+    },
+    {
+     "w": "the",
+     "start": 258.071,
+     "end": 258.335
+    },
+    {
+     "w": "same",
+     "start": 258.358,
+     "end": 258.709
+    },
+    {
+     "w": "page",
+     "start": 258.74,
+     "end": 259.092
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 52,
+   "scene": "T09_sec09",
+   "caption": "On the first day, the Post wrote that the molasses had been released in some manner yet unexplained.",
+   "vo": "On the first day, the Post wrote that the molasses had been released in some manner yet unexplained.",
+   "start": 260.722,
+   "end": 266.589,
+   "duration": 5.866,
+   "words": [
+    {
+     "w": "On",
+     "start": 260.722,
+     "end": 260.855
+    },
+    {
+     "w": "the",
+     "start": 260.867,
+     "end": 261.067
+    },
+    {
+     "w": "first",
+     "start": 261.084,
+     "end": 261.418
+    },
+    {
+     "w": "day",
+     "start": 261.446,
+     "end": 261.646
+    },
+    {
+     "w": "the",
+     "start": 261.664,
+     "end": 261.864
+    },
+    {
+     "w": "Post",
+     "start": 261.881,
+     "end": 262.148
+    },
+    {
+     "w": "wrote",
+     "start": 262.171,
+     "end": 262.504
+    },
+    {
+     "w": "that",
+     "start": 262.533,
+     "end": 262.799
+    },
+    {
+     "w": "the",
+     "start": 262.823,
+     "end": 263.022
+    },
+    {
+     "w": "molasses",
+     "start": 263.04,
+     "end": 263.573
+    },
+    {
+     "w": "had",
+     "start": 263.619,
+     "end": 263.819
+    },
+    {
+     "w": "been",
+     "start": 263.836,
+     "end": 264.103
+    },
+    {
+     "w": "released",
+     "start": 264.126,
+     "end": 264.659
+    },
+    {
+     "w": "in",
+     "start": 264.706,
+     "end": 264.839
+    },
+    {
+     "w": "some",
+     "start": 264.85,
+     "end": 265.117
+    },
+    {
+     "w": "manner",
+     "start": 265.14,
+     "end": 265.54
+    },
+    {
+     "w": "yet",
+     "start": 265.575,
+     "end": 265.775
+    },
+    {
+     "w": "unexplained",
+     "start": 265.792,
+     "end": 266.525
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 53,
+   "scene": "T09_sec09",
+   "caption": "Later, the causes were recorded: walls too thin and, according to the auditor, the owners' negligence.",
+   "vo": "Later, the causes were recorded: walls too thin and, according to the auditor, the owners' negligence.",
+   "start": 267.039,
+   "end": 273.474,
+   "duration": 6.435,
+   "words": [
+    {
+     "w": "Later",
+     "start": 267.039,
+     "end": 267.404
+    },
+    {
+     "w": "the",
+     "start": 267.436,
+     "end": 267.655
+    },
+    {
+     "w": "causes",
+     "start": 267.674,
+     "end": 268.113
+    },
+    {
+     "w": "were",
+     "start": 268.151,
+     "end": 268.443
+    },
+    {
+     "w": "recorded",
+     "start": 268.469,
+     "end": 269.053
+    },
+    {
+     "w": "walls",
+     "start": 269.104,
+     "end": 269.47
+    },
+    {
+     "w": "too",
+     "start": 269.502,
+     "end": 269.721
+    },
+    {
+     "w": "thin",
+     "start": 269.74,
+     "end": 270.032
+    },
+    {
+     "w": "and",
+     "start": 270.058,
+     "end": 270.277
+    },
+    {
+     "w": "according",
+     "start": 270.296,
+     "end": 270.954
+    },
+    {
+     "w": "to",
+     "start": 271.011,
+     "end": 271.157
+    },
+    {
+     "w": "the",
+     "start": 271.17,
+     "end": 271.389
+    },
+    {
+     "w": "auditor",
+     "start": 271.408,
+     "end": 271.92
+    },
+    {
+     "w": "the",
+     "start": 271.964,
+     "end": 272.184
+    },
+    {
+     "w": "owners",
+     "start": 272.203,
+     "end": 272.641
+    },
+    {
+     "w": "negligence",
+     "start": 272.68,
+     "end": 273.41
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 54,
+   "scene": "T09_sec09",
+   "caption": "The cost of that afternoon: 21 lives.",
+   "vo": "The cost of that afternoon: twenty-one lives.",
+   "start": 273.924,
+   "end": 276.558,
+   "duration": 2.634,
+   "words": [
+    {
+     "w": "The",
+     "start": 273.924,
+     "end": 274.126
+    },
+    {
+     "w": "cost",
+     "start": 274.144,
+     "end": 274.413
+    },
+    {
+     "w": "of",
+     "start": 274.436,
+     "end": 274.571
+    },
+    {
+     "w": "that",
+     "start": 274.583,
+     "end": 274.852
+    },
+    {
+     "w": "afternoon",
+     "start": 274.875,
+     "end": 275.481
+    },
+    {
+     "w": "twenty",
+     "start": 275.534,
+     "end": 275.938
+    },
+    {
+     "w": "one",
+     "start": 275.973,
+     "end": 276.175
+    },
+    {
+     "w": "lives",
+     "start": 276.192,
+     "end": 276.529
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  },
+  {
+   "id": 55,
+   "scene": "T09_sec09",
+   "caption": "This wave of molasses is a reminder of how much it matters to inspect the structures a city trusts.",
+   "vo": "This wave of molasses is a reminder of how much it matters to inspect the structures a city trusts.",
+   "start": 278.558,
+   "end": 284.694,
+   "duration": 6.136,
+   "words": [
+    {
+     "w": "This",
+     "start": 278.558,
+     "end": 278.835
+    },
+    {
+     "w": "wave",
+     "start": 278.859,
+     "end": 279.137
+    },
+    {
+     "w": "of",
+     "start": 279.161,
+     "end": 279.299
+    },
+    {
+     "w": "molasses",
+     "start": 279.311,
+     "end": 279.866
+    },
+    {
+     "w": "is",
+     "start": 279.914,
+     "end": 280.052
+    },
+    {
+     "w": "a",
+     "start": 280.064,
+     "end": 280.185
+    },
+    {
+     "w": "reminder",
+     "start": 280.195,
+     "end": 280.75
+    },
+    {
+     "w": "of",
+     "start": 280.798,
+     "end": 280.936
+    },
+    {
+     "w": "how",
+     "start": 280.948,
+     "end": 281.156
+    },
+    {
+     "w": "much",
+     "start": 281.174,
+     "end": 281.452
+    },
+    {
+     "w": "it",
+     "start": 281.476,
+     "end": 281.614
+    },
+    {
+     "w": "matters",
+     "start": 281.626,
+     "end": 282.111
+    },
+    {
+     "w": "to",
+     "start": 282.153,
+     "end": 282.292
+    },
+    {
+     "w": "inspect",
+     "start": 282.304,
+     "end": 282.789
+    },
+    {
+     "w": "the",
+     "start": 282.831,
+     "end": 283.039
+    },
+    {
+     "w": "structures",
+     "start": 283.057,
+     "end": 283.75
+    },
+    {
+     "w": "a",
+     "start": 283.81,
+     "end": 283.931
+    },
+    {
+     "w": "city",
+     "start": 283.941,
+     "end": 284.218
+    },
+    {
+     "w": "trusts",
+     "start": 284.243,
+     "end": 284.658
+    }
+   ],
+   "words_from": "estimate",
+   "audio": "voice"
+  }
+ ]
+}

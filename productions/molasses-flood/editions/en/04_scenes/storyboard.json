@@ -1,0 +1,1189 @@
+{
+ "title": "The Great Molasses Flood — जब बोस्टन की सड़कों पर शीरे की लहर दौड़ी",
+ "lang": "en",
+ "timing": "voice",
+ "duration": 287.69,
+ "scenes": [
+  {
+   "scene": "SEC01-01",
+   "section": "SEC01",
+   "take": "T01_sec01",
+   "line": 1,
+   "start": 0.9,
+   "end": 6.72,
+   "duration": 5.82,
+   "narration": "The afternoon of 15 January 1919. Boston's North End, Commercial Street.",
+   "visual": "slow push across the BPL panorama of the site; date types on",
+   "hero": "the panorama of the site",
+   "typed": "15 January 1919",
+   "key_word": "Street",
+   "camera": "establishing: start close on the hero, ease back to reveal its place",
+   "transition": "",
+   "claims": [
+    "C1"
+   ],
+   "images": [
+    "I001"
+   ],
+   "beat": "B001"
+  },
+  {
+   "scene": "SEC01-02",
+   "section": "SEC01",
+   "take": "T01_sec01",
+   "line": 2,
+   "start": 7.17,
+   "end": 12.31,
+   "duration": 5.14,
+   "narration": "From a giant tank, 2,300,000 gallons of molasses poured into the streets.",
+   "visual": "the panorama darkens; a brown wash spreads along the street line",
+   "hero": "the street in the panorama",
+   "typed": "",
+   "key_word": "streets",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C1"
+   ],
+   "images": [],
+   "beat": "B002"
+  },
+  {
+   "scene": "SEC01-03",
+   "section": "SEC01",
+   "take": "T01_sec01",
+   "line": 3,
+   "start": 12.76,
+   "end": 17.93,
+   "duration": 5.18,
+   "narration": "The next day's Boston Post reported the wave as 50 feet high; that figure is disputed.",
+   "visual": "cut to the Post masthead and deck; highlight '50 Feet High'; a stamp 'विवादित'",
+   "hero": "the Post headline",
+   "typed": "50 feet?",
+   "key_word": "disputed",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C7"
+   ],
+   "images": [
+    "I002"
+   ],
+   "beat": "B003"
+  },
+  {
+   "scene": "SEC01-04",
+   "section": "SEC01",
+   "take": "T01_sec01",
+   "line": 4,
+   "start": 18.39,
+   "end": 22.54,
+   "duration": 4.15,
+   "narration": "By midnight, the paper counted 11 dead and more than 50 injured.",
+   "visual": "the Post headline '11 DEAD, 50 HURT' underlined",
+   "hero": "the Post headline",
+   "typed": "11 dead",
+   "key_word": "injured",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C5"
+   ],
+   "images": [],
+   "beat": "B004"
+  },
+  {
+   "scene": "SEC02-01",
+   "section": "SEC02",
+   "take": "T02_sec02",
+   "line": 5,
+   "start": 24.14,
+   "end": 27.14,
+   "duration": 3.0,
+   "narration": "Sweet, thick molasses. How could it kill anyone?",
+   "visual": "title card on the evidence wall",
+   "hero": "the title card",
+   "typed": "",
+   "key_word": "anyone",
+   "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
+   "transition": "section change",
+   "claims": [],
+   "images": [],
+   "beat": "B005"
+  },
+  {
+   "scene": "SEC02-02",
+   "section": "SEC02",
+   "take": "T02_sec02",
+   "line": 6,
+   "start": 28.14,
+   "end": 33.54,
+   "duration": 5.4,
+   "narration": "The answer lies in a newspaper of that time, and in the city's account written a century later.",
+   "visual": "two labelled cards pin to the wall: the Post (1919) and the City of Boston (retrospective)",
+   "hero": "the two source cards",
+   "typed": "",
+   "key_word": "later",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [],
+   "images": [],
+   "beat": "B006"
+  },
+  {
+   "scene": "SEC03-01",
+   "section": "SEC03",
+   "take": "T03_sec03",
+   "line": 7,
+   "start": 34.54,
+   "end": 38.2,
+   "duration": 3.66,
+   "narration": "The story begins with a giant tank standing on Commercial Street.",
+   "visual": "the tank photo, slow push-in",
+   "hero": "the tank",
+   "typed": "",
+   "key_word": "Street",
+   "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
+   "transition": "section change",
+   "claims": [
+    "C1"
+   ],
+   "images": [
+    "I003"
+   ],
+   "beat": "B007"
+  },
+  {
+   "scene": "SEC03-02",
+   "section": "SEC03",
+   "take": "T03_sec03",
+   "line": 8,
+   "start": 38.65,
+   "end": 45.06,
+   "duration": 6.41,
+   "narration": "According to the City of Boston's account, the tank was built in 1915 by the Purity Distilling Company.",
+   "visual": "City of Boston source card; year types on",
+   "hero": "the tank",
+   "typed": "1915",
+   "key_word": "Company",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C25"
+   ],
+   "images": [],
+   "beat": "B008"
+  },
+  {
+   "scene": "SEC03-03",
+   "section": "SEC03",
+   "take": "T03_sec03",
+   "line": 9,
+   "start": 45.51,
+   "end": 51.41,
+   "duration": 5.9,
+   "narration": "According to the city, it was 50 feet tall and held about 2.3 million gallons of molasses.",
+   "visual": "a scale bar rises beside the tank to 50 ft",
+   "hero": "the scale bar",
+   "typed": "50 feet",
+   "key_word": "molasses",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C25",
+    "C1"
+   ],
+   "images": [],
+   "beat": "B009"
+  },
+  {
+   "scene": "SEC03-04",
+   "section": "SEC03",
+   "take": "T03_sec03",
+   "line": 10,
+   "start": 51.85,
+   "end": 57.29,
+   "duration": 5.44,
+   "narration": "The Boston Post printed the same quantity in its report: 2,300,000 gallons.",
+   "visual": "the Post deck, '2,300,000 Gallons' highlighted",
+   "hero": "the Post deck",
+   "typed": "2,300,000 gallons",
+   "key_word": "gallons",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C1"
+   ],
+   "images": [
+    "I004"
+   ],
+   "beat": "B010"
+  },
+  {
+   "scene": "SEC03-05",
+   "section": "SEC03",
+   "take": "T03_sec03",
+   "line": 11,
+   "start": 57.74,
+   "end": 62.35,
+   "duration": 4.61,
+   "narration": "So on this figure, the newspaper of the time and the city's later account agree.",
+   "visual": "the two source cards drawn together by a thread",
+   "hero": "the two source cards",
+   "typed": "",
+   "key_word": "agree",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C1",
+    "C25"
+   ],
+   "images": [],
+   "beat": "B011"
+  },
+  {
+   "scene": "SEC03-06",
+   "section": "SEC03",
+   "take": "T03_sec03",
+   "line": 12,
+   "start": 62.8,
+   "end": 65.22,
+   "duration": 2.42,
+   "narration": "The city's account records one more thing.",
+   "visual": "City of Boston card brought forward",
+   "hero": "the City of Boston card",
+   "typed": "",
+   "key_word": "thing",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [],
+   "images": [],
+   "beat": "B012"
+  },
+  {
+   "scene": "SEC03-07",
+   "section": "SEC03",
+   "take": "T03_sec03",
+   "line": 13,
+   "start": 65.67,
+   "end": 69.43,
+   "duration": 3.76,
+   "narration": "The tank, it is reported, had been leaking before the disaster.",
+   "visual": "the tank photo; slow drips drawn down its side, labelled 'बताया गया'",
+   "hero": "the tank",
+   "typed": "",
+   "key_word": "disaster",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C26"
+   ],
+   "images": [],
+   "beat": "B013"
+  },
+  {
+   "scene": "SEC03-08",
+   "section": "SEC03",
+   "take": "T03_sec03",
+   "line": 14,
+   "start": 69.88,
+   "end": 72.02,
+   "duration": 2.14,
+   "narration": "It was something like a warning sign.",
+   "visual": "hold on the tank; the light dims",
+   "hero": "the tank",
+   "typed": "",
+   "key_word": "sign",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C26"
+   ],
+   "images": [],
+   "beat": "B014"
+  },
+  {
+   "scene": "SEC04-01",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 15,
+   "start": 73.02,
+   "end": 77.81,
+   "duration": 4.79,
+   "narration": "15 January 1919, after midday. The tank gave way.",
+   "visual": "the tank photo cracks to black",
+   "hero": "the tank",
+   "typed": "",
+   "key_word": "way",
+   "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
+   "transition": "section change",
+   "claims": [
+    "C1",
+    "C28"
+   ],
+   "images": [],
+   "beat": "B015"
+  },
+  {
+   "scene": "SEC04-02",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 16,
+   "start": 79.01,
+   "end": 82.65,
+   "duration": 3.64,
+   "narration": "According to the City of Boston, several causes came together.",
+   "visual": "City of Boston card; three empty slots appear",
+   "hero": "the three slots",
+   "typed": "",
+   "key_word": "together",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C28"
+   ],
+   "images": [],
+   "beat": "B016"
+  },
+  {
+   "scene": "SEC04-03",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 17,
+   "start": 83.1,
+   "end": 87.8,
+   "duration": 4.7,
+   "narration": "Weak construction, changes in temperature, and a large shipment of molasses.",
+   "visual": "the three slots fill one by one",
+   "hero": "the three slots",
+   "typed": "weak construction · temperature · large shipment",
+   "key_word": "molasses",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C28"
+   ],
+   "images": [],
+   "beat": "B017"
+  },
+  {
+   "scene": "SEC04-04",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 18,
+   "start": 88.25,
+   "end": 93.29,
+   "duration": 5.04,
+   "narration": "According to the Boston Post, the molasses spread over Commercial Street and its waterfront.",
+   "visual": "the area map; the flooded zone fills along Commercial Street",
+   "hero": "the map",
+   "typed": "",
+   "key_word": "waterfront",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C2"
+   ],
+   "images": [
+    "I005"
+   ],
+   "beat": "B018"
+  },
+  {
+   "scene": "SEC04-05",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 19,
+   "start": 93.74,
+   "end": 97.0,
+   "duration": 3.26,
+   "narration": "From Charter Street to the southern end of North End Park.",
+   "visual": "a route line runs from Charter Street to North End Park",
+   "hero": "the route line",
+   "typed": "",
+   "key_word": "Park",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C2"
+   ],
+   "images": [],
+   "beat": "B019"
+  },
+  {
+   "scene": "SEC04-06",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 20,
+   "start": 97.45,
+   "end": 101.94,
+   "duration": 4.48,
+   "narration": "According to the city's account, the wave moved at about 35 miles an hour.",
+   "visual": "a speed figure counts up on the map; labelled as an estimate",
+   "hero": "the speed figure",
+   "typed": "~35 mph",
+   "key_word": "hour",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C8"
+   ],
+   "images": [],
+   "beat": "B020"
+  },
+  {
+   "scene": "SEC04-07",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 21,
+   "start": 102.39,
+   "end": 105.73,
+   "duration": 3.34,
+   "narration": "How high the wave was is disputed: the sources do not agree.",
+   "visual": "the Post's '50 Feet High' beside a question mark",
+   "hero": "the Post deck",
+   "typed": "",
+   "key_word": "agree",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C7"
+   ],
+   "images": [],
+   "beat": "B021"
+  },
+  {
+   "scene": "SEC04-08",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 22,
+   "start": 106.18,
+   "end": 111.22,
+   "duration": 5.04,
+   "narration": "The Post wrote 50 feet, about as tall as the tank is in the city's account.",
+   "visual": "the 50 ft scale bar from the tank slides beside the headline",
+   "hero": "the scale bar",
+   "typed": "",
+   "key_word": "account",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C7",
+    "C25"
+   ],
+   "images": [],
+   "beat": "B022"
+  },
+  {
+   "scene": "SEC04-09",
+   "section": "SEC04",
+   "take": "T04_sec04",
+   "line": 23,
+   "start": 111.67,
+   "end": 115.01,
+   "duration": 3.34,
+   "narration": "According to many later accounts, it was much lower.",
+   "visual": "the bar lowers and blurs; label 'बाद के अनुमान'",
+   "hero": "the scale bar",
+   "typed": "",
+   "key_word": "lower",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C7"
+   ],
+   "images": [],
+   "beat": "B023"
+  },
+  {
+   "scene": "SEC05-01",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 24,
+   "start": 116.01,
+   "end": 121.44,
+   "duration": 5.43,
+   "narration": "In the Post's words, the sticky flood caught more than 100 men, women and children.",
+   "visual": "the Post column, the passage highlighted",
+   "hero": "the Post column",
+   "typed": "100+",
+   "key_word": "children",
+   "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
+   "transition": "section change",
+   "claims": [
+    "C3"
+   ],
+   "images": [
+    "I006"
+   ],
+   "beat": "B024"
+  },
+  {
+   "scene": "SEC05-02",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 25,
+   "start": 121.89,
+   "end": 127.52,
+   "duration": 5.63,
+   "narration": "Buildings, horse teams, motor cars and streetcars. Whatever stood in its path was crushed.",
+   "visual": "pan across the wreckage photo",
+   "hero": "the wreckage",
+   "typed": "",
+   "key_word": "crushed",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C3"
+   ],
+   "images": [
+    "I007"
+   ],
+   "beat": "B025"
+  },
+  {
+   "scene": "SEC05-03",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 26,
+   "start": 128.42,
+   "end": 132.34,
+   "duration": 3.91,
+   "narration": "The elevated railway structure overhead did not survive either.",
+   "visual": "the elevated-railway photo; slow tilt up the bent structure",
+   "hero": "the elevated structure",
+   "typed": "",
+   "key_word": "either",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C9"
+   ],
+   "images": [
+    "I008"
+   ],
+   "beat": "B026"
+  },
+  {
+   "scene": "SEC05-04",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 27,
+   "start": 132.78,
+   "end": 137.45,
+   "duration": 4.67,
+   "narration": "The paper wrote that the black, reeking mass struck the buildings facing Copp's Hill.",
+   "visual": "the map; an arrow drives towards Copp's Hill",
+   "hero": "the map arrow",
+   "typed": "",
+   "key_word": "Hill",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C4"
+   ],
+   "images": [],
+   "beat": "B027"
+  },
+  {
+   "scene": "SEC05-05",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 28,
+   "start": 137.9,
+   "end": 140.01,
+   "duration": 2.1,
+   "narration": "And then swept back towards the harbour.",
+   "visual": "the arrow swings back to the harbour",
+   "hero": "the map arrow",
+   "typed": "",
+   "key_word": "harbour",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C4"
+   ],
+   "images": [],
+   "beat": "B028"
+  },
+  {
+   "scene": "SEC05-06",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 29,
+   "start": 140.46,
+   "end": 144.58,
+   "duration": 4.12,
+   "narration": "Among the dead was an engineer of Engine 31 of the Boston Fire Department.",
+   "visual": "the Post's list of the known dead; one name highlighted",
+   "hero": "the list of the dead",
+   "typed": "Engine 31",
+   "key_word": "Department",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C10"
+   ],
+   "images": [],
+   "beat": "B029"
+  },
+  {
+   "scene": "SEC05-07",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 30,
+   "start": 145.03,
+   "end": 147.38,
+   "duration": 2.35,
+   "narration": "The Post printed his name as George Lahey.",
+   "visual": "the name 'GEORGE LAHEY' lit in the list",
+   "hero": "the name",
+   "typed": "",
+   "key_word": "Lahey",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C10"
+   ],
+   "images": [],
+   "beat": "B030"
+  },
+  {
+   "scene": "SEC05-08",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 31,
+   "start": 147.84,
+   "end": 153.42,
+   "duration": 5.59,
+   "narration": "Among the dead was also a girl of about 14, still unidentified when the paper went to press.",
+   "visual": "the Post's 'unidentified dead' paragraph",
+   "hero": "the paragraph",
+   "typed": "",
+   "key_word": "press",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C11"
+   ],
+   "images": [],
+   "beat": "B031"
+  },
+  {
+   "scene": "SEC05-09",
+   "section": "SEC05",
+   "take": "T05_sec05",
+   "line": 32,
+   "start": 153.87,
+   "end": 158.73,
+   "duration": 4.85,
+   "narration": "She wore a grey jacket, and her bag carried an employment tag of the Revere Rubber Company.",
+   "visual": "the words 'Revere Rubber Company' highlighted; hold",
+   "hero": "the paragraph",
+   "typed": "",
+   "key_word": "Company",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C11"
+   ],
+   "images": [],
+   "beat": "B032"
+  },
+  {
+   "scene": "SEC06-01",
+   "section": "SEC06",
+   "take": "T06_sec06",
+   "line": 33,
+   "start": 160.72,
+   "end": 164.01,
+   "duration": 3.29,
+   "narration": "Ambulances were rushed to the scene from every part of the city.",
+   "visual": "the Post's bird's-eye photo; its caption highlighted",
+   "hero": "the bird's-eye photo",
+   "typed": "",
+   "key_word": "city",
+   "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
+   "transition": "section change",
+   "claims": [
+    "C13"
+   ],
+   "images": [
+    "I009"
+   ],
+   "beat": "B033"
+  },
+  {
+   "scene": "SEC06-02",
+   "section": "SEC06",
+   "take": "T06_sec06",
+   "line": 34,
+   "start": 164.46,
+   "end": 167.62,
+   "duration": 3.16,
+   "narration": "Rescue work went on at the North End Park playground.",
+   "visual": "push into the playground area of the photo",
+   "hero": "the playground",
+   "typed": "",
+   "key_word": "playground",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C13"
+   ],
+   "images": [],
+   "beat": "B034"
+  },
+  {
+   "scene": "SEC06-03",
+   "section": "SEC06",
+   "take": "T06_sec06",
+   "line": 35,
+   "start": 168.07,
+   "end": 172.61,
+   "duration": 4.54,
+   "narration": "Dead horses, cats and dogs were carted away, load after load.",
+   "visual": "the panorama, slow drift across the wreckage",
+   "hero": "the wreckage",
+   "typed": "",
+   "key_word": "load",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C12"
+   ],
+   "images": [
+    "I010"
+   ],
+   "beat": "B035"
+  },
+  {
+   "scene": "SEC06-04",
+   "section": "SEC06",
+   "take": "T06_sec06",
+   "line": 36,
+   "start": 173.06,
+   "end": 176.06,
+   "duration": 3.0,
+   "narration": "Boston's only trolley freight terminal lay in ruins.",
+   "visual": "hold on the ruined buildings",
+   "hero": "the ruins",
+   "typed": "",
+   "key_word": "ruins",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C12"
+   ],
+   "images": [],
+   "beat": "B036"
+  },
+  {
+   "scene": "SEC06-05",
+   "section": "SEC06",
+   "take": "T06_sec06",
+   "line": 37,
+   "start": 176.51,
+   "end": 181.04,
+   "duration": 4.53,
+   "narration": "The Post's first count was 11 dead: a woman, a girl and nine men.",
+   "visual": "a tally types on: 11",
+   "hero": "the tally",
+   "typed": "11",
+   "key_word": "men",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C5"
+   ],
+   "images": [],
+   "beat": "B037"
+  },
+  {
+   "scene": "SEC06-06",
+   "section": "SEC06",
+   "take": "T06_sec06",
+   "line": 38,
+   "start": 181.49,
+   "end": 183.43,
+   "duration": 1.94,
+   "narration": "But the number did not stop there.",
+   "visual": "the tally holds, then a second card slides in",
+   "hero": "the tally",
+   "typed": "",
+   "key_word": "stop",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C5",
+    "C6"
+   ],
+   "images": [],
+   "beat": "B038"
+  },
+  {
+   "scene": "SEC06-07",
+   "section": "SEC06",
+   "take": "T06_sec06",
+   "line": 39,
+   "start": 184.33,
+   "end": 190.81,
+   "duration": 6.49,
+   "narration": "According to the City of Boston, 21 people died in the end, and about 150 were injured.",
+   "visual": "the tally rolls from 11 to 21; City of Boston card",
+   "hero": "the tally",
+   "typed": "21",
+   "key_word": "injured",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C6"
+   ],
+   "images": [],
+   "beat": "B039"
+  },
+  {
+   "scene": "SEC07-01",
+   "section": "SEC07",
+   "take": "T07_sec07",
+   "line": 40,
+   "start": 191.81,
+   "end": 193.81,
+   "duration": 2.0,
+   "narration": "Now the biggest question: how did it happen?",
+   "visual": "the evidence wall; a red thread from the tank to two cards",
+   "hero": "the evidence wall",
+   "typed": "",
+   "key_word": "happen",
+   "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
+   "transition": "section change",
+   "claims": [],
+   "images": [],
+   "beat": "B040"
+  },
+  {
+   "scene": "SEC07-02",
+   "section": "SEC07",
+   "take": "T07_sec07",
+   "line": 41,
+   "start": 194.81,
+   "end": 202.96,
+   "duration": 8.15,
+   "narration": "The next day, the Boston Post reported that the state police chemist, W. L. Wedger, had reached a positive conclusion.",
+   "visual": "the Post's 'INTERNAL EXPLOSION WAS CAUSE, SAYS STATE CHEMIST' column",
+   "hero": "the Post column",
+   "typed": "",
+   "key_word": "conclusion",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C14"
+   ],
+   "images": [
+    "I011"
+   ],
+   "beat": "B041"
+  },
+  {
+   "scene": "SEC07-03",
+   "section": "SEC07",
+   "take": "T07_sec07",
+   "line": 42,
+   "start": 203.41,
+   "end": 208.78,
+   "duration": 5.38,
+   "narration": "According to him, the tank had not collapsed; there had been an explosion inside it.",
+   "visual": "the words 'internal explosion' highlighted",
+   "hero": "the Post column",
+   "typed": "",
+   "key_word": "inside",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C14"
+   ],
+   "images": [],
+   "beat": "B042"
+  },
+  {
+   "scene": "SEC07-04",
+   "section": "SEC07",
+   "take": "T07_sec07",
+   "line": 43,
+   "start": 209.24,
+   "end": 214.25,
+   "duration": 5.02,
+   "narration": "That was the early, disputed theory of the time. Later findings pointed another way.",
+   "visual": "a stamp 'शुरुआती सिद्धांत' over the column",
+   "hero": "the stamp",
+   "typed": "",
+   "key_word": "way",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C14"
+   ],
+   "images": [],
+   "beat": "B043"
+  },
+  {
+   "scene": "SEC07-05",
+   "section": "SEC07",
+   "take": "T07_sec07",
+   "line": 44,
+   "start": 215.15,
+   "end": 220.67,
+   "duration": 5.52,
+   "narration": "According to the city's account, structural engineers later found that the tank's walls were too thin.",
+   "visual": "City of Boston card; a cross-section of a wall drawn thin",
+   "hero": "the wall diagram",
+   "typed": "",
+   "key_word": "thin",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C27"
+   ],
+   "images": [],
+   "beat": "B044"
+  },
+  {
+   "scene": "SEC07-06",
+   "section": "SEC07",
+   "take": "T07_sec07",
+   "line": 45,
+   "start": 221.12,
+   "end": 223.53,
+   "duration": 2.42,
+   "narration": "And that its material was prone to cracking.",
+   "visual": "a crack runs through the diagram",
+   "hero": "the wall diagram",
+   "typed": "",
+   "key_word": "cracking",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C27"
+   ],
+   "images": [],
+   "beat": "B045"
+  },
+  {
+   "scene": "SEC07-07",
+   "section": "SEC07",
+   "take": "T07_sec07",
+   "line": 46,
+   "start": 223.98,
+   "end": 230.07,
+   "duration": 6.09,
+   "narration": "According to the city's account, in 1925 a court-appointed auditor held the owners' negligence responsible.",
+   "visual": "a dated card '1925' pins over the thread's end",
+   "hero": "the 1925 card",
+   "typed": "1925",
+   "key_word": "responsible",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C29"
+   ],
+   "images": [],
+   "beat": "B046"
+  },
+  {
+   "scene": "SEC07-08",
+   "section": "SEC07",
+   "take": "T07_sec07",
+   "line": 47,
+   "start": 230.52,
+   "end": 238.38,
+   "duration": 7.86,
+   "narration": "So, unlike the explosion claimed on the first day, the later findings point to the tank's construction and to negligence.",
+   "visual": "the explosion card fades; the negligence card stays lit",
+   "hero": "the 1925 card",
+   "typed": "negligence",
+   "key_word": "negligence",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C29",
+    "C27",
+    "C14"
+   ],
+   "images": [],
+   "beat": "B047"
+  },
+  {
+   "scene": "SEC08-01",
+   "section": "SEC08",
+   "take": "T08_sec08",
+   "line": 48,
+   "start": 239.38,
+   "end": 242.39,
+   "duration": 3.01,
+   "narration": "The front page of the same newspaper carried another story.",
+   "visual": "pull back to the whole Post front page",
+   "hero": "the front page",
+   "typed": "",
+   "key_word": "story",
+   "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
+   "transition": "section change",
+   "claims": [
+    "C15"
+   ],
+   "images": [
+    "I012"
+   ],
+   "beat": "B048"
+  },
+  {
+   "scene": "SEC08-02",
+   "section": "SEC08",
+   "take": "T08_sec08",
+   "line": 49,
+   "start": 242.84,
+   "end": 248.4,
+   "duration": 5.56,
+   "narration": "The Prohibition amendment had been ratified by 35 states, and just one more was needed.",
+   "visual": "'35 STATES ON DRY LAW LIST' highlighted",
+   "hero": "the Prohibition column",
+   "typed": "35",
+   "key_word": "needed",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C15"
+   ],
+   "images": [],
+   "beat": "B049"
+  },
+  {
+   "scene": "SEC08-03",
+   "section": "SEC08",
+   "take": "T08_sec08",
+   "line": 50,
+   "start": 248.85,
+   "end": 253.32,
+   "duration": 4.47,
+   "narration": "The molasses wave and Prohibition: both stories ran side by side on one page.",
+   "visual": "the two columns lit side by side",
+   "hero": "the front page",
+   "typed": "",
+   "key_word": "page",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C15"
+   ],
+   "images": [],
+   "beat": "B050"
+  },
+  {
+   "scene": "SEC08-04",
+   "section": "SEC08",
+   "take": "T08_sec08",
+   "line": 51,
+   "start": 253.77,
+   "end": 259.12,
+   "duration": 5.35,
+   "narration": "This film claims no link between them; just the same day, the same page.",
+   "visual": "hold on the full page; slow fade of the highlights",
+   "hero": "the front page",
+   "typed": "",
+   "key_word": "page",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [],
+   "images": [],
+   "beat": "B051"
+  },
+  {
+   "scene": "SEC09-01",
+   "section": "SEC09",
+   "take": "T09_sec09",
+   "line": 52,
+   "start": 260.72,
+   "end": 266.59,
+   "duration": 5.87,
+   "narration": "On the first day, the Post wrote that the molasses had been released in some manner yet unexplained.",
+   "visual": "the Post column 'released in some manner yet unexplained' highlighted",
+   "hero": "the Post column",
+   "typed": "",
+   "key_word": "unexplained",
+   "camera": "whip or pull-back to this section's cluster (0.8 to 1.2 s), land 0.3 s after the hero appears",
+   "transition": "section change",
+   "claims": [
+    "C1"
+   ],
+   "images": [
+    "I013"
+   ],
+   "beat": "B052"
+  },
+  {
+   "scene": "SEC09-02",
+   "section": "SEC09",
+   "take": "T09_sec09",
+   "line": 53,
+   "start": 267.04,
+   "end": 273.47,
+   "duration": 6.43,
+   "narration": "Later, the causes were recorded: walls too thin and, according to the auditor, the owners' negligence.",
+   "visual": "the thin-wall diagram and the 1925 card return beside the tank photo",
+   "hero": "the tank",
+   "typed": "",
+   "key_word": "negligence",
+   "camera": "drift, then push in to land on the key word",
+   "transition": "",
+   "claims": [
+    "C27",
+    "C29"
+   ],
+   "images": [
+    "I014"
+   ],
+   "beat": "B053"
+  },
+  {
+   "scene": "SEC09-03",
+   "section": "SEC09",
+   "take": "T09_sec09",
+   "line": 54,
+   "start": 273.92,
+   "end": 276.56,
+   "duration": 2.63,
+   "narration": "The cost of that afternoon: 21 lives.",
+   "visual": "the panorama; the tally 21 holds in silence",
+   "hero": "the panorama",
+   "typed": "21",
+   "key_word": "lives",
+   "camera": "push in on the number as it rolls up",
+   "transition": "",
+   "claims": [
+    "C6"
+   ],
+   "images": [
+    "I015"
+   ],
+   "beat": "B054"
+  },
+  {
+   "scene": "SEC09-04",
+   "section": "SEC09",
+   "take": "T09_sec09",
+   "line": 55,
+   "start": 278.56,
+   "end": 284.69,
+   "duration": 6.14,
+   "narration": "This wave of molasses is a reminder of how much it matters to inspect the structures a city trusts.",
+   "visual": "slow pull-back to the whole evidence wall; fade to black",
+   "hero": "the evidence wall",
+   "typed": "",
+   "key_word": "trusts",
+   "camera": "final pull-back over the whole board (zoom 0.13 to 0.3)",
+   "transition": "",
+   "claims": [],
+   "images": [],
+   "beat": "B055"
+  }
+ ]
+}

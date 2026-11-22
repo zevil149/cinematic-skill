@@ -1,0 +1,996 @@
+{
+ "lang": "en",
+ "built_by": "subtitles.py",
+ "input_hash": "f367e9fa91bdb7c31041",
+ "settings": {
+  "max_line": 42,
+  "max_lines": 2,
+  "max_dur": 7.0,
+  "min_dur": 1.0,
+  "cps": 17.0,
+  "gap": 0.08
+ },
+ "timing_counts": {
+  "estimate": 77
+ },
+ "files": {
+  "out/subtitles.en.srt": "2e765f79c303509baab39e7b518cee194e620ac0db618795c2c627fdcdfaf243",
+  "out/subtitles.en.vtt": "450b8aff8cb1d5ac9bfeccaa7db13c0a49af632a79f367004d2d9cf520209b38"
+ },
+ "cues": [
+  {
+   "line": 1,
+   "scene": "T01_sec01",
+   "t0": 0.9,
+   "t1": 4.2,
+   "lines": [
+    "The afternoon of 15 January 1919."
+   ],
+   "timing": "estimate",
+   "cps": 10.0,
+   "n": 1
+  },
+  {
+   "line": 1,
+   "scene": "T01_sec01",
+   "t0": 4.28,
+   "t1": 6.681,
+   "lines": [
+    "Boston's North End, Commercial Street."
+   ],
+   "timing": "estimate",
+   "cps": 15.8,
+   "n": 2
+  },
+  {
+   "line": 2,
+   "scene": "T01_sec01",
+   "t0": 7.168,
+   "t1": 12.272,
+   "lines": [
+    "From a giant tank, 2,300,000 gallons",
+    "of molasses poured into the streets."
+   ],
+   "timing": "estimate",
+   "cps": 14.3,
+   "n": 3
+  },
+  {
+   "line": 3,
+   "scene": "T01_sec01",
+   "t0": 12.757,
+   "t1": 16.411,
+   "lines": [
+    "The next day's Boston Post",
+    "reported the wave as 50 feet high;"
+   ],
+   "timing": "estimate",
+   "cps": 16.7,
+   "n": 4
+  },
+  {
+   "line": 3,
+   "scene": "T01_sec01",
+   "t0": 16.491,
+   "t1": 17.903,
+   "lines": [
+    "that figure is disputed."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 5
+  },
+  {
+   "line": 4,
+   "scene": "T01_sec01",
+   "t0": 18.385,
+   "t1": 22.496,
+   "lines": [
+    "By midnight, the paper counted",
+    "11 dead and more than 50 injured."
+   ],
+   "timing": "estimate",
+   "cps": 15.6,
+   "n": 6
+  },
+  {
+   "line": 5,
+   "scene": "T02_sec02",
+   "t0": 24.136,
+   "t1": 25.478,
+   "lines": [
+    "Sweet, thick molasses."
+   ],
+   "timing": "estimate",
+   "cps": 16.4,
+   "n": 7
+  },
+  {
+   "line": 5,
+   "scene": "T02_sec02",
+   "t0": 25.558,
+   "t1": 27.101,
+   "lines": [
+    "How could it kill anyone?"
+   ],
+   "timing": "estimate",
+   "cps": 16.2,
+   "n": 8
+  },
+  {
+   "line": 6,
+   "scene": "T02_sec02",
+   "t0": 28.139,
+   "t1": 30.557,
+   "lines": [
+    "The answer lies in a",
+    "newspaper of that time,"
+   ],
+   "timing": "estimate",
+   "cps": 18.2,
+   "n": 9
+  },
+  {
+   "line": 6,
+   "scene": "T02_sec02",
+   "t0": 30.637,
+   "t1": 33.578,
+   "lines": [
+    "and in the city's account",
+    "written a century later."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 10
+  },
+  {
+   "line": 7,
+   "scene": "T03_sec03",
+   "t0": 34.537,
+   "t1": 38.361,
+   "lines": [
+    "The story begins with a giant tank",
+    "standing on Commercial Street."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 11
+  },
+  {
+   "line": 8,
+   "scene": "T03_sec03",
+   "t0": 38.649,
+   "t1": 40.919,
+   "lines": [
+    "According to the City of Boston's account,"
+   ],
+   "timing": "estimate",
+   "cps": 18.5,
+   "n": 12
+  },
+  {
+   "line": 8,
+   "scene": "T03_sec03",
+   "t0": 40.999,
+   "t1": 45.019,
+   "lines": [
+    "the tank was built in 1915 by",
+    "the Purity Distilling Company."
+   ],
+   "timing": "estimate",
+   "cps": 14.9,
+   "n": 13
+  },
+  {
+   "line": 9,
+   "scene": "T03_sec03",
+   "t0": 45.507,
+   "t1": 46.676,
+   "lines": [
+    "According to the city,"
+   ],
+   "timing": "estimate",
+   "cps": 18.8,
+   "n": 14
+  },
+  {
+   "line": 9,
+   "scene": "T03_sec03",
+   "t0": 46.756,
+   "t1": 51.361,
+   "lines": [
+    "it was 50 feet tall and held about",
+    "2.3 million gallons of molasses."
+   ],
+   "timing": "estimate",
+   "cps": 14.5,
+   "n": 15
+  },
+  {
+   "line": 10,
+   "scene": "T03_sec03",
+   "t0": 51.855,
+   "t1": 57.256,
+   "lines": [
+    "The Boston Post printed the same quantity",
+    "in its report: 2,300,000 gallons."
+   ],
+   "timing": "estimate",
+   "cps": 13.9,
+   "n": 16
+  },
+  {
+   "line": 11,
+   "scene": "T03_sec03",
+   "t0": 57.743,
+   "t1": 62.449,
+   "lines": [
+    "So on this figure, the newspaper of the",
+    "time and the city's later account agree."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 17
+  },
+  {
+   "line": 12,
+   "scene": "T03_sec03",
+   "t0": 62.803,
+   "t1": 65.274,
+   "lines": [
+    "The city's account records one more thing."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 18
+  },
+  {
+   "line": 13,
+   "scene": "T03_sec03",
+   "t0": 65.668,
+   "t1": 69.381,
+   "lines": [
+    "The tank, it is reported,",
+    "had been leaking before the disaster."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 19
+  },
+  {
+   "line": 14,
+   "scene": "T03_sec03",
+   "t0": 69.879,
+   "t1": 72.055,
+   "lines": [
+    "It was something like a warning sign."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 20
+  },
+  {
+   "line": 15,
+   "scene": "T04_sec04",
+   "t0": 73.015,
+   "t1": 76.51,
+   "lines": [
+    "15 January 1919, after midday."
+   ],
+   "timing": "estimate",
+   "cps": 8.6,
+   "n": 21
+  },
+  {
+   "line": 15,
+   "scene": "T04_sec04",
+   "t0": 76.59,
+   "t1": 77.789,
+   "lines": [
+    "The tank gave way."
+   ],
+   "timing": "estimate",
+   "cps": 15.0,
+   "n": 22
+  },
+  {
+   "line": 16,
+   "scene": "T04_sec04",
+   "t0": 79.01,
+   "t1": 82.657,
+   "lines": [
+    "According to the City of Boston,",
+    "several causes came together."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 23
+  },
+  {
+   "line": 17,
+   "scene": "T04_sec04",
+   "t0": 83.102,
+   "t1": 87.757,
+   "lines": [
+    "Weak construction, changes in temperature,",
+    "and a large shipment of molasses."
+   ],
+   "timing": "estimate",
+   "cps": 16.3,
+   "n": 24
+  },
+  {
+   "line": 18,
+   "scene": "T04_sec04",
+   "t0": 88.254,
+   "t1": 89.744,
+   "lines": [
+    "According to the Boston Post,"
+   ],
+   "timing": "estimate",
+   "cps": 19.5,
+   "n": 25
+  },
+  {
+   "line": 18,
+   "scene": "T04_sec04",
+   "t0": 89.824,
+   "t1": 93.471,
+   "lines": [
+    "the molasses spread over Commercial",
+    "Street and its waterfront."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 26
+  },
+  {
+   "line": 19,
+   "scene": "T04_sec04",
+   "t0": 93.743,
+   "t1": 97.155,
+   "lines": [
+    "From Charter Street to the",
+    "southern end of North End Park."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 27
+  },
+  {
+   "line": 20,
+   "scene": "T04_sec04",
+   "t0": 97.455,
+   "t1": 101.914,
+   "lines": [
+    "According to the city's account,",
+    "the wave moved at about 35 miles an hour."
+   ],
+   "timing": "estimate",
+   "cps": 16.6,
+   "n": 28
+  },
+  {
+   "line": 21,
+   "scene": "T04_sec04",
+   "t0": 102.385,
+   "t1": 105.914,
+   "lines": [
+    "How high the wave was is disputed:",
+    "the sources do not agree."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 29
+  },
+  {
+   "line": 22,
+   "scene": "T04_sec04",
+   "t0": 106.178,
+   "t1": 111.173,
+   "lines": [
+    "The Post wrote 50 feet, about as tall",
+    "as the tank is in the city's account."
+   ],
+   "timing": "estimate",
+   "cps": 15.0,
+   "n": 30
+  },
+  {
+   "line": 23,
+   "scene": "T04_sec04",
+   "t0": 111.67,
+   "t1": 114.981,
+   "lines": [
+    "According to many later accounts,",
+    "it was much lower."
+   ],
+   "timing": "estimate",
+   "cps": 15.7,
+   "n": 31
+  },
+  {
+   "line": 24,
+   "scene": "T05_sec05",
+   "t0": 116.013,
+   "t1": 121.393,
+   "lines": [
+    "In the Post's words, the sticky flood caught",
+    "more than 100 men, women and children."
+   ],
+   "timing": "estimate",
+   "cps": 15.4,
+   "n": 32
+  },
+  {
+   "line": 25,
+   "scene": "T05_sec05",
+   "t0": 121.891,
+   "t1": 124.973,
+   "lines": [
+    "Buildings, horse teams,",
+    "motor cars and streetcars."
+   ],
+   "timing": "estimate",
+   "cps": 16.2,
+   "n": 33
+  },
+  {
+   "line": 25,
+   "scene": "T05_sec05",
+   "t0": 125.053,
+   "t1": 127.479,
+   "lines": [
+    "Whatever stood in its path was crushed."
+   ],
+   "timing": "estimate",
+   "cps": 16.1,
+   "n": 34
+  },
+  {
+   "line": 26,
+   "scene": "T05_sec05",
+   "t0": 128.422,
+   "t1": 132.3,
+   "lines": [
+    "The elevated railway structure",
+    "overhead did not survive either."
+   ],
+   "timing": "estimate",
+   "cps": 16.2,
+   "n": 35
+  },
+  {
+   "line": 27,
+   "scene": "T05_sec05",
+   "t0": 132.784,
+   "t1": 134.378,
+   "lines": [
+    "The paper wrote that the black,"
+   ],
+   "timing": "estimate",
+   "cps": 19.4,
+   "n": 36
+  },
+  {
+   "line": 27,
+   "scene": "T05_sec05",
+   "t0": 134.458,
+   "t1": 137.576,
+   "lines": [
+    "reeking mass struck the",
+    "buildings facing Copp's Hill."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 37
+  },
+  {
+   "line": 28,
+   "scene": "T05_sec05",
+   "t0": 137.904,
+   "t1": 140.257,
+   "lines": [
+    "And then swept back towards the harbour."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 38
+  },
+  {
+   "line": 29,
+   "scene": "T05_sec05",
+   "t0": 140.459,
+   "t1": 144.812,
+   "lines": [
+    "Among the dead was an engineer of",
+    "Engine 31 of the Boston Fire Department."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 39
+  },
+  {
+   "line": 30,
+   "scene": "T05_sec05",
+   "t0": 145.03,
+   "t1": 147.501,
+   "lines": [
+    "The Post printed his name as George Lahey."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 40
+  },
+  {
+   "line": 31,
+   "scene": "T05_sec05",
+   "t0": 147.835,
+   "t1": 150.539,
+   "lines": [
+    "Among the dead was also",
+    "a girl of about 14,"
+   ],
+   "timing": "estimate",
+   "cps": 15.9,
+   "n": 41
+  },
+  {
+   "line": 31,
+   "scene": "T05_sec05",
+   "t0": 150.619,
+   "t1": 153.443,
+   "lines": [
+    "still unidentified when",
+    "the paper went to press."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 42
+  },
+  {
+   "line": 32,
+   "scene": "T05_sec05",
+   "t0": 153.872,
+   "t1": 155.025,
+   "lines": [
+    "She wore a grey jacket,"
+   ],
+   "timing": "estimate",
+   "cps": 19.9,
+   "n": 43
+  },
+  {
+   "line": 32,
+   "scene": "T05_sec05",
+   "t0": 155.105,
+   "t1": 159.046,
+   "lines": [
+    "and her bag carried an employment",
+    "tag of the Revere Rubber Company."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 44
+  },
+  {
+   "line": 33,
+   "scene": "T06_sec06",
+   "t0": 160.725,
+   "t1": 164.38,
+   "lines": [
+    "Ambulances were rushed to the",
+    "scene from every part of the city."
+   ],
+   "timing": "estimate",
+   "cps": 17.5,
+   "n": 45
+  },
+  {
+   "line": 34,
+   "scene": "T06_sec06",
+   "t0": 164.46,
+   "t1": 167.578,
+   "lines": [
+    "Rescue work went on at the",
+    "North End Park playground."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 46
+  },
+  {
+   "line": 35,
+   "scene": "T06_sec06",
+   "t0": 168.068,
+   "t1": 172.581,
+   "lines": [
+    "Dead horses, cats and dogs were",
+    "carted away, load after load."
+   ],
+   "timing": "estimate",
+   "cps": 13.5,
+   "n": 47
+  },
+  {
+   "line": 36,
+   "scene": "T06_sec06",
+   "t0": 173.061,
+   "t1": 176.12,
+   "lines": [
+    "Boston's only trolley freight",
+    "terminal lay in ruins."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 48
+  },
+  {
+   "line": 37,
+   "scene": "T06_sec06",
+   "t0": 176.508,
+   "t1": 181.018,
+   "lines": [
+    "The Post's first count was 11 dead:",
+    "a woman, a girl and nine men."
+   ],
+   "timing": "estimate",
+   "cps": 14.4,
+   "n": 49
+  },
+  {
+   "line": 38,
+   "scene": "T06_sec06",
+   "t0": 181.488,
+   "t1": 183.488,
+   "lines": [
+    "But the number did not stop there."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 50
+  },
+  {
+   "line": 39,
+   "scene": "T06_sec06",
+   "t0": 184.327,
+   "t1": 188.066,
+   "lines": [
+    "According to the City of Boston,",
+    "21 people died in the end,"
+   ],
+   "timing": "estimate",
+   "cps": 15.8,
+   "n": 51
+  },
+  {
+   "line": 39,
+   "scene": "T06_sec06",
+   "t0": 188.146,
+   "t1": 190.772,
+   "lines": [
+    "and about 150 were injured."
+   ],
+   "timing": "estimate",
+   "cps": 10.3,
+   "n": 52
+  },
+  {
+   "line": 40,
+   "scene": "T07_sec07",
+   "t0": 191.812,
+   "t1": 194.4,
+   "lines": [
+    "Now the biggest question:",
+    "how did it happen?"
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 53
+  },
+  {
+   "line": 41,
+   "scene": "T07_sec07",
+   "t0": 194.808,
+   "t1": 199.671,
+   "lines": [
+    "The next day, the Boston Post reported",
+    "that the state police chemist, W."
+   ],
+   "timing": "estimate",
+   "cps": 14.8,
+   "n": 54
+  },
+  {
+   "line": 41,
+   "scene": "T07_sec07",
+   "t0": 199.751,
+   "t1": 202.891,
+   "lines": [
+    "L. Wedger, had reached",
+    "a positive conclusion."
+   ],
+   "timing": "estimate",
+   "cps": 14.3,
+   "n": 55
+  },
+  {
+   "line": 42,
+   "scene": "T07_sec07",
+   "t0": 203.409,
+   "t1": 208.772,
+   "lines": [
+    "According to him, the tank had not collapsed;",
+    "there had been an explosion inside it."
+   ],
+   "timing": "estimate",
+   "cps": 15.7,
+   "n": 56
+  },
+  {
+   "line": 43,
+   "scene": "T07_sec07",
+   "t0": 209.235,
+   "t1": 211.958,
+   "lines": [
+    "That was the early,",
+    "disputed theory of the time."
+   ],
+   "timing": "estimate",
+   "cps": 17.6,
+   "n": 57
+  },
+  {
+   "line": 43,
+   "scene": "T07_sec07",
+   "t0": 212.038,
+   "t1": 214.233,
+   "lines": [
+    "Later findings pointed another way."
+   ],
+   "timing": "estimate",
+   "cps": 15.9,
+   "n": 58
+  },
+  {
+   "line": 44,
+   "scene": "T07_sec07",
+   "t0": 215.15,
+   "t1": 216.817,
+   "lines": [
+    "According to the city's account,"
+   ],
+   "timing": "estimate",
+   "cps": 19.2,
+   "n": 59
+  },
+  {
+   "line": 44,
+   "scene": "T07_sec07",
+   "t0": 216.897,
+   "t1": 220.956,
+   "lines": [
+    "structural engineers later found",
+    "that the tank's walls were too thin."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 60
+  },
+  {
+   "line": 45,
+   "scene": "T07_sec07",
+   "t0": 221.118,
+   "t1": 223.706,
+   "lines": [
+    "And that its material",
+    "was prone to cracking."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 61
+  },
+  {
+   "line": 46,
+   "scene": "T07_sec07",
+   "t0": 223.983,
+   "t1": 225.476,
+   "lines": [
+    "According to the city's account,"
+   ],
+   "timing": "estimate",
+   "cps": 21.4,
+   "n": 62
+  },
+  {
+   "line": 46,
+   "scene": "T07_sec07",
+   "t0": 225.556,
+   "t1": 230.018,
+   "lines": [
+    "in 1925 a court-appointed auditor held",
+    "the owners' negligence responsible."
+   ],
+   "timing": "estimate",
+   "cps": 16.6,
+   "n": 63
+  },
+  {
+   "line": 47,
+   "scene": "T07_sec07",
+   "t0": 230.52,
+   "t1": 233.624,
+   "lines": [
+    "So, unlike the explosion",
+    "claimed on the first day,"
+   ],
+   "timing": "estimate",
+   "cps": 16.1,
+   "n": 64
+  },
+  {
+   "line": 47,
+   "scene": "T07_sec07",
+   "t0": 233.704,
+   "t1": 238.316,
+   "lines": [
+    "the later findings point to the",
+    "tank's construction and to negligence."
+   ],
+   "timing": "estimate",
+   "cps": 15.2,
+   "n": 65
+  },
+  {
+   "line": 48,
+   "scene": "T08_sec08",
+   "t0": 239.38,
+   "t1": 242.763,
+   "lines": [
+    "The front page of the same",
+    "newspaper carried another story."
+   ],
+   "timing": "estimate",
+   "cps": 17.4,
+   "n": 66
+  },
+  {
+   "line": 49,
+   "scene": "T08_sec08",
+   "t0": 242.843,
+   "t1": 246.702,
+   "lines": [
+    "The Prohibition amendment had",
+    "been ratified by 35 states,"
+   ],
+   "timing": "estimate",
+   "cps": 14.8,
+   "n": 67
+  },
+  {
+   "line": 49,
+   "scene": "T08_sec08",
+   "t0": 246.782,
+   "t1": 248.488,
+   "lines": [
+    "and just one more was needed."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 68
+  },
+  {
+   "line": 50,
+   "scene": "T08_sec08",
+   "t0": 248.85,
+   "t1": 253.379,
+   "lines": [
+    "The molasses wave and Prohibition:",
+    "both stories ran side by side on one page."
+   ],
+   "timing": "estimate",
+   "cps": 17.0,
+   "n": 69
+  },
+  {
+   "line": 51,
+   "scene": "T08_sec08",
+   "t0": 253.77,
+   "t1": 259.092,
+   "lines": [
+    "This film claims no link between them;",
+    "just the same day, the same page."
+   ],
+   "timing": "estimate",
+   "cps": 13.5,
+   "n": 70
+  },
+  {
+   "line": 52,
+   "scene": "T09_sec09",
+   "t0": 260.722,
+   "t1": 261.584,
+   "lines": [
+    "On the first day,"
+   ],
+   "timing": "estimate",
+   "cps": 19.7,
+   "n": 71
+  },
+  {
+   "line": 52,
+   "scene": "T09_sec09",
+   "t0": 261.664,
+   "t1": 266.525,
+   "lines": [
+    "the Post wrote that the molasses had been",
+    "released in some manner yet unexplained."
+   ],
+   "timing": "estimate",
+   "cps": 16.9,
+   "n": 72
+  },
+  {
+   "line": 53,
+   "scene": "T09_sec09",
+   "t0": 267.039,
+   "t1": 271.884,
+   "lines": [
+    "Later, the causes were recorded:",
+    "walls too thin and, according to the auditor,"
+   ],
+   "timing": "estimate",
+   "cps": 16.1,
+   "n": 73
+  },
+  {
+   "line": 53,
+   "scene": "T09_sec09",
+   "t0": 271.964,
+   "t1": 273.41,
+   "lines": [
+    "the owners' negligence."
+   ],
+   "timing": "estimate",
+   "cps": 15.9,
+   "n": 74
+  },
+  {
+   "line": 54,
+   "scene": "T09_sec09",
+   "t0": 273.924,
+   "t1": 276.529,
+   "lines": [
+    "The cost of that afternoon: 21 lives."
+   ],
+   "timing": "estimate",
+   "cps": 14.2,
+   "n": 75
+  },
+  {
+   "line": 55,
+   "scene": "T09_sec09",
+   "t0": 278.558,
+   "t1": 283.73,
+   "lines": [
+    "This wave of molasses is a reminder of how",
+    "much it matters to inspect the structures"
+   ],
+   "timing": "estimate",
+   "cps": 16.2,
+   "n": 76
+  },
+  {
+   "line": 55,
+   "scene": "T09_sec09",
+   "t0": 283.81,
+   "t1": 284.81,
+   "lines": [
+    "a city trusts."
+   ],
+   "timing": "estimate",
+   "cps": 14.0,
+   "n": 77
+  }
+ ]
+}

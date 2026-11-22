@@ -110,8 +110,8 @@
   },
   "visuals": {
    "status": "done",
-   "inputs": "d23b34606f69875f",
-   "at": "2026-11-22T08:50:02",
+   "inputs": "978672b09d457341",
+   "at": "2026-11-22T12:07:10",
    "errors": [],
    "warnings": [
     "I001 (Panorama of the molasses disaster site, January 15, 1919 (BPL)): fallback card, chosen in selection.json",
@@ -133,8 +133,8 @@
    "notes": [
     "visuals: 7 fallback, 8 ok"
    ],
-   "approved": "d23b34606f69875f",
-   "approved_at": "2026-11-22T08:54:30"
+   "approved": "978672b09d457341",
+   "approved_at": "2026-11-22T12:07:10"
   },
   "assets": {
    "status": "done",
@@ -306,7 +306,7 @@
    ]
   },
   "script@en": {
-   "status": "awaiting approval",
+   "status": "done",
    "inputs": "df16d44cb8e22a96",
    "at": "2026-11-22T12:06:47",
    "errors": [],
@@ -329,8 +329,103 @@
     "exported 55 lines in 9 takes -> /home/user/cinematic-skill/productions/molasses-flood/editions/en/script.json",
     "edition en: 55 of 55 beats covered"
    ],
-   "approved": "6821d6414f05179d",
-   "approved_at": "2026-11-22T12:06:32"
+   "approved": "df16d44cb8e22a96",
+   "approved_at": "2026-11-22T12:07:10"
+  },
+  "scenes@en": {
+   "status": "done",
+   "inputs": "a56ef848eb05e479",
+   "at": "2026-11-22T12:13:05",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "55 scenes, 4:49.0 (voice timing), 0 images (0 still to find)"
+   ]
+  },
+  "scenegen@en": {
+   "status": "done",
+   "inputs": "6187eef66ce9fe26",
+   "at": "2026-11-22T12:13:05",
+   "errors": [],
+   "warnings": [
+    "act 1: 06_film/act_01/scene.py has your edits; left as it is (--force regenerates it and keeps yours as scene.py.bak)",
+    "7 of 15 visuals are designed cards until their images arrive"
+   ],
+   "notes": [
+    "1 act(s): act 1 55 lines 0:00.9-4:49.0"
+   ]
+  },
+  "voice@en": {
+   "status": "done",
+   "inputs": "cb4427a9d9f8f569",
+   "at": "2026-11-22T12:15:49",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "en voice: command 'en_GB-cori-high', line mode; 55 stale; 55 to make, 4224 characters (free)",
+    "made 55 segment(s)",
+    "en voice: command 'en_GB-cori-high', line mode; 55 ok; 0 to make, 0 characters (free)"
+   ]
+  },
+  "narration@en": {
+   "status": "done",
+   "inputs": "1e49365ef266d342",
+   "at": "2026-11-22T12:16:04",
+   "errors": [],
+   "warnings": [
+    "act 1: 06_film/act_01/scene.py has your edits; left as it is (--force regenerates it and keeps yours as scene.py.bak)",
+    "7 of 15 visuals are designed cards until their images arrive"
+   ],
+   "notes": [
+    "en voice: command 'en_GB-cori-high', line mode; 55 ok; 0 to make, 0 characters (free)",
+    "audio/narration.m4a and audio/timing.json for en: 55 lines, 4:47.7",
+    "55 scenes, 4:47.7 (voice timing), 0 images (0 still to find)",
+    "1 act(s): act 1 55 lines 0:00.9-4:47.7"
+   ]
+  },
+  "effects@en": {
+   "status": "done",
+   "inputs": "7756473689d9f13a38237ce6d36e9e6155b3",
+   "at": "2026-11-22T12:16:08",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "audio/sfx.wav for en: 82 cues from 1 act(s)"
+   ]
+  },
+  "sound@en": {
+   "status": "done",
+   "inputs": "ba2837dcef2439cf",
+   "at": "2026-11-22T12:16:49",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "audio/cues.json exists; left as it is",
+    "en cue sheet: 1 music cue(s), 0 library sound(s), 0 gap(s), synthesised effects, 4:47.7",
+    "audio/mix.m4a for en: -15.0 LUFS, -1.8 dBTP, no clipping"
+   ]
+  },
+  "subtitles@en": {
+   "status": "done",
+   "inputs": "b4f8587dfd821ee7",
+   "at": "2026-11-22T12:16:49",
+   "errors": [],
+   "warnings": [
+    "cue 62 (line 46): 21.4 characters a second is fast to read; a shorter line or a longer pause would help"
+   ],
+   "notes": [
+    "en subtitles: 77 cues -> out/subtitles.en.srt, out/subtitles.en.vtt; 77 cue(s) on estimated word times"
+   ]
+  },
+  "review@en": {
+   "status": "awaiting approval",
+   "inputs": "d02d197acd8d5d7a",
+   "at": "2026-11-22T12:17:21",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "act 1: 57 stills, 9 strips in 07_review/en/act_01/"
+   ]
   }
  }
 }

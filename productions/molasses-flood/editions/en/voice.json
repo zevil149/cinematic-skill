@@ -7,5 +7,5 @@
  "settings": {},
  "mode": "line",
  "note": "Piper (local, offline), chosen by the producer after auditions. Voice en_GB-cori-high: UK English female; training data public domain (LibriVox), per its model card; model files in voices/piper/ (not in git), md5 checked against Piper's voices.json.",
- "cmd": "piper -m /home/user/cinematic-skill/productions/molasses-flood/voices/piper/en_GB-cori-high.onnx -i {txt} -f {out}"
+ "cmd": "piper -m /home/user/cinematic-skill/productions/molasses-flood/voices/piper/en_GB-cori-high.onnx --volume 0.8 -i {txt} -f {out}"
 }
