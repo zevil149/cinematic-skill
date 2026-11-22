@@ -1,3 +1,0 @@
-file '/home/user/cinematic-skill/productions/molasses-flood/editions/hi/out/burn/b00.mp4'
-file '/home/user/cinematic-skill/productions/molasses-flood/editions/hi/out/burn/b01.mp4'
-file '/home/user/cinematic-skill/productions/molasses-flood/editions/hi/out/burn/b02.mp4'

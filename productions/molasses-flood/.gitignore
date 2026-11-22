@@ -12,3 +12,4 @@ editions/*/audio/**/*.m4a
 # rendered video (acts, film, captioned film, credits, render chunks): rebuilt by the finishing stages
 editions/*/out/**/*.mp4
 editions/*/out/acts/
+editions/*/out/burn/
