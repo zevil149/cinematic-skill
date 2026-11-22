@@ -137,12 +137,12 @@
   },
   "assets": {
    "status": "done",
-   "inputs": "5031e5a2108281b5",
-   "at": "2026-11-21T16:33:31",
+   "inputs": "55359553a2f01ea0",
+   "at": "2026-11-22T05:41:30",
    "errors": [],
    "warnings": [],
    "notes": [
-    "photos: 12 ready (bw); 12 graded now"
+    "photos: 12 ready (bw); 0 graded now"
    ]
   },
   "scenegen@hi": {
@@ -229,6 +229,20 @@
    ],
    "approved": "af6c6e71fcab469b",
    "approved_at": "2026-11-22T04:37:53"
+  },
+  "render@hi": {
+   "status": "done",
+   "inputs": "c408627bd857524a",
+   "at": "2026-11-22T06:15:53",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "act 1: 10680 frames, 356.00s at 1920x1080",
+    "out/credits.hi.mp4: 16 credit line(s), 24.0s"
+   ]
+  },
+  "join@hi": {
+   "status": "running"
   }
  }
 }

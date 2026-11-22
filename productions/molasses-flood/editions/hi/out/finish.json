@@ -1,0 +1,35 @@
+{
+ "lang": "hi",
+ "built_by": "finish.py",
+ "acts": {
+  "1": {
+   "act": 1,
+   "file": "out/acts/act_01.mp4",
+   "scene": "06_film/act_01/scene.py",
+   "t0": 0.0,
+   "t1": 356.016,
+   "from": 0.0,
+   "to": 356.016,
+   "frames": 10680,
+   "fps": 30.0,
+   "size": "1920x1080",
+   "audio": true,
+   "key": "bc4cddc6a49c6a5c5a6a",
+   "crf": 18,
+   "sha256": "7d8d77e9082b588d9c6c5ba2955975975023fcb04ed0bd2d3da79ebe109b78cc"
+  }
+ },
+ "size": "1920x1080",
+ "total": 356.016,
+ "order": [
+  1
+ ],
+ "credits": {
+  "file": "out/credits.hi.mp4",
+  "key": "3542241b31331be24622",
+  "sha256": "0b8bdc84c94cb480fcfd96df795640cb26af6524cd3cbc1a6d7d1851279d086e",
+  "duration": 24.0,
+  "frames": 720,
+  "lines": 16
+ }
+}
