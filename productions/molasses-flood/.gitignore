@@ -15,3 +15,6 @@ editions/*/out/acts/
 editions/*/out/burn/
 # narrator recordings (personal voice data) stay out of git
 release/narration_samples/incoming/*.wav
+# compressed delivery copies and their encoder logs; split download parts
+editions/*/out/delivery_compressed/
+editions/*/out/download_parts/
