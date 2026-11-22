@@ -334,25 +334,25 @@
   },
   "scenes@en": {
    "status": "done",
-   "inputs": "a56ef848eb05e479",
-   "at": "2026-11-22T12:13:05",
+   "inputs": "39211ca9b1127ce2",
+   "at": "2026-11-22T12:22:24",
    "errors": [],
    "warnings": [],
    "notes": [
-    "55 scenes, 4:49.0 (voice timing), 0 images (0 still to find)"
+    "55 scenes, 4:47.7 (voice timing), 0 images (0 still to find)"
    ]
   },
   "scenegen@en": {
    "status": "done",
-   "inputs": "6187eef66ce9fe26",
-   "at": "2026-11-22T12:13:05",
+   "inputs": "6abb5e17ec06631c",
+   "at": "2026-11-22T12:22:24",
    "errors": [],
    "warnings": [
     "act 1: 06_film/act_01/scene.py has your edits; left as it is (--force regenerates it and keeps yours as scene.py.bak)",
     "7 of 15 visuals are designed cards until their images arrive"
    ],
    "notes": [
-    "1 act(s): act 1 55 lines 0:00.9-4:49.0"
+    "1 act(s): act 1 55 lines 0:00.9-4:47.7"
    ]
   },
   "voice@en": {
@@ -418,14 +418,19 @@
    ]
   },
   "review@en": {
-   "status": "awaiting approval",
+   "status": "done",
    "inputs": "d02d197acd8d5d7a",
    "at": "2026-11-22T12:17:21",
    "errors": [],
    "warnings": [],
    "notes": [
     "act 1: 57 stills, 9 strips in 07_review/en/act_01/"
-   ]
+   ],
+   "approved": "d02d197acd8d5d7a",
+   "approved_at": "2026-11-22T12:22:20"
+  },
+  "render@en": {
+   "status": "running"
   }
  }
 }
