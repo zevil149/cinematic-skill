@@ -242,6 +242,16 @@
    ]
   },
   "join@hi": {
+   "status": "done",
+   "inputs": "d4383a3ef9be8f3a",
+   "at": "2026-11-22T06:32:30",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "out/film.hi.mp4: 1 act(s), 380.02s, 11400 frames at 1920x1080"
+   ]
+  },
+  "captions@hi": {
    "status": "running"
   }
  }
