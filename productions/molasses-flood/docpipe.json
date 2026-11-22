@@ -232,18 +232,18 @@
    "approved_at": "2026-11-22T09:09:37"
   },
   "render@hi": {
-   "status": "running",
-   "inputs": "c408627bd857524a",
-   "at": "2026-11-22T06:15:53",
+   "status": "done",
+   "inputs": "afad41ae0bf82908",
+   "at": "2026-11-22T09:43:47",
    "errors": [],
    "warnings": [],
    "notes": [
     "act 1: 10680 frames, 356.00s at 1920x1080",
-    "out/credits.hi.mp4: 16 credit line(s), 24.0s"
+    "out/credits.hi.mp4: 6 credit line(s), 9.3s"
    ]
   },
   "join@hi": {
-   "status": "done",
+   "status": "running",
    "inputs": "d4383a3ef9be8f3a",
    "at": "2026-11-22T06:32:30",
    "errors": [],
