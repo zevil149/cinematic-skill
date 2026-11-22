@@ -220,7 +220,7 @@
    ]
   },
   "review@hi": {
-   "status": "awaiting approval",
+   "status": "done",
    "inputs": "78e74051ea19184c",
    "at": "2026-11-22T09:00:10",
    "errors": [],
@@ -228,11 +228,11 @@
    "notes": [
     "act 1: 57 stills, 9 strips in 07_review/hi/act_01/"
    ],
-   "approved": "af6c6e71fcab469b",
-   "approved_at": "2026-11-22T04:37:53"
+   "approved": "78e74051ea19184c",
+   "approved_at": "2026-11-22T09:09:37"
   },
   "render@hi": {
-   "status": "done",
+   "status": "running",
    "inputs": "c408627bd857524a",
    "at": "2026-11-22T06:15:53",
    "errors": [],
