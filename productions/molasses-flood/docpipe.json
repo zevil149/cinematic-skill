@@ -253,17 +253,17 @@
    ]
   },
   "captions@hi": {
-   "status": "running",
-   "inputs": "170ba848be85b32b",
-   "at": "2026-11-22T06:53:31",
+   "status": "done",
+   "inputs": "b3bc971b04274a9d",
+   "at": "2026-11-22T10:19:46",
    "errors": [],
    "warnings": [],
    "notes": [
-    "out/film.hi.captions.mp4: clean captions, 380.00s"
+    "out/film.hi.captions.mp4: clean captions, 365.30s"
    ]
   },
   "qc@hi": {
-   "status": "done",
+   "status": "running",
    "inputs": "59447995fe1b2b91",
    "at": "2026-11-22T07:07:39",
    "errors": [],
