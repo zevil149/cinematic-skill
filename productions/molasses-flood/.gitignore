@@ -18,3 +18,6 @@ release/narration_samples/incoming/*.wav
 # compressed delivery copies and their encoder logs; split download parts
 editions/*/out/delivery_compressed/
 editions/*/out/download_parts/
+# Piper voice models (downloaded, ~60-115 MB each): kept out of git
+voices/
+release/voice_auditions_en/*.m4a

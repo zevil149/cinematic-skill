@@ -1,0 +1,11 @@
+{
+ "lang": "en",
+ "locale": "en-US",
+ "provider": "command",
+ "voice": "en_US-john-medium",
+ "model": "piper 1.8.0",
+ "settings": {},
+ "mode": "line",
+ "note": "Piper (local, offline). Voice en_US-john-medium: training data public domain (LibriVox), per its model card; model files in voices/piper/ (not in git), md5 checked against Piper's voices.json.",
+ "cmd": "piper -m /home/user/cinematic-skill/productions/molasses-flood/voices/piper/en_US-john-medium.onnx -i {txt} -f {out}"
+}

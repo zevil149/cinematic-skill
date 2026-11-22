@@ -1,0 +1,7 @@
+{
+ "lang": "en",
+ "production": "../..",
+ "beats": "shared",
+ "locale": "en-US",
+ "wpm": 150
+}
