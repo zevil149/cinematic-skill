@@ -38,15 +38,15 @@
    1
   ],
   "crossfades": [],
-  "duration": 380.016,
-  "frames": 11400,
+  "duration": 365.316,
+  "frames": 10959,
   "fps": 30.0,
   "size": "1920x1080",
-  "mix_sha256": "aad6f5018a57d17041a70bf3a68684a1dca8224b0217d97dc0a0b22f585bfbcc",
-  "key": "0b9071c0fb2d33aa1d37",
-  "sha256": "1d82b888c199529abf5cd6a7b50485694fdf01ca111ec468d54a678545606b48",
+  "mix_sha256": "1a96bf6db72df653e6f7128f2142f4bc31a4c13e6b026d5fbd72cdffc14314d7",
+  "key": "1d5b02aa1bbb12b455c8",
+  "sha256": "7a600de35a3c5574865aad6593de3e6e9124b184127db888e641068ad7d874ea",
   "timeline": 356.016,
-  "credits": 24.0
+  "credits": 9.3
  },
  "captions": {
   "enabled": true,

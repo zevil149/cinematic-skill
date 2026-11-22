@@ -243,17 +243,17 @@
    ]
   },
   "join@hi": {
-   "status": "running",
-   "inputs": "d4383a3ef9be8f3a",
-   "at": "2026-11-22T06:32:30",
+   "status": "done",
+   "inputs": "2b7efca86a850ef3",
+   "at": "2026-11-22T09:59:57",
    "errors": [],
    "warnings": [],
    "notes": [
-    "out/film.hi.mp4: 1 act(s), 380.02s, 11400 frames at 1920x1080"
+    "out/film.hi.mp4: 1 act(s), 365.32s, 10959 frames at 1920x1080"
    ]
   },
   "captions@hi": {
-   "status": "done",
+   "status": "running",
    "inputs": "170ba848be85b32b",
    "at": "2026-11-22T06:53:31",
    "errors": [],
