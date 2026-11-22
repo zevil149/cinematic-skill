@@ -637,9 +637,13 @@ def build_film(doc):
 
     # ---------------- SEC01: the hook ----------------
     O = (0, 0)
-    pano1 = photo(vis(1)["need"], O[0], O[1], 3600, 1)
-    typed(1, O[0], O[1] - 1432 - 330, L(1) + 0.1, 260)
-    q1 = post(vis(3)["need"], O[0] + 5200, O[1] + 300, 3600, 3)
+    # Phase 10: the BPL panorama (rights unproven) is replaced by the Boston Post's own photograph
+    # of the scene, printed on its 16 Jan 1919 front page (cleared): lines 1-2 frame it.
+    q1 = post(vis(3)["need"], O[0], O[1] + 300, 3600, 1)
+    q1_photo = region(q1, doc, 0.255, 0.29, 0.745, 0.525)
+    q1b = pbox(q1, doc)
+    typed(1, q1b[0] - 1500, (q1_photo[1] + q1_photo[3]) / 2, L(1) + 0.1, 240)
+    put(Tag("बोस्टन पोस्ट, 16 जनवरी 1919 में छपी तस्वीर", q1b[0] - 1500, (q1_photo[1] + q1_photo[3]) / 2 + 260, L(1) + 0.6), 1)
     q1_deck = region(q1, doc, 0.02, 0.205, 0.99, 0.29)
     q1_head = region(q1, doc, 0.02, 0.075, 0.99, 0.215)
     q1_dead = region(q1, doc, 0.53, 0.15, 0.99, 0.195)
@@ -723,7 +727,8 @@ def build_film(doc):
     typed(24, q3b[2] + 650, (q3_men[1] + q3_men[3]) / 2 + 80, W(24, "सौ") - 0.15, 230)
     wreck = card(O[0] - 5800, O[1] - 1400, 2700, 1650, 25, vis(25)["what"], t=L(25) + 0.05, size=170)
     put(Tag("प्लेसहोल्डर · कोई सत्यापित तस्वीर नहीं", O[0] - 5800, O[1] - 400, L(25) + 0.4), 25)
-    el = photo(vis(26)["need"], O[0] - 5800, O[1] + 2100, 3200, 26)
+    el = card(O[0] - 5800, O[1] + 2100, 2700, 1650, 26, "एलिवेटेड रेल का ढाँचा (तस्वीर नहीं)", t=L(26) - 1.4, size=170)
+    put(Tag("प्लेसहोल्डर · कोई सत्यापित तस्वीर नहीं", O[0] - 5800, O[1] + 3100, L(26) - 0.6), 26)
     DX, DY = O[0] - 5800, O[1] + 6600
     put(Card(DX - 1700, DY, 2400, 1000, W(27, "कॉप्स") - 0.6, title="कॉप्स हिल की ओर की इमारतें", rgb=PAL["card"], text_rgb=PAL["card_text"],
              accent=PAL["accent"], title_size=130), 27, (DX - 2900, DY - 500, DX - 500, DY + 500))
@@ -745,8 +750,13 @@ def build_film(doc):
     q4_play = region(q4, doc, 0.445, 0.468, 0.565, 0.495)
     put(PenMark("ellipse", (q4_play[0] + q4_play[2]) / 2, (q4_play[1] + q4_play[3]) / 2, (q4_play[2] - q4_play[0]) * 1.1, 200,
                 t_in=W(34, "मैदान") - 0.2, width=12), 34, q4_play)
-    pano2 = photo(vis(35)["need"], O[0] - 6400, O[1] + 600, 3800, 35, rot=-1.0, move=None)
-    pb = item_box(doc, pano2)
+    q4_horses = region(q4, doc, 0.745, 0.722, 0.995, 0.758)
+    q4_dead_animals = region(q4, doc, 0.745, 0.728, 0.995, 0.742)
+    q4_terminal = region(q4, doc, 0.745, 0.744, 0.995, 0.756)
+    put(PenMark("underline", (q4_dead_animals[0] + q4_dead_animals[2]) / 2, q4_dead_animals[3], q4_dead_animals[2] - q4_dead_animals[0], 20,
+                t_in=W(35, "घोड़े") - 0.2, width=12), 35, q4_dead_animals)
+    put(PenMark("underline", (q4_terminal[0] + q4_terminal[2]) / 2, q4_terminal[3], q4_terminal[2] - q4_terminal[0], 20,
+                t_in=W(36, "टर्मिनल") - 0.2, width=12), 36, q4_terminal)
     TX, TY = O[0] - 6400, O[1] + 5600
     t11 = put(BigText(BY_LINE[37]["typed"], TX - 1200, TY, 520, L(37) + 0.1, rgb=TYPE), 37)
     put(Tag("मौतें · पोस्ट की पहली गिनती", TX - 1200, TY + 300, L(37) + 0.5), 37)
@@ -798,28 +808,27 @@ def build_film(doc):
     tank2 = card(O[0] + 2400, O[1] - 1200, 2700, 1650, 53, vis(53)["what"], t=L(53) - 0.1, size=170)
     put(Tag("प्लेसहोल्डर · कोई सत्यापित तस्वीर नहीं", O[0] + 2400, O[1] - 230, L(53) + 0.2), 53)
     put(BigText("पतली दीवारें · लापरवाही (ऑडिटर के अनुसार)", O[0] + 2400, O[1] + 300, 130, W(53, "लापरवाही") - 0.3, rgb=TYPE, grunge=False), 53)
-    pano3 = photo(vis(54)["need"], O[0] + 2400, O[1] + 2900, 3200, 54, rot=0.8)
-    pb3 = item_box(doc, pano3)
-    typed(54, pb3[2] + 800, (pb3[1] + pb3[3]) / 2, W(54, "इक्कीस") - 0.15, 420)
+    typed(54, O[0] + 2400, O[1] + 2700, L(54) + 0.1, 520)
+    put(Tag("मौतें · सिटी ऑफ़ बोस्टन के अनुसार", O[0] + 2400, O[1] + 3000, L(54) + 0.4), 54)
 
     # ---------------- the camera ----------------
     # hero boxes per line: what the line shows. A close-up line shows a part of a print.
     hero = {i: [] for i in lines}
-    parents_of = {3: q1, 4: q1, 10: q2, 24: q3, 29: q3, 30: q3, 31: q3, 32: q3, 33: q4, 34: q4, 41: q5, 42: q5, 43: q5, 49: q6, 50: q6, 52: q7}
+    parents_of = {1: q1, 2: q1, 35: q4, 36: q4, 3: q1, 4: q1, 10: q2, 24: q3, 29: q3, 30: q3, 31: q3, 32: q3, 33: q4, 34: q4, 41: q5, 42: q5, 43: q5, 49: q6, 50: q6, 52: q7}
     for it, bx, i in reg:
         if bx and it is not parents_of.get(i):
             hero[i].append(bx)
-    close = {3: [q1_deck], 4: [q1_head], 10: [q2_gal], 24: [q3_men], 29: [q3_dead], 30: [q3_dead], 31: [q3_unid], 32: [q3_unid],
+    close = {1: [q1_photo], 2: [q1_photo], 35: [q4_horses], 36: [q4_horses], 3: [q1_deck], 4: [q1_head], 10: [q2_gal], 24: [q3_men], 29: [q3_dead], 30: [q3_dead], 31: [q3_unid], 32: [q3_unid],
              33: [q4_photo], 34: [q4_photo], 41: [q5_col], 42: [q5_col], 43: [q5_col], 49: [q6_states], 50: [q6_head, q6_states],
              52: [q7_lead]}
-    show = {2: [pbox(pano1, doc)], 12: [item_box(doc, s_city2)], 14: [item_box(doc, tank)] + hero[13] + hero[9], 15: hero[15],
-            36: [pb], 38: hero[37] + hero[39] + hero[38], 47: hero[46] + hero[47], 48: [pbox(q6, doc)], 51: [pbox(q6, doc)],
+    show = {12: [item_box(doc, s_city2)], 14: [item_box(doc, tank)] + hero[13] + hero[9], 15: hero[15],
+            38: hero[37] + hero[39] + hero[38], 47: hero[46] + hero[47], 48: [pbox(q6, doc)], 51: [pbox(q6, doc)],
             55: None, 11: [item_box(doc, s_city2), q2_gal] + hero[11], 13: [item_box(doc, tank)] + hero[13],
-            26: [pbox(el, doc)], 7: [item_box(doc, tank)] + hero[7], 53: [item_box(doc, tank2)] + hero[53],
+            26: [item_box(doc, el)] + hero[26], 7: [item_box(doc, tank)] + hero[7], 53: [item_box(doc, tank2)] + hero[53],
             8: [item_box(doc, tank)] + hero[8], 9: [item_box(doc, tank)] + hero[9], 20: [pbox(mp, doc)] + hero[20],
             22: hero[21] + hero[22], 23: hero[21] + hero[22] + hero[23], 21: hero[21] + hero[22] + hero[23],
             27: hero[27] + hero[28], 28: hero[27] + hero[28], 39: hero[37] + hero[39] + hero[38], 16: hero[15] + hero[16], 17: hero[15] + hero[16] + hero[17], 44: hero[44] + hero[45], 45: hero[44] + hero[45]}
-    parents = {3: q1, 4: q1, 10: q2, 24: q3, 29: q3, 30: q3, 31: q3, 32: q3, 33: q4, 34: q4, 41: q5, 42: q5, 43: q5, 49: q6, 50: q6, 52: q7}
+    parents = {1: q1, 2: q1, 35: q4, 36: q4, 3: q1, 4: q1, 10: q2, 24: q3, 29: q3, 30: q3, 31: q3, 32: q3, 33: q4, 34: q4, 41: q5, 42: q5, 43: q5, 49: q6, 50: q6, 52: q7}
     aims = {}
     for i in lines:
         if i == 55:

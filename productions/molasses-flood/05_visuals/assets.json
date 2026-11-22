@@ -8,25 +8,12 @@
    "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
    "kind": "photo",
    "media": "image",
-   "candidate": "commons:File:BostonMolassesDisaster.jpg",
-   "provider": "commons",
-   "license": {
-    "code": "PD",
-    "label": "Public domain",
-    "version": "",
-    "url": "",
-    "policy": "free",
-    "raw": "Public domain"
-   },
-   "credit": "BPL",
-   "source": "https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
-   "attribution": "\"BostonMolassesDisaster.jpg\" by BPL, Public domain, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
-   "title": "BostonMolassesDisaster.jpg",
-   "file": "I001.jpg",
-   "auto": false,
-   "cleared": null,
-   "status": "ok",
-   "shadowed": true
+   "status": "fallback",
+   "fallback": {
+    "type": "card",
+    "title": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+    "reason": "chosen in selection.json"
+   }
   },
   "I002": {
    "need": "I002",
@@ -171,25 +158,12 @@
    "what": "Boston Elevated Railway structure after the molasses flood, January 1919",
    "kind": "photo",
    "media": "image",
-   "candidate": "commons:File:Boston_Elevated_Railway_after_the_Molasses_Flood,_January_1919,_from_the_City_of_Boston_Archives_-_9800-018-035.jpg",
-   "provider": "commons",
-   "license": {
-    "code": "PD",
-    "label": "Public domain",
-    "version": "",
-    "url": "",
-    "policy": "free",
-    "raw": "Public domain"
-   },
-   "credit": "Boston Elevated Railway Company",
-   "source": "https://commons.wikimedia.org/wiki/File:Boston_Elevated_Railway_after_the_Molasses_Flood,_January_1919,_from_the_City_of_Boston_Archives_-_9800-018-035.jpg",
-   "attribution": "\"Boston Elevated Railway after the Molasses Flood, January 1919, from the City of Boston Archives - 9800-018-035.jpg\" by Boston Elevated Railway Company, Public domain, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:Boston_Elevated_Railway_after_the_Molasses_Flood,_January_1919,_from_the_City_of_Boston_Archives_-_9800-018-035.jpg",
-   "title": "Boston Elevated Railway after the Molasses Flood, January 1919, from the City of Boston Archives - 9800-018-035.jpg",
-   "file": "I008.jpg",
-   "auto": false,
-   "cleared": null,
-   "status": "ok",
-   "shadowed": true
+   "status": "fallback",
+   "fallback": {
+    "type": "card",
+    "title": "Boston Elevated Railway structure after the molasses flood, January 1919",
+    "reason": "chosen in selection.json"
+   }
   },
   "I009": {
    "need": "I009",
@@ -225,25 +199,12 @@
    "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
    "kind": "photo",
    "media": "image",
-   "candidate": "commons:File:BostonMolassesDisaster.jpg",
-   "provider": "commons",
-   "license": {
-    "code": "PD",
-    "label": "Public domain",
-    "version": "",
-    "url": "",
-    "policy": "free",
-    "raw": "Public domain"
-   },
-   "credit": "BPL",
-   "source": "https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
-   "attribution": "\"BostonMolassesDisaster.jpg\" by BPL, Public domain, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
-   "title": "BostonMolassesDisaster.jpg",
-   "file": "I010.jpg",
-   "auto": false,
-   "cleared": null,
-   "status": "ok",
-   "shadowed": true
+   "status": "fallback",
+   "fallback": {
+    "type": "card",
+    "title": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+    "reason": "chosen in selection.json"
+   }
   },
   "I011": {
    "need": "I011",
@@ -347,25 +308,12 @@
    "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
    "kind": "photo",
    "media": "image",
-   "candidate": "commons:File:BostonMolassesDisaster.jpg",
-   "provider": "commons",
-   "license": {
-    "code": "PD",
-    "label": "Public domain",
-    "version": "",
-    "url": "",
-    "policy": "free",
-    "raw": "Public domain"
-   },
-   "credit": "BPL",
-   "source": "https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
-   "attribution": "\"BostonMolassesDisaster.jpg\" by BPL, Public domain, via Wikimedia Commons: https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
-   "title": "BostonMolassesDisaster.jpg",
-   "file": "I015.jpg",
-   "auto": false,
-   "cleared": null,
-   "status": "ok",
-   "shadowed": true
+   "status": "fallback",
+   "fallback": {
+    "type": "card",
+    "title": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
+    "reason": "chosen in selection.json"
+   }
   }
  }
 }

@@ -100,8 +100,8 @@
   },
   "scenes@hi": {
    "status": "done",
-   "inputs": "3cb7d81ac6d655ba",
-   "at": "2026-11-21T17:40:26",
+   "inputs": "0a431d72df8611a7",
+   "at": "2026-11-22T08:50:02",
    "errors": [],
    "warnings": [],
    "notes": [
@@ -109,28 +109,29 @@
    ]
   },
   "visuals": {
-   "status": "done",
-   "inputs": "a95e55bf9191e55e",
-   "at": "2026-11-21T16:21:26",
+   "status": "awaiting approval",
+   "inputs": "d23b34606f69875f",
+   "at": "2026-11-22T08:50:02",
    "errors": [],
    "warnings": [
-    "I001: photos.json or footage.json already has an entry I001 you wrote; yours is used and the download (I001.jpg) is not. Rename one of them if both should appear",
+    "I001 (Panorama of the molasses disaster site, January 15, 1919 (BPL)): fallback card, chosen in selection.json",
     "I002: photos.json or footage.json already has an entry I002 you wrote; yours is used and the download (I002.jpg) is not. Rename one of them if both should appear",
     "I003 (The North End molasses tank before the disaster): fallback card, chosen in selection.json",
     "I004: photos.json or footage.json already has an entry I004 you wrote; yours is used and the download (I004.jpg) is not. Rename one of them if both should appear",
     "I005: photos.json or footage.json already has an entry I005 you wrote; yours is used and the download (I005.png) is not. Rename one of them if both should appear",
     "I006: photos.json or footage.json already has an entry I006 you wrote; yours is used and the download (I006.jpg) is not. Rename one of them if both should appear",
     "I007 (Wreckage under the elevated tracks, 1919): fallback card, chosen in selection.json",
-    "I008: photos.json or footage.json already has an entry I008 you wrote; yours is used and the download (I008.jpg) is not. Rename one of them if both should appear",
+    "I008 (Boston Elevated Railway structure after the molasses flood, January 1919): fallback card, chosen in selection.json",
     "I009: photos.json or footage.json already has an entry I009 you wrote; yours is used and the download (I009.jpg) is not. Rename one of them if both should appear",
-    "I010: photos.json or footage.json already has an entry I010 you wrote; yours is used and the download (I010.jpg) is not. Rename one of them if both should appear",
+    "I010 (Panorama of the molasses disaster site, January 15, 1919 (BPL)): fallback card, chosen in selection.json",
     "I011: photos.json or footage.json already has an entry I011 you wrote; yours is used and the download (I011.jpg) is not. Rename one of them if both should appear",
     "I012: photos.json or footage.json already has an entry I012 you wrote; yours is used and the download (I012.jpg) is not. Rename one of them if both should appear",
+    "I013: photos.json or footage.json already has an entry I013 you wrote; yours is used and the download (I013.jpg) is not. Rename one of them if both should appear",
     "I014 (The North End molasses tank before the disaster): fallback card, chosen in selection.json",
-    "I015: photos.json or footage.json already has an entry I015 you wrote; yours is used and the download (I015.jpg) is not. Rename one of them if both should appear"
+    "I015 (Panorama of the molasses disaster site, January 15, 1919 (BPL)): fallback card, chosen in selection.json"
    ],
    "notes": [
-    "visuals: 3 fallback, 12 ok"
+    "visuals: 7 fallback, 8 ok"
    ],
    "approved": "a95e55bf9191e55e",
    "approved_at": "2026-11-21T16:32:27"
