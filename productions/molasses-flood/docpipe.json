@@ -218,14 +218,16 @@
    ]
   },
   "review@hi": {
-   "status": "awaiting approval",
+   "status": "done",
    "inputs": "af6c6e71fcab469b",
    "at": "2026-11-21T22:28:03",
    "errors": [],
    "warnings": [],
    "notes": [
     "act 1: 57 stills, 9 strips in 07_review/hi/act_01/"
-   ]
+   ],
+   "approved": "af6c6e71fcab469b",
+   "approved_at": "2026-11-22T04:37:53"
   }
  }
 }
