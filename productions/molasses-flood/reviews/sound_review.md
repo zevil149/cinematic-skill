@@ -44,3 +44,15 @@ test_audio_mix, test_pipeline_audio, test_editions, test_report: all OK.
 Committed: `audio/cues.json`, `audio/mix_report.json`, `audio/music_credits.md`, this note.
 Not committed: `audio/mix.m4a` (generated audio, ignored; the stage rebuilds it).
 Approved content (script, storyboard, scene starter, timing, effects list, visuals, credits) is unchanged.
+
+## Re-run after the look refinement (2026-11-22, after the look approval)
+
+`docpipe.py run --lang hi --until sound`: effects@hi and sound@hi re-run because the scene changed.
+* **Effects:** 82 cues, all from the scene (before: 43). Added by the new graphics only: 2 stamp
+  (the "विवादित" and "शुरुआती सिद्धांत" stamps), 11 pencil (pen marks over the Post), 1 ticks (the
+  11 → 21 counter), and more pop/whoosh/slide for the new cards, threads and moves. Scale 1.0, no
+  room tone, no cue-sheet cues: unchanged. No sound depicts the event.
+* **Cue sheet** (`audio/cues.json`): byte-identical ("exists; left as it is"); music bed M1, −8 dB,
+  ducking −12 dB, effects −7 dB, target −15 LUFS / −1.5 dBTP: unchanged.
+* **Mix:** 356.0 s, −15.0 LUFS, −1.5 dBTP, 0 clipped samples, narration 17.8 dB over the music
+  (unchanged); sample peak 0.8422 → 0.8408. ffmpeg: −15.0 LUFS integrated, LRA 2.1 LU, true peak −1.5.
