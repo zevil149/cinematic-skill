@@ -9,3 +9,6 @@ editions/*/audio/**/*.wav
 editions/*/audio/**/*.m4a
 # look-review stills (PNG, 37 MB) are rebuilt by review.py; sheet, strips and review.md/json are kept
 07_review/*/act_*/*.png
+# rendered video (acts, film, captioned film, credits, render chunks): rebuilt by the finishing stages
+editions/*/out/**/*.mp4
+editions/*/out/acts/
