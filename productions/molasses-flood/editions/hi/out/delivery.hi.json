@@ -3,9 +3,9 @@
  "built_by": "qc.py",
  "complete": true,
  "title": "The Great Molasses Flood — जब बोस्टन की सड़कों पर शीरे की लहर दौड़ी",
- "created": "2026-11-22T07:07:39",
+ "created": "2026-11-22T10:33:13",
  "film": {
-  "duration": 380.016,
+  "duration": 365.316,
   "size": "1920x1080",
   "fps": 30.0,
   "acts": [
@@ -13,22 +13,12 @@
   ],
   "captions": "clean",
   "timeline": 356.016,
-  "credits": 24.0
+  "credits": 9.3
  },
  "rights": {
   "usable": true,
   "note": "Licences are as each archive or person stated them; this records them and who cleared what, it does not prove an asset is free to use.",
   "assets": [
-   {
-    "id": "I001",
-    "media": "image",
-    "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
-    "license": "Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified)",
-    "credit": "Boston Public Library",
-    "source": "https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
-    "basis": "free licence as the entry states it (Public domain)",
-    "usable": true
-   },
    {
     "id": "I002",
     "media": "image",
@@ -70,32 +60,12 @@
     "usable": true
    },
    {
-    "id": "I008",
-    "media": "image",
-    "what": "Boston Elevated Railway structure after the molasses flood, January 1919",
-    "license": "Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified)",
-    "credit": "Boston Elevated Railway Company; City of Boston Archives",
-    "source": "https://commons.wikimedia.org/wiki/File:Boston_Elevated_Railway_after_the_Molasses_Flood,_January_1919,_from_the_City_of_Boston_Archives_-_9800-018-035.jpg",
-    "basis": "free licence as the entry states it (Public domain)",
-    "usable": true
-   },
-   {
     "id": "I009",
     "media": "image",
     "what": "Boston Post front page, January 16, 1919",
     "license": "Public domain in the US (published 1919)",
     "credit": "The Boston Post, 16 January 1919",
     "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
-    "basis": "free licence as the entry states it (Public domain)",
-    "usable": true
-   },
-   {
-    "id": "I010",
-    "media": "image",
-    "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
-    "license": "Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified)",
-    "credit": "Boston Public Library",
-    "source": "https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
     "basis": "free licence as the entry states it (Public domain)",
     "usable": true
    },
@@ -128,16 +98,6 @@
     "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
     "basis": "free licence as the entry states it (Public domain)",
     "usable": true
-   },
-   {
-    "id": "I015",
-    "media": "image",
-    "what": "Panorama of the molasses disaster site, January 15, 1919 (BPL)",
-    "license": "Public domain (US; publication before 1931 assumed by Wikimedia Commons, not verified)",
-    "credit": "Boston Public Library",
-    "source": "https://commons.wikimedia.org/wiki/File:BostonMolassesDisaster.jpg",
-    "basis": "free licence as the entry states it (Public domain)",
-    "usable": true
    }
   ],
   "maps": []
@@ -146,14 +106,14 @@
   {
    "kind": "film",
    "path": "editions/hi/out/film.hi.mp4",
-   "bytes": 1087910694,
-   "sha256": "1d82b888c199529abf5cd6a7b50485694fdf01ca111ec468d54a678545606b48"
+   "bytes": 1014829755,
+   "sha256": "7a600de35a3c5574865aad6593de3e6e9124b184127db888e641068ad7d874ea"
   },
   {
    "kind": "film with captions",
    "path": "editions/hi/out/film.hi.captions.mp4",
-   "bytes": 934912457,
-   "sha256": "19a4558f260b84692a745d65ca52ddbbcc99b1708fbd17be6246d8d04793cad1"
+   "bytes": 867271624,
+   "sha256": "633f7d96bb934b10a9ab693e04af05fbef6420449c76e33bdfba8e8a8e008345"
   },
   {
    "kind": "subtitles",
@@ -164,14 +124,14 @@
   {
    "kind": "rights",
    "path": "editions/hi/out/rights.hi.json",
-   "bytes": 9572,
-   "sha256": "6a9c4c8efc0b86cf0299701716d4bdc9f876cb932bc88fc99a69321a122b1bfd"
+   "bytes": 5996,
+   "sha256": "a4826b25c7c13e43ba077185c4e52f5e6059559a3a6306f9c06747f383f82724"
   },
   {
    "kind": "credits sequence",
    "path": "editions/hi/out/credits.hi.mp4",
-   "bytes": 77259792,
-   "sha256": "0b8bdc84c94cb480fcfd96df795640cb26af6524cd3cbc1a6d7d1851279d086e"
+   "bytes": 27255831,
+   "sha256": "91c0c25f5555f4b20092b9eec547ac51b2e32678fc2bccf08b5e4bb39f2bc7a9"
   },
   {
    "kind": "subtitles",
@@ -182,8 +142,8 @@
   {
    "kind": "soundtrack",
    "path": "editions/hi/audio/mix.m4a",
-   "bytes": 11925713,
-   "sha256": "aad6f5018a57d17041a70bf3a68684a1dca8224b0217d97dc0a0b22f585bfbcc"
+   "bytes": 11922770,
+   "sha256": "1a96bf6db72df653e6f7128f2142f4bc31a4c13e6b026d5fbd72cdffc14314d7"
   },
   {
    "kind": "narration",
@@ -194,26 +154,26 @@
   {
    "kind": "quality control",
    "path": "editions/hi/out/qc.hi.md",
-   "bytes": 3593,
-   "sha256": "97c8d5632f27aa72413ee592d6ae9d0d8d8598e739d6247e6f17132d09daec18"
+   "bytes": 2615,
+   "sha256": "f7aef26817a49f02c73b343ac7611edec17bdd504e4397d21f71134302e0bb18"
   },
   {
    "kind": "quality control",
    "path": "editions/hi/out/qc.hi.json",
-   "bytes": 13374,
-   "sha256": "f33d0b7d26f820a4ee9317b51aad72840cff4e865d1dab68c608680b7057d109"
+   "bytes": 11581,
+   "sha256": "1ef2688484077042e7b0a6375714ea9d1790dea9196147140f6bdb3862ff760a"
   },
   {
    "kind": "mix report",
    "path": "editions/hi/audio/mix_report.json",
    "bytes": 703,
-   "sha256": "ac614ca1480811eb45c7976aeb363633ec8eba68da121db179403438fa8859ab"
+   "sha256": "b65ddf47f24fa67509a8ebbe26feacfe8285c385af180bd6f47f0627677004ae"
   },
   {
    "kind": "effects report",
    "path": "editions/hi/audio/effects.json",
-   "bytes": 8422,
-   "sha256": "1d60ec3b672e39f1034b91afd0d13c496728f770815313f80b02571857761643"
+   "bytes": 8668,
+   "sha256": "c62184ab4009c269c999083f2b4da60028e09d430bdfa9910ee376cd49d34713"
   },
   {
    "kind": "credits",
@@ -224,8 +184,8 @@
   {
    "kind": "credits",
    "path": "05_visuals/credits.md",
-   "bytes": 3573,
-   "sha256": "1bbf068bad0df383bccd36bbb4fa64d360eaa31ecbb691030dafd026a984a1a7"
+   "bytes": 2441,
+   "sha256": "ae6177cda67282cfb0c7fcb844a576f65052549d9a86477c869df26da41b09dd"
   }
  ]
 }

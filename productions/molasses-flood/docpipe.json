@@ -263,13 +263,13 @@
    ]
   },
   "qc@hi": {
-   "status": "running",
-   "inputs": "59447995fe1b2b91",
-   "at": "2026-11-22T07:07:39",
+   "status": "done",
+   "inputs": "f7ca86aa4f05d6b4",
+   "at": "2026-11-22T10:33:13",
    "errors": [],
    "warnings": [
     "fonts: cond: system default (Inter): install one of ['DIN Condensed', 'Oswald', 'Bebas Neue'] (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)",
-    "caption clearance: Card 'अदालत द्वारा नियुक्त ऑडिटर' at 349.5s, 89% under the caption; Card 'मालिकों की लापरवाही' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 349.5s, 100% under the caption; BigText 'पतली दीवारें · लापरवाही (ऑडिटर' at 349.5s, 100% under the caption; BigText '21' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 352.0s, 100% under the caption and 1 more"
+    "caption clearance: BigText '21' at 349.5s, 48% under the caption"
    ],
    "notes": [
     "hi quality control: complete, 0 error(s), 2 warning(s); out/qc.hi.md"
@@ -277,8 +277,8 @@
   },
   "report": {
    "status": "done",
-   "inputs": "93a892850b0d2570",
-   "at": "2026-11-22T07:07:39",
+   "inputs": "2cd8b7e824aab8d7",
+   "at": "2026-11-22T10:33:13",
    "errors": [],
    "warnings": [
     "hi script: line 3: cites C7, which is disputed",

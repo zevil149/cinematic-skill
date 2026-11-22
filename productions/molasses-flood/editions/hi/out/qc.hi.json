@@ -5,14 +5,14 @@
  "errors": [],
  "warnings": [
   "fonts: cond: system default (Inter): install one of ['DIN Condensed', 'Oswald', 'Bebas Neue'] (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)",
-  "caption clearance: Card 'अदालत द्वारा नियुक्त ऑडिटर' at 349.5s, 89% under the caption; Card 'मालिकों की लापरवाही' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 349.5s, 100% under the caption; BigText 'पतली दीवारें · लापरवाही (ऑडिटर' at 349.5s, 100% under the caption; BigText '21' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 352.0s, 100% under the caption and 1 more"
+  "caption clearance: BigText '21' at 349.5s, 48% under the caption"
  ],
  "checks": [
   {
    "check": "film",
    "ok": true,
    "blocking": true,
-   "message": "film.hi.mp4: 1920x1080, 30 fps, 380.02s"
+   "message": "film.hi.mp4: 1920x1080, 30 fps, 365.32s"
   },
   {
    "check": "video codec",
@@ -42,19 +42,19 @@
    "check": "duration",
    "ok": true,
    "blocking": true,
-   "message": "380.02s, the timeline 356.02s and 24.00s of credits"
+   "message": "365.32s, the timeline 356.02s and 9.30s of credits"
   },
   {
    "check": "frames",
    "ok": true,
    "blocking": true,
-   "message": "11400 frames"
+   "message": "10959 frames"
   },
   {
    "check": "sound and picture",
    "ok": true,
    "blocking": true,
-   "message": "sound 380.02s, picture 380.00s"
+   "message": "sound 365.32s, picture 365.30s"
   },
   {
    "check": "act order",
@@ -84,7 +84,7 @@
    "check": "narration",
    "ok": true,
    "blocking": true,
-   "message": "every line's narration found in the film (lowest share 12.5 dB over the rest, aligned at +5 ms)"
+   "message": "every line's narration found in the film (lowest share 12.9 dB over the rest, aligned at +5 ms)"
   },
   {
    "check": "silence",
@@ -96,7 +96,7 @@
    "check": "clipping",
    "ok": true,
    "blocking": true,
-   "message": "true peak -1.2 dBTP"
+   "message": "true peak -1.5 dBTP"
   },
   {
    "check": "loudness",
@@ -156,7 +156,7 @@
    "check": "captioned film",
    "ok": true,
    "blocking": true,
-   "message": "film.hi.captions.mp4: 11400 frames, clean"
+   "message": "film.hi.captions.mp4: 10959 frames, clean"
   },
   {
    "check": "captions visible",
@@ -168,7 +168,7 @@
    "check": "text fit",
    "ok": true,
    "blocking": false,
-   "message": "all text fits its card (24 BigText, 12 Card, 1 Counter); text of 11 PenMark, 2 Stamp is not measured"
+   "message": "all text fits its card (24 BigText, 13 Card, 1 Counter); text of 14 PenMark, 2 Stamp is not measured"
   },
   {
    "check": "fonts",
@@ -186,19 +186,19 @@
    "check": "caption clearance",
    "ok": false,
    "blocking": false,
-   "message": "Card 'अदालत द्वारा नियुक्त ऑडिटर' at 349.5s, 89% under the caption; Card 'मालिकों की लापरवाही' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 349.5s, 100% under the caption; BigText 'पतली दीवारें · लापरवाही (ऑडिटर' at 349.5s, 100% under the caption; BigText '21' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 352.0s, 100% under the caption and 1 more"
+   "message": "BigText '21' at 349.5s, 48% under the caption"
   },
   {
    "check": "rights",
    "ok": true,
    "blocking": true,
-   "message": "12 asset(s) used, each free as stated, your own as stated, or cleared"
+   "message": "8 asset(s) used, each free as stated, your own as stated, or cleared"
   },
   {
    "check": "credits",
    "ok": true,
    "blocking": true,
-   "message": "13 credit line(s), 24.0s at the end"
+   "message": "3 credit line(s), 9.3s at the end"
   }
  ],
  "not_checked": [],
@@ -206,7 +206,7 @@
   "narration": {
    "lag_ms": 5.0,
    "reference_gain_db": 1.9,
-   "min_nrr_db": 12.5,
+   "min_nrr_db": 12.9,
    "lines": [
     {
      "line": 1,
@@ -218,43 +218,43 @@
     {
      "line": 2,
      "speech_s": 4.22,
-     "corr": 0.982,
-     "nrr_db": 14.4,
+     "corr": 0.995,
+     "nrr_db": 20.4,
      "gain_db": 1.8
     },
     {
      "line": 3,
      "speech_s": 5.6,
      "corr": 0.981,
-     "nrr_db": 14.0,
-     "gain_db": 1.8
+     "nrr_db": 14.2,
+     "gain_db": 1.9
     },
     {
      "line": 4,
      "speech_s": 4.28,
      "corr": 0.994,
      "nrr_db": 19.1,
-     "gain_db": 1.7
+     "gain_db": 1.8
     },
     {
      "line": 5,
      "speech_s": 4.08,
-     "corr": 0.995,
-     "nrr_db": 19.6,
+     "corr": 0.993,
+     "nrr_db": 18.7,
      "gain_db": 1.8
     },
     {
      "line": 6,
      "speech_s": 5.82,
      "corr": 0.99,
-     "nrr_db": 16.8,
+     "nrr_db": 16.9,
      "gain_db": 1.8
     },
     {
      "line": 7,
      "speech_s": 4.96,
      "corr": 0.997,
-     "nrr_db": 21.7,
+     "nrr_db": 21.5,
      "gain_db": 1.9
     },
     {
@@ -267,29 +267,29 @@
     {
      "line": 9,
      "speech_s": 5.7,
-     "corr": 0.985,
-     "nrr_db": 15.1,
-     "gain_db": 1.9
+     "corr": 0.987,
+     "nrr_db": 15.7,
+     "gain_db": 2.0
     },
     {
      "line": 10,
      "speech_s": 5.02,
-     "corr": 0.994,
-     "nrr_db": 19.5,
+     "corr": 0.995,
+     "nrr_db": 19.8,
      "gain_db": 1.9
     },
     {
      "line": 11,
      "speech_s": 5.42,
-     "corr": 0.986,
-     "nrr_db": 15.4,
+     "corr": 0.985,
+     "nrr_db": 15.1,
      "gain_db": 1.9
     },
     {
      "line": 12,
      "speech_s": 2.54,
      "corr": 0.994,
-     "nrr_db": 19.3,
+     "nrr_db": 19.1,
      "gain_db": 1.9
     },
     {
@@ -304,13 +304,13 @@
      "speech_s": 2.34,
      "corr": 0.995,
      "nrr_db": 20.4,
-     "gain_db": 1.8
+     "gain_db": 1.9
     },
     {
      "line": 15,
      "speech_s": 4.08,
      "corr": 0.995,
-     "nrr_db": 19.7,
+     "nrr_db": 19.8,
      "gain_db": 1.9
     },
     {
@@ -324,7 +324,7 @@
      "line": 17,
      "speech_s": 4.2,
      "corr": 0.989,
-     "nrr_db": 16.3,
+     "nrr_db": 16.5,
      "gain_db": 1.9
     },
     {
@@ -345,28 +345,28 @@
      "line": 20,
      "speech_s": 6.16,
      "corr": 0.994,
-     "nrr_db": 19.2,
+     "nrr_db": 19.1,
      "gain_db": 1.9
     },
     {
      "line": 21,
      "speech_s": 3.08,
-     "corr": 0.99,
-     "nrr_db": 17.0,
+     "corr": 0.991,
+     "nrr_db": 17.2,
      "gain_db": 2.0
     },
     {
      "line": 22,
      "speech_s": 5.96,
      "corr": 0.996,
-     "nrr_db": 20.8,
+     "nrr_db": 20.7,
      "gain_db": 2.0
     },
     {
      "line": 23,
      "speech_s": 3.64,
-     "corr": 0.989,
-     "nrr_db": 16.4,
+     "corr": 0.988,
+     "nrr_db": 16.1,
      "gain_db": 2.0
     },
     {
@@ -379,30 +379,30 @@
     {
      "line": 25,
      "speech_s": 5.74,
-     "corr": 0.992,
-     "nrr_db": 17.9,
+     "corr": 0.993,
+     "nrr_db": 18.5,
      "gain_db": 1.9
     },
     {
      "line": 26,
      "speech_s": 4.3,
      "corr": 0.993,
-     "nrr_db": 18.5,
+     "nrr_db": 18.4,
      "gain_db": 1.9
     },
     {
      "line": 27,
      "speech_s": 5.56,
      "corr": 0.994,
-     "nrr_db": 19.1,
+     "nrr_db": 19.4,
      "gain_db": 1.9
     },
     {
      "line": 28,
      "speech_s": 2.5,
      "corr": 0.99,
-     "nrr_db": 16.8,
-     "gain_db": 1.9
+     "nrr_db": 16.9,
+     "gain_db": 2.0
     },
     {
      "line": 29,
@@ -415,7 +415,7 @@
      "line": 30,
      "speech_s": 2.36,
      "corr": 0.996,
-     "nrr_db": 21.0,
+     "nrr_db": 21.2,
      "gain_db": 1.9
     },
     {
@@ -429,7 +429,7 @@
      "line": 32,
      "speech_s": 6.38,
      "corr": 0.993,
-     "nrr_db": 18.7,
+     "nrr_db": 18.8,
      "gain_db": 1.9
     },
     {
@@ -442,23 +442,23 @@
     {
      "line": 34,
      "speech_s": 4.16,
-     "corr": 0.989,
-     "nrr_db": 16.5,
+     "corr": 0.993,
+     "nrr_db": 18.3,
      "gain_db": 1.9
     },
     {
      "line": 35,
      "speech_s": 4.68,
-     "corr": 0.996,
-     "nrr_db": 20.6,
+     "corr": 0.995,
+     "nrr_db": 20.2,
      "gain_db": 1.9
     },
     {
      "line": 36,
      "speech_s": 4.08,
-     "corr": 0.997,
-     "nrr_db": 22.2,
-     "gain_db": 1.9
+     "corr": 0.995,
+     "nrr_db": 20.2,
+     "gain_db": 2.0
     },
     {
      "line": 37,
@@ -470,29 +470,29 @@
     {
      "line": 38,
      "speech_s": 2.12,
-     "corr": 0.987,
-     "nrr_db": 15.8,
+     "corr": 0.986,
+     "nrr_db": 15.5,
      "gain_db": 1.9
     },
     {
      "line": 39,
      "speech_s": 6.58,
-     "corr": 0.992,
-     "nrr_db": 18.1,
+     "corr": 0.993,
+     "nrr_db": 18.5,
      "gain_db": 1.9
     },
     {
      "line": 40,
      "speech_s": 2.9,
-     "corr": 0.987,
-     "nrr_db": 15.8,
+     "corr": 0.988,
+     "nrr_db": 16.3,
      "gain_db": 1.9
     },
     {
      "line": 41,
      "speech_s": 7.42,
-     "corr": 0.986,
-     "nrr_db": 15.4,
+     "corr": 0.987,
+     "nrr_db": 15.8,
      "gain_db": 1.9
     },
     {
@@ -505,8 +505,8 @@
     {
      "line": 43,
      "speech_s": 5.08,
-     "corr": 0.973,
-     "nrr_db": 12.5,
+     "corr": 0.975,
+     "nrr_db": 12.9,
      "gain_db": 2.0
     },
     {
@@ -520,21 +520,21 @@
      "line": 45,
      "speech_s": 3.1,
      "corr": 0.992,
-     "nrr_db": 17.9,
+     "nrr_db": 18.0,
      "gain_db": 2.0
     },
     {
      "line": 46,
      "speech_s": 8.1,
      "corr": 0.995,
-     "nrr_db": 20.2,
+     "nrr_db": 20.3,
      "gain_db": 2.0
     },
     {
      "line": 47,
      "speech_s": 7.64,
-     "corr": 0.985,
-     "nrr_db": 15.2,
+     "corr": 0.984,
+     "nrr_db": 14.9,
      "gain_db": 1.9
     },
     {
@@ -548,21 +548,21 @@
      "line": 49,
      "speech_s": 6.26,
      "corr": 0.995,
-     "nrr_db": 20.2,
+     "nrr_db": 20.3,
      "gain_db": 2.0
     },
     {
      "line": 50,
      "speech_s": 5.0,
-     "corr": 0.992,
-     "nrr_db": 18.0,
+     "corr": 0.993,
+     "nrr_db": 18.2,
      "gain_db": 2.0
     },
     {
      "line": 51,
      "speech_s": 6.4,
      "corr": 0.996,
-     "nrr_db": 21.3,
+     "nrr_db": 21.2,
      "gain_db": 2.0
     },
     {
@@ -575,22 +575,22 @@
     {
      "line": 53,
      "speech_s": 6.16,
-     "corr": 0.994,
-     "nrr_db": 19.3,
+     "corr": 0.996,
+     "nrr_db": 21.5,
      "gain_db": 2.0
     },
     {
      "line": 54,
      "speech_s": 2.42,
      "corr": 0.993,
-     "nrr_db": 18.4,
+     "nrr_db": 18.3,
      "gain_db": 2.0
     },
     {
      "line": 55,
      "speech_s": 7.1,
-     "corr": 0.994,
-     "nrr_db": 19.5,
+     "corr": 0.992,
+     "nrr_db": 18.0,
      "gain_db": 2.0
     }
    ]
@@ -598,17 +598,17 @@
   "loudness": {
    "integrated_lufs": -15.0,
    "target_lufs": -15.0,
-   "true_peak_dbtp": -1.2
+   "true_peak_dbtp": -1.5
   },
   "layout": {
    "measured_items": {
     "BigText": 24,
-    "Card": 12,
+    "Card": 13,
     "Counter": 1
    },
    "unmeasured_items": {
-    "Stamp": 2,
-    "PenMark": 11
+    "PenMark": 14,
+    "Stamp": 2
    },
    "overflows": [],
    "fonts": {
@@ -620,50 +620,14 @@
    "caption_collisions": [
     {
      "t": 349.47,
-     "kind": "Card",
-     "text": "अदालत द्वारा नियुक्त ऑडिटर",
-     "cover": 0.89
-    },
-    {
-     "t": 349.47,
-     "kind": "Card",
-     "text": "मालिकों की लापरवाही",
-     "cover": 1.0
-    },
-    {
-     "t": 349.47,
-     "kind": "BigText",
-     "text": "लापरवाही",
-     "cover": 1.0
-    },
-    {
-     "t": 349.47,
-     "kind": "BigText",
-     "text": "पतली दीवारें · लापरवाही (ऑडिटर के अनुसार)",
-     "cover": 1.0
-    },
-    {
-     "t": 349.47,
      "kind": "BigText",
      "text": "21",
-     "cover": 1.0
-    },
-    {
-     "t": 352.02,
-     "kind": "BigText",
-     "text": "लापरवाही",
-     "cover": 1.0
-    },
-    {
-     "t": 352.02,
-     "kind": "BigText",
-     "text": "21",
-     "cover": 1.0
+     "cover": 0.48
     }
    ]
   },
   "rights": {
-   "used": 12,
+   "used": 8,
    "not_usable": [],
    "cleared_by_a_person": [],
    "maps": 0,

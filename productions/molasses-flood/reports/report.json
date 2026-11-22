@@ -617,7 +617,7 @@
      "duration": 356.032,
      "lufs": -15.0,
      "target_lufs": -15.0,
-     "true_peak_dbtp": -1.5,
+     "true_peak_dbtp": -1.4,
      "ceiling_dbtp": -1.5,
      "clipped_samples": 0,
      "voice_over_music_db": 17.8
@@ -629,20 +629,20 @@
     "errors": [],
     "warnings": [
      "fonts: cond: system default (Inter): install one of ['DIN Condensed', 'Oswald', 'Bebas Neue'] (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)",
-     "caption clearance: Card 'अदालत द्वारा नियुक्त ऑडिटर' at 349.5s, 89% under the caption; Card 'मालिकों की लापरवाही' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 349.5s, 100% under the caption; BigText 'पतली दीवारें · लापरवाही (ऑडिटर' at 349.5s, 100% under the caption; BigText '21' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 352.0s, 100% under the caption and 1 more"
+     "caption clearance: BigText '21' at 349.5s, 48% under the caption"
     ],
     "not_checked": [],
     "loudness": {
      "integrated_lufs": -15.0,
      "target_lufs": -15.0,
-     "true_peak_dbtp": -1.2
+     "true_peak_dbtp": -1.5
     },
-    "narration_min_share_db": 12.5
+    "narration_min_share_db": 12.9
    },
    "delivery": {
     "complete": true,
     "film": {
-     "duration": 380.016,
+     "duration": 365.316,
      "size": "1920x1080",
      "fps": 30.0,
      "acts": [
@@ -650,7 +650,7 @@
      ],
      "captions": "clean",
      "timeline": 356.016,
-     "credits": 24.0
+     "credits": 9.3
     },
     "files": 14
    },
@@ -659,8 +659,8 @@
  },
  "images": {
   "counts": {
-   "ok": 12,
-   "fallback": 3
+   "fallback": 7,
+   "ok": 8
   },
   "auto": [],
   "unreadable": []
@@ -696,7 +696,7 @@
       "SEC09-01"
      ],
      "images": [
-      "I001 (usable)",
+      "I001 (not shown)",
       "I003 (not shown)",
       "I004 (usable)",
       "I013 (usable)"
@@ -818,7 +818,7 @@
       "SEC09-03"
      ],
      "images": [
-      "I015 (usable)"
+      "I015 (not shown)"
      ]
     }
    }
@@ -890,7 +890,7 @@
       "SEC05-03"
      ],
      "images": [
-      "I008 (usable)"
+      "I008 (not shown)"
      ]
     }
    }
@@ -955,7 +955,7 @@
       "SEC06-04"
      ],
      "images": [
-      "I010 (usable)"
+      "I010 (not shown)"
      ]
     }
    }
