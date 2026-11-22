@@ -40,3 +40,7 @@ paths). The code is unchanged; the fix belongs in its own PR.
 
 `editions/hi/out/film.hi.mp4`, `film.hi.captions.mp4`, `credits.hi.mp4`, `acts/act_01.mp4`,
 `burn/` (caption working segments, 884 MB, can be deleted).
+
+## Tests
+
+test_qc, test_qc_smarter, test_report, test_rights, test_subtitles, test_burned_captions, test_gates: all OK.
