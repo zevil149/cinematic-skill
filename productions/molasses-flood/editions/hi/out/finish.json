@@ -47,5 +47,15 @@
   "sha256": "1d82b888c199529abf5cd6a7b50485694fdf01ca111ec468d54a678545606b48",
   "timeline": 356.016,
   "credits": 24.0
+ },
+ "captions": {
+  "enabled": true,
+  "file": "out/film.hi.captions.mp4",
+  "style": "clean",
+  "highlight": "auto",
+  "frames": 11400,
+  "duration": 380.0,
+  "key": "2fc9e249f32cf97eea65",
+  "sha256": "19a4558f260b84692a745d65ca52ddbbcc99b1708fbd17be6246d8d04793cad1"
  }
 }

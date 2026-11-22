@@ -252,6 +252,16 @@
    ]
   },
   "captions@hi": {
+   "status": "done",
+   "inputs": "170ba848be85b32b",
+   "at": "2026-11-22T06:53:31",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "out/film.hi.captions.mp4: clean captions, 380.00s"
+   ]
+  },
+  "qc@hi": {
    "status": "running"
   }
  }
