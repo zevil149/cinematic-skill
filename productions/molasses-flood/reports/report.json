@@ -655,6 +655,669 @@
     "files": 14
    },
    "complete": true
+  },
+  "en": {
+   "script": {
+    "errors": [],
+    "warnings": [
+     "line 8: rests on C25, which is single-source",
+     "line 9: rests on C25, which is single-source",
+     "line 11: rests on C25, which is single-source",
+     "line 20: rests on C8, which is single-source",
+     "line 22: rests on C25, which is single-source",
+     "line 38: rests on C6, which is single-source",
+     "line 39: rests on C6, which is single-source",
+     "line 46: rests on C29, which is single-source",
+     "line 47: rests on C29, which is single-source",
+     "line 53: rests on C29, which is single-source",
+     "line 54: rests on C6, which is single-source",
+     "estimated length 4:36.0 against 6:00.0"
+    ],
+    "lines": [
+     {
+      "id": 1,
+      "section": "SEC01",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 2,
+      "section": "SEC01",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 3,
+      "section": "SEC01",
+      "claims": [
+       {
+        "claim": "C7",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 4,
+      "section": "SEC01",
+      "claims": [
+       {
+        "claim": "C5",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 5,
+      "section": "SEC02",
+      "claims": []
+     },
+     {
+      "id": 6,
+      "section": "SEC02",
+      "claims": []
+     },
+     {
+      "id": 7,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 8,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C25",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 9,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C25",
+        "status": "single-source"
+       },
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 10,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 11,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       },
+       {
+        "claim": "C25",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 12,
+      "section": "SEC03",
+      "claims": []
+     },
+     {
+      "id": 13,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C26",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 14,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C26",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 15,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       },
+       {
+        "claim": "C28",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 16,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C28",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 17,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C28",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 18,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C2",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 19,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C2",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 20,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C8",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 21,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C7",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 22,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C7",
+        "status": "disputed"
+       },
+       {
+        "claim": "C25",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 23,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C7",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 24,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C3",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 25,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C3",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 26,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C9",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 27,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C4",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 28,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C4",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 29,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C10",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 30,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C10",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 31,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C11",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 32,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C11",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 33,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C13",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 34,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C13",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 35,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C12",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 36,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C12",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 37,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C5",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 38,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C5",
+        "status": "supported"
+       },
+       {
+        "claim": "C6",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 39,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C6",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 40,
+      "section": "SEC07",
+      "claims": []
+     },
+     {
+      "id": 41,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C14",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 42,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C14",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 43,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C14",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 44,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C27",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 45,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C27",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 46,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C29",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 47,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C29",
+        "status": "single-source"
+       },
+       {
+        "claim": "C27",
+        "status": "supported"
+       },
+       {
+        "claim": "C14",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 48,
+      "section": "SEC08",
+      "claims": [
+       {
+        "claim": "C15",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 49,
+      "section": "SEC08",
+      "claims": [
+       {
+        "claim": "C15",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 50,
+      "section": "SEC08",
+      "claims": [
+       {
+        "claim": "C15",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 51,
+      "section": "SEC08",
+      "claims": []
+     },
+     {
+      "id": 52,
+      "section": "SEC09",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 53,
+      "section": "SEC09",
+      "claims": [
+       {
+        "claim": "C27",
+        "status": "supported"
+       },
+       {
+        "claim": "C29",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 54,
+      "section": "SEC09",
+      "claims": [
+       {
+        "claim": "C6",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 55,
+      "section": "SEC09",
+      "claims": []
+     }
+    ],
+    "notes": [
+     "line 3: cites C7, which is disputed",
+     "line 8: cites C25, which is single-source",
+     "line 9: cites C25, which is single-source",
+     "line 10: shares little with C1 (18% of its words); check that it says what C1 says",
+     "line 11: shares little with C1 (0% of its words); check that it says what C1 says",
+     "line 11: shares little with C25 (0% of its words); check that it says what C25 says",
+     "line 11: cites C25, which is single-source",
+     "line 14: shares little with C26 (0% of its words); check that it says what C26 says",
+     "line 15: shares little with C1 (18% of its words); check that it says what C1 says",
+     "line 16: shares little with C28 (10% of its words); check that it says what C28 says",
+     "line 20: cites C8, which is single-source",
+     "line 21: shares little with C7 (23% of its words); check that it says what C7 says",
+     "line 21: cites C7, which is disputed",
+     "line 22: shares little with C7 (23% of its words); check that it says what C7 says",
+     "line 22: cites C7, which is disputed",
+     "line 22: cites C25, which is single-source",
+     "line 23: shares little with C7 (15% of its words); check that it says what C7 says",
+     "line 23: cites C7, which is disputed",
+     "line 38: shares little with C5 (0% of its words); check that it says what C5 says",
+     "line 38: shares little with C6 (0% of its words); check that it says what C6 says",
+     "line 38: cites C6, which is single-source",
+     "line 39: cites C6, which is single-source",
+     "line 41: cites C14, which is disputed",
+     "line 42: shares little with C14 (8% of its words); check that it says what C14 says",
+     "line 42: cites C14, which is disputed",
+     "line 43: shares little with C14 (0% of its words); check that it says what C14 says",
+     "line 43: cites C14, which is disputed",
+     "line 45: shares little with C27 (20% of its words); check that it says what C27 says",
+     "line 46: cites C29, which is single-source",
+     "line 47: cites C29, which is single-source",
+     "line 47: shares little with C27 (20% of its words); check that it says what C27 says",
+     "line 47: shares little with C14 (8% of its words); check that it says what C14 says",
+     "line 47: cites C14, which is disputed",
+     "line 48: shares little with C15 (0% of its words); check that it says what C15 says",
+     "line 50: shares little with C15 (17% of its words); check that it says what C15 says",
+     "line 52: shares little with C1 (18% of its words); check that it says what C1 says",
+     "line 53: cites C29, which is single-source",
+     "line 54: shares little with C6 (0% of its words); check that it says what C6 says",
+     "line 54: cites C6, which is single-source"
+    ],
+    "claim_check": "words and numbers"
+   },
+   "audio": {
+    "voice": {
+     "provider": "command",
+     "voice": "en_GB-cori-high",
+     "spent_usd": 0,
+     "requests": 0
+    },
+    "mix": {
+     "duration": 287.701,
+     "lufs": -15.0,
+     "target_lufs": -15.0,
+     "true_peak_dbtp": -1.8,
+     "ceiling_dbtp": -1.5,
+     "clipped_samples": 0,
+     "voice_over_music_db": 19.5
+    },
+    "problems": []
+   },
+   "video": {
+    "complete": true,
+    "errors": [],
+    "warnings": [
+     "fonts: cond: system default (Inter): install one of ['DIN Condensed', 'Oswald', 'Bebas Neue'] (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)"
+    ],
+    "not_checked": [],
+    "loudness": {
+     "integrated_lufs": -15.0,
+     "target_lufs": -15.0,
+     "true_peak_dbtp": -2.0
+    },
+    "narration_min_share_db": 13.4
+   },
+   "delivery": {
+    "complete": true,
+    "film": {
+     "duration": 296.994,
+     "size": "1920x1080",
+     "fps": 30.0,
+     "acts": [
+      1
+     ],
+     "captions": "clean",
+     "timeline": 287.694,
+     "credits": 9.3
+    },
+    "files": 14
+   },
+   "complete": true
   }
  },
  "images": {
@@ -675,6 +1338,34 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      1,
+      2,
+      7,
+      9,
+      10,
+      11,
+      15,
+      52
+     ],
+     "scenes": [
+      "SEC01-01",
+      "SEC01-02",
+      "SEC03-01",
+      "SEC03-03",
+      "SEC03-04",
+      "SEC03-05",
+      "SEC04-01",
+      "SEC09-01"
+     ],
+     "images": [
+      "I001 (not shown)",
+      "I003 (not shown)",
+      "I004 (usable)",
+      "I013 (usable)"
+     ]
+    },
+    "en": {
      "lines": [
       1,
       2,
@@ -724,6 +1415,19 @@
      "images": [
       "I005 (usable)"
      ]
+    },
+    "en": {
+     "lines": [
+      18,
+      19
+     ],
+     "scenes": [
+      "SEC04-04",
+      "SEC04-05"
+     ],
+     "images": [
+      "I005 (usable)"
+     ]
     }
    }
   },
@@ -736,6 +1440,20 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      24,
+      25
+     ],
+     "scenes": [
+      "SEC05-01",
+      "SEC05-02"
+     ],
+     "images": [
+      "I006 (usable)",
+      "I007 (not shown)"
+     ]
+    },
+    "en": {
      "lines": [
       24,
       25
@@ -769,6 +1487,17 @@
       "SEC05-05"
      ],
      "images": []
+    },
+    "en": {
+     "lines": [
+      27,
+      28
+     ],
+     "scenes": [
+      "SEC05-04",
+      "SEC05-05"
+     ],
+     "images": []
     }
    }
   },
@@ -781,6 +1510,19 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      4,
+      37,
+      38
+     ],
+     "scenes": [
+      "SEC01-04",
+      "SEC06-05",
+      "SEC06-06"
+     ],
+     "images": []
+    },
+    "en": {
      "lines": [
       4,
       37,
@@ -807,6 +1549,21 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      38,
+      39,
+      54
+     ],
+     "scenes": [
+      "SEC06-06",
+      "SEC06-07",
+      "SEC09-03"
+     ],
+     "images": [
+      "I015 (not shown)"
+     ]
+    },
+    "en": {
      "lines": [
       38,
       39,
@@ -850,6 +1607,23 @@
      "images": [
       "I002 (usable)"
      ]
+    },
+    "en": {
+     "lines": [
+      3,
+      21,
+      22,
+      23
+     ],
+     "scenes": [
+      "SEC01-03",
+      "SEC04-07",
+      "SEC04-08",
+      "SEC04-09"
+     ],
+     "images": [
+      "I002 (usable)"
+     ]
     }
    }
   },
@@ -871,6 +1645,15 @@
       "SEC04-06"
      ],
      "images": []
+    },
+    "en": {
+     "lines": [
+      20
+     ],
+     "scenes": [
+      "SEC04-06"
+     ],
+     "images": []
     }
    }
   },
@@ -883,6 +1666,17 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      26
+     ],
+     "scenes": [
+      "SEC05-03"
+     ],
+     "images": [
+      "I008 (not shown)"
+     ]
+    },
+    "en": {
      "lines": [
       26
      ],
@@ -913,6 +1707,17 @@
       "SEC05-07"
      ],
      "images": []
+    },
+    "en": {
+     "lines": [
+      29,
+      30
+     ],
+     "scenes": [
+      "SEC05-06",
+      "SEC05-07"
+     ],
+     "images": []
     }
    }
   },
@@ -934,6 +1739,17 @@
       "SEC05-09"
      ],
      "images": []
+    },
+    "en": {
+     "lines": [
+      31,
+      32
+     ],
+     "scenes": [
+      "SEC05-08",
+      "SEC05-09"
+     ],
+     "images": []
     }
    }
   },
@@ -946,6 +1762,19 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      35,
+      36
+     ],
+     "scenes": [
+      "SEC06-03",
+      "SEC06-04"
+     ],
+     "images": [
+      "I010 (not shown)"
+     ]
+    },
+    "en": {
      "lines": [
       35,
       36
@@ -980,6 +1809,19 @@
      "images": [
       "I009 (usable)"
      ]
+    },
+    "en": {
+     "lines": [
+      33,
+      34
+     ],
+     "scenes": [
+      "SEC06-01",
+      "SEC06-02"
+     ],
+     "images": [
+      "I009 (usable)"
+     ]
     }
    }
   },
@@ -992,6 +1834,23 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      41,
+      42,
+      43,
+      47
+     ],
+     "scenes": [
+      "SEC07-02",
+      "SEC07-03",
+      "SEC07-04",
+      "SEC07-08"
+     ],
+     "images": [
+      "I011 (usable)"
+     ]
+    },
+    "en": {
      "lines": [
       41,
       42,
@@ -1032,6 +1891,21 @@
      "images": [
       "I012 (usable)"
      ]
+    },
+    "en": {
+     "lines": [
+      48,
+      49,
+      50
+     ],
+     "scenes": [
+      "SEC08-01",
+      "SEC08-02",
+      "SEC08-03"
+     ],
+     "images": [
+      "I012 (usable)"
+     ]
     }
    }
   },
@@ -1045,6 +1919,11 @@
    ],
    "editions": {
     "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    },
+    "en": {
      "lines": [],
      "scenes": [],
      "images": []
@@ -1065,6 +1944,11 @@
      "lines": [],
      "scenes": [],
      "images": []
+    },
+    "en": {
+     "lines": [],
+     "scenes": [],
+     "images": []
     }
    }
   },
@@ -1077,6 +1961,11 @@
    ],
    "editions": {
     "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    },
+    "en": {
      "lines": [],
      "scenes": [],
      "images": []
@@ -1095,6 +1984,11 @@
      "lines": [],
      "scenes": [],
      "images": []
+    },
+    "en": {
+     "lines": [],
+     "scenes": [],
+     "images": []
     }
    }
   },
@@ -1108,6 +2002,11 @@
    ],
    "editions": {
     "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    },
+    "en": {
      "lines": [],
      "scenes": [],
      "images": []
@@ -1128,6 +2027,11 @@
      "lines": [],
      "scenes": [],
      "images": []
+    },
+    "en": {
+     "lines": [],
+     "scenes": [],
+     "images": []
     }
    }
   },
@@ -1141,6 +2045,11 @@
    ],
    "editions": {
     "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    },
+    "en": {
      "lines": [],
      "scenes": [],
      "images": []
@@ -1159,6 +2068,11 @@
      "lines": [],
      "scenes": [],
      "images": []
+    },
+    "en": {
+     "lines": [],
+     "scenes": [],
+     "images": []
     }
    }
   },
@@ -1174,6 +2088,11 @@
      "lines": [],
      "scenes": [],
      "images": []
+    },
+    "en": {
+     "lines": [],
+     "scenes": [],
+     "images": []
     }
    }
   },
@@ -1186,6 +2105,21 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      8,
+      9,
+      11,
+      22
+     ],
+     "scenes": [
+      "SEC03-02",
+      "SEC03-03",
+      "SEC03-05",
+      "SEC04-08"
+     ],
+     "images": []
+    },
+    "en": {
      "lines": [
       8,
       9,
@@ -1220,6 +2154,17 @@
       "SEC03-08"
      ],
      "images": []
+    },
+    "en": {
+     "lines": [
+      13,
+      14
+     ],
+     "scenes": [
+      "SEC03-07",
+      "SEC03-08"
+     ],
+     "images": []
     }
    }
   },
@@ -1232,6 +2177,23 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      44,
+      45,
+      47,
+      53
+     ],
+     "scenes": [
+      "SEC07-05",
+      "SEC07-06",
+      "SEC07-08",
+      "SEC09-02"
+     ],
+     "images": [
+      "I014 (not shown)"
+     ]
+    },
+    "en": {
      "lines": [
       44,
       45,
@@ -1270,6 +2232,19 @@
       "SEC04-03"
      ],
      "images": []
+    },
+    "en": {
+     "lines": [
+      15,
+      16,
+      17
+     ],
+     "scenes": [
+      "SEC04-01",
+      "SEC04-02",
+      "SEC04-03"
+     ],
+     "images": []
     }
    }
   },
@@ -1284,6 +2259,21 @@
    ],
    "editions": {
     "hi": {
+     "lines": [
+      46,
+      47,
+      53
+     ],
+     "scenes": [
+      "SEC07-07",
+      "SEC07-08",
+      "SEC09-02"
+     ],
+     "images": [
+      "I014 (not shown)"
+     ]
+    },
+    "en": {
      "lines": [
       46,
       47,

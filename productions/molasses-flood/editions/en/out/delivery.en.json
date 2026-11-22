@@ -1,0 +1,191 @@
+{
+ "lang": "en",
+ "built_by": "qc.py",
+ "complete": true,
+ "title": "The Great Molasses Flood — जब बोस्टन की सड़कों पर शीरे की लहर दौड़ी",
+ "created": "2026-11-22T13:35:40",
+ "film": {
+  "duration": 296.994,
+  "size": "1920x1080",
+  "fps": 30.0,
+  "acts": [
+   1
+  ],
+  "captions": "clean",
+  "timeline": 287.694,
+  "credits": 9.3
+ },
+ "rights": {
+  "usable": true,
+  "note": "Licences are as each archive or person stated them; this records them and who cleared what, it does not prove an asset is free to use.",
+  "assets": [
+   {
+    "id": "I002",
+    "media": "image",
+    "what": "Boston Post front page, January 16, 1919",
+    "license": "Public domain in the US (published 1919)",
+    "credit": "The Boston Post, 16 January 1919",
+    "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+    "basis": "free licence as the entry states it (Public domain)",
+    "usable": true
+   },
+   {
+    "id": "I004",
+    "media": "image",
+    "what": "Boston Post front page, January 16, 1919",
+    "license": "Public domain in the US (published 1919)",
+    "credit": "The Boston Post, 16 January 1919",
+    "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+    "basis": "free licence as the entry states it (Public domain)",
+    "usable": true
+   },
+   {
+    "id": "I005",
+    "media": "image",
+    "what": "Map of the molasses flood area, North End",
+    "license": "Public domain (released by its author)",
+    "credit": "2005 reconstruction by Wikimedia Commons user IMeowbot, after 1895 and 1915 City of Boston maps",
+    "source": "https://commons.wikimedia.org/wiki/File:Boston_molasses_detail_map.png",
+    "basis": "free licence as the entry states it (Public domain)",
+    "usable": true
+   },
+   {
+    "id": "I006",
+    "media": "image",
+    "what": "Boston Post front page, January 16, 1919",
+    "license": "Public domain in the US (published 1919)",
+    "credit": "The Boston Post, 16 January 1919",
+    "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+    "basis": "free licence as the entry states it (Public domain)",
+    "usable": true
+   },
+   {
+    "id": "I009",
+    "media": "image",
+    "what": "Boston Post front page, January 16, 1919",
+    "license": "Public domain in the US (published 1919)",
+    "credit": "The Boston Post, 16 January 1919",
+    "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+    "basis": "free licence as the entry states it (Public domain)",
+    "usable": true
+   },
+   {
+    "id": "I011",
+    "media": "image",
+    "what": "Boston Post front page, January 16, 1919",
+    "license": "Public domain in the US (published 1919)",
+    "credit": "The Boston Post, 16 January 1919",
+    "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+    "basis": "free licence as the entry states it (Public domain)",
+    "usable": true
+   },
+   {
+    "id": "I012",
+    "media": "image",
+    "what": "Boston Post front page, January 16, 1919",
+    "license": "Public domain in the US (published 1919)",
+    "credit": "The Boston Post, 16 January 1919",
+    "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+    "basis": "free licence as the entry states it (Public domain)",
+    "usable": true
+   },
+   {
+    "id": "I013",
+    "media": "image",
+    "what": "Boston Post front page, January 16, 1919",
+    "license": "Public domain in the US (published 1919)",
+    "credit": "The Boston Post, 16 January 1919",
+    "source": "https://commons.wikimedia.org/wiki/File:Boston_post-January_16,_1919,.jpg",
+    "basis": "free licence as the entry states it (Public domain)",
+    "usable": true
+   }
+  ],
+  "maps": []
+ },
+ "files": [
+  {
+   "kind": "film",
+   "path": "editions/en/out/film.en.mp4",
+   "bytes": 833691296,
+   "sha256": "7b84a9b1017a6d66987d7e1fc59e01641d9103cf2d2f38eec34e1f9486a3fcc8"
+  },
+  {
+   "kind": "film with captions",
+   "path": "editions/en/out/film.en.captions.mp4",
+   "bytes": 715050483,
+   "sha256": "d0df76703199c6c1f782d581041f45f98e4e8cc22c75c0cfbf860076bc69454c"
+  },
+  {
+   "kind": "subtitles",
+   "path": "editions/en/out/subtitles.en.srt",
+   "bytes": 6667,
+   "sha256": "2e765f79c303509baab39e7b518cee194e620ac0db618795c2c627fdcdfaf243"
+  },
+  {
+   "kind": "rights",
+   "path": "editions/en/out/rights.en.json",
+   "bytes": 6024,
+   "sha256": "133527290ae9128723e0fcd11023b5d6a3d3860ba027167e0801158ee84909fc"
+  },
+  {
+   "kind": "credits sequence",
+   "path": "editions/en/out/credits.en.mp4",
+   "bytes": 26647843,
+   "sha256": "c25fcfa02071cf17c021d58cda34a0d26d013c1cce2239bf743c2556e665a825"
+  },
+  {
+   "kind": "subtitles",
+   "path": "editions/en/out/subtitles.en.vtt",
+   "bytes": 7098,
+   "sha256": "450b8aff8cb1d5ac9bfeccaa7db13c0a49af632a79f367004d2d9cf520209b38"
+  },
+  {
+   "kind": "soundtrack",
+   "path": "editions/en/audio/mix.m4a",
+   "bytes": 8970413,
+   "sha256": "967a537f23addcfe7bb9aa5b7f0137c84491d64191617e92275bc80b11cc4463"
+  },
+  {
+   "kind": "narration",
+   "path": "editions/en/audio/narration.m4a",
+   "bytes": 6071095,
+   "sha256": "8055e90c9cd72802415d6a4e02bef9bc2e4e3a66087d5220203beee269633cd1"
+  },
+  {
+   "kind": "quality control",
+   "path": "editions/en/out/qc.en.md",
+   "bytes": 2549,
+   "sha256": "11c8309260f80d1009afebc4263b41ab2b04b812d110281e566f1cb9c8617f75"
+  },
+  {
+   "kind": "quality control",
+   "path": "editions/en/out/qc.en.json",
+   "bytes": 11417,
+   "sha256": "03c7a486cbd5d5dfe64ae840c679ad58a20c8d067c886ab158d9db15229c2bf2"
+  },
+  {
+   "kind": "mix report",
+   "path": "editions/en/audio/mix_report.json",
+   "bytes": 703,
+   "sha256": "5c0ea8e8b1dc3764ffed70e7fc357ff3f746f3f708696ee2104799329c8dbea8"
+  },
+  {
+   "kind": "effects report",
+   "path": "editions/en/audio/effects.json",
+   "bytes": 8481,
+   "sha256": "3365bdede53f6c1d8e45dbac83064185b502cad53d3091ff54affeffd63ac3e6"
+  },
+  {
+   "kind": "credits",
+   "path": "editions/en/audio/music_credits.md",
+   "bytes": 254,
+   "sha256": "ae053d67d6c55a051783594e91f759b513e75c87bf0d831d87e5f22adbb3388f"
+  },
+  {
+   "kind": "credits",
+   "path": "05_visuals/credits.md",
+   "bytes": 2441,
+   "sha256": "ae6177cda67282cfb0c7fcb844a576f65052549d9a86477c869df26da41b09dd"
+  }
+ ]
+}

@@ -28,43 +28,90 @@
   - line 53: cites C29, which is single-source
   - line 54: cites C6, which is single-source
 
+## en edition: complete
+
+- QC: complete; 0 error(s), 1 warning(s), not checked: nothing
+  - fonts: cond: system default (Inter): install one of ['DIN Condensed', 'Oswald', 'Bebas Neue'] (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)
+- Sound: -15.0 LUFS (target -15.0), true peak -1.8 dBTP, voice over music 19.5 dB
+- Voice: command (en_GB-cori-high); spent $0.00 over 0 paid request(s)
+- Script: 0 error(s), 12 warning(s); claims checked by words and numbers
+  - line 3: cites C7, which is disputed
+  - line 8: cites C25, which is single-source
+  - line 9: cites C25, which is single-source
+  - line 10: shares little with C1 (18% of its words); check that it says what C1 says
+  - line 11: shares little with C1 (0% of its words); check that it says what C1 says
+  - line 11: shares little with C25 (0% of its words); check that it says what C25 says
+  - line 11: cites C25, which is single-source
+  - line 14: shares little with C26 (0% of its words); check that it says what C26 says
+  - line 15: shares little with C1 (18% of its words); check that it says what C1 says
+  - line 16: shares little with C28 (10% of its words); check that it says what C28 says
+  - line 20: cites C8, which is single-source
+  - line 21: shares little with C7 (23% of its words); check that it says what C7 says
+  - line 21: cites C7, which is disputed
+  - line 22: shares little with C7 (23% of its words); check that it says what C7 says
+  - line 22: cites C7, which is disputed
+  - line 22: cites C25, which is single-source
+  - line 23: shares little with C7 (15% of its words); check that it says what C7 says
+  - line 23: cites C7, which is disputed
+  - line 38: shares little with C5 (0% of its words); check that it says what C5 says
+  - line 38: shares little with C6 (0% of its words); check that it says what C6 says
+  - line 38: cites C6, which is single-source
+  - line 39: cites C6, which is single-source
+  - line 41: cites C14, which is disputed
+  - line 42: shares little with C14 (8% of its words); check that it says what C14 says
+  - line 42: cites C14, which is disputed
+  - line 43: shares little with C14 (0% of its words); check that it says what C14 says
+  - line 43: cites C14, which is disputed
+  - line 45: shares little with C27 (20% of its words); check that it says what C27 says
+  - line 46: cites C29, which is single-source
+  - line 47: cites C29, which is single-source
+  - line 47: shares little with C27 (20% of its words); check that it says what C27 says
+  - line 47: shares little with C14 (8% of its words); check that it says what C14 says
+  - line 47: cites C14, which is disputed
+  - line 48: shares little with C15 (0% of its words); check that it says what C15 says
+  - line 50: shares little with C15 (17% of its words); check that it says what C15 says
+  - line 52: shares little with C1 (18% of its words); check that it says what C1 says
+  - line 53: cites C29, which is single-source
+  - line 54: shares little with C6 (0% of its words); check that it says what C6 says
+  - line 54: cites C6, which is single-source
+
 ## Images
 
 - Needs: 7 fallback, 8 ok
 
 ## Claims, lines, scenes and images
 
-| Claim | Status | Sources | hi lines / images |
-|---|---|---|---|
-| C1: On the afternoon of January 15, 1919, a giant tank released  | supported | S1 (tier 1) | 1, 2, 7, 9, 10, 11, 15, 52 / I001 (not shown), I003 (not shown), I004 (usable), I013 (usable) |
-| C2: The wave swept Commercial Street and its waterfront from Cha | supported | S1 (tier 1) | 18, 19 / I005 (usable) |
-| C3: The flood caught more than 100 men, women and children, and  | supported | S1 (tier 1) | 24, 25 / I006 (usable), I007 (not shown) |
-| C4: The mass struck the buildings facing Copp's Hill and then sw | supported | S1 (tier 1) | 27, 28 / - |
-| C5: By midnight the next day's paper counted eleven known dead,  | supported | S1 (tier 1) | 4, 37, 38 / - |
-| C6: The final toll was 21 dead and about 150 injured. | single-source | S6 (tier 2), S2 (tier 3), S4 (tier 3), S3 (tier 3) | 38, 39, 54 / I015 (not shown) |
-| C7: How high the wave was is disputed: the Boston Post reported  | disputed | S1 (tier 1), S2 (tier 3), S4 (tier 3), S3 (tier 3) | 3, 21, 22, 23 / I002 (usable) |
-| C8: The wave is estimated to have moved at about 35 miles an hou | single-source | S6 (tier 2), S2 (tier 3), S11 (tier 3) | 20 / - |
-| C9: The elevated railway structure on Commercial Street was crus | supported | S1 (tier 1) | 26 / I008 (not shown) |
-| C10: Among the dead was George Lahey (as the Post spells it), an  | supported | S1 (tier 1) | 29, 30 / - |
-| C11: Among the unidentified dead was a girl of about 14 with an e | supported | S1 (tier 1) | 31, 32 / - |
-| C12: Dead horses, cats and dogs were carted away, and Boston's on | supported | S1 (tier 1) | 35, 36 / I010 (not shown) |
-| C13: Ambulances were rushed from all over the city, and rescuers  | supported | S1 (tier 1) | 33, 34 / I009 (usable) |
-| C14: The day after, a state police chemist, W. L. Wedger, conclud | disputed | S1 (tier 1) | 41, 42, 43, 47 / I011 (usable) |
-| C15: On January 15, 1919, 35 states had ratified the Prohibition  | supported | S1 (tier 1) | 48, 49, 50 / I012 (usable) |
-| C16: The tank belonged to the Purity Distilling Company, a subsid | weak | S2 (tier 3), S5 (tier 3) | - / - |
-| C17: The tank, about 50 feet tall, was built in 1915, was never p | weak | S2 (tier 3), S5 (tier 3), S7 (tier 3) | - / - |
-| C18: Arthur Jell, the company official who oversaw the tank's con | weak | S2 (tier 3) | - / - |
-| C19: After a freezing spell, the temperature rose above 40 degree | weak | S2 (tier 3) | - / - |
-| C20: A 2016 Harvard study found that the molasses thickened as it | weak | S9 (tier 3), S8 (tier 3) | - / - |
-| C21: A court-appointed auditor, Hugh Ogden, ruled in 1925 that th | weak | S5 (tier 3), S7 (tier 3), S2 (tier 3) | - / - |
-| C22: Reported figures for the damages paid differ: about $628,000 | disputed | S5 (tier 3), S7 (tier 3) | - / - |
-| C23: The cleanup of the immediate area took weeks, and the harbou | weak | S2 (tier 3) | - / - |
-| C24: The disaster led to stricter rules for engineers and constru | weak | S7 (tier 3) | - / - |
-| C25: The tank, 50 feet tall and holding about 2.3 million gallons | single-source | S6 (tier 2) | 8, 9, 11, 22 / - |
-| C26: The tank had reportedly leaked before the disaster. | supported | S6 (tier 2) | 13, 14 / - |
-| C27: Structural engineers later found the tank's walls too thin a | supported | S6 (tier 2) | 44, 45, 47, 53 / I014 (not shown) |
-| C28: Poor construction, changes in temperature and a large shipme | supported | S6 (tier 2) | 15, 16, 17 / - |
-| C29: In 1925 a court-appointed auditor attributed the disaster to | single-source | S6 (tier 2), S5 (tier 3), S7 (tier 3) | 46, 47, 53 / I014 (not shown) |
+| Claim | Status | Sources | hi lines / images | en lines / images |
+|---|---|---|---|---|
+| C1: On the afternoon of January 15, 1919, a giant tank released  | supported | S1 (tier 1) | 1, 2, 7, 9, 10, 11, 15, 52 / I001 (not shown), I003 (not shown), I004 (usable), I013 (usable) | 1, 2, 7, 9, 10, 11, 15, 52 / I001 (not shown), I003 (not shown), I004 (usable), I013 (usable) |
+| C2: The wave swept Commercial Street and its waterfront from Cha | supported | S1 (tier 1) | 18, 19 / I005 (usable) | 18, 19 / I005 (usable) |
+| C3: The flood caught more than 100 men, women and children, and  | supported | S1 (tier 1) | 24, 25 / I006 (usable), I007 (not shown) | 24, 25 / I006 (usable), I007 (not shown) |
+| C4: The mass struck the buildings facing Copp's Hill and then sw | supported | S1 (tier 1) | 27, 28 / - | 27, 28 / - |
+| C5: By midnight the next day's paper counted eleven known dead,  | supported | S1 (tier 1) | 4, 37, 38 / - | 4, 37, 38 / - |
+| C6: The final toll was 21 dead and about 150 injured. | single-source | S6 (tier 2), S2 (tier 3), S4 (tier 3), S3 (tier 3) | 38, 39, 54 / I015 (not shown) | 38, 39, 54 / I015 (not shown) |
+| C7: How high the wave was is disputed: the Boston Post reported  | disputed | S1 (tier 1), S2 (tier 3), S4 (tier 3), S3 (tier 3) | 3, 21, 22, 23 / I002 (usable) | 3, 21, 22, 23 / I002 (usable) |
+| C8: The wave is estimated to have moved at about 35 miles an hou | single-source | S6 (tier 2), S2 (tier 3), S11 (tier 3) | 20 / - | 20 / - |
+| C9: The elevated railway structure on Commercial Street was crus | supported | S1 (tier 1) | 26 / I008 (not shown) | 26 / I008 (not shown) |
+| C10: Among the dead was George Lahey (as the Post spells it), an  | supported | S1 (tier 1) | 29, 30 / - | 29, 30 / - |
+| C11: Among the unidentified dead was a girl of about 14 with an e | supported | S1 (tier 1) | 31, 32 / - | 31, 32 / - |
+| C12: Dead horses, cats and dogs were carted away, and Boston's on | supported | S1 (tier 1) | 35, 36 / I010 (not shown) | 35, 36 / I010 (not shown) |
+| C13: Ambulances were rushed from all over the city, and rescuers  | supported | S1 (tier 1) | 33, 34 / I009 (usable) | 33, 34 / I009 (usable) |
+| C14: The day after, a state police chemist, W. L. Wedger, conclud | disputed | S1 (tier 1) | 41, 42, 43, 47 / I011 (usable) | 41, 42, 43, 47 / I011 (usable) |
+| C15: On January 15, 1919, 35 states had ratified the Prohibition  | supported | S1 (tier 1) | 48, 49, 50 / I012 (usable) | 48, 49, 50 / I012 (usable) |
+| C16: The tank belonged to the Purity Distilling Company, a subsid | weak | S2 (tier 3), S5 (tier 3) | - / - | - / - |
+| C17: The tank, about 50 feet tall, was built in 1915, was never p | weak | S2 (tier 3), S5 (tier 3), S7 (tier 3) | - / - | - / - |
+| C18: Arthur Jell, the company official who oversaw the tank's con | weak | S2 (tier 3) | - / - | - / - |
+| C19: After a freezing spell, the temperature rose above 40 degree | weak | S2 (tier 3) | - / - | - / - |
+| C20: A 2016 Harvard study found that the molasses thickened as it | weak | S9 (tier 3), S8 (tier 3) | - / - | - / - |
+| C21: A court-appointed auditor, Hugh Ogden, ruled in 1925 that th | weak | S5 (tier 3), S7 (tier 3), S2 (tier 3) | - / - | - / - |
+| C22: Reported figures for the damages paid differ: about $628,000 | disputed | S5 (tier 3), S7 (tier 3) | - / - | - / - |
+| C23: The cleanup of the immediate area took weeks, and the harbou | weak | S2 (tier 3) | - / - | - / - |
+| C24: The disaster led to stricter rules for engineers and constru | weak | S7 (tier 3) | - / - | - / - |
+| C25: The tank, 50 feet tall and holding about 2.3 million gallons | single-source | S6 (tier 2) | 8, 9, 11, 22 / - | 8, 9, 11, 22 / - |
+| C26: The tank had reportedly leaked before the disaster. | supported | S6 (tier 2) | 13, 14 / - | 13, 14 / - |
+| C27: Structural engineers later found the tank's walls too thin a | supported | S6 (tier 2) | 44, 45, 47, 53 / I014 (not shown) | 44, 45, 47, 53 / I014 (not shown) |
+| C28: Poor construction, changes in temperature and a large shipme | supported | S6 (tier 2) | 15, 16, 17 / - | 15, 16, 17 / - |
+| C29: In 1925 a court-appointed auditor attributed the disaster to | single-source | S6 (tier 2), S5 (tier 3), S7 (tier 3) | 46, 47, 53 / I014 (not shown) | 46, 47, 53 / I014 (not shown) |
 
 ## What this report does not prove
 

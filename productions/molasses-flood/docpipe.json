@@ -277,8 +277,8 @@
   },
   "report": {
    "status": "done",
-   "inputs": "2cd8b7e824aab8d7",
-   "at": "2026-11-22T10:33:13",
+   "inputs": "f02e8bc5a5245734",
+   "at": "2026-11-22T13:35:40",
    "errors": [],
    "warnings": [
     "hi script: line 3: cites C7, which is disputed",
@@ -299,7 +299,46 @@
     "hi script: line 47: cites C29, which is single-source",
     "hi script: line 47: cites C14, which is disputed",
     "hi script: line 53: cites C29, which is single-source",
-    "hi script: line 54: cites C6, which is single-source"
+    "hi script: line 54: cites C6, which is single-source",
+    "en script: line 3: cites C7, which is disputed",
+    "en script: line 8: cites C25, which is single-source",
+    "en script: line 9: cites C25, which is single-source",
+    "en script: line 10: shares little with C1 (18% of its words); check that it says what C1 says",
+    "en script: line 11: shares little with C1 (0% of its words); check that it says what C1 says",
+    "en script: line 11: shares little with C25 (0% of its words); check that it says what C25 says",
+    "en script: line 11: cites C25, which is single-source",
+    "en script: line 14: shares little with C26 (0% of its words); check that it says what C26 says",
+    "en script: line 15: shares little with C1 (18% of its words); check that it says what C1 says",
+    "en script: line 16: shares little with C28 (10% of its words); check that it says what C28 says",
+    "en script: line 20: cites C8, which is single-source",
+    "en script: line 21: shares little with C7 (23% of its words); check that it says what C7 says",
+    "en script: line 21: cites C7, which is disputed",
+    "en script: line 22: shares little with C7 (23% of its words); check that it says what C7 says",
+    "en script: line 22: cites C7, which is disputed",
+    "en script: line 22: cites C25, which is single-source",
+    "en script: line 23: shares little with C7 (15% of its words); check that it says what C7 says",
+    "en script: line 23: cites C7, which is disputed",
+    "en script: line 38: shares little with C5 (0% of its words); check that it says what C5 says",
+    "en script: line 38: shares little with C6 (0% of its words); check that it says what C6 says",
+    "en script: line 38: cites C6, which is single-source",
+    "en script: line 39: cites C6, which is single-source",
+    "en script: line 41: cites C14, which is disputed",
+    "en script: line 42: shares little with C14 (8% of its words); check that it says what C14 says",
+    "en script: line 42: cites C14, which is disputed",
+    "en script: line 43: shares little with C14 (0% of its words); check that it says what C14 says",
+    "en script: line 43: cites C14, which is disputed",
+    "en script: line 45: shares little with C27 (20% of its words); check that it says what C27 says",
+    "en script: line 46: cites C29, which is single-source",
+    "en script: line 47: cites C29, which is single-source",
+    "en script: line 47: shares little with C27 (20% of its words); check that it says what C27 says",
+    "en script: line 47: shares little with C14 (8% of its words); check that it says what C14 says",
+    "en script: line 47: cites C14, which is disputed",
+    "en script: line 48: shares little with C15 (0% of its words); check that it says what C15 says",
+    "en script: line 50: shares little with C15 (17% of its words); check that it says what C15 says",
+    "en script: line 52: shares little with C1 (18% of its words); check that it says what C1 says",
+    "en script: line 53: cites C29, which is single-source",
+    "en script: line 54: shares little with C6 (0% of its words); check that it says what C6 says",
+    "en script: line 54: cites C6, which is single-source"
    ],
    "notes": [
     "reports/final_report.md: complete; reports/credits.md"
@@ -430,7 +469,47 @@
    "approved_at": "2026-11-22T12:22:20"
   },
   "render@en": {
-   "status": "running"
+   "status": "done",
+   "inputs": "9873f0d7e3fca7e2",
+   "at": "2026-11-22T12:52:34",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "act 1: 8630 frames, 287.67s at 1920x1080",
+    "out/credits.en.mp4: 6 credit line(s), 9.3s"
+   ]
+  },
+  "join@en": {
+   "status": "done",
+   "inputs": "f93a255c2b84799d",
+   "at": "2026-11-22T13:07:36",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "out/film.en.mp4: 1 act(s), 296.99s, 8909 frames at 1920x1080"
+   ]
+  },
+  "captions@en": {
+   "status": "done",
+   "inputs": "eeaa6a5ef0de63ea",
+   "at": "2026-11-22T13:24:34",
+   "errors": [],
+   "warnings": [],
+   "notes": [
+    "out/film.en.captions.mp4: clean captions, 296.97s"
+   ]
+  },
+  "qc@en": {
+   "status": "done",
+   "inputs": "3f17a500f740bce0",
+   "at": "2026-11-22T13:35:40",
+   "errors": [],
+   "warnings": [
+    "fonts: cond: system default (Inter): install one of ['DIN Condensed', 'Oswald', 'Bebas Neue'] (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)"
+   ],
+   "notes": [
+    "en quality control: complete, 0 error(s), 1 warning(s); out/qc.en.md"
+   ]
   }
  }
 }

@@ -1,0 +1,61 @@
+{
+ "lang": "en",
+ "built_by": "finish.py",
+ "acts": {
+  "1": {
+   "act": 1,
+   "file": "out/acts/act_01.mp4",
+   "scene": "06_film/act_01/scene.py",
+   "t0": 0.0,
+   "t1": 287.694,
+   "from": 0.0,
+   "to": 287.694,
+   "frames": 8630,
+   "fps": 30.0,
+   "size": "1920x1080",
+   "audio": true,
+   "key": "6d030ca0dad2f761d70b",
+   "crf": 18,
+   "sha256": "eb9f8f3e8fb5cbf5c97442f320189a743ef693a3030d630b7d4ff38ec627ec56"
+  }
+ },
+ "size": "1920x1080",
+ "total": 287.694,
+ "order": [
+  1
+ ],
+ "credits": {
+  "file": "out/credits.en.mp4",
+  "key": "6bf255d34af3b6c112a0",
+  "sha256": "c25fcfa02071cf17c021d58cda34a0d26d013c1cce2239bf743c2556e665a825",
+  "duration": 9.3,
+  "frames": 279,
+  "lines": 6
+ },
+ "join": {
+  "file": "out/film.en.mp4",
+  "order": [
+   1
+  ],
+  "crossfades": [],
+  "duration": 296.994,
+  "frames": 8909,
+  "fps": 30.0,
+  "size": "1920x1080",
+  "mix_sha256": "967a537f23addcfe7bb9aa5b7f0137c84491d64191617e92275bc80b11cc4463",
+  "key": "ab4ae837f38344f1f521",
+  "sha256": "7b84a9b1017a6d66987d7e1fc59e01641d9103cf2d2f38eec34e1f9486a3fcc8",
+  "timeline": 287.694,
+  "credits": 9.3
+ },
+ "captions": {
+  "enabled": true,
+  "file": "out/film.en.captions.mp4",
+  "style": "clean",
+  "highlight": "auto",
+  "frames": 8909,
+  "duration": 296.967,
+  "key": "17599308b267c63aec85",
+  "sha256": "d0df76703199c6c1f782d581041f45f98e4e8cc22c75c0cfbf860076bc69454c"
+ }
+}
