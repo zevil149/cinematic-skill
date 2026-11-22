@@ -262,7 +262,47 @@
    ]
   },
   "qc@hi": {
-   "status": "running"
+   "status": "done",
+   "inputs": "59447995fe1b2b91",
+   "at": "2026-11-22T07:07:39",
+   "errors": [],
+   "warnings": [
+    "fonts: cond: system default (Inter): install one of ['DIN Condensed', 'Oswald', 'Bebas Neue'] (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)",
+    "caption clearance: Card 'अदालत द्वारा नियुक्त ऑडिटर' at 349.5s, 89% under the caption; Card 'मालिकों की लापरवाही' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 349.5s, 100% under the caption; BigText 'पतली दीवारें · लापरवाही (ऑडिटर' at 349.5s, 100% under the caption; BigText '21' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 352.0s, 100% under the caption and 1 more"
+   ],
+   "notes": [
+    "hi quality control: complete, 0 error(s), 2 warning(s); out/qc.hi.md"
+   ]
+  },
+  "report": {
+   "status": "done",
+   "inputs": "93a892850b0d2570",
+   "at": "2026-11-22T07:07:39",
+   "errors": [],
+   "warnings": [
+    "hi script: line 3: cites C7, which is disputed",
+    "hi script: line 8: cites C25, which is single-source",
+    "hi script: line 9: cites C25, which is single-source",
+    "hi script: line 11: cites C25, which is single-source",
+    "hi script: line 20: cites C8, which is single-source",
+    "hi script: line 21: cites C7, which is disputed",
+    "hi script: line 22: cites C7, which is disputed",
+    "hi script: line 22: cites C25, which is single-source",
+    "hi script: line 23: cites C7, which is disputed",
+    "hi script: line 38: cites C6, which is single-source",
+    "hi script: line 39: cites C6, which is single-source",
+    "hi script: line 41: cites C14, which is disputed",
+    "hi script: line 42: cites C14, which is disputed",
+    "hi script: line 43: cites C14, which is disputed",
+    "hi script: line 46: cites C29, which is single-source",
+    "hi script: line 47: cites C29, which is single-source",
+    "hi script: line 47: cites C14, which is disputed",
+    "hi script: line 53: cites C29, which is single-source",
+    "hi script: line 54: cites C6, which is single-source"
+   ],
+   "notes": [
+    "reports/final_report.md: complete; reports/credits.md"
+   ]
   }
  }
 }

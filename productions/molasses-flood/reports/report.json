@@ -1,0 +1,1309 @@
+{
+ "built_by": "report.py",
+ "title": "The Great Molasses Flood — जब बोस्टन की सड़कों पर शीरे की लहर दौड़ी",
+ "editions": {
+  "hi": {
+   "script": {
+    "errors": [],
+    "warnings": [
+     "line 3: C7 is disputed; hedge it ('about', 'reported', 'according to')",
+     "SEC02: 28 words against a budget of 20",
+     "line 8: rests on C25, which is single-source",
+     "line 9: rests on C25, which is single-source",
+     "line 11: rests on C25, which is single-source",
+     "line 20: rests on C8, which is single-source",
+     "line 21: C7 is disputed; hedge it ('about', 'reported', 'according to')",
+     "line 22: C7 is disputed; hedge it ('about', 'reported', 'according to')",
+     "line 22: rests on C25, which is single-source",
+     "line 23: C7 is disputed; hedge it ('about', 'reported', 'according to')",
+     "line 38: rests on C6, which is single-source",
+     "line 39: rests on C6, which is single-source",
+     "SEC06: 82 words against a budget of 140",
+     "line 41: C14 is disputed; hedge it ('about', 'reported', 'according to')",
+     "line 42: C14 is disputed; hedge it ('about', 'reported', 'according to')",
+     "line 43: C14 is disputed; hedge it ('about', 'reported', 'according to')",
+     "line 46: rests on C29, which is single-source",
+     "line 47: rests on C29, which is single-source",
+     "line 47: C14 is disputed; hedge it ('about', 'reported', 'according to')",
+     "SEC08: 59 words against a budget of 90",
+     "line 53: rests on C29, which is single-source",
+     "line 54: rests on C6, which is single-source"
+    ],
+    "lines": [
+     {
+      "id": 1,
+      "section": "SEC01",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 2,
+      "section": "SEC01",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 3,
+      "section": "SEC01",
+      "claims": [
+       {
+        "claim": "C7",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 4,
+      "section": "SEC01",
+      "claims": [
+       {
+        "claim": "C5",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 5,
+      "section": "SEC02",
+      "claims": []
+     },
+     {
+      "id": 6,
+      "section": "SEC02",
+      "claims": []
+     },
+     {
+      "id": 7,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 8,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C25",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 9,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C25",
+        "status": "single-source"
+       },
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 10,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 11,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       },
+       {
+        "claim": "C25",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 12,
+      "section": "SEC03",
+      "claims": []
+     },
+     {
+      "id": 13,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C26",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 14,
+      "section": "SEC03",
+      "claims": [
+       {
+        "claim": "C26",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 15,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       },
+       {
+        "claim": "C28",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 16,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C28",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 17,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C28",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 18,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C2",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 19,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C2",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 20,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C8",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 21,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C7",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 22,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C7",
+        "status": "disputed"
+       },
+       {
+        "claim": "C25",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 23,
+      "section": "SEC04",
+      "claims": [
+       {
+        "claim": "C7",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 24,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C3",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 25,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C3",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 26,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C9",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 27,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C4",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 28,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C4",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 29,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C10",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 30,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C10",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 31,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C11",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 32,
+      "section": "SEC05",
+      "claims": [
+       {
+        "claim": "C11",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 33,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C13",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 34,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C13",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 35,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C12",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 36,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C12",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 37,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C5",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 38,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C5",
+        "status": "supported"
+       },
+       {
+        "claim": "C6",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 39,
+      "section": "SEC06",
+      "claims": [
+       {
+        "claim": "C6",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 40,
+      "section": "SEC07",
+      "claims": []
+     },
+     {
+      "id": 41,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C14",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 42,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C14",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 43,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C14",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 44,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C27",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 45,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C27",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 46,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C29",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 47,
+      "section": "SEC07",
+      "claims": [
+       {
+        "claim": "C29",
+        "status": "single-source"
+       },
+       {
+        "claim": "C27",
+        "status": "supported"
+       },
+       {
+        "claim": "C14",
+        "status": "disputed"
+       }
+      ]
+     },
+     {
+      "id": 48,
+      "section": "SEC08",
+      "claims": [
+       {
+        "claim": "C15",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 49,
+      "section": "SEC08",
+      "claims": [
+       {
+        "claim": "C15",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 50,
+      "section": "SEC08",
+      "claims": [
+       {
+        "claim": "C15",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 51,
+      "section": "SEC08",
+      "claims": []
+     },
+     {
+      "id": 52,
+      "section": "SEC09",
+      "claims": [
+       {
+        "claim": "C1",
+        "status": "supported"
+       }
+      ]
+     },
+     {
+      "id": 53,
+      "section": "SEC09",
+      "claims": [
+       {
+        "claim": "C27",
+        "status": "supported"
+       },
+       {
+        "claim": "C29",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 54,
+      "section": "SEC09",
+      "claims": [
+       {
+        "claim": "C6",
+        "status": "single-source"
+       }
+      ]
+     },
+     {
+      "id": 55,
+      "section": "SEC09",
+      "claims": []
+     }
+    ],
+    "notes": [
+     "line 3: cites C7, which is disputed",
+     "line 8: cites C25, which is single-source",
+     "line 9: cites C25, which is single-source",
+     "line 11: cites C25, which is single-source",
+     "line 20: cites C8, which is single-source",
+     "line 21: cites C7, which is disputed",
+     "line 22: cites C7, which is disputed",
+     "line 22: cites C25, which is single-source",
+     "line 23: cites C7, which is disputed",
+     "line 38: cites C6, which is single-source",
+     "line 39: cites C6, which is single-source",
+     "line 41: cites C14, which is disputed",
+     "line 42: cites C14, which is disputed",
+     "line 43: cites C14, which is disputed",
+     "line 46: cites C29, which is single-source",
+     "line 47: cites C29, which is single-source",
+     "line 47: cites C14, which is disputed",
+     "line 53: cites C29, which is single-source",
+     "line 54: cites C6, which is single-source"
+    ],
+    "claim_check": "numbers only (the claims are written in English)"
+   },
+   "audio": {
+    "voice": {
+     "provider": "espeak",
+     "voice": "hi",
+     "spent_usd": 0,
+     "requests": 0
+    },
+    "mix": {
+     "duration": 356.032,
+     "lufs": -15.0,
+     "target_lufs": -15.0,
+     "true_peak_dbtp": -1.5,
+     "ceiling_dbtp": -1.5,
+     "clipped_samples": 0,
+     "voice_over_music_db": 17.8
+    },
+    "problems": []
+   },
+   "video": {
+    "complete": true,
+    "errors": [],
+    "warnings": [
+     "fonts: cond: system default (Inter): install one of ['DIN Condensed', 'Oswald', 'Bebas Neue'] (get_fonts.py or fonts/<role>.ttf pins a font; Devanagari always uses the bundled Noto Sans Devanagari)",
+     "caption clearance: Card 'अदालत द्वारा नियुक्त ऑडिटर' at 349.5s, 89% under the caption; Card 'मालिकों की लापरवाही' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 349.5s, 100% under the caption; BigText 'पतली दीवारें · लापरवाही (ऑडिटर' at 349.5s, 100% under the caption; BigText '21' at 349.5s, 100% under the caption; BigText 'लापरवाही' at 352.0s, 100% under the caption and 1 more"
+    ],
+    "not_checked": [],
+    "loudness": {
+     "integrated_lufs": -15.0,
+     "target_lufs": -15.0,
+     "true_peak_dbtp": -1.2
+    },
+    "narration_min_share_db": 12.5
+   },
+   "delivery": {
+    "complete": true,
+    "film": {
+     "duration": 380.016,
+     "size": "1920x1080",
+     "fps": 30.0,
+     "acts": [
+      1
+     ],
+     "captions": "clean",
+     "timeline": 356.016,
+     "credits": 24.0
+    },
+    "files": 14
+   },
+   "complete": true
+  }
+ },
+ "images": {
+  "counts": {
+   "ok": 12,
+   "fallback": 3
+  },
+  "auto": [],
+  "unreadable": []
+ },
+ "trace": [
+  {
+   "claim": "C1",
+   "text": "On the afternoon of January 15, 1919, a giant tank released 2,300,000 gallons of molasses over Commercial Street in Boston's North End.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      1,
+      2,
+      7,
+      9,
+      10,
+      11,
+      15,
+      52
+     ],
+     "scenes": [
+      "SEC01-01",
+      "SEC01-02",
+      "SEC03-01",
+      "SEC03-03",
+      "SEC03-04",
+      "SEC03-05",
+      "SEC04-01",
+      "SEC09-01"
+     ],
+     "images": [
+      "I001 (usable)",
+      "I003 (not shown)",
+      "I004 (usable)",
+      "I013 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C2",
+   "text": "The wave swept Commercial Street and its waterfront from Charter Street to the southern end of North End Park.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      18,
+      19
+     ],
+     "scenes": [
+      "SEC04-04",
+      "SEC04-05"
+     ],
+     "images": [
+      "I005 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C3",
+   "text": "The flood caught more than 100 men, women and children, and crushed buildings, horse teams, automobiles and street cars.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      24,
+      25
+     ],
+     "scenes": [
+      "SEC05-01",
+      "SEC05-02"
+     ],
+     "images": [
+      "I006 (usable)",
+      "I007 (not shown)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C4",
+   "text": "The mass struck the buildings facing Copp's Hill and then swept back towards the harbour.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      27,
+      28
+     ],
+     "scenes": [
+      "SEC05-04",
+      "SEC05-05"
+     ],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C5",
+   "text": "By midnight the next day's paper counted eleven known dead, a woman, a girl and nine men, and more than 50 injured.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      4,
+      37,
+      38
+     ],
+     "scenes": [
+      "SEC01-04",
+      "SEC06-05",
+      "SEC06-06"
+     ],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C6",
+   "text": "The final toll was 21 dead and about 150 injured.",
+   "status": "single-source",
+   "sources": [
+    "S6 (tier 2)",
+    "S2 (tier 3)",
+    "S4 (tier 3)",
+    "S3 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      38,
+      39,
+      54
+     ],
+     "scenes": [
+      "SEC06-06",
+      "SEC06-07",
+      "SEC09-03"
+     ],
+     "images": [
+      "I015 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C7",
+   "text": "How high the wave was is disputed: the Boston Post reported 50 feet; later accounts give figures from about 15 to 40 feet, most often 25 feet.",
+   "status": "disputed",
+   "sources": [
+    "S1 (tier 1)",
+    "S2 (tier 3)",
+    "S4 (tier 3)",
+    "S3 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      3,
+      21,
+      22,
+      23
+     ],
+     "scenes": [
+      "SEC01-03",
+      "SEC04-07",
+      "SEC04-08",
+      "SEC04-09"
+     ],
+     "images": [
+      "I002 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C8",
+   "text": "The wave is estimated to have moved at about 35 miles an hour.",
+   "status": "single-source",
+   "sources": [
+    "S6 (tier 2)",
+    "S2 (tier 3)",
+    "S11 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      20
+     ],
+     "scenes": [
+      "SEC04-06"
+     ],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C9",
+   "text": "The elevated railway structure on Commercial Street was crushed.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      26
+     ],
+     "scenes": [
+      "SEC05-03"
+     ],
+     "images": [
+      "I008 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C10",
+   "text": "Among the dead was George Lahey (as the Post spells it), an engineer of Engine 31 of the Boston Fire Department.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      29,
+      30
+     ],
+     "scenes": [
+      "SEC05-06",
+      "SEC05-07"
+     ],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C11",
+   "text": "Among the unidentified dead was a girl of about 14 with an employment tag from the Revere Rubber Company.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      31,
+      32
+     ],
+     "scenes": [
+      "SEC05-08",
+      "SEC05-09"
+     ],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C12",
+   "text": "Dead horses, cats and dogs were carted away, and Boston's only trolley freight terminal was in ruins.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      35,
+      36
+     ],
+     "scenes": [
+      "SEC06-03",
+      "SEC06-04"
+     ],
+     "images": [
+      "I010 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C13",
+   "text": "Ambulances were rushed from all over the city, and rescuers worked on the North End Park playground.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      33,
+      34
+     ],
+     "scenes": [
+      "SEC06-01",
+      "SEC06-02"
+     ],
+     "images": [
+      "I009 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C14",
+   "text": "The day after, a state police chemist, W. L. Wedger, concluded that an internal explosion, not a collapse, had caused the disaster; this first explanation did not stand.",
+   "status": "disputed",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      41,
+      42,
+      43,
+      47
+     ],
+     "scenes": [
+      "SEC07-02",
+      "SEC07-03",
+      "SEC07-04",
+      "SEC07-08"
+     ],
+     "images": [
+      "I011 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C15",
+   "text": "On January 15, 1919, 35 states had ratified the Prohibition amendment and one more was needed.",
+   "status": "supported",
+   "sources": [
+    "S1 (tier 1)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      48,
+      49,
+      50
+     ],
+     "scenes": [
+      "SEC08-01",
+      "SEC08-02",
+      "SEC08-03"
+     ],
+     "images": [
+      "I012 (usable)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C16",
+   "text": "The tank belonged to the Purity Distilling Company, a subsidiary of United States Industrial Alcohol.",
+   "status": "weak",
+   "sources": [
+    "S2 (tier 3)",
+    "S5 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C17",
+   "text": "The tank, about 50 feet tall, was built in 1915, was never properly tested with water, leaked from the start and was painted brown to hide the leaks.",
+   "status": "weak",
+   "sources": [
+    "S2 (tier 3)",
+    "S5 (tier 3)",
+    "S7 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C18",
+   "text": "Arthur Jell, the company official who oversaw the tank's construction, had no engineering training.",
+   "status": "weak",
+   "sources": [
+    "S2 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C19",
+   "text": "After a freezing spell, the temperature rose above 40 degrees Fahrenheit on the day of the disaster.",
+   "status": "weak",
+   "sources": [
+    "S2 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C20",
+   "text": "A 2016 Harvard study found that the molasses thickened as it cooled in the January air, which trapped victims and hampered rescue.",
+   "status": "weak",
+   "sources": [
+    "S9 (tier 3)",
+    "S8 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C21",
+   "text": "A court-appointed auditor, Hugh Ogden, ruled in 1925 that the company was liable, rejecting its claim that anarchists had blown up the tank.",
+   "status": "weak",
+   "sources": [
+    "S5 (tier 3)",
+    "S7 (tier 3)",
+    "S2 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C22",
+   "text": "Reported figures for the damages paid differ: about $628,000 in some accounts, larger settlement totals in others.",
+   "status": "disputed",
+   "sources": [
+    "S5 (tier 3)",
+    "S7 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C23",
+   "text": "The cleanup of the immediate area took weeks, and the harbour stayed brown with molasses until summer.",
+   "status": "weak",
+   "sources": [
+    "S2 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C24",
+   "text": "The disaster led to stricter rules for engineers and construction.",
+   "status": "weak",
+   "sources": [
+    "S7 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [],
+     "scenes": [],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C25",
+   "text": "The tank, 50 feet tall and holding about 2.3 million gallons, was built in 1915 by the Purity Distilling Company.",
+   "status": "single-source",
+   "sources": [
+    "S6 (tier 2)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      8,
+      9,
+      11,
+      22
+     ],
+     "scenes": [
+      "SEC03-02",
+      "SEC03-03",
+      "SEC03-05",
+      "SEC04-08"
+     ],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C26",
+   "text": "The tank had reportedly leaked before the disaster.",
+   "status": "supported",
+   "sources": [
+    "S6 (tier 2)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      13,
+      14
+     ],
+     "scenes": [
+      "SEC03-07",
+      "SEC03-08"
+     ],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C27",
+   "text": "Structural engineers later found the tank's walls too thin and its material vulnerable to cracking.",
+   "status": "supported",
+   "sources": [
+    "S6 (tier 2)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      44,
+      45,
+      47,
+      53
+     ],
+     "scenes": [
+      "SEC07-05",
+      "SEC07-06",
+      "SEC07-08",
+      "SEC09-02"
+     ],
+     "images": [
+      "I014 (not shown)"
+     ]
+    }
+   }
+  },
+  {
+   "claim": "C28",
+   "text": "Poor construction, changes in temperature and a large shipment of molasses together contributed to the rupture.",
+   "status": "supported",
+   "sources": [
+    "S6 (tier 2)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      15,
+      16,
+      17
+     ],
+     "scenes": [
+      "SEC04-01",
+      "SEC04-02",
+      "SEC04-03"
+     ],
+     "images": []
+    }
+   }
+  },
+  {
+   "claim": "C29",
+   "text": "In 1925 a court-appointed auditor attributed the disaster to negligence by the tank's owners.",
+   "status": "single-source",
+   "sources": [
+    "S6 (tier 2)",
+    "S5 (tier 3)",
+    "S7 (tier 3)"
+   ],
+   "editions": {
+    "hi": {
+     "lines": [
+      46,
+      47,
+      53
+     ],
+     "scenes": [
+      "SEC07-07",
+      "SEC07-08",
+      "SEC09-02"
+     ],
+     "images": [
+      "I014 (not shown)"
+     ]
+    }
+   }
+  }
+ ],
+ "limits": [
+  "The fact check matches each line's numbers (and, in English, its words) against the claims a person entered from the research; it does not show that the research is right.",
+  "Licences are as archives and people stated them; clearances are a person's word. Neither proves an asset is free to use: check anything that matters before publishing.",
+  "Automated QC measures the film (length, sound, picture, subtitles, text geometry); it does not judge whether an image fits its line, how the voice sounds or whether a word is pronounced right."
+ ]
+}
